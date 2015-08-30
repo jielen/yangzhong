@@ -1,0 +1,129 @@
+
+
+------------------------20141230------------------------
+
+--1
+delete  from ma_company m ;
+
+insert into ma_company (CO_CODE, CO_TYPE_CODE, GB_CODE, CO_NAME, CO_FULLNA, QUIC_CODE, MARK, POST_CODE, COMM_ADDR, ADDRESS, URL, LINK_MAN, CO_CLERK, CO_LEADER, FI_LEADER, LOCA_TELE, DIRECTOR_CODE, PARENT_CO_CODE, F_CO_CODE, IS_USED, F_ORG_CODE, IS_SELF, BANK_ACC, SHOP_CARD_NO, CORP_REPR, TRADE_NAME, COUNTRY, PROVINCE, CITY, REAL_CO_CODE, IS_LOWEST, ND, FINA_LEVEL, CO_KIND, IS_PILOT, IS_NEED_SEND_BANK, REGION_CODE, TRANS_DATE, IS_NEED_SEND_BANK_SL, CO_TYPE_CODE_1, CAN_GETBILL, GETBILL_ID, CAN_CHARGE, TURN_IN_ACCT, NT_ACC_ID, NT_ACC_NAME, NT_HESUAN_CO_CODE, GUID, TRIGGER_ENABLE, PR_BI_COCODE)
+values ('000', '01', null, '扬中市财政局', '扬中市财政局', null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'Y', null, 'N', null, null, null, null, null, '*', '*', null, 'N', 2014, '01', null, null, null, null, to_date('01-06-2013 18:35:14', 'dd-mm-yyyy hh24:mi:ss'), 'N', null, 'Y', null, 'Y', null, null, null, null, 'EDDC6E22B51E439F8760F62ABCEE8FB9', 1, null);
+
+insert into ma_company (CO_CODE, CO_TYPE_CODE, GB_CODE, CO_NAME, CO_FULLNA, QUIC_CODE, MARK, POST_CODE, COMM_ADDR, ADDRESS, URL, LINK_MAN, CO_CLERK, CO_LEADER, FI_LEADER, LOCA_TELE, DIRECTOR_CODE, PARENT_CO_CODE, F_CO_CODE, IS_USED, F_ORG_CODE, IS_SELF, BANK_ACC, SHOP_CARD_NO, CORP_REPR, TRADE_NAME, COUNTRY, PROVINCE, CITY, REAL_CO_CODE, IS_LOWEST, ND, FINA_LEVEL, CO_KIND, IS_PILOT, IS_NEED_SEND_BANK, REGION_CODE, TRANS_DATE, IS_NEED_SEND_BANK_SL, CO_TYPE_CODE_1, CAN_GETBILL, GETBILL_ID, CAN_CHARGE, TURN_IN_ACCT, NT_ACC_ID, NT_ACC_NAME, NT_HESUAN_CO_CODE, GUID, TRIGGER_ENABLE, PR_BI_COCODE)
+values ('000', '01', null, '扬中市财政局', '扬中市财政局', null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'Y', null, 'N', null, null, null, null, null, '*', '*', null, 'N', 2015, '01', null, null, null, null, to_date('01-06-2013 18:35:14', 'dd-mm-yyyy hh24:mi:ss'), 'N', null, 'Y', null, 'Y', null, null, null, null, 'EDDC6E22B51E439F8760F62ABCEE8FB9', 1, null);
+
+--2
+
+ delete  from as_org o ;  
+  
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '100', '行政政法科', null, 'Y', null, null, null, null, '000100', '03', 2015, null, to_date('03-08-2010 12:33:02', 'dd-mm-yyyy hh24:mi:ss'), 'A76E15C896D548F5A5E0E128714298D4', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '101', '采购专家组', null, 'Y', null, null, null, null, '000101', '07', 2015, null, to_date('16-10-2010 10:50:24', 'dd-mm-yyyy hh24:mi:ss'), 'A3ECA6D11D9149D4B9469D8545986A53', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '102', '供应商组', null, 'Y', null, null, null, null, '000102', '07', 2015, null, to_date('03-11-2010 15:56:28', 'dd-mm-yyyy hh24:mi:ss'), 'B004DC738F7E46709189B261AE3AEA54', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '200', '预算科', null, 'Y', null, null, null, null, '000200', '03', 2015, null, to_date('05-10-2010 21:32:19', 'dd-mm-yyyy hh24:mi:ss'), '55356037093B4602B6AA0D2D2B03766F', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '300', '教科文科', null, 'Y', null, null, null, null, '000300', '03', 2015, null, to_date('03-08-2010 12:33:02', 'dd-mm-yyyy hh24:mi:ss'), '153EB6E420954510AEE66A10BA47DEAA', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '400', '社保科', null, 'Y', null, null, null, null, '000400', '03', 2015, null, to_date('03-08-2010 12:33:02', 'dd-mm-yyyy hh24:mi:ss'), '1D8273581E4E43A4BC871C6EF12F28DE', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '500', '农业科', null, 'Y', null, null, null, null, '000500', '03', 2015, null, to_date('03-08-2010 12:33:02', 'dd-mm-yyyy hh24:mi:ss'), '85433C74D7EE4C2EBC1E7DB638D96C98', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '600', '经建科', null, 'Y', null, null, null, null, '000600', '03', 2015, null, to_date('03-08-2010 12:33:02', 'dd-mm-yyyy hh24:mi:ss'), '2D5B03EDF0D44947B815389DDBD04284', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '700', '资产科', null, 'Y', null, null, null, null, '000700', '03', 2015, null, to_date('03-08-2010 12:33:02', 'dd-mm-yyyy hh24:mi:ss'), '1D8273581E4E43A4BC871C6EF12F28DE', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '800', '采购管理科', null, 'Y', null, null, null, null, '000800', '03', 2015, null, to_date('03-08-2010 12:33:02', 'dd-mm-yyyy hh24:mi:ss'), 'A4AB9CE76211477D8E3465EEB9D3840D', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '900', '国库科', null, 'Y', null, null, null, null, '12700113780749161660', null, 2015, null, to_date('02-09-2013 06:36:15', 'dd-mm-yyyy hh24:mi:ss'), 'D46CA6BACAB54CE593DB16316507B7E1', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '999', '局领导', null, 'Y', null, null, null, null, '12700113853473639720', null, 2015, null, to_date('25-11-2013 10:44:21', 'dd-mm-yyyy hh24:mi:ss'), '7DAD6A062BE842039561437B075FD49B', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '100', '行政政法科', null, 'Y', null, null, null, null, '000100', '03', 2014, null, to_date('03-08-2010 12:33:02', 'dd-mm-yyyy hh24:mi:ss'), 'A76E15C896D548F5A5E0E128714298D4', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '101', '采购专家组', null, 'Y', null, null, null, null, '000101', '07', 2014, null, to_date('16-10-2010 10:50:24', 'dd-mm-yyyy hh24:mi:ss'), 'A3ECA6D11D9149D4B9469D8545986A53', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '102', '供应商组', null, 'Y', null, null, null, null, '000102', '07', 2014, null, to_date('03-11-2010 15:56:28', 'dd-mm-yyyy hh24:mi:ss'), 'B004DC738F7E46709189B261AE3AEA54', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '200', '预算科', null, 'Y', null, null, null, null, '000200', '03', 2014, null, to_date('05-10-2010 21:32:19', 'dd-mm-yyyy hh24:mi:ss'), '55356037093B4602B6AA0D2D2B03766F', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '300', '教科文科', null, 'Y', null, null, null, null, '000300', '03', 2014, null, to_date('03-08-2010 12:33:02', 'dd-mm-yyyy hh24:mi:ss'), '153EB6E420954510AEE66A10BA47DEAA', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '400', '社保科', null, 'Y', null, null, null, null, '000400', '03', 2014, null, to_date('03-08-2010 12:33:02', 'dd-mm-yyyy hh24:mi:ss'), '1D8273581E4E43A4BC871C6EF12F28DE', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '500', '农业科', null, 'Y', null, null, null, null, '000500', '03', 2014, null, to_date('03-08-2010 12:33:02', 'dd-mm-yyyy hh24:mi:ss'), '85433C74D7EE4C2EBC1E7DB638D96C98', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '600', '经建科', null, 'Y', null, null, null, null, '000600', '03', 2014, null, to_date('03-08-2010 12:33:02', 'dd-mm-yyyy hh24:mi:ss'), '2D5B03EDF0D44947B815389DDBD04284', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '700', '资产科', null, 'Y', null, null, null, null, '000700', '03', 2014, null, to_date('03-08-2010 12:33:02', 'dd-mm-yyyy hh24:mi:ss'), '1D8273581E4E43A4BC871C6EF12F28DE', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '800', '采购管理科', null, 'Y', null, null, null, null, '000800', '03', 2014, null, to_date('03-08-2010 12:33:02', 'dd-mm-yyyy hh24:mi:ss'), 'A4AB9CE76211477D8E3465EEB9D3840D', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '900', '国库科', null, 'Y', null, null, null, null, '12700113780749161660', null, 2014, null, to_date('02-09-2013 06:36:15', 'dd-mm-yyyy hh24:mi:ss'), 'D46CA6BACAB54CE593DB16316507B7E1', 1);
+
+insert into as_org (CO_CODE, ORG_CODE, ORG_NAME, PARENT_ORG_CODE, IS_LOWEST, QUIC_CODE, PRIN_CODE, LINKMAN, TELE, ORG_ID, ORG_TYPE_CODE, ND, IS_NEED_SEND_BANK, TRANS_DATE, GUID, TRIGGER_ENABLE)
+values ('000', '999', '局领导', null, 'Y', null, null, null, null, '12700113853473639720', null, 2014, null, to_date('25-11-2013 10:44:21', 'dd-mm-yyyy hh24:mi:ss'), '7DAD6A062BE842039561437B075FD49B', 1);
+
+--3
+
+ delete from as_org_position o;
+ 
+ delete from as_emp_position ;
+ 
+ delete from as_position p where p.posi_code!='ZGY';
+  
+ insert into as_org_position (CO_CODE, POSI_CODE, ORG_CODE, LEADER_POSI_ID, ORG_POSI_ID, ND, TRANS_DATE)
+values ('000', 'ZGY', '800', null, '000800ZGY', 2014, to_date('29-06-2013 10:45:05', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_org_position (CO_CODE, POSI_CODE, ORG_CODE, LEADER_POSI_ID, ORG_POSI_ID, ND, TRANS_DATE)
+values ('000', 'ZGY', '800', null, '000800ZGY', 2015, to_date('29-06-2013 10:45:05', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_emp_position (EMP_CODE, POSI_CODE, ORG_CODE, CO_CODE, EMP_POSI_ID, ND, TRANS_DATE)
+values ('wangcb', 'ZGY', '800', '000', '12700113853472954970', 2014, to_date('25-11-2013 10:41:50', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_emp_position (EMP_CODE, POSI_CODE, ORG_CODE, CO_CODE, EMP_POSI_ID, ND, TRANS_DATE)
+values ('wangcb', 'ZGY', '800', '000', '12700113853472954970', 2015, to_date('25-11-2013 10:41:50', 'dd-mm-yyyy hh24:mi:ss'));
+
+delete from as_posi_role r where r.posi_code!='ZGY';
+
+delete from as_posi_role r where r.role_id='YSDWCG';
+
+delete from as_user u where u.user_id not in ('sa','wangcb');
+
+delete from as_emp e where e.user_id not  in ('sa','wangcb');
+
+insert into as_posi_role (POSI_CODE, ROLE_ID, TRANS_DATE)
+values ('ZGY', 'zjcqjggl', to_date('25-09-2010 13:59:50', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_posi_role (POSI_CODE, ROLE_ID, TRANS_DATE)
+values ('ZGY', 'zjkgl', to_date('25-09-2010 13:59:50', 'dd-mm-yyyy hh24:mi:ss'));
+
+
+ delete from as_role r where r.role_id='CSZGY';
+ 
+ delete from as_role_func rf where rf.role_id not in('zjcqjggl','zjkgl');
+
+
