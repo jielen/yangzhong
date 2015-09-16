@@ -290,4 +290,6 @@
      <sqlMap resource="sqlmap/zc/ZCQB.xml"/>
      <sqlMap resource="sqlmap/zc/AS_USER_FUNC.xml"/>
      <sqlMap resource="sqlmap/zc/ZC_EB_SUPPLIER_TYPE.xml"/>
+     <sqlMap resource="sqlmap/zc/ZcEbZxjjMapper.xml"/>
+     <sqlMap resource="sqlmap/zc/ZcEbZxjjHistoryMapper.xml"/>
 </sqlMapConfig>

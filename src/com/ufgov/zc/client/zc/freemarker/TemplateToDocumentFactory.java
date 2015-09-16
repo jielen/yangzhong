@@ -30,7 +30,8 @@ public class TemplateToDocumentFactory {
       ||ZcEbBulletin.ZHAOBIAO_DYLY.equals(type)  
       ||ZcEbBulletin.ZHAOBIAO_JZXTP.equals(type)  
       ||ZcEbBulletin.ZHAOBIAO_YQZB.equals(type)  
-      ||ZcEbBulletin.ZHAOBIAO_QT.equals(type) ){
+      ||ZcEbBulletin.ZHAOBIAO_QT.equals(type)  
+      ||ZcEbBulletin.ZHAOBIAO_ZXJJ.equals(type) ){
       return new ZhaobiaoBulletinHandler();
     }else if(ZcEbBulletin.ZHONGBIAO_XJ.equals(type)){
       return new XjZhongbiaoBulletinHandler();

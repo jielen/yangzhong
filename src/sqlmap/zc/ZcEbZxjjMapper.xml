@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.ufgov.zc.server.zc.dao.ZcEbZxjjMapper" >
+	<typeAlias alias="elementCondition" type="com.ufgov.zc.common.system.dto.ElementConditionDto" />
+  <resultMap id="BaseResultMap" class="com.ufgov.zc.common.zc.model.ZcEbZxjj" >
+    <result column="JJ_CODE" property="jjCode" jdbcType="DECIMAL" />
+    <result column="PROJ_CODE" property="projCode" jdbcType="VARCHAR" />
+    <result column="PACK_CODE" property="packCode" jdbcType="VARCHAR" />
+    <result column="CO_CODE" property="coCode" jdbcType="VARCHAR" />
+    <result column="PUR_CONTENT" property="purContent" jdbcType="VARCHAR" />
+    <result column="BEGIN_TIME" property="beginTime" jdbcType="TIMESTAMP" />
+    <result column="JJ_TIME_LEN" property="jjTimeLen" jdbcType="DECIMAL" />
+    <result column="JJ_ALL_ROUNDS" property="jjAllRounds" jdbcType="java.lang.Integer" />
+    <result column="JJ_CUR_ROUND" property="jjCurRound" jdbcType="java.lang.Integer" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="FAIL_REASON" property="failReason" jdbcType="VARCHAR" />
+    <result column="JJ_CUR_QUOTE" property="jjCurQuote" jdbcType="DECIMAL" />
+    <result column="JJ_CUR_QUOTER" property="jjCurQuoter" jdbcType="VARCHAR" />
+    <result column="INPUTOR" property="inputor" jdbcType="VARCHAR" />
+    <result column="INPUT_DATE" property="inputDate" jdbcType="DATE" />
+    <result column="ND" property="nd" jdbcType="VARCHAR" />
+    <result column="PACK_NAME" property="packName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    JJ_CODE, PROJ_CODE, PACK_CODE, CO_CODE, PUR_CONTENT, BEGIN_TIME, JJ_TIME_LEN, JJ_ALL_ROUNDS, 
+    JJ_CUR_ROUND, STATUS, REMARK, FAIL_REASON, JJ_CUR_QUOTE, JJ_CUR_QUOTER, INPUTOR, 
+    INPUT_DATE,ND 
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterClass="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,(select pack_name from zc_eb_pack k where k.pack_code=zc_eb_zxjj.pack_code) as pack_name
+    from ZC_EB_ZXJJ
+    where JJ_CODE = #jjCode:DECIMAL#
+  </select>
+  <select id="selectMainDataLst" parameterClass="elementCondition" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    ,(select pack_name from zc_eb_pack k where k.pack_code=zc_eb_zxjj.pack_code) as pack_name
+    from ZC_EB_ZXJJ
+    where 1=1  
+		<include refid="BusiNumLim.BusiNumLimStr" /> 
+		<isNotNull prepend="AND" property="status">
+			<isEqual property="status" compareValue="todo">
+				exists (select instance_id from V_WF_CURRENT_TASK_ZC_TODO where 
+				executor=#executor# and instance_id = ZC_EB_ZXJJ.process_inst_id)
+			</isEqual>
+			<isEqual property="status" compareValue="untread">
+				exists (select instance_id from V_WF_CURRENT_TASK_ZC_UNTREAD where
+				executor=#executor# and instance_id = ZC_EB_ZXJJ.process_inst_id)
+			</isEqual>
+			<isEqual property="status" compareValue="done">
+				exists (select instance_id from V_WF_ACTION_HISTORY_GK53 where 
+				executor =#executor# and instance_id = ZC_EB_ZXJJ.process_inst_id)
+				and ZC_EB_ZXJJ.STATUS!= 'cancel' and ZC_EB_ZXJJ.STATUS != 'exec'
+			</isEqual>
+			<isEqual property="status" compareValue="draft">
+				( exists (select WF_DRAFT_NAME from as_wf_draft where
+				user_id=#executor# and
+				compo_id=#wfcompoId# and
+				WF_DRAFT_ID=ZC_EB_ZXJJ.process_inst_id)
+				or
+				ZC_EB_ZXJJ.process_inst_id = -1 )
+				and ZC_EB_ZXJJ.STATUS ='0'
+			</isEqual>
+			<isEqual property="status" compareValue="exec">
+				(ZC_EB_ZXJJ.STATUS='exec')
+			</isEqual>
+			<isEqual property="status" compareValue="all">
+				1=1
+			</isEqual>
+		</isNotNull>
+   <!-- order by ZC_EB_ZXJJ.jj_code desc -->
+	union 
+	select 
+	null as JJ_CODE, 
+	p.PROJ_CODE, p.PACK_CODE, p.CO_CODE, p.PUR_CONTENT, 
+	(select pln.open_bid_time from zc_eb_plan pln where pln.proj_code=p.proj_code) as BEGIN_TIME,  
+	null as JJ_TIME_LEN, null as JJ_ALL_ROUNDS, 
+	null as JJ_CUR_ROUND, '0' as STATUS, null as REMARK, 
+	null as FAIL_REASON, null as JJ_CUR_QUOTE, null as JJ_CUR_QUOTER, null as INPUTOR, 
+	null as INPUT_DATE,p.nd,p.pack_name    
+	 from zc_eb_pack p
+	where p.pur_type='7'
+	and not exists (select pack_code from zc_eb_zxjj where p.pack_code=pack_code)
+  </select>
+  <delete id="deleteByPrimaryKey" parameterClass="java.lang.String" >
+    delete from ZC_EB_ZXJJ
+    where JJ_CODE = #jjCode:DECIMAL#
+  </delete>
+  <insert id="insert" parameterClass="com.ufgov.zc.common.zc.model.ZcEbZxjj" >
+    insert into ZC_EB_ZXJJ (JJ_CODE, PROJ_CODE, PACK_CODE, 
+      CO_CODE, PUR_CONTENT, BEGIN_TIME, 
+      JJ_TIME_LEN, JJ_ALL_ROUNDS, JJ_CUR_ROUND, 
+      STATUS, REMARK, FAIL_REASON, 
+      JJ_CUR_QUOTE, JJ_CUR_QUOTER, INPUTOR, 
+      INPUT_DATE,ND)
+    values (#jjCode:DECIMAL#, #projCode:VARCHAR#, #packCode:VARCHAR#, 
+      #coCode:VARCHAR#, #purContent:VARCHAR#, #beginTime:DATE#, 
+      #jjTimeLen:DECIMAL#, #jjAllRounds#, #jjCurRound#, 
+      #status:VARCHAR#, #remark:VARCHAR#, #failReason:VARCHAR#, 
+      #jjCurQuote:DECIMAL#, #jjCurQuoter:VARCHAR#, #inputor:VARCHAR#, 
+      #inputDate:DATE#,#nd:VARCHAR#)
+  </insert>
+  <update id="updateByPrimaryKey" parameterClass="com.ufgov.zc.common.zc.model.ZcEbZxjj" >
+    update ZC_EB_ZXJJ
+    set PROJ_CODE = #projCode:VARCHAR#,
+      PACK_CODE = #packCode:VARCHAR#,
+      CO_CODE = #coCode:VARCHAR#,
+      PUR_CONTENT = #purContent:VARCHAR#,
+      BEGIN_TIME = #beginTime:DATE#,
+      JJ_TIME_LEN = #jjTimeLen:DECIMAL#,
+      JJ_ALL_ROUNDS = #jjAllRounds#,
+      JJ_CUR_ROUND = #jjCurRound#,
+      STATUS = #status:VARCHAR#,
+      REMARK = #remark:VARCHAR#,
+      FAIL_REASON = #failReason:VARCHAR#,
+      JJ_CUR_QUOTE = #jjCurQuote:DECIMAL#,
+      JJ_CUR_QUOTER = #jjCurQuoter:VARCHAR#,
+      INPUTOR = #inputor:VARCHAR#,
+      INPUT_DATE = #inputDate:DATE#,
+      ND=#nd:VARCHAR#
+    where JJ_CODE = #jjCode:DECIMAL#
+  </update>
+</sqlMap>

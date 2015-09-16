@@ -393,4 +393,10 @@
 		scope="singleton">
 		<property name="zcEmExpertAbilityService" ref="zcEmExpertAbilityService"></property>
 	</bean>
+
+	<bean id="zcEbZxjjServiceDelegate"
+		class="com.ufgov.zc.server.zc.publish.impl.ZcEbZxjjServiceDelegate"
+		scope="singleton">
+		<property name="zcEbZxjjService" ref="zcEbZxjjService"></property>
+	</bean>
 </beans>

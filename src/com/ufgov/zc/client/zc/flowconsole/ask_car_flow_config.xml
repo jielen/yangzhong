@@ -40,7 +40,7 @@
     </node>
 
     <node id="ZC_EB_PROJ" x="499" y="4"
-          text="询价文件"
+          text="竞价单"
           tooltip="This is a tooltip of a node"
           gen_icon="/img/flow_console/gen_icon/zhaobiaowenjianzhizuo.png"
           highlight_icon="/img/flow_console/highlight_icon/zhaobiaowenjianzhizuo.png"
@@ -68,7 +68,7 @@
     </node>
 
     <node id="ZC_EB_PROJECT_SUPPORT" x="650" y="154"
-          text="供应商投标"
+          text="一轮竞价"
           tooltip="This is a tooltip of a node"
           gen_icon="/img/flow_console/gen_icon/baomingguanli.png"
           highlight_icon="/img/flow_console/highlight_icon/baomingguanli.png"
@@ -80,12 +80,12 @@
     </node>
     
     <node id="ZC_EB_BULLETIN_DLY" x="499" y="154"
-          text="延期公告"
+          text="二轮竞价"
           tooltip="This is a tooltip of a node"
-          gen_icon="/img/flow_console/gen_icon/zhongbiaogonggao.png"
-          highlight_icon="/img/flow_console/highlight_icon/zhongbiaogonggao.png"
-          gray_icon="/img/flow_console/gray_icon/zhongbiaogonggao.png"
-          icon="/img/flow_console/gen_icon/zhongbiaogonggao.png"
+          gen_icon="/img/flow_console/gen_icon/baomingguanli.png"
+          highlight_icon="/img/flow_console/highlight_icon/baomingguanli.png"
+          gray_icon="/img/flow_console/gray_icon/baomingguanli.png"
+          icon="/img/flow_console/gen_icon/baomingguanli.png"
           nodeBusiness="com.ufgov.zc.client.zc.flowconsole.business.BulletinDlyNodeBusiness"
           >
         <button id="add" tooltip="新增" icon="/img/flow_console/bt1_1.png" highlight_icon="/img/flow_console/bt1.png"  gen_icon="/img/flow_console/bt1_1.png" action="X002" offsetX="13" offsetY="13"/>
@@ -94,12 +94,12 @@
     </node>
 
     <node id="ZC_EB_OPENBID" x="344" y="154"
-          text="开标管理"
+          text="三轮竞价"
           tooltip="This is a tooltip of a node"
-          gen_icon="/img/flow_console/gen_icon/kaibiaoguanli.png"
-          highlight_icon="/img/flow_console/highlight_icon/kaibiaoguanli.png"
-          gray_icon="/img/flow_console/gray_icon/kaibiaoguanli.png"
-          icon="/img/flow_console/gen_icon/kaibiaoguanli.png"
+          gen_icon="/img/flow_console/gen_icon/baomingguanli.png"
+          highlight_icon="/img/flow_console/highlight_icon/baomingguanli.png"
+          gray_icon="/img/flow_console/gray_icon/baomingguanli.png"
+          icon="/img/flow_console/gen_icon/baomingguanli.png"
           nodeBusiness="com.ufgov.zc.client.zc.flowconsole.business.OpenBidNodeBusiness"
           >
         <button id="view" tooltip="审批" icon="/img/flow_console/bt2_2.png" highlight_icon="/img/flow_console/bt2.png"  gen_icon="/img/flow_console/bt2_2.png" action="X002" offsetX="13" offsetY="38"/>

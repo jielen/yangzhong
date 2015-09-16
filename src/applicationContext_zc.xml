@@ -2066,4 +2066,19 @@
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
+	<bean id="zcEbZxjjService" class="com.ufgov.zc.server.zc.service.impl.ZcEbZxjjService"
+		scope="singleton"> 
+		<property name="workflowDao" ref="workflowDao"></property>
+		<property name="zxjjMapper" ref="zxjjMapper"></property>
+		<property name="zxjjHistoryMapper" ref="zxjjHistoryMapper"></property>
+		<property name="wfEngineAdapter" ref="wfEngineAdapter" />
+	</bean>	
+	<bean id="zxjjMapper" class="com.ufgov.zc.server.zc.dao.ibatis.ZcEbZxjjDao"
+		scope="singleton">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>	
+	<bean id="zxjjHistoryMapper" class="com.ufgov.zc.server.zc.dao.ibatis.ZcEbZxjjHistoryDao"
+		scope="singleton">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
 </beans>

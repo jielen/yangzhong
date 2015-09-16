@@ -7,7 +7,7 @@
 <sqlMap namespace="ZcEbUtil">
 
 	<typeAlias alias="elementCondition" type="com.ufgov.zc.common.system.dto.ElementConditionDto" />
-	
+		<select id="getNextVal" parameterClass="java.lang.String" resultClass="String" >		select $seqName$.NEXTVAL AS ID from DUAL	</select>
 	<select id="getNextSeqVal" resultClass="String" >
 		select ZC_SEQ_BASE.NEXTVAL AS ID from DUAL
 	</select>	
@@ -43,5 +43,5 @@
 	</select>
    <select id="getZcEbFormulaParamNextSeqVal" resultClass="String">
 		select ZC_SEQ_FORMULA_PARAM.NEXTVAL AS ID from DUAL	</select>		 <select id="getSysUserManageNextSeqVal" resultClass="String">		select SEQ_SYS_FRAME_ID.NEXTVAL AS ID from DUAL	</select>		 <select id="getBullitinNextSeqVal" resultClass="String">		select ZC_SEQ_BULLITIN_ID.NEXTVAL AS ID from DUAL	</select>
-		
+				 <select id="getZxjjNextSeqVal" resultClass="String">		select ZC_SEQ_ZXJJ_ID.NEXTVAL AS ID from DUAL	</select>
 </sqlMap>

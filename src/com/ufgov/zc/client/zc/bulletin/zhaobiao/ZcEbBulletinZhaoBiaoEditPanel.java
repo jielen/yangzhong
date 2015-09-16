@@ -2435,6 +2435,8 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
       rtn = ZcEbBulletin.ZHAOBIAO_XJ;
     } else if (ZcSettingConstants.PITEM_OPIWAY_QT.equals(purType)) {
       rtn = ZcEbBulletin.ZHAOBIAO_QT;
+    } else if (ZcSettingConstants.PITEM_OPIWAY_ZXJJ.equals(purType)) {
+      rtn = ZcEbBulletin.ZHAOBIAO_ZXJJ;
     }
     return rtn;
   }

@@ -168,7 +168,7 @@ public class MoudelFlowConsoleCanvas extends FlowConsoleCanvas {
     List list = zcEbBaseServiceDelegate.queryDataForList("asMenuCompo.getAsMenuCompoByCompoId", compoId, this.requestMeta);
     if (list != null && list.size() > 0) {
       Map asMenus = (Map) list.get(0);
-      String url = (String) asMenus.get("PAGE_URL");
+      String url = (String) asMenus.get("URL");
       String[] urlarr = url.split("=");
       if (urlarr.length > 1) {
         return urlarr[1];

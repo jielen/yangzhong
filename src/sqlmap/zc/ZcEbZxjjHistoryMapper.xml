@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.ufgov.zc.server.zc.dao.ZcEbZxjjHistoryMapper">
+	<typeAlias alias="elementCondition" type="com.ufgov.zc.common.system.dto.ElementConditionDto" />
+  <resultMap id="BaseResultMap" class="com.ufgov.zc.common.zc.model.ZcEbZxjjHistory">
+    <result column="JJ_CODE" jdbcType="DECIMAL" property="jjCode" />
+    <result column="JJ_ROUND" jdbcType="java.lang.Integer" property="jjRound" />
+    <result column="JJ_QUOTE" jdbcType="DECIMAL" property="jjQuote" />
+    <result column="JJ_QUOTER" jdbcType="VARCHAR" property="jjQuoter" />
+    <result column="JJ_QUOTE_TIME" jdbcType="DATE" property="jjQuoteTime" />
+    <result column="IS_WIN" jdbcType="VARCHAR" property="isWin" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    JJ_CODE, JJ_ROUND, JJ_QUOTE, JJ_QUOTER, JJ_QUOTE_TIME, IS_WIN
+  </sql>
+  <select id="selectByPrimaryKey" parameterClass="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ZC_EB_ZXJJ_HISTORY
+    where JJ_CODE = #jjCode:DECIMAL#
+  </select>
+  <select id="selectByJjCode" parameterClass="elementCondition" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ZC_EB_ZXJJ_HISTORY
+    where JJ_CODE = #normalId:DECIMAL#
+  </select>
+  <delete id="deleteByPrimaryKey" parameterClass="java.lang.String">
+    delete from ZC_EB_ZXJJ_HISTORY
+    where JJ_CODE = #jjCode:DECIMAL#
+  </delete>
+  <insert id="insert" parameterClass="com.ufgov.zc.common.zc.model.ZcEbZxjjHistory">
+    insert into ZC_EB_ZXJJ_HISTORY (JJ_CODE, JJ_ROUND, JJ_QUOTE, 
+      JJ_QUOTER, JJ_QUOTE_TIME, IS_WIN
+      )
+    values (#jjCode:DECIMAL#, #jjRound#, #jjQuote:DECIMAL#, 
+      #jjQuoter:VARCHAR#, #jjQuoteTime:DATE#, #isWin:VARCHAR#
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterClass="com.ufgov.zc.common.zc.model.ZcEbZxjjHistory">
+    update ZC_EB_ZXJJ_HISTORY
+    set JJ_ROUND = #jjRound#,
+      JJ_QUOTE = #jjQuote:DECIMAL#,
+      JJ_QUOTER = #jjQuoter:VARCHAR#,
+      JJ_QUOTE_TIME = #jjQuoteTime:DATE#,
+      IS_WIN = #isWin:VARCHAR#
+    where JJ_CODE = #jjCode:DECIMAL#
+  </update>
+</sqlMap>
