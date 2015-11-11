@@ -160,6 +160,7 @@ public class ZcEbEntrustService implements IZcEbEntrustService {
 	}
 
 	public ZcEbEntrust audit(ZcEbEntrust entrust, RequestMeta requestMeta) {
+	  doSaveFN(entrust, requestMeta);
 		wfEngineAdapter.commit(entrust.getComment(), entrust, requestMeta);
 		return this.getZcEbEntrustBySn(entrust.getSn());
 	}
@@ -173,7 +174,7 @@ public class ZcEbEntrustService implements IZcEbEntrustService {
 	 * 销审
 	 */
 	public ZcEbEntrust unaudit(ZcEbEntrust entrust, RequestMeta requestMeta) {
-		checkConsistency(entrust);
+		/*checkConsistency(entrust);
 		zcEbEntrustDao.updateZcEbEntrustStatus(entrust);
 		if (entrust.getProcessInstId() != null
 				&& entrust.getProcessInstId().longValue() > 0) {
@@ -195,7 +196,10 @@ public class ZcEbEntrustService implements IZcEbEntrustService {
 
 		// wfEngineAdapter.unAudit(entrust.getComment(), entrust);
 		// zcEbEntrustDao.updateZcEbEntrust(entrust);
-		return this.getZcEbEntrustBySn(entrust.getSn());
+		return this.getZcEbEntrustBySn(entrust.getSn());*/
+	  wfEngineAdapter.rework(entrust.getComment(), entrust, requestMeta);
+	  
+	  return entrust;
 	}
 
 	public ZcEbEntrust untread(ZcEbEntrust entrust, RequestMeta requestMeta) {
@@ -263,15 +267,15 @@ public class ZcEbEntrustService implements IZcEbEntrustService {
 		wfEngineAdapter.reworkNoCheck(workflowContext);
 	}
 
-	public ZcEbEntrust doSave(ZcEbEntrust entrust) {
-		ZcEbEntrust tempEntrust = this.zcEbEntrustDao
-				.getZcEbEntrustBySn(entrust.getSn());
-		if (tempEntrust == null || tempEntrust.getSn().equals("")) {
+	public ZcEbEntrust doSaveFN(ZcEbEntrust entrust, RequestMeta requestMeta) {
+//		ZcEbEntrust tempEntrust = this.zcEbEntrustDao.getZcEbEntrustBySn(entrust.getSn());
+		if (entrust.getSn()==null || entrust.getSn().equals("自动编号")||entrust.getSn().equals("")) {
 			// entrust.setZcMakeCode(entrust.getSn());
-			String entrust_code = NumUtil.getInstance().getNo("ZC_P_PRO_MAKE",
-					"ZC_TEMP_MAKE_CODE", entrust);
+			String entrust_code = NumUtil.getInstance().getNo("ZC_EB_ENTRUST","SN", entrust);
 			// entrust.setZcMakeCode(entrust_code);
 			entrust.setSn(entrust_code);
+			entrust.setSnCode(entrust_code);
+			
 			for (int i = 0; i < entrust.getDetailList().size(); i++) {
 				ZcEbEntrustDetail detail = (ZcEbEntrustDetail) entrust
 						.getDetailList().get(i);
@@ -283,23 +287,31 @@ public class ZcEbEntrustService implements IZcEbEntrustService {
 				bi.setZcProBiSeq(entrust.getZcMakeCode() + "_" + (i + 1));
 				bi.setZcMakeCode(entrust.getZcMakeCode());
 			}
-			this.zcEbEntrustDao.deleteDetalBySn(entrust.getSn());
-			baseDao.delete("ZC_P_PRO_MITEM_BI.deleteByZcMakeCode",
-					entrust.getZcMakeCode());
-			this.zcEbEntrustDao.insertZcEbEntrust(entrust);
-		} else {
-			// 生成新的任务单编号
-			if (ZcEbEntrust.STATUS_ACCEPTED.equals(entrust.getStatus())
-					&& (entrust.getSnCode() == null || "".equals(entrust
-							.getSnCode()))) {
-				String snCode = NumUtil.getInstance().getNo("ZC_EB_ENTRUST",
-						"SN_CODE", entrust);
-				entrust.setSnCode(snCode);
-			}
+ 
+      if (entrust.getProcessInstId() == null || entrust.getProcessInstId().longValue() == -1) {
+        Long draftid = workflowDao.createDraftId();
+        entrust.setProcessInstId(draftid);
+        AsWfDraft asWfDraft = new AsWfDraft();
+        String userId = requestMeta.getSvUserID();
+        String compoId = requestMeta.getCompoId();
+        asWfDraft.setCompoId(compoId);
+        asWfDraft.setWfDraftName(entrust.getZcMakeName());
+        asWfDraft.setUserId(userId);
+        asWfDraft.setMasterTabId(compoId);
+        asWfDraft.setWfDraftId(BigDecimal.valueOf(draftid));
+        workflowDao.insertAsWfdraft(asWfDraft); 
+      } 
+      
+      this.zcEbEntrustDao.deleteDetalBySn(entrust.getSn());
+      baseDao.delete("ZC_P_PRO_MITEM_BI.deleteByZcMakeCode",entrust.getZcMakeCode());
+      this.zcEbEntrustDao.insertZcEbEntrust(entrust);
+      
+		} else { 
 
 			zcEbEntrustDao.updateZcEbEntrust(entrust);
 		}
-		return this.getZcEbEntrustBySn(entrust.getSn());
+    entrust.setDbDigest(entrust.digest());
+		return entrust;
 	}
 
 	public int getCountData(String sn) {
@@ -408,5 +420,10 @@ public class ZcEbEntrustService implements IZcEbEntrustService {
       }
     }
     return "导入采购任务成功";
+  }
+ 
+  public void callbackFN(ZcEbEntrust entrust, RequestMeta requestMeta) {
+    // TODO Auto-generated method stub
+    wfEngineAdapter.callback(entrust.getComment(), entrust, requestMeta);
   }
 }

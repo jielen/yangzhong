@@ -282,7 +282,7 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
 
   private AbstractDataDisplay createDataDisplay(List<TableDisplay> showingDisplays) {
     return new DataDisplay(SearchConditionUtil.getAllTableDisplay(ZcSettingConstants.TAB_ID_ZC_EB_ENTRUST), showingDisplays,
-      createTopConditionArea(), true);//true:显示收索条件区 false：不显示收索条件区
+      createTopConditionArea(), false);//true:显示收索条件区 false：不显示收索条件区
   }
 
   //  private FuncButton sendBill = new CommonButton("fsendBill", "sendBill.png");
@@ -335,7 +335,7 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
     //    toolBar.add(unAuditButton);
     //    toolBar.add(unTreadButton);
     //    toolBar.add(traceButton);
-    toolBar.add(printButton);
+//    toolBar.add(printButton);
     //    toolBar.add(printPreviewButton);
     //    toolBar.add(printSettingButton);
     toolBar.add(exportButton);//add shijia 20111210 导出Excel
@@ -363,18 +363,7 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
         doSendBill();
       }
     });
-
-    acceptedButton.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        doAccept();
-      }
-    });
-
-    backButton.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        doBack();
-      }
-    });
+ 
 
     sendButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -475,120 +464,8 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
   }
 
   private void doSendBill() {
-    List beanList = getCheckedList();
-    if (beanList.size() == 0) {
-      JOptionPane.showMessageDialog(this, "没有选择数据！", " 提示", JOptionPane.INFORMATION_MESSAGE);
-      return;
-    }
-    for (Object o : beanList) {
-      ZcEbEntrust entrust = (ZcEbEntrust) o;
-      entrust.setStatus(ZcEbEntrust.STATUS_WAIT_ACCEPT);
-    }
-    boolean success = true;
-    try {
-      requestMeta.setFuncId(this.sendBill.getFuncId());
-      for (Object o : beanList) {
-        ZcEbEntrust entrust = (ZcEbEntrust) o;
-        this.zcEbEntrustServiceDelegate.saveFN(entrust, requestMeta);
-      }
-    } catch (BaseException ex) {
-      success = false;
-      logger.error(ex.getStackTraceMessage(), ex);
-      success = false;
-      UIUtilities.showStaickTraceDialog(ex, this, "错误", ex.getMessage());
-    } catch (OtherException ex) {
-      success = false;
-      logger.error(ex.getStackTraceMessage(), ex);
-      success = false;
-      UIUtilities.showStaickTraceDialog(ex, this, "错误", ex.getMessage());
-    } catch (Exception ex) {
-      success = false;
-      logger.error(ex.getMessage(), ex);
-      UIUtilities.showStaickTraceDialog(ex, this, "错误", ex.getMessage());
-    }
-    if (success) {
-      JOptionPane.showMessageDialog(this, "处理成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
-      refreshCurrentTabData();
-    }
   }
 
-  private void doAccept() {
-    List beanList = getCheckedList();
-    if (beanList.size() == 0) {
-      JOptionPane.showMessageDialog(this, "没有选择数据！", " 提示", JOptionPane.INFORMATION_MESSAGE);
-      return;
-    }
-    for (Object o : beanList) {
-      ZcEbEntrust entrust = (ZcEbEntrust) o;
-      entrust.setStatus(ZcEbEntrust.STATUS_ACCEPTED);
-    }
-    boolean success = true;
-    try {
-      requestMeta.setFuncId(acceptedButton.getFuncId());
-      for (Object o : beanList) {
-        ZcEbEntrust entrust = (ZcEbEntrust) o;
-        entrust.setStatus(ZcEbEntrust.STATUS_ACCEPTED);
-        this.zcEbEntrustServiceDelegate.saveFN(entrust, requestMeta);
-      }
-    } catch (BaseException ex) {
-      success = false;
-      logger.error(ex.getStackTraceMessage(), ex);
-      success = false;
-      UIUtilities.showStaickTraceDialog(ex, this, "错误", ex.getMessage());
-    } catch (OtherException ex) {
-      success = false;
-      logger.error(ex.getStackTraceMessage(), ex);
-      success = false;
-      UIUtilities.showStaickTraceDialog(ex, this, "错误", ex.getMessage());
-    } catch (Exception ex) {
-      success = false;
-      logger.error(ex.getMessage(), ex);
-      UIUtilities.showStaickTraceDialog(ex, this, "错误", ex.getMessage());
-    }
-    if (success) {
-      JOptionPane.showMessageDialog(this, "处理成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
-      refreshCurrentTabData();
-    }
-  }
-
-  private void doBack() {
-    List beanList = getCheckedList();
-    if (beanList.size() == 0) {
-      JOptionPane.showMessageDialog(this, "没有选择数据！", " 提示", JOptionPane.INFORMATION_MESSAGE);
-      return;
-    }
-    for (Object o : beanList) {
-      ZcEbEntrust entrust = (ZcEbEntrust) o;
-      entrust.setStatus(ZcEbEntrust.STATUS_UNACCEPT);
-    }
-    boolean success = true;
-    try {
-      requestMeta.setFuncId(backButton.getFuncId());
-      for (Object o : beanList) {
-        ZcEbEntrust entrust = (ZcEbEntrust) o;
-        this.zcEbEntrustServiceDelegate.saveFN(entrust, requestMeta);
-      }
-    } catch (BaseException ex) {
-      success = false;
-      logger.error(ex.getStackTraceMessage(), ex);
-      success = false;
-      UIUtilities.showStaickTraceDialog(ex, this, "错误", ex.getMessage());
-    } catch (OtherException ex) {
-      success = false;
-      logger.error(ex.getStackTraceMessage(), ex);
-      success = false;
-      UIUtilities.showStaickTraceDialog(ex, this, "错误", ex.getMessage());
-    } catch (Exception ex) {
-      success = false;
-      logger.error(ex.getMessage(), ex);
-      UIUtilities.showStaickTraceDialog(ex, this, "错误", ex.getMessage());
-    }
-    if (success) {
-      JOptionPane.showMessageDialog(this, "处理成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
-      refreshCurrentTabData();
-    }
-
-  }
 
   private void doSend() {
     List beanList = getCheckedList();
