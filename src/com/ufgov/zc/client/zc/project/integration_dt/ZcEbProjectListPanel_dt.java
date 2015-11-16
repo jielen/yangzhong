@@ -361,7 +361,7 @@ public class ZcEbProjectListPanel_dt extends AbstractEditListBill implements Par
       for (int i = 0; i < checkedList.size(); i++) {
         ZcEbProj proj = (ZcEbProj) checkedList.get(i);
         proj.setAuditorId(WorkEnv.getInstance().getCurrUserId());
-        zcEbProjectServiceDelegate.delete(proj.getProjCode(), requestMeta);
+        zcEbProjectServiceDelegate.deleteFN(proj.getProjCode(), requestMeta);
       }
     } catch (DataAlreadyDeletedException ex) {
       errorInfo.append(ex.getMessage() + "\n");
@@ -527,7 +527,7 @@ public class ZcEbProjectListPanel_dt extends AbstractEditListBill implements Par
         proj.setAuditorId(WorkEnv.getInstance().getCurrUserId());
       }
       requestMeta.setFuncId(this.isSendToNextButton.getFuncId());
-      this.zcEbProjectServiceDelegate.save(beanList, requestMeta);
+      this.zcEbProjectServiceDelegate.savesFN(beanList, requestMeta);
       this.zcEbProjectServiceDelegate.auditFN(beanList, requestMeta);
     } catch (Exception e) {
       success = false;

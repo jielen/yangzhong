@@ -628,7 +628,7 @@ public class ZcEbProjectEditPanel extends AbstractMainSubEditPanel {
       requestMeta.setFuncId(deleteButton.getFuncId());
       String projCode = ((ZcEbProj) listCursor.getCurrentObject()).getProjCode();
       if (projCode != null) {
-        listPanel.zcEbProjectServiceDelegate.delete(projCode, this.requestMeta);
+        listPanel.zcEbProjectServiceDelegate.deleteFN(projCode, this.requestMeta);
       }
     } catch (Exception e) {
       logger.error(e.getMessage(), e);
@@ -690,7 +690,7 @@ public class ZcEbProjectEditPanel extends AbstractMainSubEditPanel {
         proj.setIsSplitPack("N");
       }
       requestMeta.setFuncId(saveButton.getFuncId());
-      afterSaveProj = listPanel.zcEbProjectServiceDelegate.save(proj, this.requestMeta);
+      afterSaveProj = listPanel.zcEbProjectServiceDelegate.saveFN(proj, this.requestMeta);
       sendButton.setEnabled(true);
     } catch (Exception e) {
       logger.error(e.getMessage(), e);
@@ -794,7 +794,7 @@ public class ZcEbProjectEditPanel extends AbstractMainSubEditPanel {
       proj.setIsGoonAudit(isGoonAudit);
       proj.setComment(commentDialog.getComment());
       proj.setAuditorId(WorkEnv.getInstance().getCurrUserId());
-      listPanel.zcEbProjectServiceDelegate.save(proj, requestMeta);
+      listPanel.zcEbProjectServiceDelegate.saveFN(proj, requestMeta);
       afterSaveProj = listPanel.zcEbProjectServiceDelegate.auditFN(proj, requestMeta);
       listCursor.setCurrentObject(afterSaveProj);
     } catch (Exception e) {

@@ -2081,4 +2081,55 @@
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
+	
+	<bean id="huiyuanUnitcominfoService" class="com.ufgov.zc.server.zc.service.impl.HuiyuanUnitcominfoService"
+		scope="singleton"> 
+		<property name="workflowDao" ref="workflowDao"></property>
+		<property name="wfEngineAdapter" ref="wfEngineAdapter" />
+		<property name="huiyuanZfcgGongyinginfoMapper" ref="huiyuanZfcgGongyinginfoMapper"></property>
+		<property name="huiyuanUnitcominfoMapper" ref="huiyuanUnitcominfoMapper"></property>
+		<property name="huiyuanUserMapper" ref="huiyuanUserMapper"></property>
+		<property name="huiyuanUnitblackMapper" ref="huiyuanUnitblackMapper"></property>
+	</bean>		
+	<bean id="huiyuanZfcgGongyinginfoMapper" class="com.ufgov.zc.server.zc.dao.ibatis.HuiyuanZfcgGongyinginfoMapperImp"
+		scope="singleton">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>	
+	<bean id="huiyuanUnitcominfoMapper" class="com.ufgov.zc.server.zc.dao.ibatis.HuiyuanUnitcominfoMapperImp"
+		scope="singleton">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>	
+	
+	<bean id="huiyuanUserService" class="com.ufgov.zc.server.zc.service.impl.HuiyuanUserService"
+		scope="singleton"> 
+		<property name="workflowDao" ref="workflowDao"></property>
+		<property name="wfEngineAdapter" ref="wfEngineAdapter" />
+		<property name="huiyuanUserMapper" ref="huiyuanUserMapper"></property>
+	</bean>		
+	<bean id="huiyuanUserMapper" class="com.ufgov.zc.server.zc.dao.ibatis.HuiyuanUserMapperImp"
+		scope="singleton">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>		
+	
+	<bean id="huiyuanUnitblackService" class="com.ufgov.zc.server.zc.service.impl.HuiyuanUnitblackService"
+		scope="singleton"> 
+		<property name="workflowDao" ref="workflowDao"></property>
+		<property name="wfEngineAdapter" ref="wfEngineAdapter" />
+		<property name="huiyuanUnitblackMapper" ref="huiyuanUnitblackMapper"></property>
+	</bean>		
+	<bean id="huiyuanUnitblackMapper" class="com.ufgov.zc.server.zc.dao.ibatis.HuiyuanUnitblackMapperImp"
+		scope="singleton">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>		
+	
+	<bean id="huiyuanPeopleblackService" class="com.ufgov.zc.server.zc.service.impl.HuiyuanPeopleblackService"
+		scope="singleton"> 
+		<property name="workflowDao" ref="workflowDao"></property>
+		<property name="wfEngineAdapter" ref="wfEngineAdapter" />
+		<property name="huiyuanPeopleblackMapper" ref="huiyuanPeopleblackMapper"></property>
+	</bean>		
+	<bean id="huiyuanPeopleblackMapper" class="com.ufgov.zc.server.zc.dao.ibatis.HuiyuanPeopleblackMapperImp"
+		scope="singleton">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>	
 </beans>

@@ -33,9 +33,9 @@ public class ZcEbProjServiceDelegate implements IZcEbProjServiceDelegate {
 
   }
 
-  public void delete(String projCode, RequestMeta requestMeta) {
+  public void deleteFN(String projCode, RequestMeta requestMeta) {
 
-    this.zcEbProjService.delete(projCode);
+    this.zcEbProjService.deleteFN(projCode);
 
   }
 
@@ -45,9 +45,9 @@ public class ZcEbProjServiceDelegate implements IZcEbProjServiceDelegate {
 
   }
 
-  public ZcEbProj save(ZcEbProj zcEbProj, RequestMeta requestMeta) {
+  public ZcEbProj saveFN(ZcEbProj zcEbProj, RequestMeta requestMeta) {
 
-    return this.zcEbProjService.save(zcEbProj, requestMeta);
+    return this.zcEbProjService.saveFN(zcEbProj, requestMeta);
 
   }
 
@@ -87,7 +87,7 @@ public class ZcEbProjServiceDelegate implements IZcEbProjServiceDelegate {
 
   }
 
-  public void updateZcEbPack(ZcEbPack pack, RequestMeta meta) {
+  public void updateZcEbPackFN(ZcEbPack pack, RequestMeta meta) {
 
     this.zcEbProjService.updateZcEbPack(pack);
 
@@ -111,7 +111,7 @@ public class ZcEbProjServiceDelegate implements IZcEbProjServiceDelegate {
 
   }
 
-  public List save(List beanList, RequestMeta requestMeta) {
+  public List savesFN(List beanList, RequestMeta requestMeta) {
 
     return this.zcEbProjService.save(beanList);
 

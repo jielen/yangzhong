@@ -399,4 +399,28 @@
 		scope="singleton">
 		<property name="zcEbZxjjService" ref="zcEbZxjjService"></property>
 	</bean>
+
+	<bean id="huiyuanUnitcominfoDelegate"
+		class="com.ufgov.zc.server.zc.publish.impl.HuiyuanUnitcominfoDelegate"
+		scope="singleton">
+		<property name="huiyuanUnitcominfoService" ref="huiyuanUnitcominfoService"></property>
+	</bean>
+
+	<bean id="huiyuanUserDelegate"
+		class="com.ufgov.zc.server.zc.publish.impl.HuiyuanUserDelegate"
+		scope="singleton">
+		<property name="huiyuanUserService" ref="huiyuanUserService"></property>
+	</bean>
+
+	<bean id="huiyuanUnitblackDelegate"
+		class="com.ufgov.zc.server.zc.publish.impl.HuiyuanUnitblackDelegate"
+		scope="singleton">
+		<property name="huiyuanUnitblackService" ref="huiyuanUnitblackService"></property>
+	</bean>
+
+	<bean id="huiyuanPeopleblackDelegate"
+		class="com.ufgov.zc.server.zc.publish.impl.HuiyuanPeopleblackDelegate"
+		scope="singleton">
+		<property name="huiyuanPeopleblackService" ref="huiyuanPeopleblackService"></property>
+	</bean>
 </beans>

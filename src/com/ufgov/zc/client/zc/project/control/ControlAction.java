@@ -672,7 +672,7 @@ public class ControlAction extends AbstractAction implements ActionListener {
       }
       pack.setLastStatus(pack.getStatus());
       pack.setStatus(newStatus);
-      editPanel.listPanel.zcEbProjectServiceDelegate.updateZcEbPack(pack, this.editPanel.requestMeta);
+      editPanel.listPanel.zcEbProjectServiceDelegate.updateZcEbPackFN(pack, this.editPanel.requestMeta);
       packed = pack;
     } catch (Exception e) {
       success = false;

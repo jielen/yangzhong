@@ -369,79 +369,43 @@
 
 		<result column="SND" property="requirementDetail.snd" jdbcType="VARCHAR" />
 
-		<result column="DETAIL_CODE" property="requirementDetail.detailCode"
+		<result column="DETAIL_CODE" property="requirementDetail.snd" jdbcType="VARCHAR" />
 
-			jdbcType="INTEGER" />
+		<result column="REQ_CODE" property="requirementDetail.reqCode" jdbcType="VARCHAR" />
 
-		<result column="REQ_CODE" property="requirementDetail.reqCode"
+		<result column="ZC_YEAR" property="requirementDetail.zcYear" jdbcType="VARCHAR" />
 
-			jdbcType="VARCHAR" />
+		<result column="ZC_CATALOGUE_CODE" property="requirementDetail.zcCatalogueCode" jdbcType="VARCHAR" />
 
-		<result column="ZC_YEAR" property="requirementDetail.zcYear"
+		<result column="ZC_CATALOGUE_NAME" property="requirementDetail.zcCatalogueName" jdbcType="VARCHAR" />
 
-			jdbcType="VARCHAR" />
+		<result column="NAME" property="requirementDetail.name" jdbcType="VARCHAR" />
 
-		<result column="ZC_CATALOGUE_CODE" property="requirementDetail.zcCatalogueCode"
+		<result column="ARR_DATE" property="requirementDetail.arrDate" jdbcType="DATE" javaType="java.util.Date" />
 
-			jdbcType="VARCHAR" />
+		<result column="BASE_REQ" property="requirementDetail.baseReq" jdbcType="VARCHAR" />
 
-		<result column="ZC_CATALOGUE_NAME" property="requirementDetail.zcCatalogueName"
+		<result column="ITEM_ATTACH" property="requirementDetail.itemAttach" jdbcType="VARCHAR" />
 
-			jdbcType="VARCHAR" />
-
-		<result column="NAME" property="requirementDetail.name"
-
-			jdbcType="VARCHAR" />
-
-		<result column="ARR_DATE" property="requirementDetail.arrDate"
-
-			jdbcType="DATE" javaType="java.util.Date" />
-
-		<result column="BASE_REQ" property="requirementDetail.baseReq"
-
-			jdbcType="VARCHAR" />
-
-		<result column="ITEM_ATTACH" property="requirementDetail.itemAttach"
-
-			jdbcType="VARCHAR" />
-
-		<result column="ITEM_ATTACH_BLOBID" property="requirementDetail.itemAttachBlobid"
-
-			jdbcType="VARCHAR" />
+		<result column="ITEM_ATTACH_BLOBID" property="requirementDetail.itemAttachBlobid" jdbcType="VARCHAR" />
 
 		<result column="NUM" property="requirementDetail.num" jdbcType="INTEGER" />
 
-		<result column="ITEM_SUM" property="requirementDetail.itemSum"
+		<result column="ITEM_SUM" property="requirementDetail.itemSum" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
 
-			jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+		<result column="MER_PRICE" property="requirementDetail.merPrice" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
 
-		<result column="MER_PRICE" property="requirementDetail.merPrice"
+		<result column="PAY_COND" property="requirementDetail.payCond" jdbcType="VARCHAR" />
 
-			jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+		<result column="SERVICE_PROMISES" property="requirementDetail.servicePromises" jdbcType="VARCHAR" />
 
-		<result column="PAY_COND" property="requirementDetail.payCond"
+		<result column="TYPE" property="requirementDetail.type" jdbcType="VARCHAR" />
 
-			jdbcType="VARCHAR" />
+		<result column="DESCRIPTION" property="requirementDetail.description" jdbcType="VARCHAR" />
 
-		<result column="SERVICE_PROMISES" property="requirementDetail.servicePromises"
+		<result column="SP_BRAND" property="requirementDetail.spBrand" jdbcType="VARCHAR" />
 
-			jdbcType="VARCHAR" />
-
-		<result column="TYPE" property="requirementDetail.type"
-
-			jdbcType="VARCHAR" />
-
-		<result column="DESCRIPTION" property="requirementDetail.description"
-
-			jdbcType="VARCHAR" />
-
-		<result column="SP_BRAND" property="requirementDetail.spBrand"
-
-			jdbcType="VARCHAR" />
-
-		<result column="SP_UNIT" property="requirementDetail.spUnit"
-
-			jdbcType="VARCHAR" />
+		<result column="SP_UNIT" property="requirementDetail.spUnit" jdbcType="VARCHAR" />
 
 	</resultMap>
 
@@ -1785,13 +1749,9 @@
 		xj.SP_BRAND,xj.SP_UNIT
 
 		from
-
 		ZC_EB_PACK_REQ master,
-
-		ZC_EB_PACK_REQ_DETAIL
-		rd,
+		ZC_EB_PACK_REQ_DETAIL	rd,
 		zc_eb_xunjia xj
-
 		where
 
 		rd.detail_code
@@ -2914,37 +2874,23 @@
 
 
 	<insert id="insertZcEbReqDetail" parameterClass="com.ufgov.zc.common.zc.model.ZcEbRequirementDetail">
-
 		insert into
 		ZC_EB_PACK_REQ_DETAIL (DETAIL_CODE, REQ_CODE, SND, SN,
-
 		ZC_YEAR,
-
 		ZC_CATALOGUE_CODE, ZC_CATALOGUE_NAME, NAME, ARR_DATE, BASE_REQ,
 		ITEM_ATTACH,
-
 		ITEM_ATTACH_BLOBID, NUM, ITEM_SUM, MER_PRICE, PAY_COND,
-
 		SERVICE_PROMISES, TYPE, DESCRIPTION)
-
 		values (#detailCode:DECIMAL#,
-
 		#reqCode:VARCHAR#, #snd:VARCHAR#, #sn:VARCHAR#, #zcYear:VARCHAR#,
-
 		#zcCatalogueCode:VARCHAR#, #zcCatalogueName:VARCHAR#, #name:VARCHAR#,
-
 		#arrDate:TIMESTAMP#,
-
 		#baseReq:VARCHAR#, #itemAttach:VARCHAR#,
 		#itemAttachBlobid:VARCHAR#, #num:DECIMAL#,
-
 		#itemSum:DECIMAL#,
 		#merPrice:DECIMAL#, #payCond:VARCHAR#,
-
 		#servicePromises:VARCHAR#,
-
 		#type:VARCHAR#, #description:VARCHAR#)
-
 	</insert>
 
 	<delete id="deleteZcEbReqDetailByKey" parameterClass="string">

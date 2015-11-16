@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.ufgov.zc.server.zc.dao.HuiyuanUnitcominfoMapper" >
+	<typeAlias alias="elementCondition" type="com.ufgov.zc.common.system.dto.ElementConditionDto" />
+  <resultMap id="BaseResultMap" class="com.ufgov.zc.common.zc.model.HuiyuanUnitcominfo" > 
+    <result column="DANWEIGUID" property="danweiguid" jdbcType="VARCHAR" />
+    <result column="DANWEINAME" property="danweiname" jdbcType="VARCHAR" />
+    <result column="AREACODE" property="areacode" jdbcType="VARCHAR" />
+    <result column="AREANAME" property="areaname" jdbcType="VARCHAR" />
+    <result column="UNITORGNUM" property="unitorgnum" jdbcType="VARCHAR" />
+    <result column="COMPANYTYPE" property="companytype" jdbcType="VARCHAR" />
+    <result column="CHENLITIME" property="chenlitime" jdbcType="DATE" />
+    <result column="FAREN" property="faren" jdbcType="VARCHAR" />
+    <result column="FARENZHIWU" property="farenzhiwu" jdbcType="VARCHAR" />
+    <result column="FARENZHICHENG" property="farenzhicheng" jdbcType="VARCHAR" />
+    <result column="WEBADDRESS" property="webaddress" jdbcType="VARCHAR" />
+    <result column="FARENTEL" property="farentel" jdbcType="VARCHAR" />
+    <result column="LICENCENUM" property="licencenum" jdbcType="VARCHAR" />
+    <result column="ZHUCEZIBEN" property="zhuceziben" jdbcType="DECIMAL" />
+    <result column="ZHUCETYPE" property="zhucetype" jdbcType="VARCHAR" />
+    <result column="ZHUCEADDRESS" property="zhuceaddress" jdbcType="VARCHAR" />
+    <result column="JINYINGFANWEI" property="jinyingfanwei" jdbcType="VARCHAR" />
+    <result column="YINGYEQIXIANFROM" property="yingyeqixianfrom" jdbcType="DATE" />
+    <result column="YINGYEQIXIANTO" property="yingyeqixianto" jdbcType="DATE" />
+    <result column="COMPANYDES" property="companydes" jdbcType="CLOB" typeHandler="org.springframework.orm.ibatis.support.ClobStringTypeHandler" />
+    <result column="BUILDDATE" property="builddate" jdbcType="DATE" />
+    <result column="MAINITEM" property="mainitem" jdbcType="VARCHAR" />
+    <result column="MIANPRODUCT" property="mianproduct" jdbcType="VARCHAR" />
+    <result column="ASSISTANTITEM" property="assistantitem" jdbcType="VARCHAR" />
+    <result column="ASSISTANTPRODUCT" property="assistantproduct" jdbcType="VARCHAR" />
+    <result column="GUOSHUINO" property="guoshuino" jdbcType="VARCHAR" />
+    <result column="DISHUINO" property="dishuino" jdbcType="VARCHAR" />
+    <result column="FARENLICENCENUM" property="farenlicencenum" jdbcType="VARCHAR" />
+    <result column="ENGLISHNAME" property="englishname" jdbcType="VARCHAR" />
+    <result column="UNITJIANCHENG" property="unitjiancheng" jdbcType="VARCHAR" />
+    <result column="DENGJIJIGUAN" property="dengjijiguan" jdbcType="VARCHAR" />
+    <result column="QIYESHEBAOHAO" property="qiyeshebaohao" jdbcType="VARCHAR" />
+    <result column="NIANJIANJIEGUO" property="nianjianjieguo" jdbcType="VARCHAR" />
+    <result column="DANWEITYPE" property="danweitype" jdbcType="VARCHAR" />
+    <result column="AUDITSTATUS" property="zfcgGysInfo.auditstatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" > 
+    DANWEIGUID, DANWEINAME, AREACODE, AREANAME, UNITORGNUM, COMPANYTYPE, CHENLITIME, 
+    FAREN, FARENZHIWU, FARENZHICHENG, WEBADDRESS, FARENTEL, LICENCENUM, ZHUCEZIBEN, ZHUCETYPE, 
+    ZHUCEADDRESS, JINYINGFANWEI, YINGYEQIXIANFROM, YINGYEQIXIANTO, COMPANYDES, BUILDDATE, 
+    MAINITEM, MIANPRODUCT, ASSISTANTITEM, ASSISTANTPRODUCT, GUOSHUINO, DISHUINO, FARENLICENCENUM, 
+    ENGLISHNAME, UNITJIANCHENG, DENGJIJIGUAN, QIYESHEBAOHAO, NIANJIANJIEGUO, DANWEITYPE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterClass="java.lang.String" > 
+    select 
+    HUIYUAN_UNITCOMINFO.*,
+    HUIYUAN_ZFCG_GONGYINGINFO.AUDITSTATUS
+    from HUIYUAN_UNITCOMINFO,HUIYUAN_ZFCG_GONGYINGINFO
+    where HUIYUAN_ZFCG_GONGYINGINFO.DANWEIGUID=HUIYUAN_UNITCOMINFO.DANWEIGUID   
+    and HUIYUAN_UNITCOMINFO.DANWEIGUID = #value#
+  </select>
+  
+  
+  <select id="selectMainDataLst" parameterClass="elementCondition" resultMap="BaseResultMap">
+    select 
+    HUIYUAN_UNITCOMINFO.*,
+    HUIYUAN_ZFCG_GONGYINGINFO.AUDITSTATUS
+    from HUIYUAN_UNITCOMINFO,HUIYUAN_ZFCG_GONGYINGINFO
+    where HUIYUAN_ZFCG_GONGYINGINFO.DANWEIGUID=HUIYUAN_UNITCOMINFO.DANWEIGUID   
+		<isNotNull prepend="AND" property="status">
+			<isEqual property="status" compareValue="1">
+				AUDITSTATUS=#status#
+			</isEqual>
+			<isEqual property="status" compareValue="2">
+				AUDITSTATUS=#status#
+			</isEqual>
+			<isEqual property="status" compareValue="3">
+				AUDITSTATUS=#status#
+			</isEqual>
+			<isEqual property="status" compareValue="4">
+				AUDITSTATUS=#status#
+			</isEqual>
+			<isEqual property="status" compareValue="5">
+				AUDITSTATUS=#status#
+			</isEqual>
+			<isEqual property="status" compareValue="6">
+				AUDITSTATUS=#status#
+			</isEqual>
+			<isEqual property="status" compareValue="7">
+				AUDITSTATUS=#status#
+			</isEqual>
+			<isEqual property="status" compareValue="blackunit">
+				exists (select HUIYUAN_UNITBLACK.DANWEIGUID from HUIYUAN_UNITBLACK where HUIYUAN_UNITBLACK.DANWEIGUID=HUIYUAN_UNITCOMINFO.DANWEIGUID)
+			</isEqual>
+			<isEqual property="status" compareValue="blackpeople">
+				exists (select HUIYUAN_PEOPLEBLACK.DANWEIGUID from HUIYUAN_PEOPLEBLACK where HUIYUAN_PEOPLEBLACK.DANWEIGUID=HUIYUAN_UNITCOMINFO.DANWEIGUID)
+			</isEqual>
+			<isEqual property="status" compareValue="all">
+				1=1
+			</isEqual>
+		</isNotNull>
+		<isNotNull prepend="AND" property="zcText1">
+			STATUSCODE=#zcText1#
+		</isNotNull>
+   order by HUIYUAN_UNITCOMINFO.DANWEINAME desc
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterClass="java.lang.String" > 
+    delete from HUIYUAN_UNITCOMINFO
+    where DANWEIGUID = #value#
+  </delete>
+  <insert id="insert" parameterClass="com.ufgov.zc.common.zc.model.HuiyuanUnitcominfo" > 
+    insert into HUIYUAN_UNITCOMINFO (DANWEIGUID, DANWEINAME, AREACODE, 
+      AREANAME, UNITORGNUM, COMPANYTYPE, 
+      CHENLITIME, FAREN, FARENZHIWU, 
+      FARENZHICHENG, WEBADDRESS, FARENTEL, 
+      LICENCENUM, ZHUCEZIBEN, ZHUCETYPE, 
+      ZHUCEADDRESS, JINYINGFANWEI, YINGYEQIXIANFROM, 
+      YINGYEQIXIANTO, COMPANYDES, BUILDDATE, 
+      MAINITEM, MIANPRODUCT, ASSISTANTITEM, 
+      ASSISTANTPRODUCT, GUOSHUINO, DISHUINO, 
+      FARENLICENCENUM, ENGLISHNAME, UNITJIANCHENG, 
+      DENGJIJIGUAN, QIYESHEBAOHAO, NIANJIANJIEGUO, 
+      DANWEITYPE)
+    values (#danweiguid:VARCHAR#, #danweiname:VARCHAR#, #areacode:VARCHAR#, 
+      #areaname:VARCHAR#, #unitorgnum:VARCHAR#, #companytype:VARCHAR#, 
+      #chenlitime:DATE#, #faren:VARCHAR#, #farenzhiwu:VARCHAR#, 
+      #farenzhicheng:VARCHAR#, #webaddress:VARCHAR#, #farentel:VARCHAR#, 
+      #licencenum:VARCHAR#, #zhuceziben:DECIMAL#, #zhucetype:VARCHAR#, 
+      #zhuceaddress:VARCHAR#, #jinyingfanwei:VARCHAR#, #yingyeqixianfrom:DATE#, 
+      #yingyeqixianto:DATE#, #companydes,handler=org.springframework.orm.ibatis.support.ClobStringTypeHandler#, #builddate:DATE#, 
+      #mainitem:VARCHAR#, #mianproduct:VARCHAR#, #assistantitem:VARCHAR#, 
+      #assistantproduct:VARCHAR#, #guoshuino:VARCHAR#, #dishuino:VARCHAR#, 
+      #farenlicencenum:VARCHAR#, #englishname:VARCHAR#, #unitjiancheng:VARCHAR#, 
+      #dengjijiguan:VARCHAR#, #qiyeshebaohao:VARCHAR#, #nianjianjieguo:VARCHAR#, 
+      #danweitype:VARCHAR#)
+  </insert> 
+  <update id="updateByPrimaryKey" parameterClass="com.ufgov.zc.common.zc.model.HuiyuanUnitcominfo" > 
+    update HUIYUAN_UNITCOMINFO
+    set DANWEINAME = #danweiname:VARCHAR#,
+      AREACODE = #areacode:VARCHAR#,
+      AREANAME = #areaname:VARCHAR#,
+      UNITORGNUM = #unitorgnum:VARCHAR#,
+      COMPANYTYPE = #companytype:VARCHAR#,
+      CHENLITIME = #chenlitime:DATE#,
+      FAREN = #faren:VARCHAR#,
+      FARENZHIWU = #farenzhiwu:VARCHAR#,
+      FARENZHICHENG = #farenzhicheng:VARCHAR#,
+      WEBADDRESS = #webaddress:VARCHAR#,
+      FARENTEL = #farentel:VARCHAR#,
+      LICENCENUM = #licencenum:VARCHAR#,
+      ZHUCEZIBEN = #zhuceziben:DECIMAL#,
+      ZHUCETYPE = #zhucetype:VARCHAR#,
+      ZHUCEADDRESS = #zhuceaddress:VARCHAR#,
+      JINYINGFANWEI = #jinyingfanwei:VARCHAR#,
+      YINGYEQIXIANFROM = #yingyeqixianfrom:DATE#,
+      YINGYEQIXIANTO = #yingyeqixianto:DATE#,
+      COMPANYDES = #companydes:VARCHAR#,
+      BUILDDATE = #builddate:DATE#,
+      MAINITEM = #mainitem:VARCHAR#,
+      MIANPRODUCT = #mianproduct:VARCHAR#,
+      ASSISTANTITEM = #assistantitem:VARCHAR#,
+      ASSISTANTPRODUCT = #assistantproduct:VARCHAR#,
+      GUOSHUINO = #guoshuino:VARCHAR#,
+      DISHUINO = #dishuino:VARCHAR#,
+      FARENLICENCENUM = #farenlicencenum:VARCHAR#,
+      ENGLISHNAME = #englishname:VARCHAR#,
+      UNITJIANCHENG = #unitjiancheng:VARCHAR#,
+      DENGJIJIGUAN = #dengjijiguan:VARCHAR#,
+      QIYESHEBAOHAO = #qiyeshebaohao:VARCHAR#,
+      NIANJIANJIEGUO = #nianjianjieguo:VARCHAR#,
+      DANWEITYPE = #danweitype:VARCHAR#
+    where DANWEIGUID = #danweiguid:VARCHAR#
+  </update>
+</sqlMap>

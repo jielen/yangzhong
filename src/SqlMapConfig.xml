@@ -292,4 +292,10 @@
      <sqlMap resource="sqlmap/zc/ZC_EB_SUPPLIER_TYPE.xml"/>
      <sqlMap resource="sqlmap/zc/ZcEbZxjjMapper.xml"/>
      <sqlMap resource="sqlmap/zc/ZcEbZxjjHistoryMapper.xml"/>
+     <sqlMap resource="sqlmap/zc/HuiyuanUnitcominfoMapper.xml"/>
+     <sqlMap resource="sqlmap/zc/HuiyuanZfcgGongyinginfoMapper.xml"/>
+     <sqlMap resource="sqlmap/zc/HuiyuanUserMapper.xml"/>
+     <sqlMap resource="sqlmap/zc/HuiyuanUnitblackMapper.xml"/>
+     <sqlMap resource="sqlmap/zc/HuiyuanPeopleblackMapper.xml"/>
+     
 </sqlMapConfig>

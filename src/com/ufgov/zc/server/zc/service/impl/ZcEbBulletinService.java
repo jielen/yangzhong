@@ -411,7 +411,7 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
   public String importTransData(Object o, RequestMeta meta) {
     this.isDataChange = true;
     ZcEbBulletin tin = (ZcEbBulletin) o;
-    zcEbProjService.delete(tin.getProjCode());
+    zcEbProjService.deleteFN(tin.getProjCode());
     delete(tin);
     zcEbProjService.insertZcEbProjHasProjCode(tin.getZcEbProj());
     zcEbBulletinDao.insert(tin);
