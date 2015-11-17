@@ -5,6 +5,7 @@ package com.ufgov.zc.client.zc.huiyuan;
 
 import java.awt.BorderLayout;
 import java.awt.Dialog;
+import java.awt.Dimension;
 import java.awt.Window;
 import java.util.List;
 
@@ -30,12 +31,14 @@ public class HuiyuanUserDialog  extends GkBaseDialog {
 
     setLayout(new BorderLayout());
 
+//    editPanel.setPreferredSize(new Dimension(1000, 600));
     add(editPanel);
 
     this.setTitle(LangTransMeta.translate("HUIYUAN_USER"));
 
-    this.setSize(UIConstants.DIALOG_0_LEVEL_WIDTH, UIConstants.DIALOG_0_LEVEL_HEIGHT);
+//    this.setSize(UIConstants.DIALOG_0_LEVEL_WIDTH, UIConstants.DIALOG_0_LEVEL_HEIGHT);
 
+    setSize(1000, 600);
     this.moveToScreenCenter();
 
     this.pack();

@@ -145,7 +145,7 @@ private AbstractDataDisplay createDataDisplay(List<TableDisplay> showingDisplays
 
   return new DataDisplay(SearchConditionUtil.getAllTableDisplay(HuiyuanZfcgGongyinginfo.TAB_ID), showingDisplays,
 
-  createTopConditionArea(), true);//true:显示收索条件区 false：不显示收索条件区
+  createTopConditionArea(),false);//true:显示收索条件区 false：不显示收索条件区
 
 }
 private AbstractSearchConditionArea topSearchConditionArea;

@@ -8,6 +8,7 @@ import java.util.List;
 import com.ufgov.zc.common.system.Publishable;
 import com.ufgov.zc.common.system.RequestMeta;
 import com.ufgov.zc.common.system.dto.ElementConditionDto;
+import com.ufgov.zc.common.zc.model.HuiyuanUnitcominfo;
 import com.ufgov.zc.common.zc.model.HuiyuanUser;
 
 /**
@@ -36,4 +37,6 @@ public interface IHuiyuanUserDelegate extends Publishable {
   HuiyuanUser newCommitFN(HuiyuanUser unit, RequestMeta requestMeta);
 
   HuiyuanUser callbackFN(HuiyuanUser unit, RequestMeta requestMeta);
+  
+  HuiyuanUser upateAccountStatusFN(HuiyuanUser unit, RequestMeta requestMeta);
 }

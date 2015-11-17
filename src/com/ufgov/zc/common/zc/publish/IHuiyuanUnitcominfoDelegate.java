@@ -36,4 +36,6 @@ public interface IHuiyuanUnitcominfoDelegate extends Publishable {
 
   HuiyuanUnitcominfo callbackFN(HuiyuanUnitcominfo unit, RequestMeta requestMeta);
 
+  HuiyuanUnitcominfo upateAccountStatusFN(HuiyuanUnitcominfo inData, RequestMeta requestMeta);
+
 }

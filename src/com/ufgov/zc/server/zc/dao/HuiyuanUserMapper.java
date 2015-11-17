@@ -1,5 +1,6 @@
 package com.ufgov.zc.server.zc.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.ufgov.zc.common.system.dto.ElementConditionDto;
@@ -64,5 +65,7 @@ public interface HuiyuanUserMapper {
     
     List getMainDataLst(ElementConditionDto elementConditionDto);
     
-    void updateAuditStatusFN(HuiyuanUser record);
+    void updateAuditStatusFN(HuiyuanUser record); 
+    
+    void updateUserLogin(HashMap map);
 }

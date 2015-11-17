@@ -27,4 +27,6 @@ public interface IHuiyuanUserService {
   HuiyuanUser callbackFN(HuiyuanUser unit, RequestMeta requestMeta);
   
   HuiyuanUser updateAuditStatusFN(HuiyuanUser record, RequestMeta requestMeta);
+
+  HuiyuanUser upateAccountStatusFN(HuiyuanUser unit, RequestMeta requestMeta);
 }

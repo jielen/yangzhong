@@ -81,6 +81,7 @@ import com.ufgov.zc.common.zc.model.HuiyuanUnitcominfo;
 import com.ufgov.zc.common.zc.model.HuiyuanUser;
 import com.ufgov.zc.common.zc.model.HuiyuanZfcgGongyinginfo;
 import com.ufgov.zc.common.zc.model.ZcBaseBill;
+import com.ufgov.zc.common.zc.model.ZcQx;
 import com.ufgov.zc.common.zc.publish.IHuiyuanPeopleblackDelegate;
 import com.ufgov.zc.common.zc.publish.IHuiyuanUnitblackDelegate;
 import com.ufgov.zc.common.zc.publish.IHuiyuanUnitcominfoDelegate;
@@ -141,6 +142,12 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
   protected FuncButton funpassBtn = new CommonButton("funpass", null);
   //作废
   protected FuncButton fdestroyBtn = new CommonButton("fdestroy", null);
+  //注销
+  protected FuncButton fzhuxiaoBtn = new CommonButton("fzhuxiao", null);
+  //启用
+  protected FuncButton fqiyongBtn = new CommonButton("fqiyong", null);
+  //暂停
+  protected FuncButton fzantingBtn = new CommonButton("fzanting", null);
 
   protected ListCursor<HuiyuanUnitcominfo> listCursor;
 
@@ -152,7 +159,9 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
 
   protected GkBaseDialog parent; 
 
-  private ArrayList<ButtonStatus> btnStatusList = new ArrayList<ButtonStatus>();
+  private ArrayList<ButtonStatus> auditBtnStatusList = new ArrayList<ButtonStatus>();
+  
+  private ArrayList<ButtonStatus> accountBtnStatusList = new ArrayList<ButtonStatus>();
 
   private BillElementMeta mainBillElementMetaZfcg = BillElementMeta.getBillElementMetaWithoutNd("HUIYUAN_ZFCG_GONGYINGINFO"); 
   private BillElementMeta mainBillElementMetaUnit = BillElementMeta.getBillElementMetaWithoutNd("HUIYUAN_UNITCOMINFO"); 
@@ -290,7 +299,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
     } else {
       for (AbstractFieldEditor editor : fieldEditors) {
         if (pageStatus.equals(ZcSettingConstants.PAGE_STATUS_EDIT) || pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW)) {
-          if ("zfcgGysInfo.auditstatus".equals(editor.getFieldName())) {
+          if ("zfcgGysInfo.auditstatus".equals(editor.getFieldName())||"zfcgGysInfo.statuscode".equals(editor.getFieldName())) {
             editor.setEnabled(false);
           } else {
             editor.setEnabled(true);
@@ -311,7 +320,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
   private void setDefaultValue(HuiyuanUnitcominfo qx) {
     // TODO Auto-generated method stub
     qx.getZfcgGysInfo().setAuditstatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_DRAFT);
-    qx.getZfcgGysInfo().setStatuscode(ZcSettingConstants.HUI_YUAN_ACCOUNT_STATUS_QI_YONG);
+    qx.getZfcgGysInfo().setStatuscode(ZcSettingConstants.HUI_YUAN_ACCOUNT_STATUS_ZAN_TING);
     qx.setDanweitype(ZcSettingConstants.V_HUI_YUAN_DAN_WEI_TYPE_GONG_YING_SHANG);
  /*   qx.setStatus(ZcSettingConstants.WF_STATUS_DRAFT);
     qx.setNd(this.requestMeta.getSvNd());
@@ -334,165 +343,157 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
       setButtonStatus(qx, requestMeta, this.listCursor);
     }
   }
+  public void setButtonStatusWithoutWf(){
+    setAuditBtnStatus();
+    setAccountBtnStatus();
+  }
 
-  public void setButtonStatusWithoutWf() {
+  /**
+   * 设置审核相关按钮状态s
+   */
+  private void setAuditBtnStatus() {
 
-    if (this.btnStatusList.size() == 0) {
+    if (this.auditBtnStatusList.size() == 0) {
 
       ButtonStatus bs = new ButtonStatus();
 
       bs.setButton(this.addButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs);
-
+      auditBtnStatusList.add(bs);
+      
+      bs = new ButtonStatus();
       bs.setButton(this.editButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs);
+      auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
-      bs.setButton(this.saveButton);
-      
+      bs.setButton(this.saveButton);      
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_EDIT);      
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_NEW);      
       bs.addPageStatus(ZcSettingConstants.BILL_STATUS_ALL);
 
-      btnStatusList.add(bs);
-
+      auditBtnStatusList.add(bs);
       bs = new ButtonStatus();
       bs.setButton(this.deleteButton);      
-      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);   
-      bs.addPageStatus(ZcSettingConstants.BILL_STATUS_ALL);
-      btnStatusList.add(bs);
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE); 
+      bs.addBillStatus("1");//编辑中
+      bs.addBillStatus("2");//待审核
+      auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.exitButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_ALL);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs);
+      auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.sendButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_EDIT);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs);
+      auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.suggestPassButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs);
+      auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.callbackButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs);
+      auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.unAuditButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs);
+      auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.unTreadButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.printButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs); 
+      auditBtnStatusList.add(bs); 
+      
       //----
-
-
       bs = new ButtonStatus();
-
       bs.setButton(this.fpassBtn);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
-      bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs); 
+      bs.addBillStatus("1");//编辑中
+      bs.addBillStatus("2");//待审核
+      bs.addBillStatus("4");//审核不通过
+      bs.addBillStatus("5");//作废
+      bs.addBillStatus("7");//退回
+      auditBtnStatusList.add(bs); 
 
       bs = new ButtonStatus();
-
       bs.setButton(this.funpassBtn);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
-      bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs); 
+      bs.addBillStatus("1");//编辑中
+      bs.addBillStatus("2");//待审核 
+      auditBtnStatusList.add(bs); 
 
       bs = new ButtonStatus();
-
       bs.setButton(this.fdestroyBtn);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
-      bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs); 
+      bs.addBillStatus("1");//编辑中
+      auditBtnStatusList.add(bs); 
 
       bs = new ButtonStatus();
-
       bs.setButton(this.frebackBtn);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
-      bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs);  
-
+      bs.addBillStatus("1");//编辑中
+      auditBtnStatusList.add(bs); 
     }
 
     HuiyuanUnitcominfo qx = (HuiyuanUnitcominfo) this.listCursor.getCurrentObject();
-
     String billStatus = qx.getZfcgGysInfo().getAuditstatus();
+    ZcUtil.setButtonEnable(this.auditBtnStatusList, billStatus, this.pageStatus, getCompoId(), qx.getProcessInstId());
+  }
+  /**
+   * 设置审核相关按钮状态s
+   */
+  private void setAccountBtnStatus() {
 
-    ZcUtil.setButtonEnable(this.btnStatusList, billStatus, this.pageStatus, getCompoId(), qx.getProcessInstId());
+    if (this.accountBtnStatusList.size() == 0) {
 
+      ButtonStatus bs = new ButtonStatus(); 
+      //----
+      bs = new ButtonStatus();
+      bs.setButton(this.fqiyongBtn);
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
+      bs.addBillStatus("1");//注销 
+      bs.addBillStatus("3");//暂停
+      bs.addBillStatus("4");//处罚中 
+      accountBtnStatusList.add(bs); 
+
+      bs = new ButtonStatus();
+      bs.setButton(this.fzantingBtn);
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE); 
+      bs.addBillStatus("2");//启用 
+      accountBtnStatusList.add(bs); 
+
+      bs = new ButtonStatus();
+      bs.setButton(this.fzhuxiaoBtn);
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE); 
+      bs.addBillStatus("2");//启用
+      bs.addBillStatus("3");//暂停
+      bs.addBillStatus("4");//处罚中 
+      accountBtnStatusList.add(bs);  
+    }
+
+    HuiyuanUnitcominfo qx = (HuiyuanUnitcominfo) this.listCursor.getCurrentObject();
+    String billStatus = qx.getZfcgGysInfo().getStatuscode();
+    ZcUtil.setButtonEnable(this.accountBtnStatusList, billStatus, this.pageStatus, getCompoId(), qx.getProcessInstId());
   }
 
   protected void setOldObject() {
@@ -508,7 +509,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
     HuiyuanUnitcominfoToTableModelConverter convert=new HuiyuanUnitcominfoToTableModelConverter();
     userTablePanel.setTableModel(convert.convertUserTableData(qx.getUserLst()));
     unitBlackTablePanel.setTableModel(convert.convertUnitBlackTableData(qx.getUnitBlackLst()));
-    
+    peopleBlackTablePanel.setTableModel(convert.convertPeopleBlackTableData(qx.getPeopleBlackLst()));
   }
 
   protected void hideCol(JTable table, String colName) {
@@ -567,11 +568,44 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
     
     toolBar.add(fpassBtn);
     toolBar.add(funpassBtn);
-    toolBar.add(frebackBtn);
-    toolBar.add(fdestroyBtn);
+//    toolBar.add(frebackBtn);
+//    toolBar.add(fdestroyBtn);
     toolBar.add(deleteButton);
+    toolBar.add(fqiyongBtn);
+    toolBar.add(fzantingBtn);
+    toolBar.add(fzhuxiaoBtn);
 
     toolBar.add(exitButton);
+
+    fzhuxiaoBtn.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+
+        doZhuxiao();
+
+      }
+
+    }); 
+
+    fzantingBtn.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+
+        doZanting();
+
+      }
+
+    }); 
+
+    fqiyongBtn.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+
+        doQiyong();
+
+      }
+
+    }); 
 
     fpassBtn.addActionListener(new ActionListener() {
 
@@ -749,9 +783,66 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
       }
 
     });
+  } 
+
+  protected void doQiyong() { 
+    HuiyuanUnitcominfo inData = (HuiyuanUnitcominfo) this.listCursor.getCurrentObject();
+    if(!inData.getZfcgGysInfo().getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)){
+      JOptionPane.showMessageDialog(this, "只有审核通过的供应商才可以启用！", "提示", JOptionPane.INFORMATION_MESSAGE);
+      return;
+    }
+    updateAccountStatus("启用",fqiyongBtn);
   }
- 
- 
+
+  private void updateAccountStatus(String opreation,FuncButton btn) {
+    // TODO Auto-generated method stub
+    int num = JOptionPane.showConfirmDialog(this, "确定要"+opreation+"吗?" , opreation+"确认", 0);
+
+    if (num == JOptionPane.NO_OPTION)
+    {
+      return;
+    }
+      
+    boolean success = true; 
+    String errorInfo = ""; 
+    HuiyuanUnitcominfo inData = (HuiyuanUnitcominfo) this.listCursor.getCurrentObject();
+    try {
+      requestMeta.setFuncId(btn.getFuncId()); 
+      HuiyuanUnitcominfo qx = huiyuanUnitcominfoServiceDelegate.upateAccountStatusFN(inData, this.requestMeta);
+      listCursor.setCurrentObject(qx);
+    } catch (Exception e) {
+      logger.error(e.getMessage(), e);
+      success = false;
+      errorInfo += e.getMessage();
+    }
+    if (success) {
+      JOptionPane.showMessageDialog(this, opreation+"成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+      refreshData();
+      this.listPanel.refreshCurrentTabData();
+    } else {
+      JOptionPane.showMessageDialog(this, opreation+"失败 ！\n" + errorInfo, "错误", JOptionPane.ERROR_MESSAGE);
+    }
+  }
+
+  protected void doZanting() {
+    // TODO Auto-generated method stub
+    HuiyuanUnitcominfo inData = (HuiyuanUnitcominfo) this.listCursor.getCurrentObject();
+    if(!inData.getZfcgGysInfo().getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)){
+      JOptionPane.showMessageDialog(this, "只有审核通过的供应商才可以暂停！", "提示", JOptionPane.INFORMATION_MESSAGE);
+      return;
+    }
+    updateAccountStatus("暂停",fzantingBtn);    
+  }
+
+  protected void doZhuxiao() {
+    // TODO Auto-generated method stub
+    HuiyuanUnitcominfo inData = (HuiyuanUnitcominfo) this.listCursor.getCurrentObject();
+    if(!inData.getZfcgGysInfo().getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)){
+      JOptionPane.showMessageDialog(this, "只有审核通过的供应商才可以注销！", "提示", JOptionPane.INFORMATION_MESSAGE);
+      return;
+    }
+    updateAccountStatus("注销",fzhuxiaoBtn);
+  }
 
   protected void doDestroy() {
     // TODO Auto-generated method stub
@@ -1032,7 +1123,30 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
   
 
   protected void doDelete() {
-    updateAuditStatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_DELETE);
+    requestMeta.setFuncId(deleteButton.getFuncId());
+    HuiyuanUnitcominfo qx = (HuiyuanUnitcominfo) this.listCursor.getCurrentObject();
+
+    int num = JOptionPane.showConfirmDialog(this, "是否删除吗", "删除确认", 0);
+    if (num == JOptionPane.YES_OPTION) {
+      boolean success = true;
+      String errorInfo = "";
+      try {
+        requestMeta.setFuncId(deleteButton.getFuncId());
+        huiyuanUnitcominfoServiceDelegate.deleteByPrimaryKeyFN(qx.getDanweiguid(), this.requestMeta);
+      } catch (Exception e) {
+        logger.error(e.getMessage(), e);
+        success = false;
+        errorInfo += e.getMessage();
+      }
+
+      if (success) { 
+        JOptionPane.showMessageDialog(this, "删除成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+        this.listPanel.refreshCurrentTabData();
+        parent.closeDialog();
+      } else {
+        JOptionPane.showMessageDialog(this, "删除失败 ！\n" + errorInfo, "错误", JOptionPane.ERROR_MESSAGE);
+      }
+    }
   }
 
   /*
@@ -1539,8 +1653,8 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
     
     tb.addTab("其他信息",js);
     tb.addTab("用户信息",userTablePanel);
-    tb.addTab("单位不良情况",unitBlackTablePanel);
-    tb.addTab("个人不良情况",peopleBlackTablePanel); 
+    tb.addTab("单位不良行为记录",unitBlackTablePanel);
+    tb.addTab("个人不良行为记录",peopleBlackTablePanel); 
    
     return tb;
   }
@@ -1577,6 +1691,10 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
         if(unit.getDanweiguid()==null || unit.getDanweiguid().trim().length()==0){
           JOptionPane.showMessageDialog(self, "请先保存供应商的单位信息后，再添加单位人员的不良行为.", "提示", JOptionPane.INFORMATION_MESSAGE);
           return;
+        }
+        if(!unit.getZfcgGysInfo().getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)){
+          JOptionPane.showMessageDialog(self, "只有审核通过供应商信息后，才可以添加其单位人员的不良行为.", "提示", JOptionPane.INFORMATION_MESSAGE);
+          return;          
         }
         HuiyuanPeopleblack peopleBlack=new HuiyuanPeopleblack();
         peopleBlack.setDanweiguid(unit.getDanweiguid());
@@ -1635,6 +1753,10 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
         if(unit.getDanweiguid()==null || unit.getDanweiguid().trim().length()==0){
           JOptionPane.showMessageDialog(self, "请先保存供应商的单位信息后，再添加本单位的不良行为.", "提示", JOptionPane.INFORMATION_MESSAGE);
           return;
+        }
+        if(!unit.getZfcgGysInfo().getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)){
+          JOptionPane.showMessageDialog(self, "只有审核通过供应商信息后，才可以添加其单位的不良行为.", "提示", JOptionPane.INFORMATION_MESSAGE);
+          return;          
         }
         HuiyuanUnitblack unitBlack=new HuiyuanUnitblack();
         unitBlack.setDanweiguid(unit.getDanweiguid());
@@ -1695,6 +1817,14 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
         if(unit.getDanweiguid()==null || unit.getDanweiguid().trim().length()==0){
           JOptionPane.showMessageDialog(self, "请先保存供应商的单位信息后，再添加本单位的用户.", "提示", JOptionPane.INFORMATION_MESSAGE);
           return;
+        }
+        if(!unit.getZfcgGysInfo().getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)){
+          JOptionPane.showMessageDialog(self, "只有审核通过供应商信息后，才可以添加其单位人员信息.", "提示", JOptionPane.INFORMATION_MESSAGE);
+          return;          
+        }
+        if(!unit.getZfcgGysInfo().getStatuscode().equals(ZcSettingConstants.HUI_YUAN_ACCOUNT_STATUS_QI_YONG)){
+          JOptionPane.showMessageDialog(self, "只有处于启用状态的供应商，才可以添加其单位人员信息.", "提示", JOptionPane.INFORMATION_MESSAGE);
+          return;          
         }
         HuiyuanUser user=new HuiyuanUser();
         user.setDanweiguid(unit.getDanweiguid());
@@ -1815,5 +1945,10 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
 
   public Window getParentWindow(){
     return parent;
+  }
+  
+  public HuiyuanUnitcominfo getCurHuiyuanUnit(){
+    HuiyuanUnitcominfo unit=(HuiyuanUnitcominfo) this.listCursor.getCurrentObject();
+    return unit;
   }
 }

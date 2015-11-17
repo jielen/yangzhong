@@ -17,6 +17,7 @@ import com.ufgov.zc.common.zc.model.HuiyuanPeopleblack;
 import com.ufgov.zc.common.zc.model.HuiyuanUnitblack;
 import com.ufgov.zc.common.zc.model.HuiyuanUnitcominfo;
 import com.ufgov.zc.common.zc.model.HuiyuanUser;
+import com.ufgov.zc.common.zc.model.HuiyuanZfcgGongyinginfo;
 import com.ufgov.zc.common.zc.model.HuiyuanZfcgGongyingzizhi;
 
 /**
@@ -32,14 +33,15 @@ public class HuiyuanUnitcominfoToTableModelConverter {
     Vector names = new Vector();
     Vector values = new Vector();
     names.add(LangTransMeta.translate(HuiyuanUnitcominfo.COL_DANWEINAME));
-//    names.add(LangTransMeta.translate(HuiyuanZfcgGongyinginfo.COL_AUDITSTATUS));  
-
+    names.add(LangTransMeta.translate(HuiyuanZfcgGongyinginfo.COL_AUDITSTATUS));
+    names.add(LangTransMeta.translate(HuiyuanZfcgGongyinginfo.COL_STATUSCODE));
     if (mainDataLst != null && mainDataLst.size() > 0) {
       for (int i = 0; i < mainDataLst.size(); i++) {
         Vector rowData = new Vector();
         HuiyuanUnitcominfo qx = (HuiyuanUnitcominfo) mainDataLst.get(i);
         rowData.add(qx.getDanweiname());
-//        rowData.add(AsValDataCache.getName(qx.getZfcgGysInfo().getAuditstatus(),ZcSettingConstants.HUI_YUAN_AUDIT_STATUS)); 
+        rowData.add(AsValDataCache.getName(ZcSettingConstants.V_HUI_YUAN_AUDIT_STATUS,qx.getZfcgGysInfo().getAuditstatus())); 
+        rowData.add(AsValDataCache.getName(ZcSettingConstants.V_HUI_YUAN_ACCOUNT_STATUS,qx.getZfcgGysInfo().getStatuscode())); 
         values.add(rowData);
       }
     }
@@ -71,8 +73,8 @@ public class HuiyuanUnitcominfoToTableModelConverter {
     MyTableModel tableModel = null;
     Vector names = new Vector();
     Vector values = new Vector();
-    names.add(LangTransMeta.translate(HuiyuanUser.COL_LOGINID));
     names.add(LangTransMeta.translate(HuiyuanUser.COL_DISPLAYNAME));
+    names.add(LangTransMeta.translate(HuiyuanUser.COL_DOGNUM));
     names.add(LangTransMeta.translate(HuiyuanUser.COL_COMPANYPHONE));
     names.add(LangTransMeta.translate(HuiyuanUser.COL_MOBILEPHONE));
     names.add(LangTransMeta.translate(HuiyuanUser.COL_AUDITSTATUS));
@@ -83,8 +85,8 @@ public class HuiyuanUnitcominfoToTableModelConverter {
       for (int i = 0; i < userLst.size(); i++) {
         Vector rowData = new Vector();
         HuiyuanUser qx = (HuiyuanUser) userLst.get(i);
-        rowData.add(qx.getLoginid());
         rowData.add(qx.getDisplayname());
+        rowData.add(qx.getDognum());
         rowData.add(qx.getCompanyphone());
         rowData.add(qx.getMobilephone());
         rowData.add(AsValDataCache.getName(ZcSettingConstants.V_HUI_YUAN_AUDIT_STATUS,qx.getAuditstatus())); 

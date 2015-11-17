@@ -2090,6 +2090,9 @@
 		<property name="huiyuanUnitcominfoMapper" ref="huiyuanUnitcominfoMapper"></property>
 		<property name="huiyuanUserMapper" ref="huiyuanUserMapper"></property>
 		<property name="huiyuanUnitblackMapper" ref="huiyuanUnitblackMapper"></property>
+		<property name="huiyuanPeopleblackMapper" ref="huiyuanPeopleblackMapper"></property>
+		<property name="userService" ref="userService" />
+		<property name="zcEbBaseServiceDao" ref="zcEbBaseServiceDao" />
 	</bean>		
 	<bean id="huiyuanZfcgGongyinginfoMapper" class="com.ufgov.zc.server.zc.dao.ibatis.HuiyuanZfcgGongyinginfoMapperImp"
 		scope="singleton">
@@ -2105,6 +2108,8 @@
 		<property name="workflowDao" ref="workflowDao"></property>
 		<property name="wfEngineAdapter" ref="wfEngineAdapter" />
 		<property name="huiyuanUserMapper" ref="huiyuanUserMapper"></property>
+		<property name="userService" ref="userService" />
+		<property name="zcEbBaseServiceDao" ref="zcEbBaseServiceDao" />
 	</bean>		
 	<bean id="huiyuanUserMapper" class="com.ufgov.zc.server.zc.dao.ibatis.HuiyuanUserMapperImp"
 		scope="singleton">

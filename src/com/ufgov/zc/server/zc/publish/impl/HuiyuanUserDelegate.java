@@ -106,5 +106,10 @@ public class HuiyuanUserDelegate implements IHuiyuanUserDelegate {
   public void setHuiyuanUserService(IHuiyuanUserService huiyuanUserService) {
     this.huiyuanUserService = huiyuanUserService;
   }
+ 
+  public HuiyuanUser upateAccountStatusFN(HuiyuanUser unit, RequestMeta requestMeta) {
+    // TODO Auto-generated method stub
+    return huiyuanUserService.upateAccountStatusFN(unit, requestMeta) ;
+  }
 
 }

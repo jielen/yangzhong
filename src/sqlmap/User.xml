@@ -126,7 +126,7 @@
  
 	<delete id="deleteAsEmpPosiByEmpCode" parameterClass="map">
   
-		delete from AS_EMP_POSITION where EMP_CODE = #EMP_CODE:VARCHAR# and ND = #ND:VARCHAR#
+		delete from AS_EMP_POSITION where EMP_CODE = #EMP_CODE:VARCHAR#  
 	</delete>
 
 	

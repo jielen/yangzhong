@@ -127,6 +127,12 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
   protected FuncButton funpassBtn = new CommonButton("funpass", null);
   //作废
   protected FuncButton fdestroyBtn = new CommonButton("fdestroy", null);
+  //注销
+  protected FuncButton fzhuxiaoBtn = new CommonButton("fzhuxiao", null);
+  //启用
+  protected FuncButton fqiyongBtn = new CommonButton("fqiyong", null);
+  //暂停
+  protected FuncButton fzantingBtn = new CommonButton("fzanting", null);
 
   protected ListCursor<HuiyuanUser> listCursor;
 
@@ -136,7 +142,9 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
   protected GkBaseDialog parent; 
 
-  private ArrayList<ButtonStatus> btnStatusList = new ArrayList<ButtonStatus>();
+  private ArrayList<ButtonStatus> auditBtnStatusList = new ArrayList<ButtonStatus>();
+  
+  private ArrayList<ButtonStatus> accountBtnStatusList = new ArrayList<ButtonStatus>();
 
   private BillElementMeta mainBillElementMeta = BillElementMeta.getBillElementMetaWithoutNd("HUIYUAN_USER");  
  
@@ -252,7 +260,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
     } else {
       for (AbstractFieldEditor editor : fieldEditors) {
         if (pageStatus.equals(ZcSettingConstants.PAGE_STATUS_EDIT) || pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW)) {
-          if ("auditstatus".equals(editor.getFieldName())) {
+          if ("auditstatus".equals(editor.getFieldName())||"statuscode".equals(editor.getFieldName())) {
             editor.setEnabled(false);
           } else {
             editor.setEnabled(true);
@@ -280,7 +288,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
   private void setDefaultValue(HuiyuanUser user) {
     // TODO Auto-generated method stub
     user.setAuditstatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_DRAFT);
-    user.setStatuscode(ZcSettingConstants.HUI_YUAN_ACCOUNT_STATUS_QI_YONG);
+    user.setStatuscode(ZcSettingConstants.HUI_YUAN_ACCOUNT_STATUS_ZAN_TING);
     user.setUsertype("1");//这个用户类型值集不知，数据库需要填，目前默认用1
   }
   /* (non-Javadoc)
@@ -316,15 +324,47 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 //    toolBar.add(previousButton);
 
 //    toolBar.add(nextButton);
-    
+//    
     toolBar.add(fpassBtn);
     toolBar.add(funpassBtn);
-    toolBar.add(frebackBtn);
-    toolBar.add(fdestroyBtn);
+//    toolBar.add(frebackBtn);
+//    toolBar.add(fdestroyBtn);
     toolBar.add(deleteButton);
+    toolBar.add(fqiyongBtn);
+    toolBar.add(fzantingBtn);
+    toolBar.add(fzhuxiaoBtn);
 
     toolBar.add(exitButton);
 
+    fzhuxiaoBtn.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+
+        doZhuxiao();
+
+      }
+
+    }); 
+
+    fzantingBtn.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+
+        doZanting();
+
+      }
+
+    }); 
+
+    fqiyongBtn.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+
+        doQiyong();
+
+      }
+
+    }); 
     fpassBtn.addActionListener(new ActionListener() {
 
       public void actionPerformed(ActionEvent e) {
@@ -776,7 +816,30 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
   
 
   protected void doDelete() {
-    updateAuditStatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_DELETE);
+    requestMeta.setFuncId(deleteButton.getFuncId());
+    HuiyuanUser qx = (HuiyuanUser) this.listCursor.getCurrentObject();
+
+    int num = JOptionPane.showConfirmDialog(this, "是否删除吗", "删除确认", 0);
+    if (num == JOptionPane.YES_OPTION) {
+      boolean success = true;
+      String errorInfo = "";
+      try {
+        requestMeta.setFuncId(deleteButton.getFuncId());
+        huiyuanUserServiceDelegate.deleteByPrimaryKeyFN(qx.getUserguid(), this.requestMeta);
+      } catch (Exception e) {
+        logger.error(e.getMessage(), e);
+        success = false;
+        errorInfo += e.getMessage();
+      }
+
+      if (success) { 
+        JOptionPane.showMessageDialog(this, "删除成功！", "提示", JOptionPane.INFORMATION_MESSAGE); 
+        unitPanel.refreshSubData((HuiyuanUser) this.listCursor.getCurrentObject());
+        parent.closeDialog();
+      } else {
+        JOptionPane.showMessageDialog(this, "删除失败 ！\n" + errorInfo, "错误", JOptionPane.ERROR_MESSAGE);
+      }
+    }
   }
 
   /*
@@ -1121,163 +1184,156 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
   }
 
   public void setButtonStatusWithoutWf() {
+    setAuditBtnStatus();
+    setAccountBtnStatus();
+  }
 
-    if (this.btnStatusList.size() == 0) {
+  /**
+   * 设置审核相关按钮状态s
+   */
+  private void setAuditBtnStatus() {
+
+    if (this.auditBtnStatusList.size() == 0) {
 
       ButtonStatus bs = new ButtonStatus();
 
       bs.setButton(this.addButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs);
-
+      auditBtnStatusList.add(bs);
+      
+      bs = new ButtonStatus();
       bs.setButton(this.editButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs);
+      auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
-      bs.setButton(this.saveButton);
-      
+      bs.setButton(this.saveButton);      
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_EDIT);      
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_NEW);      
       bs.addPageStatus(ZcSettingConstants.BILL_STATUS_ALL);
 
-      btnStatusList.add(bs);
-
+      auditBtnStatusList.add(bs);
       bs = new ButtonStatus();
       bs.setButton(this.deleteButton);      
-      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);   
-      bs.addPageStatus(ZcSettingConstants.BILL_STATUS_ALL);
-      btnStatusList.add(bs);
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE); 
+      bs.addBillStatus("1");//编辑中
+      bs.addBillStatus("2");//待审核
+      auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.exitButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_ALL);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs);
+      auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.sendButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_EDIT);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs);
+      auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.suggestPassButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs);
+      auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.callbackButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs);
+      auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.unAuditButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs);
+      auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.unTreadButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.printButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs); 
+      auditBtnStatusList.add(bs); 
+      
       //----
-
-
       bs = new ButtonStatus();
-
       bs.setButton(this.fpassBtn);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
-      bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs); 
+      bs.addBillStatus("1");//编辑中
+      bs.addBillStatus("2");//待审核
+      bs.addBillStatus("4");//审核不通过
+      bs.addBillStatus("5");//作废
+      bs.addBillStatus("7");//退回
+      auditBtnStatusList.add(bs); 
 
       bs = new ButtonStatus();
-
       bs.setButton(this.funpassBtn);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
-      bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs); 
+      bs.addBillStatus("1");//编辑中
+      bs.addBillStatus("2");//待审核 
+      auditBtnStatusList.add(bs); 
 
       bs = new ButtonStatus();
-
       bs.setButton(this.fdestroyBtn);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
-      bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs); 
+      bs.addBillStatus("1");//编辑中
+      auditBtnStatusList.add(bs); 
 
       bs = new ButtonStatus();
-
       bs.setButton(this.frebackBtn);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
-      bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
-      btnStatusList.add(bs);  
-
+      bs.addBillStatus("1");//编辑中
+      auditBtnStatusList.add(bs); 
     }
 
-    HuiyuanUser user = (HuiyuanUser) this.listCursor.getCurrentObject();
+    HuiyuanUser qx = (HuiyuanUser) this.listCursor.getCurrentObject();
+    String billStatus = qx.getAuditstatus();
+    ZcUtil.setButtonEnable(this.auditBtnStatusList, billStatus, this.pageStatus, getCompoId(), qx.getProcessInstId());
+  }
+  /**
+   * 设置审核相关按钮状态s
+   */
+  private void setAccountBtnStatus() {
 
-    String billStatus = user.getAuditstatus();
+    if (this.accountBtnStatusList.size() == 0) {
 
-    ZcUtil.setButtonEnable(this.btnStatusList, billStatus, this.pageStatus, getCompoId(), user.getProcessInstId());
+      ButtonStatus bs = new ButtonStatus(); 
+      //----
+      bs = new ButtonStatus();
+      bs.setButton(this.fqiyongBtn);
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
+      bs.addBillStatus("1");//注销 
+      bs.addBillStatus("3");//暂停
+      bs.addBillStatus("4");//处罚中 
+      accountBtnStatusList.add(bs); 
 
+      bs = new ButtonStatus();
+      bs.setButton(this.fzantingBtn);
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE); 
+      bs.addBillStatus("2");//启用 
+      accountBtnStatusList.add(bs); 
+
+      bs = new ButtonStatus();
+      bs.setButton(this.fzhuxiaoBtn);
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE); 
+      bs.addBillStatus("2");//启用
+      bs.addBillStatus("3");//暂停
+      bs.addBillStatus("4");//处罚中 
+      accountBtnStatusList.add(bs);  
+    }
+
+    HuiyuanUser qx = (HuiyuanUser) this.listCursor.getCurrentObject();
+    String billStatus = qx.getStatuscode();
+    ZcUtil.setButtonEnable(this.accountBtnStatusList, billStatus, this.pageStatus, getCompoId(), qx.getProcessInstId());
   }
   /* (non-Javadoc)
    * @see com.ufgov.zc.client.component.zc.AbstractMainSubEditPanel#createFieldEditors()
@@ -1309,9 +1365,9 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
     TextAreaFieldEditor userCertSubjectKeyIDAreaField = new TextAreaFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_CERTSUBJECTKEYID), "certsubjectkeyid", 2000, 5, 7);
     
     fieldEditors=new ArrayList<AbstractFieldEditor>();
-    
-    fieldEditors.add(userLoginID);
+
     fieldEditors.add(userDisplayName);
+    fieldEditors.add(userLoginID);
     fieldEditors.add(userAuditStatus);
     fieldEditors.add(userStatusCode);
 
@@ -1347,4 +1403,61 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
     return null;
   }
 
+  protected void doQiyong() { 
+    HuiyuanUser inData = (HuiyuanUser) this.listCursor.getCurrentObject();
+    if(!inData.getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)){
+      JOptionPane.showMessageDialog(this, "只有审核通过的用户才可以启用！", "提示", JOptionPane.INFORMATION_MESSAGE);
+      return;
+    }
+    updateAccountStatus("启用",fqiyongBtn);
+  }
+
+  private void updateAccountStatus(String opreation,FuncButton btn) {
+    // TODO Auto-generated method stub
+    int num = JOptionPane.showConfirmDialog(this, "确定要"+opreation+"吗?" , opreation+"确认", 0);
+    if (num == JOptionPane.NO_OPTION)
+    {
+      return;
+    }
+      
+    boolean success = true; 
+    String errorInfo = ""; 
+    HuiyuanUser inData = (HuiyuanUser) this.listCursor.getCurrentObject();
+    try {
+      requestMeta.setFuncId(btn.getFuncId()); 
+      HuiyuanUser qx = huiyuanUserServiceDelegate.upateAccountStatusFN(inData, this.requestMeta);
+      listCursor.setCurrentObject(qx);
+    } catch (Exception e) {
+      logger.error(e.getMessage(), e);
+      success = false;
+      errorInfo += e.getMessage();
+    }
+    if (success) {
+      JOptionPane.showMessageDialog(this, opreation+"成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+      refreshData();
+      unitPanel.refreshSubData((HuiyuanUser) this.listCursor.getCurrentObject());
+    } else {
+      JOptionPane.showMessageDialog(this, opreation+"失败 ！\n" + errorInfo, "错误", JOptionPane.ERROR_MESSAGE);
+    }
+  }
+
+  protected void doZanting() {
+    // TODO Auto-generated method stub 
+    HuiyuanUser inData = (HuiyuanUser) this.listCursor.getCurrentObject();
+    if(!inData.getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)){
+      JOptionPane.showMessageDialog(this, "只有审核通过的用户才可以暂停！", "提示", JOptionPane.INFORMATION_MESSAGE);
+      return;
+    }
+    updateAccountStatus("暂停",fzantingBtn);    
+  }
+
+  protected void doZhuxiao() {
+    // TODO Auto-generated method stub 
+    HuiyuanUser inData = (HuiyuanUser) this.listCursor.getCurrentObject();
+    if(!inData.getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)){
+      JOptionPane.showMessageDialog(this, "只有审核通过的用户才可以注销！", "提示", JOptionPane.INFORMATION_MESSAGE);
+      return;
+    }
+    updateAccountStatus("注销",fzhuxiaoBtn);
+  }
 }

@@ -38,6 +38,7 @@
     <result column="NIANJIANJIEGUO" property="nianjianjieguo" jdbcType="VARCHAR" />
     <result column="DANWEITYPE" property="danweitype" jdbcType="VARCHAR" />
     <result column="AUDITSTATUS" property="zfcgGysInfo.auditstatus" jdbcType="VARCHAR" />
+    <result column="STATUSCODE" property="zfcgGysInfo.statuscode" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" > 
     DANWEIGUID, DANWEINAME, AREACODE, AREANAME, UNITORGNUM, COMPANYTYPE, CHENLITIME, 
@@ -49,7 +50,8 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterClass="java.lang.String" > 
     select 
     HUIYUAN_UNITCOMINFO.*,
-    HUIYUAN_ZFCG_GONGYINGINFO.AUDITSTATUS
+    HUIYUAN_ZFCG_GONGYINGINFO.AUDITSTATUS,
+    HUIYUAN_ZFCG_GONGYINGINFO.STATUSCODE
     from HUIYUAN_UNITCOMINFO,HUIYUAN_ZFCG_GONGYINGINFO
     where HUIYUAN_ZFCG_GONGYINGINFO.DANWEIGUID=HUIYUAN_UNITCOMINFO.DANWEIGUID   
     and HUIYUAN_UNITCOMINFO.DANWEIGUID = #value#
@@ -59,7 +61,8 @@
   <select id="selectMainDataLst" parameterClass="elementCondition" resultMap="BaseResultMap">
     select 
     HUIYUAN_UNITCOMINFO.*,
-    HUIYUAN_ZFCG_GONGYINGINFO.AUDITSTATUS
+    HUIYUAN_ZFCG_GONGYINGINFO.AUDITSTATUS,
+    HUIYUAN_ZFCG_GONGYINGINFO.STATUSCODE
     from HUIYUAN_UNITCOMINFO,HUIYUAN_ZFCG_GONGYINGINFO
     where HUIYUAN_ZFCG_GONGYINGINFO.DANWEIGUID=HUIYUAN_UNITCOMINFO.DANWEIGUID   
 		<isNotNull prepend="AND" property="status">
@@ -75,14 +78,14 @@
 			<isEqual property="status" compareValue="4">
 				AUDITSTATUS=#status#
 			</isEqual>
-			<isEqual property="status" compareValue="5">
-				AUDITSTATUS=#status#
+			<isEqual property="status" compareValue="qiyong">
+				HUIYUAN_ZFCG_GONGYINGINFO.STATUSCODE='2'
 			</isEqual>
-			<isEqual property="status" compareValue="6">
-				AUDITSTATUS=#status#
+			<isEqual property="status" compareValue="zanting">
+				HUIYUAN_ZFCG_GONGYINGINFO.STATUSCODE='3'
 			</isEqual>
-			<isEqual property="status" compareValue="7">
-				AUDITSTATUS=#status#
+			<isEqual property="status" compareValue="zhuxiao">
+				HUIYUAN_ZFCG_GONGYINGINFO.STATUSCODE='1'
 			</isEqual>
 			<isEqual property="status" compareValue="blackunit">
 				exists (select HUIYUAN_UNITBLACK.DANWEIGUID from HUIYUAN_UNITBLACK where HUIYUAN_UNITBLACK.DANWEIGUID=HUIYUAN_UNITCOMINFO.DANWEIGUID)
@@ -167,4 +170,20 @@
       DANWEITYPE = #danweitype:VARCHAR#
     where DANWEIGUID = #danweiguid:VARCHAR#
   </update>
+  
+  <select id="duplicateUnit" resultMap="BaseResultMap" parameterClass="elementCondition" > 
+    select 
+    HUIYUAN_UNITCOMINFO.*,
+    HUIYUAN_ZFCG_GONGYINGINFO.AUDITSTATUS,
+    HUIYUAN_ZFCG_GONGYINGINFO.STATUSCODE
+    from HUIYUAN_UNITCOMINFO,HUIYUAN_ZFCG_GONGYINGINFO
+    where HUIYUAN_ZFCG_GONGYINGINFO.DANWEIGUID=HUIYUAN_UNITCOMINFO.DANWEIGUID  
+    <isNotNull prepend="and " property="zcText0">
+    (   
+	    	HUIYUAN_UNITCOMINFO.DANWEINAME=#zcText1# 
+	    	or
+	    	HUIYUAN_UNITCOMINFO.UNITORGNUM=#zcText2# 
+    )
+    </isNotNull> 
+  </select>
 </sqlMap>

@@ -1,5 +1,6 @@
 package com.ufgov.zc.server.zc.dao.ibatis;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
@@ -83,5 +84,10 @@ public class HuiyuanUserMapperImp extends SqlMapClientDaoSupport implements Huiy
     return 0;
   }
 
-
+ 
+  public void updateUserLogin(HashMap map) {
+    // TODO Auto-generated method stub
+    getSqlMapClientTemplate().update("com.ufgov.zc.server.zc.dao.HuiyuanUserMapper.updateUserLogin", map);
+  }
+  
 }

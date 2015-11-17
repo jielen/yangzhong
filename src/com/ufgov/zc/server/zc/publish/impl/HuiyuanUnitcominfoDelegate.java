@@ -113,4 +113,10 @@ public class HuiyuanUnitcominfoDelegate implements IHuiyuanUnitcominfoDelegate {
     return huiyuanUnitcominfoService.updateAuditStatusFN(record, requestMeta);
   }
 
+   
+  public HuiyuanUnitcominfo upateAccountStatusFN(HuiyuanUnitcominfo inData, RequestMeta requestMeta) {
+    // TODO Auto-generated method stub
+    return huiyuanUnitcominfoService.upateAccountStatusFN(inData, requestMeta);
+  }
+
 }
