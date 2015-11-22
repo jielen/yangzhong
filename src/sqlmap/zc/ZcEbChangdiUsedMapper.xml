@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.ufgov.zc.server.zc.dao.ZcEbChangdiUsedMapper" >
+	<typeAlias alias="elementCondition" type="com.ufgov.zc.common.system.dto.ElementConditionDto" />
+  <resultMap id="BaseResultMap" class="com.ufgov.zc.common.zc.model.ZcEbChangdiUsed" > 
+    <result column="CHANGDIUSEDID" property="changdiusedid" jdbcType="VARCHAR" />
+    <result column="REQUESTGUID" property="requestguid" jdbcType="VARCHAR" />
+    <result column="CHANGDIGUID" property="changdiguid" jdbcType="VARCHAR" />
+    <result column="CHANGDINAME" property="changdiname" jdbcType="VARCHAR" />
+    <result column="USEDCONTENT" property="usedcontent" jdbcType="VARCHAR" />
+    <result column="STARTDATE" property="startdate" jdbcType="TIMESTAMP" />
+    <result column="ENDDATE" property="enddate" jdbcType="TIMESTAMP" />
+    <result column="REQUESTPEOPLE" property="requestpeople" jdbcType="VARCHAR" />
+    <result column="USEDTYPE" property="usedtype" jdbcType="VARCHAR" />
+    <result column="REQUESTUNIT" property="requestunit" jdbcType="VARCHAR" />
+    <result column="REQUESTPEOPLEGUID" property="requestpeopleguid" jdbcType="VARCHAR" />
+    <result column="REQUESTUNITGUID" property="requestunitguid" jdbcType="VARCHAR" />
+    <result column="PROJCODE" property="projcode" jdbcType="VARCHAR" />
+    <result column="PROJNAME" property="projname" jdbcType="VARCHAR" />
+    <result column="PLANCODE" property="plancode" jdbcType="VARCHAR" />
+    <result column="ND" property="nd" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" > 
+    CHANGDIUSEDID, REQUESTGUID, CHANGDIGUID, USEDCONTENT, STARTDATE, ENDDATE, REQUESTPEOPLE, 
+    USEDTYPE, REQUESTUNIT, REQUESTPEOPLEGUID, REQUESTUNITGUID, ND,CHANGDINAME,PROJCODE,PROJNAME,PLANCODE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterClass="java.lang.String" > 
+    select 
+    <include refid="Base_Column_List" />
+    from ZC_EB_CHANGDI_USED
+    where CHANGDIUSEDID = #changdiusedid:VARCHAR#
+  </select>
+  <select id="selectMainDataLst" resultMap="BaseResultMap" parameterClass="elementCondition" > 
+    select 
+    <include refid="Base_Column_List" />
+    from ZC_EB_CHANGDI_USED    
+	<dynamic prepend="WHERE">  
+	  <isNotEmpty prepend="AND" property="nd"> 
+	  		nd = #nd#  
+	  </isNotEmpty>
+	  <isNotNull prepend="AND" property="status">
+			<isEqual property="status" compareValue="today">
+				<![CDATA[
+					(STARTDATE<=sysDate and ENDDATE>sysDate)
+				]]>			
+			</isEqual>
+			<isEqual property="status" compareValue="will">
+				<![CDATA[
+					STARTDATE>sysDate 
+				]]>
+			</isEqual>	  
+			<isEqual property="status" compareValue="done">
+				<![CDATA[ENDDATE<sysDate]]>
+			</isEqual>	  
+			<isEqual property="status" compareValue="all">
+				1=1
+			</isEqual>	  	  
+	  </isNotNull>
+	</dynamic>  
+	order by STARTDATE desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterClass="java.lang.String" > 
+    delete from ZC_EB_CHANGDI_USED
+    where CHANGDIUSEDID = #changdiusedid:VARCHAR#
+  </delete>
+  <insert id="insert" parameterClass="com.ufgov.zc.common.zc.model.ZcEbChangdiUsed" > 
+    insert into ZC_EB_CHANGDI_USED (CHANGDIUSEDID, REQUESTGUID, CHANGDIGUID, 
+      USEDCONTENT, STARTDATE, ENDDATE, 
+      REQUESTPEOPLE, USEDTYPE, REQUESTUNIT, 
+      REQUESTPEOPLEGUID, REQUESTUNITGUID, ND,CHANGDINAME,PROJCODE,PROJNAME,PLANCODE
+      )
+    values (#changdiusedid:VARCHAR#, #requestguid:VARCHAR#, #changdiguid:VARCHAR#, 
+      #usedcontent:VARCHAR#, #startdate:TIMESTAMP#, #enddate:TIMESTAMP#, 
+      #requestpeople:VARCHAR#, #usedtype:VARCHAR#, #requestunit:VARCHAR#, 
+      #requestpeopleguid:VARCHAR#, #requestunitguid:VARCHAR#, #nd:INTEGER#,#changdiname#,#projcode#,#projname#,#plancode#
+      )
+  </insert> 
+  <update id="updateByPrimaryKey" parameterClass="com.ufgov.zc.common.zc.model.ZcEbChangdiUsed" > 
+    update ZC_EB_CHANGDI_USED
+    set REQUESTGUID = #requestguid:VARCHAR#,
+      CHANGDIGUID = #changdiguid:VARCHAR#,
+      USEDCONTENT = #usedcontent:VARCHAR#,
+      STARTDATE = #startdate:TIMESTAMP#,
+      ENDDATE = #enddate:TIMESTAMP#,
+      REQUESTPEOPLE = #requestpeople:VARCHAR#,
+      USEDTYPE = #usedtype:VARCHAR#,
+      REQUESTUNIT = #requestunit:VARCHAR#,
+      REQUESTPEOPLEGUID = #requestpeopleguid:VARCHAR#,
+      REQUESTUNITGUID = #requestunitguid:VARCHAR#,
+      ND = #nd:INTEGER#,
+      CHANGDINAME=#changdiname#,
+      PROJCODE=#projcode#,
+      PROJNAME=#projname#,
+      PLANCODE=#plancode#
+    where CHANGDIUSEDID = #changdiusedid:VARCHAR#
+  </update>
+</sqlMap>

@@ -31,21 +31,21 @@ public class HuiyuanUserDialog  extends GkBaseDialog {
 
     setLayout(new BorderLayout());
 
-//    editPanel.setPreferredSize(new Dimension(1000, 600));
+    editPanel.setPreferredSize(new Dimension(1000, 450));
     add(editPanel);
 
     this.setTitle(LangTransMeta.translate("HUIYUAN_USER"));
 
 //    this.setSize(UIConstants.DIALOG_0_LEVEL_WIDTH, UIConstants.DIALOG_0_LEVEL_HEIGHT);
 
-    setSize(1000, 600);
+//    setSize(1000, 600);
     this.moveToScreenCenter();
 
     this.pack();
 
     //editPanel.refreshData();s
 
-    this.setMaxSizeWindow();
+//    this.setMaxSizeWindow();
 
     this.setVisible(true);
   }

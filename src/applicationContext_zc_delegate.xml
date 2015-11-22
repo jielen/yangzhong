@@ -418,9 +418,15 @@
 		<property name="huiyuanUnitblackService" ref="huiyuanUnitblackService"></property>
 	</bean>
 
-	<bean id="huiyuanPeopleblackDelegate"
-		class="com.ufgov.zc.server.zc.publish.impl.HuiyuanPeopleblackDelegate"
-		scope="singleton">
+	<bean id="huiyuanPeopleblackDelegate" class="com.ufgov.zc.server.zc.publish.impl.HuiyuanPeopleblackDelegate" scope="singleton">
 		<property name="huiyuanPeopleblackService" ref="huiyuanPeopleblackService"></property>
+	</bean>
+	
+	<bean id="zcEbChangdiServiceDelegate" class="com.ufgov.zc.server.zc.publish.impl.ZcEbChangdiServiceDelegate" scope="singleton">
+		<property name="zcEbChangdiService" ref="zcEbChangdiService"></property>
+	</bean>
+	
+	<bean id="zcEbChangdiUsedServiceDelegate" class="com.ufgov.zc.server.zc.publish.impl.ZcEbChangdiUsedServiceDelegate" scope="singleton">
+		<property name="zcEbChangdiUsedService" ref="zcEbChangdiUsedService"></property>
 	</bean>
 </beans>

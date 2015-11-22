@@ -467,6 +467,8 @@
 
 		<property name="zcEbPlanService" ref="zcEbPlanService" />
 
+		<property name="zcEbZbFileService" ref="zcEbZbFileService" />
+
 	</bean>
 
 	<bean id="zcEbEvalDao" class="com.ufgov.zc.server.zc.dao.ibatis.ZcEbEvalDao"
@@ -2127,14 +2129,26 @@
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>		
 	
-	<bean id="huiyuanPeopleblackService" class="com.ufgov.zc.server.zc.service.impl.HuiyuanPeopleblackService"
-		scope="singleton"> 
+	<bean id="huiyuanPeopleblackService" class="com.ufgov.zc.server.zc.service.impl.HuiyuanPeopleblackService"	scope="singleton"> 
 		<property name="workflowDao" ref="workflowDao"></property>
 		<property name="wfEngineAdapter" ref="wfEngineAdapter" />
 		<property name="huiyuanPeopleblackMapper" ref="huiyuanPeopleblackMapper"></property>
 	</bean>		
-	<bean id="huiyuanPeopleblackMapper" class="com.ufgov.zc.server.zc.dao.ibatis.HuiyuanPeopleblackMapperImp"
-		scope="singleton">
+	<bean id="huiyuanPeopleblackMapper" class="com.ufgov.zc.server.zc.dao.ibatis.HuiyuanPeopleblackMapperImp" scope="singleton">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>			
+	
+	<bean id="zcEbChangdiService" class="com.ufgov.zc.server.zc.service.impl.ZcEbChangdiService" scope="singleton"> 
+		<property name="zcEbChangdiMapper" ref="zcEbChangdiMapper"></property>
+	</bean>		
+	<bean id="zcEbChangdiMapper" class="com.ufgov.zc.server.zc.dao.ibatis.ZcEbChangdiMapperImp"	scope="singleton">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>				
+	
+	<bean id="zcEbChangdiUsedService" class="com.ufgov.zc.server.zc.service.impl.ZcEbChangdiUsedService" scope="singleton"> 
+		<property name="zcEbChangdiUsedMapper" ref="zcEbChangdiUsedMapper"></property>
+	</bean>		
+	<bean id="zcEbChangdiUsedMapper" class="com.ufgov.zc.server.zc.dao.ibatis.ZcEbChangdiUsedMapperImp" scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>	
 </beans>

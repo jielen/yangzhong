@@ -1,12 +1,12 @@
 /**
  * 
  */
-package com.ufgov.zc.client.zc.bulletin.zhaobiao;
+package com.ufgov.zc.client.zc.bulletin.zhaobiao.yz;
 
 import java.awt.Color;
 import java.awt.DefaultKeyboardFocusManager;
-import java.awt.Font;
 import java.awt.Dialog.ModalityType;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -16,9 +16,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +36,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.TableModel;
 
-import org.apache.axis.encoding.ser.BaseDeserializerFactory;
 import org.apache.log4j.Logger;
 
 import com.ufgov.smartclient.common.UIUtilities;
@@ -90,11 +93,13 @@ import com.ufgov.zc.client.zc.ButtonStatus;
 import com.ufgov.zc.client.zc.WordFileUtil;
 import com.ufgov.zc.client.zc.ZcUtil;
 import com.ufgov.zc.client.zc.bulletin.ZcEbBulletinBidEditPanel;
+import com.ufgov.zc.client.zc.changdiUsed.ZcEbChangdiUsedDialog;
 import com.ufgov.zc.client.zc.freemarker.ITemplateToDocumentHandler;
 import com.ufgov.zc.client.zc.freemarker.TemplateToDocumentFactory;
 import com.ufgov.zc.client.zc.notepad.ZcNotepadDialog;
+import com.ufgov.zc.client.zc.ztb.P;
 import com.ufgov.zc.client.zc.ztb.activex.WordPane;
-import com.ufgov.zc.common.commonbiz.model.WfAware;
+import com.ufgov.zc.client.zc.ztb.service.ServerProjectService;
 import com.ufgov.zc.common.commonbiz.publish.IBaseDataServiceDelegate;
 import com.ufgov.zc.common.system.RequestMeta;
 import com.ufgov.zc.common.system.constants.WFConstants;
@@ -105,28 +110,27 @@ import com.ufgov.zc.common.system.exception.BaseException;
 import com.ufgov.zc.common.system.util.DigestUtil;
 import com.ufgov.zc.common.system.util.ObjectUtil;
 import com.ufgov.zc.common.system.util.Utils;
-import com.ufgov.zc.common.zc.ZcEbBulletinConstants;
 import com.ufgov.zc.common.zc.foreignentity.IForeignEntityHandler;
 import com.ufgov.zc.common.zc.model.ZcEbBulletin;
 import com.ufgov.zc.common.zc.model.ZcEbBulletinPack;
 import com.ufgov.zc.common.zc.model.ZcEbBulletinWordMold;
+import com.ufgov.zc.common.zc.model.ZcEbChangdiUsed;
 import com.ufgov.zc.common.zc.model.ZcEbEntrust;
-import com.ufgov.zc.common.zc.model.ZcEbNotice;
 import com.ufgov.zc.common.zc.model.ZcEbPack;
 import com.ufgov.zc.common.zc.model.ZcEbPlan;
 import com.ufgov.zc.common.zc.model.ZcEbProj;
+import com.ufgov.zc.common.zc.model.ZcEbProjFile;
+import com.ufgov.zc.common.zc.model.ZcEbProjZbFile;
 import com.ufgov.zc.common.zc.publish.IZcEbBaseServiceDelegate;
 import com.ufgov.zc.common.zc.publish.IZcEbBulletinServiceDelegate;
 import com.ufgov.zc.common.zc.publish.IZcEbBulletinWordMoldServiceDelegate;
 import com.ufgov.zc.common.zc.publish.IZcEbProjServiceDelegate;
-import com.ufgov.zc.common.zc.publish.IZcEbZbFileServiceDelegate;
 
 /**
- * 招标公告/采购公告
  * @author Administrator
  *
  */
-public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
+public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel {
 
   private static final Logger logger = Logger.getLogger(ZcEbBulletinBidEditPanel.class);
 
@@ -134,20 +138,15 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
   public static final String PATH = ZcUtil.dir + "ht/";
 
-  protected IZcEbBulletinServiceDelegate zcEbBulletinServiceDelegate = (IZcEbBulletinServiceDelegate) ServiceFactory.create(
-    IZcEbBulletinServiceDelegate.class, "zcEbBulletinServiceDelegate");
+  protected IZcEbBulletinServiceDelegate zcEbBulletinServiceDelegate = (IZcEbBulletinServiceDelegate) ServiceFactory.create(IZcEbBulletinServiceDelegate.class, "zcEbBulletinServiceDelegate");
 
-  protected IZcEbProjServiceDelegate zcEbProjServiceDelegate = (IZcEbProjServiceDelegate) ServiceFactory.create(IZcEbProjServiceDelegate.class,
-    "zcEbProjServiceDelegate");
+  protected IZcEbProjServiceDelegate zcEbProjServiceDelegate = (IZcEbProjServiceDelegate) ServiceFactory.create(IZcEbProjServiceDelegate.class,"zcEbProjServiceDelegate");
 
-  IZcEbBaseServiceDelegate zcEbBaseServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class,
-    "zcEbBaseServiceDelegate");
+  IZcEbBaseServiceDelegate zcEbBaseServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class,"zcEbBaseServiceDelegate");
 
-  IBaseDataServiceDelegate baseDataServiceDelegate = (IBaseDataServiceDelegate) ServiceFactory.create(IBaseDataServiceDelegate.class,
-    "baseDataServiceDelegate");
+  IBaseDataServiceDelegate baseDataServiceDelegate = (IBaseDataServiceDelegate) ServiceFactory.create(IBaseDataServiceDelegate.class,"baseDataServiceDelegate");
 
-  private final IZcEbBulletinWordMoldServiceDelegate zcEbBulletinWordMoldServiceDelegate = (IZcEbBulletinWordMoldServiceDelegate) ServiceFactory
-    .create(IZcEbBulletinWordMoldServiceDelegate.class, "zcEbBulletinWordMoldServiceDelegate");
+  private final IZcEbBulletinWordMoldServiceDelegate zcEbBulletinWordMoldServiceDelegate = (IZcEbBulletinWordMoldServiceDelegate) ServiceFactory.create(IZcEbBulletinWordMoldServiceDelegate.class, "zcEbBulletinWordMoldServiceDelegate");
 
   protected IZcEbBulletinServiceDelegate getIZcEbBulletinServiceDelegate() {
     return this.zcEbBulletinServiceDelegate;
@@ -161,7 +160,9 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
   protected String replaceValue = "";
 
-  protected String fileName = "";
+  protected String bulletinWordFileName = "";
+
+  protected String zbWordFileName = "";
 
   protected ListCursor listCursor;
 
@@ -173,19 +174,21 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
   protected boolean ifRePalceBookMark = false;
 
-  protected ZcEbBulletinZhaoBiaoListPanel listPanel;
+  protected ZcEbBulletinZhaoBiaoListPanel_YZ listPanel;
 
-  protected ZcEbBulletinZhaoBiaoEditPanel self = this;
+  protected ZcEbBulletinZhaoBiaoEditPanel_YZ self = this;
 
   protected GkBaseDialog parent;
 
   protected JTabbedPane tabPane = new JTabbedPane();
 
-  protected WordPane wordPane = new WordPane();
+  protected WordPane wordPaneBulletin = new WordPane();
+  
+  protected WordPane wordPaneZbFile = new WordPane();
 
-  private String fileName1 = null;
+//  private String bulletinFileId = null;
 
-  private String fileName2 = null;
+  private String zbFileId = null;
 
   protected FuncButton saveButton = new SaveButton();
 
@@ -252,12 +255,21 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
   protected FuncButton overxxzjButton = new CommonButton("foverxxzj", "save.jpg");
 
   protected FuncButton overxxjjButton = new CommonButton("foverxxjj", "save.jpg");
-
+  
   //显示痕迹
   private final FuncButton viewTrackRevisionsButton = new ViewTrackRevisionsButton();
 
   //隐藏痕迹
   private final FuncButton disTrackRevisionsButton = new DisTrackRevisionsButton();
+  
+  //更新招标文件
+  private FuncButton updateZbFileBtn=new CommonButton("fupdateZbWordFile", null);
+  
+  //预定场地
+  private FuncButton reserveChangdiBtn=new CommonButton("freserveChangdi", null);
+  
+  //生成公告文件
+  private FuncButton buildBulletinBtn=new CommonButton("fbuildBulletin", null);
 
   protected String pageStatus = ZcSettingConstants.PAGE_STATUS_BROWSE;
 
@@ -279,8 +291,8 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
   private static String compoId = "ZC_EB_BULLETIN_BID";
 
-  public ZcEbBulletinZhaoBiaoEditPanel(ZcEbBulletinZhaoBiaoDialog parent, ListCursor listCursor, String tabStatus,
-    ZcEbBulletinZhaoBiaoListPanel listPanel) {
+  public ZcEbBulletinZhaoBiaoEditPanel_YZ(ZcEbBulletinZhaoBiaoDialog_YZ parent, ListCursor listCursor, String tabStatus,
+    ZcEbBulletinZhaoBiaoListPanel_YZ listPanel) {
     super(new ZcEbBulletin(), compoId);
     this.listCursor = listCursor;
     this.tabStatus = tabStatus;
@@ -300,6 +312,9 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
     addSubPane();
     
     refreshMainData();
+    
+//    wordPane2.open("D:\\tortutorial.docx");
+//    wordPane2.open(WordFileUtil.loadMold(AsOptionMeta.getOptVal("OPT_ZC_kongbaiword_FILE_ID")));
 
     //    updateFieldEditorsEditable();
 
@@ -312,9 +327,9 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
   public void refreshData() {
 
-    String fileID = refreshMainData();
+    refreshMainData();
 
-    refreshSubTableData(fileID);
+    refreshSubTableData();
 
     setOldObject();
 
@@ -329,7 +344,24 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
     //下面一句是为了打开word后刷新窗口
     parent.setSize(parent.getSize().width + 1, parent.getSize().height + 1);
 
-    wordPane.addPropertyChangeListener(WordPane.EVENT_NAME_OPEN_CALLBACK, new PropertyChangeListener() {
+    wordPaneBulletin.addPropertyChangeListener(WordPane.EVENT_NAME_OPEN_CALLBACK, new PropertyChangeListener() {
+
+      public void propertyChange(PropertyChangeEvent evt) {
+
+        //打开文件完成之后的回调函数
+        boolean isSuccess = (Boolean) evt.getNewValue();
+
+        if (isSuccess) {
+
+          //下面一句是为了打开word后刷新窗口
+          parent.setSize(parent.getSize().width - 1, parent.getSize().height - 1);
+
+        }
+
+      }
+
+    });
+    wordPaneZbFile.addPropertyChangeListener(WordPane.EVENT_NAME_OPEN_CALLBACK, new PropertyChangeListener() {
 
       public void propertyChange(PropertyChangeEvent evt) {
 
@@ -347,7 +379,8 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
     });
 
-    tabPane.addTab("公告内容", wordPane);
+    tabPane.addTab("公告内容", wordPaneBulletin);
+    tabPane.addTab("招标文件", wordPaneZbFile);
 
   }
   private void setButtonStatus() {
@@ -406,10 +439,10 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
     } else {
       for (AbstractFieldEditor editor : fieldEditors) {
         if (pageStatus.equals(ZcSettingConstants.PAGE_STATUS_EDIT) || pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW)) {
-          if ("projCode".equals(editor.getFieldName())) {
-            editor.setEnabled(true);
-          } else {
+          if ("bulletinStatus".equals(editor.getFieldName()) ||"executeDate".equals(editor.getFieldName())||"bulletinType".equals(editor.getFieldName())) {
             editor.setEnabled(false);
+          } else {
+            editor.setEnabled(true);
           }
         } else {
           editor.setEnabled(false);
@@ -419,7 +452,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
   }
 
-  private String refreshMainData() {
+  private void refreshMainData() {
 
     ZcEbBulletin bulletin = (ZcEbBulletin) listCursor.getCurrentObject();
 
@@ -440,8 +473,8 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
     if (bulletin.getPackList() == null) {
       bulletin.setPackList(new ArrayList());
     }
-    return bulletin.getFileID();
-
+//    bulletinFileId=bulletin.getFileID();
+//    zbFileId=
   }
 
   /**
@@ -454,68 +487,61 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
       ButtonStatus bs = new ButtonStatus();
 
       bs = new ButtonStatus();
-
       bs.setButton(this.editButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
       bs.addBillStatus("0");
-
       btnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.addButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
       btnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.saveButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_EDIT);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_NEW);
-
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-
       btnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.deleteButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus("0");
-
       btnStatusList.add(bs);
 
       bs = new ButtonStatus();
-
       bs.setButton(this.sendButton);
-
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
-
       bs.addBillStatus("0");
-
       btnStatusList.add(bs);
 
       bs = new ButtonStatus();
+      bs.setButton(this.updateZbFileBtn);
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_EDIT);
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_NEW);
+      bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
+      btnStatusList.add(bs);
+
+      bs = new ButtonStatus();
+      bs.setButton(this.reserveChangdiBtn);
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
+      bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
+      btnStatusList.add(bs);
+
+      bs = new ButtonStatus();
+      bs.setButton(this.buildBulletinBtn);
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_EDIT);
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_NEW);
+      bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
+      btnStatusList.add(bs);
     }
 
     ZcEbBulletin bulletin = (ZcEbBulletin) this.listCursor.getCurrentObject();
-
     String billStatus = bulletin.getBulletinStatus();
-
     ZcUtil.setButtonEnable(this.btnStatusList, billStatus, this.pageStatus, this.compoId, bulletin.getProcessInstId());
-
   }
 
   protected void setOldObject() {
@@ -549,6 +575,9 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
     toolBar.add(editButton);
 
     //    toolBar.add(loadMoldButton);
+    
+    toolBar.add(buildBulletinBtn);
+    toolBar.add(updateZbFileBtn);
 
     toolBar.add(saveButton);
 
@@ -582,13 +611,15 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
     //    toolBar.add(sendRecordButton);
 
+    toolBar.add(reserveChangdiBtn);
+    
     toolBar.add(printButton);
 
     //    toolBar.add(viewTrackRevisionsButton);
 
     //    toolBar.add(disTrackRevisionsButton);
 
-    toolBar.add(openNotepadButton);
+//    toolBar.add(openNotepadButton);
 
     //    toolBar.add(overxxjjButton);
     //    toolBar.add(overxxzjButton);
@@ -610,7 +641,22 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
     toolBar.setCompoId(this.compoId);
 
     addButtonMenu(this.tabStatus);
-
+    
+    reserveChangdiBtn.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        doReserveChangdi();
+      }
+    });
+    updateZbFileBtn.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        doUpdateZbFile();
+      }
+    });
+    buildBulletinBtn.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        doBuildBulletin();
+      }
+    });
     saveButton.addActionListener(new ActionListener() {
 
       public void actionPerformed(ActionEvent e) {
@@ -635,7 +681,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
       public void actionPerformed(ActionEvent e) {
 
-        WordFileUtil.doSaveWordFile("采购公告.doc", wordPane, self);
+        WordFileUtil.doSaveWordFile("采购公告.doc", wordPaneBulletin, self);
 
       }
 
@@ -667,7 +713,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
         // 显示痕迹
 
-        wordPane.viewTrackRevisions(true);
+        wordPaneBulletin.viewTrackRevisions(true);
 
         viewTrackRevisionsButton.setVisible(false);
 
@@ -683,7 +729,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
         // 隐藏痕迹
 
-        wordPane.viewTrackRevisions(false);
+        wordPaneBulletin.viewTrackRevisions(false);
 
         viewTrackRevisionsButton.setVisible(true);
 
@@ -902,6 +948,127 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
   }
 
+  protected void doBuildBulletin() {
+    // TODO Auto-generated method stub
+    if(!checkBeforeSave()){
+      return;
+    }
+    
+    ZcEbBulletin bulletin = (ZcEbBulletin) this.listCursor.getCurrentObject();
+    
+    Hashtable userData = new Hashtable();
+    userData.put("bulletin", bulletin);
+    ITemplateToDocumentHandler handler = TemplateToDocumentFactory.getInstance().getHandler(bulletin.getBulletinType());
+    if(handler==null){
+      JOptionPane.showMessageDialog(this.parent, "没有找到招标模版，请手工编制招标公告", "提示", JOptionPane.WARNING_MESSAGE);
+      return;
+    }
+    bulletinWordFileName = handler.createDocumnet(userData);
+    if (wordPaneBulletin != null) {
+      wordPaneBulletin.close(false);
+    }
+    wordPaneBulletin.open(bulletinWordFileName);
+  }
+
+  protected void doUpdateZbFile() {
+    // TODO Auto-generated method stub
+
+    ZcEbBulletin curObj = (ZcEbBulletin) this.listCursor.getCurrentObject();
+    
+    if(!checkBeforeSave()){
+      return ;
+    }
+    
+    if(!completePlan()){
+      return ;
+    }
+    ServerProjectService projectImportService = new ServerProjectService();
+    Map<String, Object> tmp;
+    try {
+      tmp = projectImportService.searchProjectPackDetail(curObj.getProjCode(), null);
+      Map<String, Object> result = (Map<String, Object>) tmp.get("RESULTMAP");
+      if (result == null) {
+        JOptionPane.showMessageDialog(this, "无法获取填充模板的数据 ！", "缺失", JOptionPane.INFORMATION_MESSAGE);
+        return;
+      }
+      Iterator<String> it = result.keySet().iterator();
+      String[] names = new String[result.size()];
+      String[] values = new String[result.size()];
+      int i = 0;
+      SimpleDateFormat sdf = new SimpleDateFormat(ZcSettingConstants.SIMPLE_DATE_FORMAT_FULL);
+      while (it.hasNext()) {
+        String key = it.next();
+        String dataStr = null;
+        Object value = result.get(key);
+        if (value instanceof Date) {
+          dataStr = sdf.format(value);
+          names[i] = key;
+          values[i++] = dataStr;
+          P.p("当前值：" + key + "=" + dataStr);
+          continue;
+        } else if (value instanceof BigDecimal) {
+          dataStr = ((BigDecimal) value).toString();
+          P.p("当前值：" + key + "=" + dataStr);
+          names[i] = key;
+          values[i++] = dataStr;
+          continue;
+        }
+        P.p("当前值：" + key + "=" + result.get(key));
+        names[i] = key;
+        values[i++] = (String) result.get(key);
+      }
+      wordPaneZbFile.replaceBookMarks(names, values);
+      JOptionPane.showMessageDialog(this, "成功更新招标文件 ！", "缺失", JOptionPane.INFORMATION_MESSAGE);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(this, e.getMessage(), "异常", JOptionPane.ERROR_MESSAGE);
+    }    
+  }
+
+  /**
+   * 检查执行计划是否完成
+   * @return
+   */
+  private boolean completePlan() {
+    // TODO Auto-generated method stub
+    ZcEbBulletin curObj = (ZcEbBulletin) this.listCursor.getCurrentObject(); 
+    StringBuffer error=new StringBuffer();
+    if(curObj.getZcEbPlan()==null){
+      JOptionPane.showMessageDialog(this, "请先完善招标执行计划相关信息 ！", "缺失", JOptionPane.INFORMATION_MESSAGE);
+      return false;
+    }
+    if(curObj.getZcEbPlan().getBidEndTime()==null){
+      error.append(LangTransMeta.translate(ZcEbPlan.COL_BID_END_TIME)).append("\n");
+    }
+    if(curObj.getZcEbPlan().getOpenBidTime()==null){
+      error.append(LangTransMeta.translate(ZcEbPlan.COL_OPEN_BID_TIME)).append("\n");
+    }
+    if(curObj.getZcEbPlan().getOpenBidAddress()==null ||curObj.getZcEbPlan().getOpenBidAddress().trim().length()==0){
+      error.append(LangTransMeta.translate(ZcEbPlan.COL_OPEN_BID_ADDRESS)).append("\n");
+    }
+    if(error.length()>0){
+      error.append("不能为空!");
+      JOptionPane.showMessageDialog(this, error.toString(), "缺失", JOptionPane.INFORMATION_MESSAGE);
+      return false;
+    }
+    return true;
+  }
+
+  protected void doReserveChangdi() {
+    // TODO Auto-generated method stub
+    ZcEbBulletin sheet = (ZcEbBulletin) this.listCursor.getCurrentObject();
+    ZcEbChangdiUsed changdiUsed=new ZcEbChangdiUsed();
+    changdiUsed.setStartdate(sheet.getZcEbPlan().getOpenBidTime());
+    changdiUsed.setUsedtype(ZcEbChangdiUsed.V_ZC_CHANGDI_USED_USEDTYPE_PING_BIAO);
+    changdiUsed.setProjcode(sheet.getZcEbProj().getProjCode());
+    changdiUsed.setProjname(sheet.getZcEbProj().getProjName());
+    changdiUsed.setUsedcontent(sheet.getZcEbProj().getProjCode()+sheet.getZcEbProj().getProjName()+"项目评标");
+    List lst=new ArrayList();
+    lst.add(changdiUsed);
+    ZcEbChangdiUsedDialog changdiDialog=new ZcEbChangdiUsedDialog(parent, lst, 0, null,null);
+  }
+
   protected void doAdd() {
     // TODO Auto-generated method stub
     this.listCursor.setCurrentObject(null);
@@ -998,7 +1165,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
     try {
 
-      this.wordPane.print();
+      this.wordPaneBulletin.print();
 
     } catch (RuntimeException e) {
 
@@ -1261,7 +1428,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
   protected void doAudit() {
 
-    if (checkBeforeSave(true)) {
+    if (!checkBeforeSave()) {
 
       return;
 
@@ -1337,7 +1504,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
   }
 
-  protected boolean checkBeforeSave(boolean isSend) {
+  protected boolean checkBeforeSave() {
 
     List notNullBillElementList = this.billElementMeta.getNotNullBillElement();
 
@@ -1354,11 +1521,8 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
     }
     if (errorInfo.length() == 0) {
       if (bulletin.getProjCode() == null || "".equals(bulletin.getProjCode().trim())) {
-        errorInfo.append("[项目代码]不能为空 \n");
-      }
-      if (bulletin.getProjName() == null || "".equals(bulletin.getProjName().trim())) {
-        errorInfo.append("[项目名称]不能为空 \n");
-      }
+        errorInfo.append("[项目编号]不能为空 \n");
+      } 
       /*if (bulletin.getMoldCode() == null || "".equals(bulletin.getMoldCode().trim())) {
         errorInfo.append("[模板]不能为空 \n");
       }*/
@@ -1373,14 +1537,11 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
     }
 
     if (errorInfo.length() != 0) {
-
       JOptionPane.showMessageDialog(this.parent, errorInfo.toString(), "提示", JOptionPane.WARNING_MESSAGE);
-
       return false;
-
     }
 
-    return true;
+    return completePlan();
 
   }
 
@@ -1444,7 +1605,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
   public void refreshDataOnly() {
 
-    String fileID = refreshMainData();
+    refreshMainData();
 
     //    refreshZbFile();
 
@@ -1455,13 +1616,13 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
   public void protectWordPanel() {
 
-    wordPane.protectDoc(ZcSettingConstants.WORD_PASSWORD);
+    wordPaneBulletin.protectDoc(ZcSettingConstants.WORD_PASSWORD);
 
   }
 
   public boolean doSave(boolean isMsg) {
 
-    if (!checkBeforeSave(false)) //先对主表输入进行验证
+    if (!checkBeforeSave()) //先对主表输入进行验证
       return false;
 
     ZcEbBulletin bulletin = (ZcEbBulletin) this.listCursor.getCurrentObject();
@@ -1472,12 +1633,19 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
       String oldFileId = bulletin.getFileID();
       // 支持直接修改word内容。
-      wordPane.save(this.fileName);
+      wordPaneBulletin.save(this.bulletinWordFileName);
+      
+      wordPaneZbFile.save(this.zbWordFileName);
 
       //每次都保存一文件，产生新的文件id
       String fileID = saveBulletinContent();
-
       bulletin.setFileID(fileID);
+
+      String fileID2 = saveZbWordFile();
+      ZcEbProjZbFile zbfile=(ZcEbProjZbFile) bulletin.getZcEbProj().getProjFileList().get(0);
+      zbfile.setWordFileId(fileID2);
+      bulletin.getZcEbProj().getProjFileList().clear();
+      bulletin.getZcEbProj().getProjFileList().add(zbfile);
 
       if (bulletin.getBulletinID() != null && !bulletin.getBulletinID().equals("")) {
         this.getIZcEbBulletinServiceDelegate().updateFN(bulletin, requestMeta);
@@ -1517,7 +1685,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
       updateWFEditorEditable();
 
-      wordPane.setEnabled(false);
+      wordPaneBulletin.setEnabled(false);
     }
 
     return isSuccess;
@@ -1536,9 +1704,20 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
     String fileID = "";
 
-    if (fileName != null && fileName.length() != 0)
+    if (bulletinWordFileName != null && bulletinWordFileName.length() != 0)
 
-      fileID = WordFileUtil.uploadBulletinWordConstent(fileName);
+      fileID = WordFileUtil.uploadBulletinWordConstent(bulletinWordFileName);
+
+    return fileID;
+
+  }
+  protected String saveZbWordFile() {
+
+    String fileID = "";
+
+    if (zbWordFileName != null && zbWordFileName.length() != 0)
+
+      fileID = WordFileUtil.uploadBulletinWordConstent(zbWordFileName);
 
     return fileID;
 
@@ -1547,12 +1726,12 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
   public void doEdit() {
     ZcEbBulletin bulletin = (ZcEbBulletin) listCursor.getCurrentObject();
     this.pageStatus = ZcSettingConstants.PAGE_STATUS_EDIT;
-    updateFieldEditorsEditable();
+    updateWFEditorEditable();
     setButtonStatus();
     if (bulletin.getProcessInstId() != null && bulletin.getProcessInstId() > 0) {
-      wordPane.addTrackRevisions(true, requestMeta.getEmpName());
+      wordPaneBulletin.addTrackRevisions(true, requestMeta.getEmpName());
     }
-    wordPane.unProtectDoc(ZcSettingConstants.WORD_PASSWORD);
+    wordPaneBulletin.unProtectDoc(ZcSettingConstants.WORD_PASSWORD);
 
   }
 
@@ -1748,7 +1927,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
   }
 
   private boolean saveBeforAudit(ZcEbBulletin bulletin) {
-    if (!checkBeforeSave(true)) { //先对主表输入进行验证
+    if (!checkBeforeSave()) { //先对主表输入进行验证
 
       return false;
     }
@@ -1756,7 +1935,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
     String oldFileId = bulletin.getFileID();
     
     // 支持直接修改word内容。
-    wordPane.save(this.fileName);
+    wordPaneBulletin.save(this.bulletinWordFileName);
 
     String fileID = saveBulletinContent();
 
@@ -1782,7 +1961,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
   public boolean publishToHtml(String htmlName) {
     String path = WordFileUtil.getHtmlFileName(htmlName);
     logger.debug("path=" + path);
-    boolean ifConvert = wordPane.convertWordToHtml(path);
+    boolean ifConvert = wordPaneBulletin.convertWordToHtml(path);
 
     if (!ifConvert) {
 
@@ -2108,11 +2287,11 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
     this.loadMoldButton.setEnabled(false);//填充完之后设为不可用
 
     if (replaceValue != null && !replaceValue.equals("")) {
-      wordPane.replaceBookMarks(this.replaceValue);
+      wordPaneBulletin.replaceBookMarks(this.replaceValue);
     }
     //WordFileUtil.delete(this.fileName);
 
-    wordPane.save(this.fileName);
+    wordPaneBulletin.save(this.bulletinWordFileName);
 
     ifRePalceBookMark = true;
 
@@ -2145,7 +2324,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
   }
 
   public void closeAllWordPanel() {
-    closeWordPanel(wordPane, false);
+    closeWordPanel(wordPaneBulletin, false);
     //    closeWordPanel(wordPaneFile1, false);
     //    closeWordPanel(wordPaneFile2, false);
     //    closeWordPanel(wordPaneZb, false);
@@ -2173,10 +2352,11 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
     dto.setBulletinType("zhaobiao%");
     dto.setManageCode(requestMeta.getSvUserID());
     dto.setNd(requestMeta.getSvNd());
+    dto.setZcText4("feixunjia");
     projCodeEditor = new ForeignEntityFieldEditor("ZcEbProj.getZcEbProjForGeneralBul", dto, 20, handler, columNames,
       LangTransMeta.translate(ZcElementConstants.FIELD_TRANS_ZC_PROJ_CODE), "projCode");
-    projCodeEditor.setEnabled(true);
-
+    
+    
     TextFieldEditor projNameEditor = new TextFieldEditor(LangTransMeta.translate(ZcElementConstants.FIELD_TRANS_ZC_PROJ_NAME), "projName");
     
 
@@ -2185,20 +2365,17 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
     AsValFieldEditor purTypeEditor = new AsValFieldEditor("公告类型", "bulletinType", "VS_ZC_EB_BULLETIN_TYPE");
 
-    DateFieldEditor sellStartTimeField = new DateFieldEditor("招标文件公告时间", "zcEbPlan.sellStartTime", DateFieldEditor.TimeTypeH24);
+    Integer[] allowMinutes = { 0, 10, 20, 30, 40, 50 };
+    
+    DateFieldEditor sellStartTimeField = new DateFieldEditor(LangTransMeta.translate(ZcEbPlan.COL_SELL_START_TIME), "zcEbPlan.sellStartTime", DateFieldEditor.TimeTypeH24,allowMinutes,true);
 
-    DateFieldEditor bidEndTime = new DateFieldEditor("投标截止时间", "zcEbPlan.bidEndTime", DateFieldEditor.TimeTypeH24);
+    DateFieldEditor bidEndTime = new DateFieldEditor(LangTransMeta.translate(ZcEbPlan.COL_BID_END_TIME), "zcEbPlan.bidEndTime", DateFieldEditor.TimeTypeH24,allowMinutes,true);
 
-    DateFieldEditor openBidTime = new DateFieldEditor("开标时间", "zcEbPlan.openBidTime", DateFieldEditor.TimeTypeH24);
+    DateFieldEditor openBidTime = new DateFieldEditor(LangTransMeta.translate(ZcEbPlan.COL_OPEN_BID_TIME), "zcEbPlan.openBidTime", DateFieldEditor.TimeTypeH24,allowMinutes,true);
 
-    TextFieldEditor openBidAddress = new TextFieldEditor("开标地点", "zcEbPlan.openBidAddress");
+    TextFieldEditor openBidAddress = new TextFieldEditor(LangTransMeta.translate(ZcEbPlan.COL_OPEN_BID_ADDRESS), "zcEbPlan.openBidAddress"); 
 
-    //    TextFieldEditor fieldInputorName = new TextFieldEditor(LangTransMeta.translate(ZcElementConstants.FIELD_TRANS_INPUTOR_NAME), "executor");
-    //
-    //    editorList.add(fieldInputorName);
-
-    DateFieldEditor fieldInputDate = new DateFieldEditor(LangTransMeta.translate(ZcElementConstants.FIELD_TRANS_INPUT_DATE), "executeDate");
-    fieldInputDate.setEnabled(false);
+    DateFieldEditor fieldInputDate = new DateFieldEditor(LangTransMeta.translate(ZcElementConstants.FIELD_TRANS_INPUT_DATE), "executeDate");     
     
     editorList.add(projCodeEditor);
     editorList.add(projNameEditor);
@@ -2251,21 +2428,37 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
    * 
   * 刷新word文本
    */
-  protected void refreshSubTableData(String fileID) {
-
-    closeWordPanel(wordPane, false);
-
-    if (fileID != null && !fileID.equals("")) {
-
-      this.fileName = WordFileUtil.loadMold(fileID);
-
+  protected void refreshSubTableData() {    
+    refreshBulletinWord();
+    refreshZbFileWord();
+  }
+  
+  private void refreshBulletinWord(){
+    ZcEbBulletin zcEbBulletin = (ZcEbBulletin) this.listCursor.getCurrentObject();    
+    closeWordPanel(wordPaneBulletin, false);
+    if (zcEbBulletin.getFileID() != null && !zcEbBulletin.getFileID().equals("")) {
+      this.bulletinWordFileName = WordFileUtil.loadMold(zcEbBulletin.getFileID());
     } else {
-
-      this.fileName = WordFileUtil.loadDefaultMold();
-
+      this.bulletinWordFileName = WordFileUtil.loadDefaultMold();
     }
-    wordPane.openAndProtect(this.fileName, ZcSettingConstants.WORD_PASSWORD);
-
+    wordPaneBulletin.openAndProtect(this.bulletinWordFileName, ZcSettingConstants.WORD_PASSWORD);
+  }
+  
+  private void refreshZbFileWord(){
+    ZcEbBulletin zcEbBulletin = (ZcEbBulletin) this.listCursor.getCurrentObject();    
+    String fileId="";
+    if(zcEbBulletin.getZcEbProj()!=null && zcEbBulletin.getZcEbProj().getProjFileList()!=null && zcEbBulletin.getZcEbProj().getProjFileList().size()>0){
+      ZcEbProjZbFile zf=(ZcEbProjZbFile)zcEbBulletin.getZcEbProj().getProjFileList().get(0);
+      fileId=zf.getWordFileId();
+    }
+    
+    closeWordPanel(wordPaneZbFile, false);
+    if (fileId== null || fileId.trim().length()==0) {
+      zbWordFileName = WordFileUtil.loadMold(AsOptionMeta.getOptVal("OPT_ZC_kongbaiword_FILE_ID"));
+    }else{
+      zbWordFileName=WordFileUtil.loadMold(fileId);
+    }
+    wordPaneZbFile.openAndProtect(this.zbWordFileName, ZcSettingConstants.WORD_PASSWORD);    
   }
 
   protected void projCodeChange() {
@@ -2399,29 +2592,61 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
 
       ZcEbBulletin bulletin = (ZcEbBulletin) listCursor.getCurrentObject();
 
+      proj=zcEbProjServiceDelegate.getZcEbProjByProjCode(proj.getProjCode(), requestMeta);
+      
+      StringBuffer sb=new StringBuffer();
+      if(proj.getProjFileList()==null || proj.getProjFileList().size()==0){
+         sb.append(proj.getProjCode()).append(proj.getProjName()).append("没有招标文件，请进入").append(LangTransMeta.translate("ZC_EB_PROJ")).append("功能点，制作招标文件。\n并点击上传到服务器,再来制定招标公告");
+         JOptionPane.showMessageDialog(this.parent, sb.toString(), "提示", JOptionPane.WARNING_MESSAGE);
+         return;
+      }
+      sb=new StringBuffer();
+      ZcEbProjZbFile zbfile=(ZcEbProjZbFile) proj.getProjFileList().get(0);
+      if(zbfile.getWordFileId()==null || zbfile.getWordFileId().trim().length()==0){
+        sb.append(proj.getProjCode()).append(proj.getProjName()).append("没有招标文件，请进入").append(LangTransMeta.translate("ZC_EB_PROJ")).append("功能点，制作招标文件。\n并点击上传到服务器,再来制定招标公告");
+        JOptionPane.showMessageDialog(this.parent, sb.toString(), "提示", JOptionPane.WARNING_MESSAGE);
+        return;
+     }
+      
       proj.setPackList(getpackList(proj.getProjCode()));
       bulletin.setZcEbProj(proj);
       bulletin.setProjCode(proj.getProjCode());
-      bulletin.setZcEbPlan(proj.getPlan());
       bulletin.setProjName(proj.getProjName());
       bulletin.setCoCode(proj.getCoCode());
       bulletin.setPackList(getBulletinPack(bulletin));
       bulletin.setBulletinType(getBulletinType(proj.getPurType()));
-      bulletin.setZcEbPlan((ZcEbPlan) zcEbBaseServiceDelegate.queryObject("ZcEbPlan.getZcEbPlanByProjCode", proj.getProjCode(), requestMeta));
+      bulletin.setZcEbPlan(proj.getPlan());
+      
+      if(bulletin.getZcEbPlan().getOpenBidAddress()==null ||bulletin.getZcEbPlan().getOpenBidAddress().trim().length()==0){
+        bulletin.getZcEbPlan().setOpenBidAddress(AsOptionMeta.getOptVal(ZcSettingConstants.OPT_ZC_OPEN_BID_ADDRESS));
+      }
+      
       setEditingObject(bulletin);
-      Hashtable userData = new Hashtable();
-      userData.put("bulletin", bulletin);
-      ITemplateToDocumentHandler handler = TemplateToDocumentFactory.getInstance().getHandler(bulletin.getBulletinType());
-      if(handler==null){
-        JOptionPane.showMessageDialog(this.parent, "没有找到询价招标模版，请手工编制询价招标公告", "提示", JOptionPane.WARNING_MESSAGE);
-        return;
+      
+      //自动生成招标公告
+      
+      //加载招标文件
+      if (wordPaneZbFile != null) {
+        wordPaneZbFile.close(false);
       }
-      fileName = handler.createDocumnet(userData);
-      if (wordPane != null) {
-        wordPane.close(false);
-      }
-      wordPane.open(fileName);
+      zbWordFileName=WordFileUtil.loadMold(zbfile.getWordFileId());
+      wordPaneZbFile.open(zbWordFileName); 
     }
+  }
+  private void createBulltinWord(){
+    Hashtable userData = new Hashtable();
+    ZcEbBulletin bulletin = (ZcEbBulletin) listCursor.getCurrentObject();
+    userData.put("bulletin", bulletin);
+    ITemplateToDocumentHandler handler = TemplateToDocumentFactory.getInstance().getHandler(bulletin.getBulletinType());
+    if(handler==null){
+      JOptionPane.showMessageDialog(this.parent, "没有找到询价招标模版，请手工编制询价招标公告", "提示", JOptionPane.WARNING_MESSAGE);
+      return;
+    }
+    bulletinWordFileName = handler.createDocumnet(userData);
+    if (wordPaneBulletin != null) {
+      wordPaneBulletin.close(false);
+    }
+    wordPaneBulletin.open(bulletinWordFileName);
   }
 
   private String getBulletinType(String purType) {
@@ -2466,3 +2691,4 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
     return zcEbProjServiceDelegate.getZcEbPackListByProjCode(projCode, requestMeta);
   }
 }
+

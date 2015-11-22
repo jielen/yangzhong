@@ -45,6 +45,7 @@ import com.ufgov.zc.server.zc.dao.IZcEbBulletinDao;
 import com.ufgov.zc.server.zc.service.IZcEbBulletinService;
 import com.ufgov.zc.server.zc.service.IZcEbPlanService;
 import com.ufgov.zc.server.zc.service.IZcEbProjService;
+import com.ufgov.zc.server.zc.service.IZcEbZbFileService;
 import com.ufgov.zc.server.zc.util.MailUtil;
 
 public class ZcEbBulletinService implements IZcEbBulletinService {
@@ -66,6 +67,8 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
   private IZcEbProjService zcEbProjService;
 
   private IZcEbPlanService zcEbPlanService;
+  
+  private IZcEbZbFileService zcEbZbFileService;
 
   private boolean isDataChange = false;
 
@@ -155,6 +158,14 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
       }
     }
     zcEbBulletinDao.insert(zcEbBulletin);
+    
+    if(!zcEbBulletin.getZcEbProj().getPurType().equals(ZcSettingConstants.ZC_CGFS_XJ)){//非询价的采购
+      //保存招标执行计划
+      zcEbPlanService.save(zcEbBulletin.getZcEbPlan(), meta);
+      //更新招标word文件
+      ZcEbProjZbFile zbfile=(ZcEbProjZbFile) zcEbBulletin.getZcEbProj().getProjFileList().get(0);
+      zcEbZbFileService.insertOrUpdateZcEbProjZBFile(zbfile, "update");
+    }
     return zcEbBulletin ;
   }
 
@@ -167,6 +178,22 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
         pack.setBulletinId(zcEbBulletin.getBulletinID());
         baseDao.insert("ZcEbBulletin.insertBulletinPack", pack);
       }
+    }
+    //保存招标执行计划
+    if(zcEbBulletin.getZcEbProj().getPurType().equals(ZcSettingConstants.ZC_CGFS_XJ)){
+      Calendar cd = Calendar.getInstance();
+      cd.setTime(zcEbBulletin.getZcEbPlan().getBidEndTime());
+//      cd.add(Calendar.HOUR_OF_DAY, -1);
+      zcEbBulletin.getZcEbPlan().setOpenBidTime(cd.getTime());
+      zcEbBulletin.getZcEbPlan().setSellEndTime(cd.getTime());
+      
+    }
+    zcEbPlanService.save(zcEbBulletin.getZcEbPlan(), meta);
+    
+    if(!zcEbBulletin.getZcEbProj().getPurType().equals(ZcSettingConstants.ZC_CGFS_XJ)){//非询价的采购
+      //更新招标word文件
+      ZcEbProjZbFile zbfile=(ZcEbProjZbFile) zcEbBulletin.getZcEbProj().getProjFileList().get(0);
+      zcEbZbFileService.insertOrUpdateZcEbProjZBFile(zbfile, "update");
     }
     // if
     // (ZcEbBulletinConstants.TYPE_BULLETIN_JING_JIA_BID.equals(zcEbBulletin.getBulletinType()))
@@ -894,6 +921,8 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
       }
       ZcEbProj zcEbProj = (ZcEbProj) baseDao.read("ZcEbProj.getOriginalZcEbProjByProjCode", tin.getProjectCode());
 
+      zcEbProj.setProjFileList(baseDao.query("ZcEbProjZbFile.getZcEbProjZbFileByProjCode", tin.getProjectCode()));
+      
       Date publishDate = (Date) baseDao.read("ZcEbBulletin.selectGgPubListDate", tin.getProjectCode());
 
       if (publishDate != null) {
@@ -902,15 +931,15 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
       }
 
       tin.setZcEbProj(zcEbProj);
-    } else {
-      ZcEbPlan zcEbPlan = (ZcEbPlan) baseDao.read("ZcEbPlan.getZcEbPlanByProjCode", tin.getProjCode());
-      if (zcEbPlan != null) {
-        tin.setZcEbPlan(zcEbPlan);
-      }
+    } else{
+      ZcEbProj zcEbProj=zcEbProjService.getZcEbProjByProjCode(tin.getProjCode());
+      tin.setZcEbProj(zcEbProj);
+      tin.setZcEbPlan(zcEbProj.getPlan());
       if (ZcEbBulletinConstants.TYPE_BULLETIN_DLY.equals(tin.getBulletinType())) {
         tin.setPackList(baseDao.query("ZcEbBulletin.getZcEbBulletinPack", tin));
       }
     }
+    tin.setDbDigest(tin.digest());
     return tin;
   }
 
@@ -942,5 +971,13 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
     }
 
     return model;
+  }
+
+  public IZcEbZbFileService getZcEbZbFileService() {
+    return zcEbZbFileService;
+  }
+
+  public void setZcEbZbFileService(IZcEbZbFileService zcEbZbFileService) {
+    this.zcEbZbFileService = zcEbZbFileService;
   }
 }

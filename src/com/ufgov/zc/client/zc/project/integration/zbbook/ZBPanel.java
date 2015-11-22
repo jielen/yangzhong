@@ -2,6 +2,7 @@ package com.ufgov.zc.client.zc.project.integration.zbbook;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Window;
@@ -17,7 +18,9 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
+import com.ufgov.zc.client.component.GkBaseDialog;
 import com.ufgov.zc.client.component.button.DisTrackRevisionsButton;
 import com.ufgov.zc.client.component.button.FuncButton;
 import com.ufgov.zc.client.component.button.ViewTrackRevisionsButton;
@@ -369,8 +372,8 @@ public class ZBPanel extends MainPanel {
         SmartTreeNode projNode = null;
         if (rootNode.getChildCount() > 0) {
           projNode = (SmartTreeNode) rootNode.getChildAt(0);
-          JFrame planFrame = new JFrame();
-          planFrame.setLayout(new BorderLayout());
+//          JFrame planFrame = new JFrame();
+         /* planFrame.setLayout(new BorderLayout());
           planFrame.setTitle("项目执行计划制定");
           Map<String, String> paras = new HashMap<String, String>();
           paras.put("PROJCODE", projNode.getNodeCode());
@@ -379,7 +382,19 @@ public class ZBPanel extends MainPanel {
           planFrame.pack();
           planFrame.setSize(new Dimension(740, 580));
           planFrame.setLocationRelativeTo(null);
-          planFrame.setVisible(true);
+          planFrame.setVisible(true);*/
+          GkBaseDialog planDialog=new GkBaseDialog(parentEntity,"项目执行计划制定",ModalityType.APPLICATION_MODAL);
+          planDialog.setTitle("项目执行计划制定");
+          planDialog.setLayout(new BorderLayout());
+          Map<String, String> paras = new HashMap<String, String>();
+          paras.put("PROJCODE", projNode.getNodeCode());
+          paras.put("PROJNAME", projNode.getNodeName());
+          JPanel p=new ZcEbPlanEditPanel(planDialog, mainPanel, paras);
+          p.setPreferredSize(new Dimension(800, 600));
+          planDialog.add(p, BorderLayout.CENTER);
+          planDialog.pack();
+          planDialog.moveToScreenCenter();
+          planDialog.setVisible(true);          
         }
       }
     });

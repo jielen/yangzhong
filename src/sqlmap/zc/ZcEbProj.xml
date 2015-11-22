@@ -3866,9 +3866,16 @@
 		</isNotNull>
 
 		<isNotNull prepend="and" property="manageCode">
-
 			ZC_EB_PROJ.EXECUTOR=#manageCode#
+		</isNotNull>
 
+		<isNotNull prepend="and" property="zcText4">
+			<isEqual property="zcText4" compareValue="feixunjia">
+				ZC_EB_PROJ.pur_type!='5'
+			</isEqual>
+			<isEqual property="zcText4" compareValue="xunjia">
+				ZC_EB_PROJ.pur_type='5'
+			</isEqual>
 		</isNotNull>
 
 		ORDER BY WH.D DESC

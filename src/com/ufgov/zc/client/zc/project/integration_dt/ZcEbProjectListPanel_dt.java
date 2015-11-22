@@ -225,7 +225,7 @@ public class ZcEbProjectListPanel_dt extends AbstractEditListBill implements Par
   }
 
   private AbstractDataDisplay createDataDisplay(List<TableDisplay> showingDisplays) {
-    return new DataDisplay(SearchConditionUtil.getAllTableDisplay("ZcEbProj_ProjTab"), showingDisplays, createTopConditionArea(), true);//true:显示收索条件区 false：不显示收索条件区
+    return new DataDisplay(SearchConditionUtil.getAllTableDisplay("ZcEbProj_ProjTab"), showingDisplays, createTopConditionArea(), false);//true:显示收索条件区 false：不显示收索条件区
   }
 
   private FuncButton blankoutButton = new BlankOutButton();
