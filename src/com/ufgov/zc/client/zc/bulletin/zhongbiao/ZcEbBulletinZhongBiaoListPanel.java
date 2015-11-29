@@ -388,11 +388,11 @@ public class ZcEbBulletinZhongBiaoListPanel extends AbstractEditListBill impleme
 
     // toolBar.add(updateButton);
 
-    toolBar.add(deleteButton);
+//    toolBar.add(deleteButton);
 
-    toolBar.add(helpButton);
+//    toolBar.add(helpButton);
 
-    toolBar.add(sendButton);// 送审
+//    toolBar.add(sendButton);// 送审
 
     // toolBar.add(suggestPassButton);//填写意见审核通过
 
@@ -404,13 +404,13 @@ public class ZcEbBulletinZhongBiaoListPanel extends AbstractEditListBill impleme
 
     // toolBar.add(cancelButton);//撤销
 
-    toolBar.add(traceButton);
+//    toolBar.add(traceButton);
 
     // toolBar.add(printButton);
 
     // toolBar.add(isSendToNextButton);
 
-    toolBar.add(traceDataButton);
+//    toolBar.add(traceDataButton);
 
     // 初始化按钮的action事件
 

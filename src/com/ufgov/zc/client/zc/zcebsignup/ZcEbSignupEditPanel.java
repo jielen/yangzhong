@@ -2326,7 +2326,11 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
 
       this.listPanel.refreshCurrentTabData();
 
-      JOptionPane.showMessageDialog(self, "报名成功！如果需要资质审核，必须通过资质审核报名才有效，如有疑问，请联系采购中心", "提示", JOptionPane.INFORMATION_MESSAGE);
+      if(needCheckZiZhi(signup)){
+        JOptionPane.showMessageDialog(self, "报名成功！该项目需要资质审核，必须通过资质审核报名才有效.\n 请在审核通过后，再下载招标文件.\n如有疑问，请联系采购中心", "提示", JOptionPane.INFORMATION_MESSAGE);
+      }else{
+        JOptionPane.showMessageDialog(self, "报名成功！请下载招标文件，如有疑问，请联系采购中心", "提示", JOptionPane.INFORMATION_MESSAGE);
+      }
 
       this.pageStatus = ZcSettingConstants.PAGE_STATUS_BROWSE;
 
@@ -2349,6 +2353,29 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
       return;
 
     }
+  }
+
+  private boolean needCheckZiZhi(ZcEbSignup obj) {
+    // TODO Auto-generated method stub 
+    if (obj.getSignupPacks() == null || obj.getSignupPacks().size() == 0)
+      return false; 
+    boolean isZizhiCheck = false;
+    boolean isSignup=false;
+    for (int i = 0; i < obj.getSignupPacks().size(); i++) {
+      ZcEbSignupPackDetail d = (ZcEbSignupPackDetail) obj.getSignupPacks().get(i);
+      if ("Y".equals(d.getIsCheckQualification()) ) {//要求资质检查
+        isZizhiCheck = true;
+        if (ZcEbSignupPackDetail.BAOMING_YES.equals(d.getSpStatus())) {//报名了
+          isSignup=true; 
+        }
+      }
+    } 
+      if(isZizhiCheck){
+        if(isSignup){
+          return true;
+        }
+      }
+    return false;
   }
 
   /**

@@ -225,8 +225,7 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
 
         @Override
         public TableModel execute() throws Exception {
-          return ZcEbEntrustToTableModelConverter.convertToTableModel(self.zcEbEntrustServiceDelegate
-            .getZcEbEntrust(elementConditionDto, requestMeta));
+          return ZcEbEntrustToTableModelConverter.convertToTableModel(self.zcEbEntrustServiceDelegate.getZcEbEntrust(elementConditionDto, requestMeta));
         }
 
         @Override

@@ -303,9 +303,6 @@ group by ZC_EB_PROJ.Proj_Code,ZC_EB_PROJ.Proj_Name,plan.open_bid_time,sh.attn_na
    WHERE ZC_EB_PROJ_ZBFILE.PROJ_CODE(+) = ZC_EB_SIGNUP.PROJ_CODE 
    AND ZC_EB_PROJ.PROJ_CODE = ZC_EB_SIGNUP.PROJ_CODE 
    and ZC_EB_PROJ.PROJ_CODE=l.proj_code
-		<isNotNull prepend="AND" property="zcText0">
-			ZC_EB_SIGNUP.PROVIDER_CODE=#manageCode#
-		</isNotNull>
 		<isNotEqual prepend="AND" property="nd" compareValue="0">
 			ZC_EB_SIGNUP.ND=#nd#
 		</isNotEqual>
@@ -331,7 +328,7 @@ group by ZC_EB_PROJ.Proj_Code,ZC_EB_PROJ.Proj_Name,plan.open_bid_time,sh.attn_na
 			ZC_EB_SIGNUP.PROJ_CODE=#projCode#
 		</isNotNull>
 		<isNotNull prepend="AND" property="zcText1">
-			ZC_EB_SIGNUP.PROVIDER_CODE=#zcText1#
+		exists (select 1 from huiyuan_user u where u.loginid=#zcText1# and u.danweiguid=ZC_EB_SIGNUP.PROVIDER_CODE)
 		</isNotNull>
 		ORDER BY ZC_EB_SIGNUP.SINGNUP_DATE DESC,ZC_EB_SIGNUP.PROJ_CODE DESC
 	</select>

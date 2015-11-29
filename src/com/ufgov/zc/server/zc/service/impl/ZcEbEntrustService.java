@@ -298,7 +298,7 @@ public class ZcEbEntrustService implements IZcEbEntrustService {
         asWfDraft.setWfDraftName(entrust.getZcMakeName());
         asWfDraft.setUserId(userId);
         asWfDraft.setMasterTabId(compoId);
-        asWfDraft.setWfDraftId(BigDecimal.valueOf(draftid));
+        asWfDraft.setWfDraftId(BigDecimal.valueOf(draftid.longValue()));
         workflowDao.insertAsWfdraft(asWfDraft); 
       } 
       

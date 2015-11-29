@@ -312,6 +312,8 @@ public class ZcEbProjectToTableModelConverter {
 
     packTableColumnInfo.add(new ColumnBeanPropertyPair("BID_DEPOSIT", "bidDeposit", "投标保证金"));
     
+    packTableColumnInfo.add(new ColumnBeanPropertyPair("IS_CHECK_QUALIFICATION", "isCheckQualification", "是否资格预审"));
+    
 //    packTableColumnInfo.add(new ColumnBeanPropertyPair("PACK_MAX_PRICE", "packMaxPrice", "最高限额"));
 
   }

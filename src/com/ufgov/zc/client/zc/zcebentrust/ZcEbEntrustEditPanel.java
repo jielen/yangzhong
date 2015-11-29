@@ -388,7 +388,7 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     });
 
-    AsValFieldEditor isShouli = new AsValFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ZC_IS_SHOULI), "isShouli", "ZC_VS_YN");
+    AsValFieldEditor isShouli = new AsValFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_IS_SHOULI), "isShouli", "ZC_VS_YN");
     
 //    editorList.add(sn);
 //    editorList.add(snCode);

@@ -2199,8 +2199,8 @@
 			<isNotNull prepend="and" property="zcText1">
 				ZC_EB_PROJ.EXECUTOR=#zcText1#
 			</isNotNull> 	    	    
-			<isNotNull prepend="and" property="zcText1">
-				<isEqual property="zcText1" compareValue="forZhaobiaoBulletin">
+			<isNotNull prepend="and" property="zcText2">
+				<isEqual property="zcText2" compareValue="forZhaobiaoBulletin">
 					not exists (select 1
 						          from ZC_EB_BULLETIN b
 						         where b.proj_code = ZC_EB_PROJ.Proj_Code
@@ -3842,9 +3842,7 @@
 			p.proj_code=#zcText0#
 		</isNotNull>
 	</select>
-	<select id="getZcEbProjForGeneralBul" resultMap="zcEbProjWithPlanResult"
-
-		parameterClass="elementCondition">
+	<select id="getZcEbProjForGeneralBul" resultMap="zcEbProjWithPlanResult"	parameterClass="elementCondition">
 
 		select
 		ZC_EB_PROJ.*,

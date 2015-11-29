@@ -778,8 +778,8 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
       HuiyuanUnitcominfo unit=ZcUtil.getHuiYuan();
       if(unit!=null){
-        zcXmcgHt.setZcSuLinkman(unit.getZfcgGysInfo().getLianxiren1());
-        zcXmcgHt.setZcSuTel(unit.getZfcgGysInfo().getLianxiren1mobile());
+        zcXmcgHt.setZcSuLinkman(unit.getZfcgGysInfo().getLocallianxiren());
+        zcXmcgHt.setZcSuTel(unit.getZfcgGysInfo().getLocalmobile());
       }
     }
   //start of change --20141223 chenjl

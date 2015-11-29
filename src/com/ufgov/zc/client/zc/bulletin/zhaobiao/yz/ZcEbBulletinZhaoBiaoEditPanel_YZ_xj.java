@@ -537,6 +537,11 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ_xj   extends AbstractMainSubEditPa
       bulletin.setBulletinStatus("0");
       bulletin.setAgency(requestMeta.getSvCoCode());
       bulletin.setOrgCode(requestMeta.getSvOrgCode());
+      
+      if(bulletin.getZcEbPlan()==null){
+        bulletin.setZcEbPlan(new ZcEbPlan());
+      }
+      bulletin.getZcEbPlan().setNd(requestMeta.getSvNd());
 
     }
 

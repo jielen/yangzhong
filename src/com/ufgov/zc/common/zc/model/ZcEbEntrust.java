@@ -24,15 +24,16 @@ public class ZcEbEntrust extends ZcBaseBill implements Serializable {
   //------------字段-----------------------
   public static final String COL_AGENCY="ZC_EB_ENTRUST_AGENCY"; // 委托机构代码
   public static final String COL_AGENCY_NAME="ZC_EB_ENTRUST_AGENCY_NAME"; // 委托机构名称
-  public static final String COL_CO_CODE="ZC_EB_ENTRUST_CO_CODE"; // 单位代码(采购单位代码)
-  public static final String COL_EXECUTE_DATE="ZC_EB_ENTRUST_EXECUTE_DATE"; // 受理时间（执行时间）
+  public static final String COL_CO_CODE="ZC_EB_ENTRUST_CO_CODE"; // 采购单位代码
+  public static final String COL_EXECUTE_DATE="ZC_EB_ENTRUST_EXECUTE_DATE"; // 受理时间
   public static final String COL_EXECUTOR="ZC_EB_ENTRUST_EXECUTOR"; // 执行者
   public static final String COL_IS_CAR="ZC_EB_ENTRUST_IS_CAR"; // 是否汽车采购
   public static final String COL_IS_DES_SUP="ZC_EB_ENTRUST_IS_DES_SUP"; // 是否指定供应商
   public static final String COL_IS_PUB="ZC_EB_ENTRUST_IS_PUB"; // 是否公开预算
+  public static final String COL_IS_SHOULI="ZC_EB_ENTRUST_IS_SHOULI"; // 是否受理
   public static final String COL_JBR="ZC_EB_ENTRUST_JBR"; // 经办人
   public static final String COL_JBR_NAME="ZC_EB_ENTRUST_JBR_NAME"; // 经办人姓名
-  public static final String COL_LEADER_ID="ZC_EB_ENTRUST_LEADER_ID"; // 项目负责人ID
+  public static final String COL_LEADER_ID="ZC_EB_ENTRUST_LEADER_ID"; // 项目负责人
   public static final String COL_LEADER_TEL="ZC_EB_ENTRUST_LEADER_TEL"; // 项目负责人联系电话
   public static final String COL_ND="ZC_EB_ENTRUST_ND"; // 预算年度
   public static final String COL_ORG_CODE="ZC_EB_ENTRUST_ORG_CODE"; // 预算单位主管业务处室
@@ -45,7 +46,7 @@ public class ZcEbEntrust extends ZcBaseBill implements Serializable {
   public static final String COL_XBR="ZC_EB_ENTRUST_XBR"; // 协办人
   public static final String COL_XBR_NAME="ZC_EB_ENTRUST_XBR_NAME"; // 协办人姓名
   public static final String COL_ZC_DIYU_DAIMA="ZC_EB_ENTRUST_ZC_DIYU_DAIMA"; // 地域代码
-  public static final String COL_ZC_FUKUAN_TYPE="ZC_EB_ENTRUST_ZC_FUKUAN_TYPE"; // 采购类型（项目采购，协议采购，定点采购）
+  public static final String COL_ZC_FUKUAN_TYPE="ZC_EB_ENTRUST_ZC_FUKUAN_TYPE"; // 采购类型
   public static final String COL_ZC_IMP_FILE="ZC_EB_ENTRUST_ZC_IMP_FILE"; // 进出口相关附件
   public static final String COL_ZC_IMP_FILE_BLOBID="ZC_EB_ENTRUST_ZC_IMP_FILE_BLOBID"; // 进出口相关附件BLOBID
   public static final String COL_ZC_INPUT_CODE="ZC_EB_ENTRUST_ZC_INPUT_CODE"; // 录入人
@@ -59,8 +60,8 @@ public class ZcEbEntrust extends ZcBaseBill implements Serializable {
   public static final String COL_ZC_MONEY_BI_SUM="ZC_EB_ENTRUST_ZC_MONEY_BI_SUM"; // 项目预算
   public static final String COL_ZC_PIFU_CGFS="ZC_EB_ENTRUST_ZC_PIFU_CGFS"; // 采购方式
   public static final String COL_ZC_WEITO_DATE="ZC_EB_ENTRUST_ZC_WEITO_DATE"; // 项目下达时间
-  public static final String COL_ZC_IS_SHOULI="ZC_EB_ENTRUST_ZC_IS_SHOULI"; // 项目下达时间
-//------------字段-----------------------
+
+  //------------字段-----------------------
  
   private List detailList = new ArrayList();
 

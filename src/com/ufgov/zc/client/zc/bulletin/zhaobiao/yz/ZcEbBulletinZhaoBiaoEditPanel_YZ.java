@@ -80,6 +80,8 @@ import com.ufgov.zc.client.component.button.UnauditButton;
 import com.ufgov.zc.client.component.button.UntreadButton;
 import com.ufgov.zc.client.component.button.ViewTrackRevisionsButton;
 import com.ufgov.zc.client.component.button.zc.CommonButton;
+import com.ufgov.zc.client.component.event.ValueChangeEvent;
+import com.ufgov.zc.client.component.event.ValueChangeListener;
 import com.ufgov.zc.client.component.ui.fieldeditor.AbstractFieldEditor;
 import com.ufgov.zc.client.component.zc.AbstractMainSubEditPanel;
 import com.ufgov.zc.client.component.zc.fieldeditor.AsValFieldEditor;
@@ -290,6 +292,8 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
   protected JFuncToolBar bottomToolBar1;
 
   private static String compoId = "ZC_EB_BULLETIN_BID";
+  
+  DateFieldEditor bidEndTime,openBidTime;
 
   public ZcEbBulletinZhaoBiaoEditPanel_YZ(ZcEbBulletinZhaoBiaoDialog_YZ parent, ListCursor listCursor, String tabStatus,
     ZcEbBulletinZhaoBiaoListPanel_YZ listPanel) {
@@ -563,7 +567,11 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
       bulletin.setBulletinStatus("0");
       bulletin.setAgency(requestMeta.getSvCoCode());
       bulletin.setOrgCode(requestMeta.getSvOrgCode());
-
+      
+      if(bulletin.getZcEbPlan()==null){
+        bulletin.setZcEbPlan(new ZcEbPlan());
+      }
+      bulletin.getZcEbPlan().setNd(requestMeta.getSvNd());
     }
 
   }
@@ -1035,8 +1043,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
     ZcEbBulletin curObj = (ZcEbBulletin) this.listCursor.getCurrentObject(); 
     StringBuffer error=new StringBuffer();
     if(curObj.getZcEbPlan()==null){
-      JOptionPane.showMessageDialog(this, "请先完善招标执行计划相关信息 ！", "缺失", JOptionPane.INFORMATION_MESSAGE);
-      return false;
+      curObj.setZcEbPlan(new ZcEbPlan());
     }
     if(curObj.getZcEbPlan().getBidEndTime()==null){
       error.append(LangTransMeta.translate(ZcEbPlan.COL_BID_END_TIME)).append("\n");
@@ -2356,6 +2363,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
     dto.setZcText0("feixunjia");
     dto.setZcText1(requestMeta.getSvUserID());
     dto.setZcText2("forZhaobiaoBulletin");
+    dto.setNd(requestMeta.getSvNd());
     projCodeEditor = new ForeignEntityFieldEditor("ZcEbProj.getAllZcEbProjByConditions", dto, 20, handler, columNames,
       LangTransMeta.translate(ZcElementConstants.FIELD_TRANS_ZC_PROJ_CODE), "projCode");
     
@@ -2372,9 +2380,17 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
     
     DateFieldEditor sellStartTimeField = new DateFieldEditor(LangTransMeta.translate(ZcEbPlan.COL_SELL_START_TIME), "zcEbPlan.sellStartTime", DateFieldEditor.TimeTypeH24,allowMinutes,true);
 
-    DateFieldEditor bidEndTime = new DateFieldEditor(LangTransMeta.translate(ZcEbPlan.COL_BID_END_TIME), "zcEbPlan.bidEndTime", DateFieldEditor.TimeTypeH24,allowMinutes,true);
+    bidEndTime = new DateFieldEditor(LangTransMeta.translate(ZcEbPlan.COL_BID_END_TIME), "zcEbPlan.bidEndTime", DateFieldEditor.TimeTypeH24,allowMinutes,true);
 
-    DateFieldEditor openBidTime = new DateFieldEditor(LangTransMeta.translate(ZcEbPlan.COL_OPEN_BID_TIME), "zcEbPlan.openBidTime", DateFieldEditor.TimeTypeH24,allowMinutes,true);
+    bidEndTime.getField().addValueChangeListener(new ValueChangeListener() {
+      
+      @Override
+      public void valueChanged(ValueChangeEvent e) {
+        // TODO Auto-generated method stub
+        syncOpenBidTime();
+      }
+    });
+    openBidTime = new DateFieldEditor(LangTransMeta.translate(ZcEbPlan.COL_OPEN_BID_TIME), "zcEbPlan.openBidTime", DateFieldEditor.TimeTypeH24,allowMinutes,true);
 
     TextFieldEditor openBidAddress = new TextFieldEditor(LangTransMeta.translate(ZcEbPlan.COL_OPEN_BID_ADDRESS), "zcEbPlan.openBidAddress"); 
 
@@ -2393,6 +2409,18 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
     editorList.add(fieldInputDate);
 
     return editorList;
+  }
+
+  protected void syncOpenBidTime() {
+    // TODO Auto-generated method stub
+
+    ZcEbBulletin bulletin = (ZcEbBulletin) this.listCursor.getCurrentObject();
+    if(bidEndTime.getField().getDate()!=null && openBidTime.getField().getDate()==null){
+//      openBidTime.getField().setDate(bidEndTime.getField().getDate());
+      bulletin.getZcEbPlan().setOpenBidTime(bidEndTime.getField().getDate());
+      bulletin.getZcEbPlan().setSellEndTime(bidEndTime.getField().getDate());
+      openBidTime.setValue(bulletin);
+    }
   }
 
   /* (non-Javadoc)

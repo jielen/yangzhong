@@ -310,9 +310,9 @@ public class ZcEbEvalReportOffLineListPanel extends AbstractEditListBill impleme
 
     toolBar.add(addButton);
 
-    toolBar.add(deleteButton);
+//    toolBar.add(deleteButton);
 
-    toolBar.add(sendButton);
+//    toolBar.add(sendButton);
 
     //    toolBar.add(isSendToNextButton);
 
@@ -326,7 +326,7 @@ public class ZcEbEvalReportOffLineListPanel extends AbstractEditListBill impleme
 
     //    toolBar.add(unTreadButton);//退回
 
-    toolBar.add(traceButton);
+//    toolBar.add(traceButton);
 
     //toolBar.add(printButton);
 
@@ -334,7 +334,7 @@ public class ZcEbEvalReportOffLineListPanel extends AbstractEditListBill impleme
 
     //toolBar.add(printSettingButton);
 
-    toolBar.add(helpButton);
+//    toolBar.add(helpButton);
 
 //    toolBar.add(traceDataButton);
 
