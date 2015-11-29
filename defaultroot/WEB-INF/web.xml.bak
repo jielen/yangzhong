@@ -618,15 +618,6 @@
 		<url-pattern>/gwkServiceDelegate</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>digest</servlet-name>
-		<servlet-class>com.ufgov.zc.server.zc.web.DigestCheckServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>digest</servlet-name>
-		<url-pattern>/digest</url-pattern>
-	</servlet-mapping>
-
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>

@@ -8,7 +8,7 @@
 %>
     <b>菜单配置错误，没有添加【className】参数！<b/>
 <%} else {%>
-    <%@include file="/jsp/ZC/Applet.jsp"%>
+    <%@include file="/jsp/GK/GkApplet.jsp"%>
 <%    
   }
 %>

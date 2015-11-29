@@ -83,7 +83,7 @@ public class HuiyuanUnitcominfoListPanel  extends AbstractEditListBill implement
 
   private Window parentWindow;
 
-  public static final String compoId = "HUIYUAN_ZFCG_GONGYINGINFO";
+  public static final String compoId = "ZC_HUIYUAN_ZFCG_GONGYINGINFO";
 
   private RequestMeta requestMeta = WorkEnv.getInstance().getRequestMeta();
 

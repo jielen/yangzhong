@@ -101,7 +101,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
 
   protected RequestMeta requestMeta = WorkEnv.getInstance().getRequestMeta();
 
-  private static String compoId = "HUIYUAN_ZFCG_GONGYINGINFO";
+  private static String compoId = "ZC_HUIYUAN_ZFCG_GONGYINGINFO";
 
   protected FuncButton saveButton = new SaveButton();
 
@@ -163,7 +163,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
   
   private ArrayList<ButtonStatus> accountBtnStatusList = new ArrayList<ButtonStatus>();
 
-  private BillElementMeta mainBillElementMetaZfcg = BillElementMeta.getBillElementMetaWithoutNd("HUIYUAN_ZFCG_GONGYINGINFO"); 
+  private BillElementMeta mainBillElementMetaZfcg = BillElementMeta.getBillElementMetaWithoutNd("ZC_HUIYUAN_ZFCG_GONGYINGINFO"); 
   private BillElementMeta mainBillElementMetaUnit = BillElementMeta.getBillElementMetaWithoutNd("HUIYUAN_UNITCOMINFO"); 
  
 

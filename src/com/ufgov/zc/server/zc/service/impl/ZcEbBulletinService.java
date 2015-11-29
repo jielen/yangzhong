@@ -177,7 +177,7 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
     zcEbBulletin.getZcEbPlan().setProjName(zcEbBulletin.getProjName());
     if(zcEbBulletin.getZcEbPlan().getOpenBidTime()==null)zcEbBulletin.getZcEbPlan().setOpenBidTime(zcEbBulletin.getZcEbPlan().getBidEndTime());
     if(zcEbBulletin.getZcEbPlan().getSellEndTime()==null)zcEbBulletin.getZcEbPlan().setSellEndTime(zcEbBulletin.getZcEbPlan().getBidEndTime());
-    if(zcEbBulletin.getZcEbPlan().getNd()==null)zcEbBulletin.getZcEbPlan().setNd(meta.getSvNd());
+    if(zcEbBulletin.getZcEbPlan().getNd()==null)zcEbBulletin.getZcEbPlan().setNd(new Integer(meta.getSvNd()));
     zcEbPlanService.save(zcEbBulletin.getZcEbPlan(), meta);
   }
   /*

@@ -40,19 +40,19 @@ public class LocalResourceApplet extends MyBaseApplet {
   private static final long serialVersionUID = 1401479333821197886L;
 
   public void init() {
-    System.out.println("2============================================");
+//    System.out.println("2============================================");
     super.init();
-    System.out.println("==3==========================================");
+//    System.out.println("==3==========================================");
     try {
-      System.out.println("==4==========================================");
+//      System.out.println("==4==========================================");
       initAppletParameters();
-      System.out.println("===6=========================================");
+//      System.out.println("===6=========================================");
       if (oldTorken == null || !oldTorken.equals((String) parameterInfo.get("token"))) {
-        System.out.println("==7==========================================");
+//        System.out.println("==7==========================================");
         oldTorken = (String) parameterInfo.get("token");
 
         downloadResource();
-        System.out.println("==9==========================================");
+//        System.out.println("==9==========================================");
         loadLocalJars();
       }
       initApplet();
@@ -65,7 +65,7 @@ public class LocalResourceApplet extends MyBaseApplet {
   private void loadLocalJars() throws Exception {
     // TODO Auto-generated method stub
 
-    System.out.println("==8==========================================");
+//    System.out.println("==8==========================================");
     File f = new File("C:/sql.txt");
     FileReader r = new FileReader(f);
     BufferedReader br = new BufferedReader(r);
@@ -111,7 +111,7 @@ public class LocalResourceApplet extends MyBaseApplet {
   }
 
   private void initAppletParameters() {
-    System.out.println("==5==========================================");
+//    System.out.println("==5==========================================");
     for (int i = 0; i < paramNames.length; i++) {
       parameterInfo.put(paramNames[i], this.getParameter(paramNames[i]));
       //      System.out.println(paramNames[i] + "=" + this.getParameter(paramNames[i]));
@@ -122,7 +122,7 @@ public class LocalResourceApplet extends MyBaseApplet {
   public static void main(String[] args) {
     LocalResourceApplet a = new LocalResourceApplet();
     try {
-      System.out.println("==1==========================================");
+//      System.out.println("==1==========================================");
       a.init();
     } catch (Exception e) {
       // TODO Auto-generated catch block

@@ -49,7 +49,7 @@
     <PARAM NAME="ARCHIVE" VALUE="gbclient.jar,WordSupport.jar,com.ufgov.smartclient.component_1.0.0.jar,com.ufgov.smartclient.laf_1.0.0.jar,log4j-1.2.8.jar,hessian-3.2.1.jar,workflow-client.jar,jgraph.jar,jasperPrint.jar,JoSQL-2.1-new.jar,gentlyWEB-utils-1.1.jar,commons-lang.jar,commons-beanutils-1.5.jar,commons-collections-3.2.1.jar,commons-logging.jar,xstream-1.3.1.jar,ant.jar,bsh-2.0b4.jar,freemarker.jar,ChartDirector.jar,commons-codec-1.3.jar,poi.jar" >
     <PARAM NAME="cache_option" VALUE="Plugin">
     <PARAM name="cache_archive" value="gbclient.jar,WordSupport.jar,com.ufgov.smartclient.component_1.0.0.jar,com.ufgov.smartclient.laf_1.0.0.jar,log4j-1.2.8.jar,hessian-3.2.1.jar,workflow-client.jar,jgraph.jar,jasperPrint.jar,JoSQL-2.1-new.jar,gentlyWEB-utils-1.1.jar,commons-lang.jar,commons-beanutils-1.5.jar,commons-collections-3.2.1.jar,commons-logging.jar,xstream-1.3.1.jar,ant.jar,bsh-2.0b4.jar,freemarker.jar,commons-codec-1.3.jar,poi.jar">
-    <PARAM NAME="cache_version" VALUE="1003.0.4,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0">
+    <PARAM NAME="cache_version" VALUE="1006.0.7,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0,1.0.0">
     <param name="type" value="application/x-java-applet;jpi-version=1.6.0_12">
     <param name="scriptable" value="false">
     <PARAM name="java_arguments" value="-Xms80m -Xmx1000m -Djnlp.packEnabled=true">

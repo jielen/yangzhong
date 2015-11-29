@@ -239,17 +239,17 @@ public class ZcEbProjectListPanel_dt extends AbstractEditListBill implements Par
     toolBar.setModuleCode("ZC");
     toolBar.setCompoId(compoId);
     toolBar.add(addButton);
-    toolBar.add(deleteButton);
-    toolBar.add(sendButton);
+//    toolBar.add(deleteButton);
+//    toolBar.add(sendButton);
     // toolBar.add(isSendToNextButton);
     //  toolBar.add(suggestPassButton);//填写意见审核通过
     //  toolBar.add(auditPassButton);
     //  toolBar.add(unTreadButton);//退回
-    toolBar.add(traceButton);
+//    toolBar.add(traceButton);
     //  toolBar.add(callbackButton);
-    toolBar.add(blankoutButton);
-    toolBar.add(printButton);
-    toolBar.add(traceDataButton);
+//    toolBar.add(blankoutButton);
+//    toolBar.add(printButton);
+//    toolBar.add(traceDataButton);
     // 初始化按钮的action事件
     addButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {

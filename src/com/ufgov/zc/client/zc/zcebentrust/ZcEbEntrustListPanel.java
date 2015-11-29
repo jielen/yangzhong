@@ -337,9 +337,9 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
 //    toolBar.add(printButton);
     //    toolBar.add(printPreviewButton);
     //    toolBar.add(printSettingButton);
-    toolBar.add(exportButton);//add shijia 20111210 导出Excel
-    toolBar.add(helpButton);
-    toolBar.add(traceDataButton);
+//    toolBar.add(exportButton);//add shijia 20111210 导出Excel
+//    toolBar.add(helpButton);
+//    toolBar.add(traceDataButton);
     // 初始化按钮的action事件
     addButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
