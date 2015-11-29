@@ -41,6 +41,7 @@ import com.ufgov.zc.common.console.publish.IConsoleServiceDelegate;
 import com.ufgov.zc.common.system.RequestMeta;
 import com.ufgov.zc.common.system.dto.ElementConditionDto;
 import com.ufgov.zc.common.system.model.User;
+import com.ufgov.zc.common.util.EmpMeta;
 import com.ufgov.zc.common.zc.publish.IZcEbBaseServiceDelegate;
 
 public class WorkEnv {
@@ -60,6 +61,10 @@ public class WorkEnv {
   private String webIp = "";
 
   private String serviceRoot = "";
+
+  private String root = "";
+
+  private String orgName;
 
   private String publish = "/publish";
 
@@ -89,6 +94,32 @@ public class WorkEnv {
 
   private HashMap urlMap;
 
+  private String roleId;
+
+  public String getRoot() {
+    return root;
+  }
+
+  public void setRoot(String root) {
+    this.root = root;
+  }
+
+  public String getOrgName() {
+    return orgName;
+  }
+
+  public void setOrgName(String orgName) {
+    this.orgName = orgName;
+  }
+
+  public String getRoleId() {
+    return roleId;
+  }
+
+  public void setRoleId(String roleId) {
+    this.roleId = roleId;
+  }
+
   private Map attributes = new HashMap();
 
   private static WorkEnv workEvn = new WorkEnv();
@@ -96,6 +127,8 @@ public class WorkEnv {
   private WorkEnv self = this;
 
   private List<AsRole> roles = new ArrayList<AsRole>();
+
+  private List empLst = new ArrayList();
 
   public RequestMeta getRequestMeta() {
 
@@ -126,7 +159,7 @@ public class WorkEnv {
     requestMeta.setSvCoTypeCode(this.getCurrCoTypeCode());
 
     requestMeta.setUrlMap(urlMap);
-    
+
     requestMeta.setRoles(roles);
 
     return requestMeta;
@@ -164,10 +197,10 @@ public class WorkEnv {
 
   public void setWebRoot(String webRoot) {
     this.webRoot = webRoot;
-    if(webRoot.endsWith("/")){
-      String tmp=webRoot.substring(0,webRoot.length()-1);
+    if (webRoot.endsWith("/")) {
+      String tmp = webRoot.substring(0, webRoot.length() - 1);
       this.setServiceRoot(tmp + publish);
-    }else{
+    } else {
       this.setServiceRoot(webRoot + publish);
     }
   }
@@ -403,14 +436,15 @@ public class WorkEnv {
     workEvn.currUser.setUserId("sa");
     workEvn.currUser.setUserName("aa");
     workEvn.currCompany = new Company();
-    workEvn.currCompany.setCoTypeCode("02");
-    workEvn.currCompany.setCode("140001");
+    workEvn.currCompany.setCoTypeCode("01");
+    workEvn.currCompany.setCode("000");
     // this.currCompany.setName("100name");
-    workEvn.orgCode = "cwk";
+    workEvn.orgCode = "002";
     workEvn.poCode = "ysdwcg";
     workEvn.orgPoCode = "003007";
-    workEvn.token = "ss";
-    workEvn.setTransDate("2013-10-22");
+    workEvn.token = "" + System.currentTimeMillis();
+
+    workEvn.setTransDate("2015-10-22");
     workEvn.setEmpCode("EM-00000286");
     workEvn.setEmpName("冯希杰");
     workEvn.setSysDate(new java.util.Date());
@@ -419,6 +453,22 @@ public class WorkEnv {
     workEvn.getRoles().add(role);
     workEvn.setWebRoot("http://127.0.0.1:7001/GB/");
     workEvn.setWebIp("http://127.0.0.1:7001");
+    workEvn.setEmpLst(initEmpLst());
+
+    EmpMeta.setEmpLst(workEvn.getEmpLst());
+  }
+
+  private static List initEmpLst() {
+    // TODO Auto-generated method stub
+
+    IZcEbBaseServiceDelegate baseDataServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class,
+      "zcEbBaseServiceDelegate");
+
+    RequestMeta requestMeta = new RequestMeta();
+    requestMeta.setToken("ss");
+    requestMeta.setSvUserID("sss");
+    List emps = baseDataServiceDelegate.queryDataForList("AsEmp.getAsEmp", null, requestMeta);
+    return emps;
   }
 
   public static String getUserName(String userId) {
@@ -553,7 +603,7 @@ public class WorkEnv {
 
         Map parameter = new HashMap();
         parameter.put("EMP_CODE", asEmp.getEmpCode());
-        parameter.put("ND", "2013");
+        parameter.put("ND", "2015");
         List list = baseDataServiceDelegate.queryDataForList("User.getAsEmpPosiByEmpCode", parameter, requestMeta);
 
         if (list == null || list.size() == 0) {
@@ -567,7 +617,7 @@ public class WorkEnv {
           paramete3.put("CO_CODE", po.getCoCode());
           paramete3.put("ORG_CODE", po.getOrgCode());
           paramete3.put("POSI_CODE", po.getPosiCode());
-          paramete3.put("ND", "2013");
+          paramete3.put("ND", "2015");
 
           List orglist = baseDataServiceDelegate.queryDataForList("WfCommonDraft.getOrgPosiId", paramete3, requestMeta);
           if (orglist == null || orglist.size() == 0) {
@@ -579,13 +629,13 @@ public class WorkEnv {
           workEvn.getCurrUser().setUserId(po.getEmpCode());
           workEvn.currUser.setUserName(user.getUserName());
           workEvn.currCompany = new Company();
-          workEvn.currCompany.setCoTypeCode("02");
+          workEvn.currCompany.setCoTypeCode("01");
           workEvn.currCompany.setCode(po.getCoCode());
           workEvn.orgCode = po.getOrgCode();
           workEvn.poCode = po.getPosiCode();
           workEvn.orgPoCode = org_posi_id;
-          workEvn.setToken("sss1");
-          workEvn.setTransDate("2013-06-01");
+          workEvn.setToken("" + System.currentTimeMillis());
+          workEvn.setTransDate("2015-06-01");
           workEvn.setEmpCode(po.getEmpCode());
           workEvn.setEmpName(user.getUserName());
           workEvn.setWebRoot("http://127.0.0.1:7001/GB/");
@@ -593,8 +643,10 @@ public class WorkEnv {
           IConsoleServiceDelegate consoleServiceDelegate = (IConsoleServiceDelegate) ServiceFactory.create(IConsoleServiceDelegate.class,
             "consoleServiceDelegate");
           List<AsRole> roles = consoleServiceDelegate.getAsRoleByPosi(po.getPosiCode(), requestMeta);
-         
+
           workEvn.setRoles(roles);
+          workEvn.setEmpLst(initEmpLst());
+          EmpMeta.setEmpLst(workEvn.getEmpLst());
 
           dialog.dispose();
         }
@@ -623,6 +675,7 @@ public class WorkEnv {
     }
     return false;
   }
+
   // public String getRoleCode() {
   // return roleCode;
   // }
@@ -630,5 +683,13 @@ public class WorkEnv {
   // public void setRoleCode(String roleCode) {
   // this.roleCode = roleCode;
   // }
+
+  public List getEmpLst() {
+    return empLst;
+  }
+
+  public void setEmpLst(List empLst) {
+    this.empLst = empLst;
+  }
 
 }

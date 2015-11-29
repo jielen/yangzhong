@@ -106,6 +106,7 @@ public class WorkEnv {
 		requestMeta.setUrlMap(urlMap);
 //		requestMeta.setSvRoleId(roleId);
 		requestMeta.setRoles(this.roles);
+		
 		return requestMeta;
 	}
 
@@ -425,4 +426,5 @@ public class WorkEnv {
     }
     return false;
   }
+
 }
