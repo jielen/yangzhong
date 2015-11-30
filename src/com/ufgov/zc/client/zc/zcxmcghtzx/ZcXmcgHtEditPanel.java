@@ -185,7 +185,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
   //合同模板，真实客户模板file_id和给客户显示模板file_id的后缀对应
   protected RequestMeta requestMeta = WorkEnv.getInstance().getRequestMeta();
 
-  private String compoId = "ZC_XMCG_HT";
+//  private String compoId = "ZC_XMCG_HT";
 
   protected FuncButton saveButton = new SaveButton();
 
@@ -2430,7 +2430,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     }
 
-    ZcUtil.showTraceDialog(bean, compoId);
+    ZcUtil.showTraceDialog(bean, getCompoId());
 
   }
 
@@ -3724,8 +3724,8 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
     }
   }
 
-  public String getCompoId() {
-    return compoId;
+  public  String getCompoId() {
+    return "ZC_XMCG_HT";
   }
 
   protected String getProjectSqlId() {

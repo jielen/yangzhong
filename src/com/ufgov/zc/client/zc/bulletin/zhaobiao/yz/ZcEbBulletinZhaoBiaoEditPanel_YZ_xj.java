@@ -273,7 +273,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ_xj   extends AbstractMainSubEditPa
 
   protected ElementConditionDto findWordMoldCondition = new ElementConditionDto();
 
-  protected BillElementMeta billElementMeta = BillElementMeta.getBillElementMetaWithoutNd("ZC_EB_BULLETIN_BID");
+  protected BillElementMeta billElementMeta = BillElementMeta.getBillElementMetaWithoutNd("ZC_EB_BULLETIN_BID_xj");
 
   protected ZcEbBulletinWordMold wordMold;
 
@@ -951,11 +951,13 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ_xj   extends AbstractMainSubEditPa
     if(curObj.getZcEbPlan().getBidEndTime()==null){
       error.append(LangTransMeta.translate(ZcEbPlan.COL_BID_END_TIME)).append("\n");
     }
-    if(curObj.getZcEbPlan().getOpenBidTime()==null){
-      error.append(LangTransMeta.translate(ZcEbPlan.COL_OPEN_BID_TIME)).append("\n");
-    }
-    if(curObj.getZcEbPlan().getOpenBidAddress()==null ||curObj.getZcEbPlan().getOpenBidAddress().trim().length()==0){
-      error.append(LangTransMeta.translate(ZcEbPlan.COL_OPEN_BID_ADDRESS)).append("\n");
+    if(!curObj.getZcEbProj().getPurType().equals(ZcSettingConstants.PITEM_OPIWAY_XJ)){
+      if(curObj.getZcEbPlan().getOpenBidTime()==null){
+        error.append(LangTransMeta.translate(ZcEbPlan.COL_OPEN_BID_TIME)).append("\n");
+      }
+      if(curObj.getZcEbPlan().getOpenBidAddress()==null ||curObj.getZcEbPlan().getOpenBidAddress().trim().length()==0){
+        error.append(LangTransMeta.translate(ZcEbPlan.COL_OPEN_BID_ADDRESS)).append("\n");
+      }
     }
     if(error.length()>0){
       error.append("不能为空!");
@@ -2239,12 +2241,13 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ_xj   extends AbstractMainSubEditPa
     String columNames[] = { "项目编号", "项目名称", "预算", "采购类型", "采购单位", "负责人", "电话", "邮件", "传真", /*"是否发布采购公告", "是否发布采购结果" */};
     ZcEbProjFnHandler handler = new ZcEbProjFnHandler(columNames);
     ElementConditionDto dto = new ElementConditionDto();
-    dto.setStatus("exec");
-    dto.setBulletinType("zhaobiao%");
+    dto.setStatus("exec"); 
     dto.setManageCode(requestMeta.getSvUserID());
     dto.setNd(requestMeta.getSvNd());
-    dto.setZcText4("xunjia");
-    projCodeEditor = new ForeignEntityFieldEditor("ZcEbProj.getZcEbProjForGeneralBul", dto, 20, handler, columNames,
+    dto.setZcText0("xunjia");
+    dto.setZcText1(requestMeta.getSvUserID());
+    dto.setZcText2("forZhaobiaoBulletin");
+    projCodeEditor = new ForeignEntityFieldEditor("ZcEbProj.getAllZcEbProjByConditions", dto, 20, handler, columNames,
       LangTransMeta.translate(ZcElementConstants.FIELD_TRANS_ZC_PROJ_CODE), "projCode");
     
     
@@ -2469,18 +2472,20 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ_xj   extends AbstractMainSubEditPa
       proj=zcEbProjServiceDelegate.getZcEbProjByProjCode(proj.getProjCode(), requestMeta);
       
       StringBuffer sb=new StringBuffer();
-      if(proj.getProjFileList()==null || proj.getProjFileList().size()==0){
-         sb.append(proj.getProjCode()).append(proj.getProjName()).append("没有招标文件，请进入").append(LangTransMeta.translate("ZC_EB_PROJ")).append("功能点，制作招标文件。\n并点击上传到服务器,再来制定招标公告");
-         JOptionPane.showMessageDialog(this.parent, sb.toString(), "提示", JOptionPane.WARNING_MESSAGE);
-         return;
+      if(!proj.getPurType().equals(ZcSettingConstants.PITEM_OPIWAY_XJ)){
+        if(proj.getProjFileList()==null || proj.getProjFileList().size()==0){
+           sb.append(proj.getProjCode()).append(proj.getProjName()).append("没有招标文件，请进入").append(LangTransMeta.translate("ZC_EB_PROJ")).append("功能点，制作招标文件。\n并点击上传到服务器,再来制定招标公告");
+           JOptionPane.showMessageDialog(this.parent, sb.toString(), "提示", JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        sb=new StringBuffer();
+        ZcEbProjZbFile zbfile=(ZcEbProjZbFile) proj.getProjFileList().get(0);
+        if(zbfile.getWordFileId()==null || zbfile.getWordFileId().trim().length()==0){
+          sb.append(proj.getProjCode()).append(proj.getProjName()).append("没有招标文件，请进入").append(LangTransMeta.translate("ZC_EB_PROJ")).append("功能点，制作招标文件。\n并点击上传到服务器,再来制定招标公告");
+          JOptionPane.showMessageDialog(this.parent, sb.toString(), "提示", JOptionPane.WARNING_MESSAGE);
+          return;
+        }
       }
-      sb=new StringBuffer();
-      ZcEbProjZbFile zbfile=(ZcEbProjZbFile) proj.getProjFileList().get(0);
-      if(zbfile.getWordFileId()==null || zbfile.getWordFileId().trim().length()==0){
-        sb.append(proj.getProjCode()).append(proj.getProjName()).append("没有招标文件，请进入").append(LangTransMeta.translate("ZC_EB_PROJ")).append("功能点，制作招标文件。\n并点击上传到服务器,再来制定招标公告");
-        JOptionPane.showMessageDialog(this.parent, sb.toString(), "提示", JOptionPane.WARNING_MESSAGE);
-        return;
-     }
       
       proj.setPackList(getpackList(proj.getProjCode()));
       bulletin.setZcEbProj(proj);

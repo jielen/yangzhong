@@ -583,13 +583,13 @@ public class ZcEbBulletinZhongBiaoEditPanel extends AbstractMainSubEditPanel {
 
     //    toolBar.add(sendRecordButton);
 
-    toolBar.add(printButton);
+//    toolBar.add(printButton);
 
     //    toolBar.add(viewTrackRevisionsButton);
 
     //    toolBar.add(disTrackRevisionsButton);
 
-    toolBar.add(openNotepadButton);
+//    toolBar.add(openNotepadButton);
 
     //    toolBar.add(overxxjjButton);
     //    toolBar.add(overxxzjButton);

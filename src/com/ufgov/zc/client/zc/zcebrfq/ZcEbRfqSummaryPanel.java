@@ -8,14 +8,19 @@ import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import com.ufgov.zc.client.common.LangTransMeta;
+import com.ufgov.zc.client.common.ListCursor;
 import com.ufgov.zc.client.common.ParentWindowAware;
 import com.ufgov.zc.client.common.ServiceFactory;
 import com.ufgov.zc.client.common.WorkEnv;
@@ -24,6 +29,7 @@ import com.ufgov.zc.client.component.JFuncToolBar;
 import com.ufgov.zc.client.component.JTablePanel;
 import com.ufgov.zc.client.component.button.ExitButton;
 import com.ufgov.zc.client.component.button.FuncButton;
+import com.ufgov.zc.client.component.button.RejectBidButton;
 import com.ufgov.zc.client.component.table.ColumnBeanPropertyPair;
 import com.ufgov.zc.client.component.table.celleditor.DateCellEditor;
 import com.ufgov.zc.client.component.table.cellrenderer.DateCellRenderer;
@@ -40,11 +46,15 @@ import com.ufgov.zc.client.util.SwingUtil;
 import com.ufgov.zc.client.zc.ZcUtil;
 import com.ufgov.zc.common.system.RequestMeta;
 import com.ufgov.zc.common.system.constants.ZcElementConstants;
+import com.ufgov.zc.common.system.constants.ZcSettingConstants;
 import com.ufgov.zc.common.system.dto.ElementConditionDto;
 import com.ufgov.zc.common.zc.model.ZcEbRfqPack;
 import com.ufgov.zc.common.zc.model.ZcEbXunJiaBaoJia;
+import com.ufgov.zc.common.zc.model.ZcXmcgHt;
+import com.ufgov.zc.common.zc.model.ZcXmcgHtExample;
 import com.ufgov.zc.common.zc.model.ZcXunJiaDetail;
 import com.ufgov.zc.common.zc.model.ZcXunJiaSummary;
+import com.ufgov.zc.common.zc.publish.IZcEbBaseServiceDelegate;
 import com.ufgov.zc.common.zc.publish.IZcEbXjbjServiceDelegate;
 
 /**
@@ -57,6 +67,9 @@ public class ZcEbRfqSummaryPanel extends AbstractMainSubEditPanel implements Par
   private Window parentWindow;
 
   private FuncButton exitButton = new ExitButton();
+
+  //废标
+  private FuncButton rejectBidButton = new RejectBidButton();
 
   JTablePanel summaryTablePanel = null;
 
@@ -80,6 +93,10 @@ public class ZcEbRfqSummaryPanel extends AbstractMainSubEditPanel implements Par
 
   "zcebXjbjServiceDelegate");
 
+  private IZcEbBaseServiceDelegate zcEbBaseServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class,
+
+  "zcEbBaseServiceDelegate");
+
   public ZcEbRfqSummaryPanel(ZcEbRfqPack zcEbRfqPack, ZcEbRfqListPanel listPanel) {
     this.zcEbRfqPack = zcEbRfqPack;
     this.listPanel = listPanel;
@@ -100,6 +117,7 @@ public class ZcEbRfqSummaryPanel extends AbstractMainSubEditPanel implements Par
   }
 
   public void initToolBar(JFuncToolBar toolBar) {
+    toolBar.add(rejectBidButton);
     toolBar.add(exitButton);
 
     exitButton.addActionListener(new ActionListener() {
@@ -110,10 +128,94 @@ public class ZcEbRfqSummaryPanel extends AbstractMainSubEditPanel implements Par
 
       }
 
+    }); 
+    rejectBidButton.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+
+        doRejectBid();
+
+      }
+
     });
 
   }
 
+  /**
+   * 这里的废标，用于生产评标报告以后，有可能已经发了中标公告、通知书等，所以要将这些都删除，如果已经有了合同，则提示先作废合同，再进行作废
+   */
+  protected void doRejectBid() {
+    // TODO Auto-generated method stub
+
+    JTextField reason = new JTextField();
+
+    JLabel label = new JLabel();
+
+    Object[] message = { "请输入【废标】原因:", reason, label };
+
+    int num = this.getRejectReason(message, label, reason);
+
+    if (num == JOptionPane.YES_OPTION) {
+      
+      //检查有无采购对应的采购合同存在
+      Object htCount=zcEbBaseServiceDelegate.queryObject("ZC_XMCG_HT.selectHtCountByPack", zcEbRfqPack.getPackCode(), requestMeta);
+      if(htCount!=null){
+        int c=((Integer)htCount).intValue();
+        if(c>0){
+          JOptionPane.showMessageDialog(this, "该中标已经存在合同，请先删除！", "提示", JOptionPane.ERROR_MESSAGE);
+          return;
+        }
+      }
+      zcEbRfqPack.setOpenBidStatus(ZcSettingConstants.XUNJIA_STATUS_OPEN_BID_CRAP);
+
+      zcEbRfqPack.setStatus(ZcSettingConstants.XUNJIA_STATUS_OPEN_BID_CRAP);
+
+      zcEbRfqPack.setIsGoonAudit(ZcSettingConstants.RFQ_AGREE_TRASH_BID);
+
+      zcEbRfqPack.setWinBidProviderCode(null);
+
+      zcEbRfqPack.setWinBidProviderName(null);
+
+      zcEbRfqPack.setWinBidSum(null);
+
+      try {
+        this.listPanel.zcEbRfqServiceDelegate.crapBidFN(zcEbRfqPack, requestMeta);
+        setEditingObject(zcEbRfqPack);
+        this.listPanel.refreshCurrentTabData();
+        JOptionPane.showMessageDialog(this, "废标成功", "提示", JOptionPane.INFORMATION_MESSAGE);
+      } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "废标出错：\n" + e.getMessage(), "提示", JOptionPane.INFORMATION_MESSAGE);
+      }
+    } else {
+
+      return;
+
+    }
+    
+  }
+  private int getRejectReason(Object[] message, JLabel label, JTextField reason) {
+
+    int res = JOptionPane.showConfirmDialog(this, message, "确认【废标】吗？", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+    if (res == JOptionPane.OK_OPTION && reason.getText().trim().length() < 5) {
+
+      label.setText("原因太简单，请补充.");
+
+      res = this.getRejectReason(message, label, reason);
+
+    }
+
+    if (res == JOptionPane.OK_OPTION) {
+
+      zcEbRfqPack.setReason("【废标原因】" + reason.getText());
+
+      label.setText("");
+
+    }
+
+    return res;
+
+  }
   public List<AbstractFieldEditor> createFieldEditors() {
 
     final List<AbstractFieldEditor> editorList = new ArrayList<AbstractFieldEditor>();

@@ -53,7 +53,7 @@
 		<result column="GONG_HUO_DATE" property="gongHuoDate" jdbcType="DATE"
 			javaType="java.util.Date" />
 		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
-		<result property="unit" column="unit" />
+		<result property="unit" column="unit" />		<result column="baojia_file_id" property="baojiaFileId" jdbcType="VARCHAR" />		<result column="baojia_file_name" property="baojiaFileName" jdbcType="VARCHAR" />
 	</resultMap>
 	<resultMap class="ZcEbXunJiaBaoJiaPack" id="ZcEbXunJiaBaoJiaPackResultMap">
 		<result property="packCode" column="PACK_CODE" />
@@ -84,16 +84,6 @@
 			ZC_EB_XUNJIA_BAOJIA.PROJ_CODE=#zcText0#
 		</isNotNull>
 		<isNotNull prepend="AND" property="status">
-			<isEqual property="status" compareValue="todo">
-				not exists (select
-				bp.pack_code from zc_eb_xunjia_baojia_pack bp where
-				bp.bj_code=ZC_EB_XUNJIA_BAOJIA.Bj_Code and bp.status='2')
-			</isEqual>
-			<isEqual property="status" compareValue="done">
-				exists (select
-				bp.pack_code from zc_eb_xunjia_baojia_pack bp where
-				bp.bj_code=ZC_EB_XUNJIA_BAOJIA.Bj_Code and bp.status='2')
-			</isEqual>
 			<isEqual property="status" compareValue="zhongbiao"> exists (select
 				rp.rfq_code from zc_eb_rfq_pack rp, zc_eb_xunjia_baojia_pack bp
 				where bp.bj_code = ZC_EB_XUNJIA_BAOJIA.Bj_Code and bp.status = '2'
@@ -106,18 +96,6 @@
 				and rp.proj_code = ZC_EB_XUNJIA_BAOJIA.Proj_Code and rp.pack_code =
 				bp.pack_code and rp.win_bid_provider_code = #zcText1# and rp.STATUS
 				= '1')
-			</isEqual>
-			<isEqual property="status" compareValue="crap"> EXISTS (SELECT
-				PACK.PROJ_CODE FROM ZC_EB_PACK PACK WHERE PACK.STATUS = '5' AND
-				PACK.PROJ_CODE = P.PROJ_CODE)			</isEqual>
-			<isEqual property="status" compareValue="delay">
-				EXISTS (SELECT
-				PROJ_CODE FROM V_ZC_XUNJIA_OPEN_BID WHERE
-				OPEN_BID_STATUS='2' AND
-				PROJ_CODE=P.PROJ_CODE )
-			</isEqual>
-			<isEqual property="status" compareValue="all">
-				1=1
 			</isEqual>
 		</isNotNull>		<isNotNull prepend="AND" property="zcText1">			ZC_EB_XUNJIA_BAOJIA.Supplier_Code=#zcText1#		</isNotNull>		) BAOJIA		WHERE 1 = 1		<include refid="BusiNumLim.BusiNumLimStr" />		order by BAOJIA.INPUT_DATE desc
 	</select>
@@ -200,13 +178,13 @@
 		ZC_EB_XUNJIA_BAOJIA_DETAIL (BJ_DETAIL_CODE,BJ_CODE, XJ_CODE,
 		SP_PRICE,
 		SP_TOTAL_SUM,
-		HAVE_XIAN_HUO, GONG_HUO_DATE, REMARK, SP_NUM,unit)
+		HAVE_XIAN_HUO, GONG_HUO_DATE, REMARK, SP_NUM,unit,baojia_file_id,baojia_file_name)
 		values
 		(#bjDetailCode:VARCHAR#, #bjCode:VARCHAR#, #xjCode:VARCHAR#,
 		#spPrice:DECIMAL#,
 		#spTotalSum:DECIMAL#, #haveXianHuo:VARCHAR#,
 		#gongHuoDate:DATE#, #remark:VARCHAR#,
-		#spNum:INTEGER#,#unit:VARCHAR#)
+		#spNum:INTEGER#,#unit:VARCHAR#,#baojiaFileId#,#baojiaFileName#)
 	</insert>
 	<select id="getSignupPack" resultMap="ZcEbXunJiaBaoJiaPackResultMap"
 		parameterClass="ZcEbXunJiaBaoJia">
@@ -276,7 +254,7 @@
 		XJ.REMARK,
 		null as BJ_DETAIL_CODE,
 		null as BJ_CODE,
-		xj.sp_unit AS UNIT
+		xj.sp_unit AS UNIT,		null as baojia_file_id,		null as baojia_file_name
 		FROM ZC_EB_XUNJIA XJ, ZC_EB_SIGNUP
 		SG,
 		ZC_EB_SIGNUP_PACK SP
@@ -310,7 +288,7 @@
 		XJ.REMARK,
 		null as BJ_DETAIL_CODE,
 		null as BJ_CODE,
-		xj.sp_unit as unit
+		xj.sp_unit as unit,		null as baojia_file_id,		null as baojia_file_name
 		FROM ZC_EB_XUNJIA XJ
 		WHERE 1=1		<isNotNull prepend="AND" property="zcText0">			XJ.PROJ_CODE=#zcText0#		</isNotNull>		<isNotNull prepend="AND" property="zcText1">			XJ.PACK_CODE=#zcText1#		</isNotNull>
 	</select>
@@ -333,7 +311,7 @@
 		bd.remark,
 		bd.BJ_DETAIL_CODE,
 		bj.bj_code,
-		xj.sp_unit as unit
+		xj.sp_unit as unit,		bd.baojia_file_id,		bd.baojia_file_name
 		FROM zc_eb_xunjia_baojia_detail bd,
 		zc_eb_xunjia_baojia bj,
 		zc_eb_xunjia xj

@@ -2180,7 +2180,33 @@
 		parameterClass="elementCondition">
 
 		select * from ZC_EB_PROJ
-
+		where 1=1
+		<include refid="BusiNumLim.BusiNumLimStr" /> 
+	    	<isNotEqual prepend="and" compareValue="0" property="nd">
+				ZC_EB_PROJ.ND = #nd#
+			</isNotEqual>  
+	    	<isNotEqual prepend="and" compareValue="0" property="status">
+				ZC_EB_PROJ.status = #status#
+			</isNotEqual> 	    	    
+			<isNotNull prepend="and" property="zcText0">
+				<isEqual property="zcText0" compareValue="xunjia">
+					ZC_EB_PROJ.PUR_TYPE ='5'
+				</isEqual>
+				<isEqual property="zcText0" compareValue="feixunjia">
+					ZC_EB_PROJ.PUR_TYPE !='5'
+				</isEqual>								
+			</isNotNull> 	    	    
+			<isNotNull prepend="and" property="zcText1">
+				ZC_EB_PROJ.EXECUTOR=#zcText1#
+			</isNotNull> 	    	    
+			<isNotNull prepend="and" property="zcText1">
+				<isEqual property="zcText1" compareValue="forZhaobiaoBulletin">
+					not exists (select 1
+						          from ZC_EB_BULLETIN b
+						         where b.proj_code = ZC_EB_PROJ.Proj_Code
+						           and b.bulletin_type like 'zhaobiao%')
+				</isEqual>
+			</isNotNull>
 	</select>
 
 	<select id="getAllZcEbProj" resultMap="ZcEbProjResult"
@@ -3779,6 +3805,37 @@
 
 			<isEqual property="status" compareValue="opened">
 		<![CDATA[ sysdate > l.bid_end_time ]]>
+			</isEqual>
+		</isNotNull>
+		<isNotNull prepend="and" property="zcText0">
+			p.proj_code=#zcText0#
+		</isNotNull>
+	</select>
+	<select id="getXjProjWithPlan" resultMap="zcEbProjWithPlanResult"
+		parameterClass="elementCondition">
+		select p.*,
+		l.plan_code,
+		l.sell_start_time,
+		l.sell_end_time,
+		l.bid_end_time,
+		l.open_bid_time,
+		l.open_bid_address,
+		l.doc_price,
+		l.doc_seller,
+		l.doc_sell_address,
+		l.doc_sell_phone
+		from zc_eb_proj p,
+		zc_eb_plan l
+		where p.proj_code = l.proj_code
+		and p.status = 'exec'
+		and
+		p.pur_type in ('5')
+		<isNotNull prepend="and" property="status">
+			<isEqual property="status" compareValue="doing">
+				<![CDATA[ sysdate <= l.bid_end_time ]]>
+			</isEqual>
+			<isEqual property="status" compareValue="done">
+				<![CDATA[ sysdate > l.bid_end_time ]]>
 			</isEqual>
 		</isNotNull>
 		<isNotNull prepend="and" property="zcText0">

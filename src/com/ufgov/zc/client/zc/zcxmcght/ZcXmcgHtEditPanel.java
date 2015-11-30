@@ -124,6 +124,7 @@ import com.ufgov.zc.common.system.model.AsFile;
 import com.ufgov.zc.common.system.util.DigestUtil;
 import com.ufgov.zc.common.system.util.ObjectUtil;
 import com.ufgov.zc.common.system.util.Utils;
+import com.ufgov.zc.common.zc.model.HuiyuanUnitcominfo;
 import com.ufgov.zc.common.zc.model.ZcBaseBill;
 import com.ufgov.zc.common.zc.model.ZcEbAuditSheet;
 import com.ufgov.zc.common.zc.model.ZcEbBulletinWordMold;
@@ -433,7 +434,12 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     gysProjDto.setBillStatus("exec");
 
-    gysProjDto.setUserId(requestMeta.getSvUserID());
+    HuiyuanUnitcominfo unit=ZcUtil.getHuiYuan();
+    if(unit!=null){
+      gysProjDto.setUserId(unit.getDanweiguid());
+    }else{
+      gysProjDto.setUserId(requestMeta.getSvUserID());
+    }
 
     ForeignEntityFieldEditor packCode = new ForeignEntityFieldEditor(getProjectSqlId(), gysProjDto, 20, projHandler,
 
@@ -770,18 +776,11 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     if (zcXmcgHt.getZcSuCode() != null) {
 
-      ZcEbSupplier supp = zcEbSupplierServiceDelegate.getSupplierById(zcXmcgHt.getZcSuCode(), requestMeta);
-
-      zcXmcgHt.setZcSuLinkman(supp.getLinkMan());
-
-      zcXmcgHt.setZcSuTel(supp.getPhone());
-
-      zcXmcgHt.setZcGnw(supp.getGnw());
-
-      zcXmcgHt.setZcSnw(supp.getSnw());
-
-      zcXmcgHt.setZcIsZxqyZb(supp.getIsZxqy());
-
+      HuiyuanUnitcominfo unit=ZcUtil.getHuiYuan();
+      if(unit!=null){
+        zcXmcgHt.setZcSuLinkman(unit.getZfcgGysInfo().getLianxiren1());
+        zcXmcgHt.setZcSuTel(unit.getZfcgGysInfo().getLianxiren1mobile());
+      }
     }
   //start of change --20141223 chenjl
 //原来是直接获取资金信息，后来因有结转项目到来年，再签订合同的情况，因此这里隐藏，换成下面预算单位才获取指标情况
@@ -1666,7 +1665,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
     //
     //    toolBar.add(loadMoldButton);
 
-    toolBar.add(printButton);
+//    toolBar.add(printButton);
 
     toolBar.add(traceButton);
 

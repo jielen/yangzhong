@@ -27,7 +27,7 @@
 		<result column="DOC_SELL_ADDRESS" jdbcType="VARCHAR" property="docSellAddress" />
 		<result column="DOC_SELL_PHONE" jdbcType="VARCHAR" property="docSellPhone" />
 		<result column="ND" jdbcType="DECIMAL" property="nd" />
-		<result column="PROCESS_INST_ID" jdbcType="VARCHAR" property="processInstId" />
+		<result column="PROCESS_INST_ID" jdbcType="VARCHAR" property="processInstId" />		<result column="BID_ADDRESS" jdbcType="VARCHAR" property="bidAddress" />
 	</resultMap>
 	<resultMap id="ZcEbProjResult" class="ZcEbProj">
 		<result property="projCode" column="PROJ_CODE" />
@@ -110,7 +110,7 @@
 		DOC_SELLER,
 		DOC_SELL_ADDRESS,
 		DOC_SELL_PHONE,
-		PROCESS_INST_ID
+		PROCESS_INST_ID,BID_ADDRESS
 		) values (#planCode:VARCHAR#,
 		#projCode:VARCHAR#, #createDate:DATE#,
 		#creator:VARCHAR#,
@@ -124,31 +124,9 @@
 		#docSeller:VARCHAR#,
 		#docSellAddress:VARCHAR#,
 		#docSellPhone:VARCHAR#,
-		#processInstId:VARCHAR#
+		#processInstId:VARCHAR#,		#bidAddress#
 		)
-	</insert>
-	<update id="updateZcEbPlan" parameterClass="ZcEbPlan">
-		update
-		ZC_EB_PLAN set
-		PROJ_CODE =
-		#projCode:VARCHAR#, CREATE_DATE = #createDate:DATE#,
-		CREATOR =
-		#creator:VARCHAR#, REMARK = #remark:VARCHAR#, ND =
-		#nd:DECIMAL#,
-		SELL_START_TIME=#sellStartTime:TIMESTAMP#,
-		SELL_END_TIME=#sellEndTime:TIMESTAMP#,
-		BID_END_TIME=#bidEndTime:TIMESTAMP#,
-		OPEN_BID_TIME=#openBidTime:TIMESTAMP#,
-		OPEN_BID_ADDRESS=#openBidAddress:VARCHAR#,
-		PROCESS_INST_ID=#processInstId:VARCHAR#,
-		DOC_PRICE=#docPrice:VARCHAR#,
-		DOC_SELLER=#docSeller:VARCHAR#,
-		DOC_SELL_ADDRESS=#docSellAddress:VARCHAR#,
-		DOC_SELL_PHONE=#docSellPhone:VARCHAR#
-		where
-		PLAN_CODE =
-		#planCode:VARCHAR#
-	</update>
+	</insert>	<update id="updateZcEbPlan" parameterClass="ZcEbPlan">		update		ZC_EB_PLAN set		PROJ_CODE =		#projCode:VARCHAR#, CREATE_DATE = #createDate:DATE#,		CREATOR =		#creator:VARCHAR#, REMARK = #remark:VARCHAR#, ND =		#nd:DECIMAL#,		SELL_START_TIME=#sellStartTime:TIMESTAMP#,		SELL_END_TIME=#sellEndTime:TIMESTAMP#,		BID_END_TIME=#bidEndTime:TIMESTAMP#,		OPEN_BID_TIME=#openBidTime:TIMESTAMP#,		OPEN_BID_ADDRESS=#openBidAddress:VARCHAR#,		PROCESS_INST_ID=#processInstId:VARCHAR#,		DOC_PRICE=#docPrice:VARCHAR#,		DOC_SELLER=#docSeller:VARCHAR#,		DOC_SELL_ADDRESS=#docSellAddress:VARCHAR#,		DOC_SELL_PHONE=#docSellPhone:VARCHAR#		where		PLAN_CODE =		#planCode:VARCHAR#	</update>
 
 	<delete id="deleteZcEbPlan" parameterClass="String">
 		delete

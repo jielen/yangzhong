@@ -101,6 +101,7 @@
 		<result property="orgCode" column="ORG_CODE" />
 		<result property="packMaxPrice" column="PACK_MAX_PRICE" />
 	    <result property="coCode" column="CO_CODE" />
+		<result property="openBidRemark" column="OPEN_BID_REMARK" />
 		
 	</resultMap>
 	<resultMap id="RfqSinupPackResult" class="RfqSinupPack">
@@ -134,6 +135,8 @@
 		<result property="gongHuoDate" column="GONG_HUO_DATE" />
 		<result property="unit" column="unit" />
 		<result property="tech" column="tech" />
+		<result column="baojia_file_id" property="baojiaFileId" jdbcType="VARCHAR" />
+		<result column="baojia_file_name" property="baojiaFileName" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<resultMap id="ZcEbPtResult" class="ZcEbPtPack">
@@ -374,6 +377,9 @@
 			<isEqual property="status" compareValue="draft">
 				master.OPEN_BID_STATUS='1'
 			</isEqual>
+			<isEqual property="status" compareValue="success">
+				master.OPEN_BID_STATUS='1'
+			</isEqual>
 			<isEqual property="status" compareValue="all">
 				1=1
 			</isEqual>
@@ -386,7 +392,8 @@
 			master.PROJ_CODE
 			=#projCode:VARCHAR#
 		</isNotNull>
-		order by master.OPEN_BID_DATE desc
+		order by master.OPEN_BID_DATE ,master.proj_code,master.pack_code 
+
 	</select>
 	<select id="getZcEbEcbjItem" resultMap="ZcEbEcbjItemResult"
 		parameterClass="elementCondition">
@@ -550,7 +557,7 @@
 	<select id="getZcSupBmDetail" resultMap="ZcEbSupBmDetail"
 		parameterClass="elementCondition">
 		select
-		spl.zc_su_name provider_name,
+		spl.DANWEINAME provider_name,
 		sp.is_pay_guarantee,
 		nvl(sp.ecbj_sum, sp.bid_sum) as bjsum,
 		s.remark,
@@ -559,7 +566,7 @@
 		sp.submit_bid_doc_type
 		from
 		zc_eb_signup_pack sp, zc_eb_signup s,
-		zc_b_supplier spl
+		HUIYUAN_UNITCOMINFO spl
 		where
 		sp.pack_code = #packCode:VARCHAR#
 		and
@@ -567,7 +574,7 @@
 		and
 		s.proj_code = #projCode:VARCHAR#
 		and
-		s.provider_code = spl.zc_su_code
+		s.provider_code = spl.DANWEIGUID
 	</select>
 
 	<!-- 标段的供应商投标文件ID -->
@@ -575,18 +582,15 @@
 		parameterClass="elementCondition">
 		select
 		sp.tbylb_file_id file_id,
-		spl.zc_su_name
+		spl.DANWEINAME
 		provider_name
 		from zc_eb_signup_pack sp,
 		zc_eb_signup s,
-		zc_b_supplier
-		spl
+		HUIYUAN_UNITCOMINFO	spl
 		where sp.pack_code = #packCode:VARCHAR#
-		and sp.signup_id =
-		s.signup_id
+		and sp.signup_id =	s.signup_id
 		and s.proj_code = #projCode:VARCHAR#
-		and s.provider_code =
-		spl.zc_su_code
+		and s.provider_code =spl.DANWEIGUID
 
 
 	</select>
@@ -721,7 +725,7 @@
 		PACK_CODE,PACK_NAME,
 		RFQ_TEAM_OPINION,BUZHANG_OPINION,ZHUREN_OPINION,ND,STATUS,WIN_BID_PROVIDER_NAME,WIN_BID_PROVIDER_CODE
 		,CREATOR,MANAGER_CODE,PROCESS_INST_ID,RE_OPEN_BID_DATE,SELL_START_TIME,SELL_END_TIME,BID_END_TIME,PLAN_CODE,
-		OPEN_BID_STATUS,IS_GOON_AUDIT,OPEN_BID_DATE,WIN_BID_SUM,AGENCY,ORG_CODE,REASON)
+		OPEN_BID_STATUS,IS_GOON_AUDIT,OPEN_BID_DATE,WIN_BID_SUM,AGENCY,ORG_CODE,REASON,OPEN_BID_REMARK)
 		values(
 		#rfqCode:VARCHAR#,#projCode:VARCHAR#,#projName:VARCHAR#,
 		#packCode:VARCHAR#,#packName:VARCHAR#,
@@ -730,7 +734,7 @@
 		#creator:VARCHAR#,#manager:VARCHAR#,#processInstId:Integer#,#reOpenBidDate:TIMESTAMP#,
 		#sellStartTime:TIMESTAMP#,#sellEndTime:TIMESTAMP#,#bidEndTime:TIMESTAMP#,#planCode:VARCHAR#,
 		#openBidStatus:VARCHAR#,#isGoonAudit:VARCHAR#,#openBidDate:TIMESTAMP#,#winBidSum:VARCHAR#,
-		#agency:VARCHAR#,#orgCode:VARCHAR#,#reason:VARCHAR#)
+		#agency:VARCHAR#,#orgCode:VARCHAR#,#reason:VARCHAR#,#openBidRemark:VARCHAR#)
 	</insert>
 	<update id="updateZcEbRfqPack" parameterClass="ZcEbRfqPack">
 		update
@@ -756,12 +760,13 @@
 		REASON=#reason#,
 		IS_GOON_AUDIT=#isGoonAudit#,
 		OPEN_BID_DATE=#openBidDate#,
-		WIN_BID_SUM=#winBidSum#, ORG_CODE=#orgCode#, AGENCY=#agency#
+		WIN_BID_SUM=#winBidSum#, ORG_CODE=#orgCode#, AGENCY=#agency#,
+		OPEN_BID_REMARK=#openBidRemark#
 		where
 		RFQ_CODE=#rfqCode:VARCHAR#
 	</update>
 	<delete id="deleteZcEbRfqPack" parameterClass="elementCondition">
-		delete * from
+		delete  from
 		Zc_Eb_Rfq_Pack
 		where RFQ_CODE=#zcText0:VARCHAR#
 	</delete>
@@ -776,13 +781,17 @@
 	<select id="getProviders" resultMap="ZcEbSupplierResult"
 		parameterClass="elementCondition">
 		SELECT
-		S.ZC_SU_CODE,S.ZC_SU_NAME,S.ZC_SU_ADDR,S.ZC_SU_LINKMAN,S.ZC_SU_TEL
+		S.DANWEIGUID as ZC_SU_CODE,
+		S.DANWEINAME as ZC_SU_NAME,
+		S.ZHUCEADDRESS as ZC_SU_ADDR,
+		S.FAREN as ZC_SU_LINKMAN,
+		S.FARENTEL as ZC_SU_TEL
 		FROM
-		ZC_B_SUPPLIER S,
+		HUIYUAN_UNITCOMINFO S,
 		ZC_EB_SIGNUP P,
 		ZC_EB_SIGNUP_PACK C
 		WHERE
-		S.ZC_SU_CODE=P.PROVIDER_CODE
+		S.DANWEIGUID=P.PROVIDER_CODE
 		AND
 		P.SIGNUP_ID=C.SIGNUP_ID
 		AND
@@ -934,20 +943,22 @@ select distinct ee.co_name,
    and p.proj_code = rp.proj_code
    and b.bulletin_id = d.id(+)
    and e.co_code = ee.co_code
+   and e.nd=ee.nd
    and p.pack_code = #pack_code#
    and p.proj_code = #proj_code#
+   and pj.nd=ee.nd
    and not exists (select BULLETIN_ID from zc_eb_bulletin where PROJ_CODE=p.proj_code and PROJECT_CODE=p.pack_code)
 	</select>
 		
 	<select id="selectXjPackResult" parameterClass="Map" resultMap="xjzhongbiaoModelResultMap">
 select p.entrust_code entrust_code,
        p.pack_code pack_code,
-       s.zc_su_addr zc_su_addr,
-       s.zc_post_code zc_post_code,
-       s.zc_su_linkman,
-       decode(s.zc_su_tel, '', s.LINK_MAN_PHONE, s.zc_su_tel) zc_su_tel,
-       s.zc_su_bank_name zc_su_bank_name,
-       s.zc_su_acc_code zc_su_acc_code,
+       s.ZHUCEADDRESS as zc_su_addr,
+       ss.LIANXIREN1ZIP as zc_post_code,
+       ss.LIANXIREN1 as zc_su_linkman,
+       ss.LIANXIREN1MOBILE as zc_su_tel,
+       ss.BANK as zc_su_bank_name,
+       ss.ACCOUNT as zc_su_acc_code,
        p.proj_code zb_file_code,
 
        e.co_name,
@@ -958,11 +969,13 @@ select p.entrust_code entrust_code,
        r.REASON,
        r.OPEN_BID_STATUS,
        r.WIN_BID_SUM
-  from zc_eb_pack p, zc_eb_rfq_pack r, zc_b_supplier s, ma_company e,zc_eb_proj pj
+  from zc_eb_pack p, zc_eb_rfq_pack r, HUIYUAN_UNITCOMINFO s,HUIYUAN_ZFCG_GONGYINGINFO ss, ma_company e,zc_eb_proj pj
  where 
    p.pack_code = r.pack_code
    and pj.proj_code=p.proj_code   
    and p.proj_code = r.proj_code
+   and pj.nd=e.nd
+   and s.DANWEIGUID=ss.DANWEIGUID
 		<isNotNull prepend="AND" property="nd">
 			pj.nd =#nd#
 		</isNotNull>
@@ -975,23 +988,27 @@ select p.entrust_code entrust_code,
 		<isNotNull prepend="AND" property="executor">
 			pj.executor = #executor#
 		</isNotNull>
-   and r.win_bid_provider_code = s.zc_su_code
+		<!-- 要显示废标、流标的分包，没有中标供应商，所以这里用右管理，关联供应商表 -->
+   and r.win_bid_provider_code = s.DANWEIGUID(+)
    and p.co_code = e.co_code
-   and not exists (select 1 from zc_eb_bulletin b,zc_eb_bulletin_pack bp
-    where b.bulletin_id=bp.bulletin_id
-    and b.bulletin_type ='zhongbiao_xj'
-    and bp.pack_code=p.pack_code)
+   <!--不指定这个值时，查没有公告的分包， 指定这个值时，一般用于以项目发布公告后的单独在发布公告，这时需要再次选出该分包信息，所以这里加了这个条件， -->
+   <isNull prepend="AND" property="zcText4">   	
+	   	not exists (select 1 from zc_eb_bulletin b,zc_eb_bulletin_pack bp
+	    where b.bulletin_id=bp.bulletin_id
+	    and b.bulletin_type ='zhongbiao_xj'
+	    and bp.pack_code=p.pack_code)
+   </isNull>
 	</select>
 
 	<select id="findHtById" parameterClass="Map" resultMap="zcHtModelResultMap">
 select p.entrust_code entrust_code,
        p.pack_code pack_code,
-       s.zc_su_addr zc_su_addr,
-       s.zc_post_code zc_post_code,
-       s.zc_su_linkman,
-       decode(s.zc_su_tel, '', s.LINK_MAN_PHONE, s.zc_su_tel) zc_su_tel,
-       s.zc_su_bank_name zc_su_bank_name,
-       s.zc_su_acc_code zc_su_acc_code,
+       s.ZHUCEADDRESS as zc_su_addr,
+       ss.LIANXIREN1ZIP as zc_post_code,
+       ss.LIANXIREN1 as zc_su_linkman,
+       ss.LIANXIREN1MOBILE as zc_su_tel,
+       ss.BANK as zc_su_bank_name,
+       ss.ACCOUNT as zc_su_acc_code,
        p.proj_code zb_file_code,
 
        e.co_name,
@@ -1000,11 +1017,12 @@ select p.entrust_code entrust_code,
        r.win_bid_provider_name,
        r.REASON,
        r.OPEN_BID_STATUS
-  from zc_eb_pack p, zc_eb_rfq_pack r, zc_b_supplier s, ma_company e,zc_eb_proj pj
+  from zc_eb_pack p, zc_eb_rfq_pack r, HUIYUAN_ZFCG_GONGYINGINFO s,HUIYUAN_ZFCG_GONGYINGINFO ss, ma_company e,zc_eb_proj pj
  where 
    p.pack_code = r.pack_code
    and pj.proj_code=p.proj_code   
    and p.proj_code = r.proj_code
+   and s.DANWEIGUID=ss.DANWEIGUID
 		<isNotNull prepend="AND" property="nd">
 			pj.nd =#nd#
 		</isNotNull>
@@ -1017,8 +1035,9 @@ select p.entrust_code entrust_code,
 		<isNotNull prepend="AND" property="executor">
 			pj.executor = #executor#
 		</isNotNull>
-   and r.win_bid_provider_code = s.zc_su_code
+   and r.win_bid_provider_code = s.DANWEIGUID
    and p.co_code = e.co_code
+   and p.nd=e.nd
    and not exists (select zc_ht_code from zc_xmcg_ht where zc_make_code=p.proj_code and zc_bid_code=p.pack_code)
 	</select>
 </sqlMap>

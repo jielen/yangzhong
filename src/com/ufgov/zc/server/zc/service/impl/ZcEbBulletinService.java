@@ -37,6 +37,7 @@ import com.ufgov.zc.common.zc.model.ZcPProMake;
 import com.ufgov.zc.server.system.dao.IWorkflowDao;
 import com.ufgov.zc.server.system.util.AsOptionUtil;
 import com.ufgov.zc.server.system.util.NumLimUtil;
+import com.ufgov.zc.server.system.util.NumUtil;
 import com.ufgov.zc.server.system.workflow.WFEngineAdapter;
 import com.ufgov.zc.server.webservice.zwdt.ZwdtWebServiceUtil;
 import com.ufgov.zc.server.zc.dao.IBaseDao;
@@ -158,10 +159,20 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
       }
     }
     zcEbBulletinDao.insert(zcEbBulletin);
-    
+    //保存招标执行计划
+    zcEbBulletin.getZcEbPlan().setProjCode(zcEbBulletin.getProjCode());
+    zcEbBulletin.getZcEbPlan().setProjName(zcEbBulletin.getProjName());
+    if(zcEbBulletin.getZcEbProj().getPurType().equals(ZcSettingConstants.ZC_CGFS_XJ)){
+      Calendar cd = Calendar.getInstance();
+      cd.setTime(zcEbBulletin.getZcEbPlan().getBidEndTime());
+//      cd.add(Calendar.HOUR_OF_DAY, -1);
+      zcEbBulletin.getZcEbPlan().setOpenBidTime(cd.getTime());
+      zcEbBulletin.getZcEbPlan().setSellEndTime(cd.getTime());
+      zcEbBulletin.getZcEbPlan().setNd(zcEbBulletin.getNd());
+      
+    }
+    zcEbPlanService.save(zcEbBulletin.getZcEbPlan(), meta);
     if(!zcEbBulletin.getZcEbProj().getPurType().equals(ZcSettingConstants.ZC_CGFS_XJ)){//非询价的采购
-      //保存招标执行计划
-      zcEbPlanService.save(zcEbBulletin.getZcEbPlan(), meta);
       //更新招标word文件
       ZcEbProjZbFile zbfile=(ZcEbProjZbFile) zcEbBulletin.getZcEbProj().getProjFileList().get(0);
       zcEbZbFileService.insertOrUpdateZcEbProjZBFile(zbfile, "update");

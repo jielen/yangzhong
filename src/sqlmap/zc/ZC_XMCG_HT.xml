@@ -224,8 +224,8 @@
 		ZC_BGSP_BH,ZC_DELIVERY_EVL,ZC_PRICE_EVL,
 		ZC_QUANTITY_EVL,ZC_SERVICE_EVL,ZC_MEMO,ZC_BID_CONTENT
 		,
-		(select m.ZC_MAKE_NAME from ZC_P_PRO_MAKE m where m.zc_make_code =
-		ZC_XMCG_HT.zc_make_code)
+		(select e.zc_make_name from zc_eb_entrust e ,zc_eb_pack p
+			where p.entrust_code=e.sn and p.pack_code=ZC_XMCG_HT.zc_bid_code)
 		 as ZC_MAKE_NAME
 		,(select m.ZC_MONEY_BI_SUM from ZC_P_PRO_MAKE m where m.zc_make_code =
 		ZC_XMCG_HT.zc_make_code) as ZC_MONEY_BI_SUM,
