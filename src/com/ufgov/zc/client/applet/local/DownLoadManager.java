@@ -54,6 +54,7 @@ public class DownLoadManager {
     Iterator<String> resourceNs = rMap.keySet().iterator();
     while (resourceNs.hasNext()) {
       String name = resourceNs.next();
+      LOG.info("resourceNs=" + name);
       DownLoadTask task = new DownLoadTask(baseUrl, name, (String) rMap.get(name), lantch);
       tasks.add(task);
     }

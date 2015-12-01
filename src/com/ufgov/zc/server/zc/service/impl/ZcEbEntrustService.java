@@ -260,7 +260,7 @@ public class ZcEbEntrustService implements IZcEbEntrustService {
 
   public ZcEbEntrust doSaveFN(ZcEbEntrust entrust, RequestMeta requestMeta) {
     //		ZcEbEntrust tempEntrust = this.zcEbEntrustDao.getZcEbEntrustBySn(entrust.getSn());
-    System.out.println("service.doSaveFN 1" + entrust.getCoCode());
+    //    System.out.println("service.doSaveFN 1" + entrust.getCoCode());
     if (entrust.getSn() == null || entrust.getSn().equals("自动编号") || entrust.getSn().equals("")) {
       // entrust.setZcMakeCode(entrust.getSn());
       String entrust_code = NumUtil.getInstance().getNo("ZC_EB_ENTRUST", "SN", entrust);
@@ -296,16 +296,16 @@ public class ZcEbEntrustService implements IZcEbEntrustService {
       this.zcEbEntrustDao.deleteDetalBySn(entrust.getSn());
       baseDao.delete("ZC_P_PRO_MITEM_BI.deleteByZcMakeCode", entrust.getZcMakeCode());
       this.zcEbEntrustDao.insertZcEbEntrust(entrust);
-      System.out.println("service.doSaveFN 2" + entrust.getCoCode());
+      //      System.out.println("service.doSaveFN 2" + entrust.getCoCode());
 
     } else {
 
-      System.out.println("service.updateZcEbEntrust 1" + entrust.getCoCode());
+      //      System.out.println("service.updateZcEbEntrust 1" + entrust.getCoCode());
       zcEbEntrustDao.updateZcEbEntrust(entrust);
-      System.out.println("service.updateZcEbEntrust 2" + entrust.getCoCode());
+      //      System.out.println("service.updateZcEbEntrust 2" + entrust.getCoCode());
     }
     entrust.setDbDigest(entrust.digest());
-    System.out.println("service.doSaveFN 3" + entrust.getCoCode());
+    //    System.out.println("service.doSaveFN 3" + entrust.getCoCode());
     return entrust;
   }
 

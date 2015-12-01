@@ -204,27 +204,25 @@ public abstract class MyBaseApplet extends JApplet {
   }
 
   private static void modifyJavaProxy() {
-    /* File file = new File(System.getenv("APPDATA") + "/Sun/Java/Deployment/deployment.properties");
-     try {
-       Properties prop = new Properties();
-       FileInputStream in = new FileInputStream(file);
-       try {
-         prop.load(in);
-         if ("DISABLE".equals(prop.get("deployment.security.mixcode"))) {
-           return;
-         }
-         prop.setProperty("deployment.security.mixcode", "DISABLE");
-         FileOutputStream out = new FileOutputStream(file);
-         try {
-           prop.store(out, null);
-         } finally {
-           out.close();
-         }
-       } finally {
-         in.close();
-       }
-     } catch (Throwable e) {
-       e.printStackTrace();
-     }*/
+    /*File file = new File(System.getenv("APPDATA") + "/Sun/Java/Deployment/deployment.properties");
+    try {
+      Properties prop = new Properties();
+      FileInputStream in = new FileInputStream(file);
+      try {
+        prop.load(in);
+        if ("DISABLE".equals(prop.get("deployment.security.mixcode"))) { return; }
+        prop.setProperty("deployment.security.mixcode", "DISABLE");
+        FileOutputStream out = new FileOutputStream(file);
+        try {
+          prop.store(out, null);
+        } finally {
+          out.close();
+        }
+      } finally {
+        in.close();
+      }
+    } catch (Throwable e) {
+      e.printStackTrace();
+    }*/
   }
 }

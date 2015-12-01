@@ -44,12 +44,15 @@ public class DigestCheckServlet extends HttpServlet {
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     // String resourceName = request.getParameter("resname");
-    
-    String resourcePath = request.getRealPath("") + "/resource";
-    String jarPath = request.getRealPath("") + "/applet";
-    
-//    System.out.println(resourcePath);
-//    System.out.println(jarPath);
+
+    String resourcePath = request.getSession().getServletContext().getRealPath("/") + "resource";
+    String jarPath = request.getSession().getServletContext().getRealPath("/") + "applet";
+
+    //    System.out.println("path=" + request.getSession().getServletContext().getRealPath("/"));
+    //    System.out.println("path=" + request.getSession().getServletContext().getRealPath(""));
+
+    //    System.out.println(resourcePath);
+    //    System.out.println(jarPath);
 
     String resourceResult = getFilesDigist(resourcePath, "*", request);
     String jarResutl = getFilesDigist(jarPath, "jar", request);
@@ -75,12 +78,15 @@ public class DigestCheckServlet extends HttpServlet {
   private String getFilesDigist(String resourcePath, String type, HttpServletRequest request) {
     // TCJLODO Auto-generated method stub
     StringBuffer rtn = new StringBuffer();
+    //    System.out.println("DigestCheckServlet.getFilesDigist resourcePath=" + resourcePath);
     File f = new File(resourcePath);
     if (f.exists() && f.isDirectory()) {
       File[] files = f.listFiles();
+      //      System.out.println("DigestCheckServlet.getFilesDigist files=" + files.length);
       String digistStr = "";
       for (int i = 0; i < files.length; i++) {
-        //        System.out.println(files[i].getName());
+
+        //        System.out.println("DigestCheckServlet.getFilesDigist No" + i + " file=" + files[i].getName());
         if ("*".equals(type)) {
           digistStr = getDigest(files[i].getName(), resourcePath + "/" + files[i].getName());
         } else if ("jar".equals(type) && files[i].getName().endsWith(".jar")) {
@@ -113,6 +119,8 @@ public class DigestCheckServlet extends HttpServlet {
       result = (String) getCache(resourceName);
     } else {
       try {
+        //        System.out.println("DigestCheckServlet.getDigest resourceName=" + resourceName);
+        //        System.out.println("DigestCheckServlet.getDigest path=" + path);
         InputStream source = new FileInputStream(path);
         if (source == null) {
           result = "-1";

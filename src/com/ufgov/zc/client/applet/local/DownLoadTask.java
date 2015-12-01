@@ -40,7 +40,7 @@ public class DownLoadTask implements Callable<Boolean> {
           url = "/applet/";
           downLoadResource(baseUrl + url + resourceName, DownLoadManager.localJarUrl + "/" + resourceName, rDigest);
         } else {
-          deleteLocalFile(DownLoadManager.localJarUrl + "/" + resourceName);
+          deleteLocalFile(DownLoadManager.localResourceUrl + "/" + resourceName);
           url = "/resource/";
           downLoadResource(baseUrl + url + resourceName, DownLoadManager.localResourceUrl + "/" + resourceName, rDigest);
         }
@@ -56,8 +56,7 @@ public class DownLoadTask implements Callable<Boolean> {
     } finally {
       latch.countDown();
       try {
-        if (stream != null)
-          stream.close();
+        if (stream != null) stream.close();
       } catch (Exception ex) {
         LOG.info(ex.getMessage());
       }
@@ -82,8 +81,7 @@ public class DownLoadTask implements Callable<Boolean> {
         URL u = new URL(remoteSourceUrl);
         BufferedInputStream stream = new BufferedInputStream(u.openStream());
         File f = new File(localSourceUrl);
-        if (f.exists())
-          f.delete();
+        if (f.exists()) f.delete();
         FileOutputStream out = new FileOutputStream(localSourceUrl);
         byte[] buffer = new byte[1024];
         int length = stream.read(buffer);
@@ -103,9 +101,7 @@ public class DownLoadTask implements Callable<Boolean> {
           downLoadCount++;
         }
       }
-      if (downLoadCount >= 3) {
-        throw new RuntimeException(resourceName + " 下载完整性校验失败!");
-      }
+      if (downLoadCount >= 3) { throw new RuntimeException(resourceName + " 下载完整性校验失败!"); }
     } catch (Exception ex) {
       throw ex;
     }
