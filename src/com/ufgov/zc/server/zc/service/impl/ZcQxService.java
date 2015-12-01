@@ -44,7 +44,7 @@ public class ZcQxService implements IZcQxService {
   private WFEngineAdapter wfEngineAdapter;
 
   public List getQxLst(ElementConditionDto elementConditionDto, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     List list = qxDao.getQxLst(elementConditionDto);
 
     ZcSUtil.setBillDBDigest(list);
@@ -53,24 +53,24 @@ public class ZcQxService implements IZcQxService {
   }
 
   public void cancelFn(ZcQx qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
   }
 
   public ZcQx unAuditFN(ZcQx qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return null;
   }
 
   public ZcQx untreadFN(ZcQx qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     wfEngineAdapter.untread(qx.getComment(), qx, requestMeta);
 
     return qx;
   }
 
   public ZcQx auditFN(ZcQx qx, RequestMeta requestMeta) throws Exception {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     qx=updateFN(qx, requestMeta);
     wfEngineAdapter.commit(qx.getComment(), qx, requestMeta);
 
@@ -78,7 +78,7 @@ public class ZcQxService implements IZcQxService {
   }
 
   public ZcQx updateFN(ZcQx qx, RequestMeta requestMeta) throws Exception {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     System.out.println("1111="+qx.getCoCode()+qx.getCoName());
     String code = "";
@@ -229,22 +229,22 @@ public class ZcQxService implements IZcQxService {
   }
 
   public void commitFN(List beanList, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
   }
 
   public void deleteListFN(List beanList, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
   }
 
   public void deleteFN(ZcQx qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
   }
 
   public ZcQx selectByPrimaryKey(String qxCode, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     ZcQx qx = this.qxDao.selectByPrimaryKey(qxCode);
     qx.setBiList(getBiLst(qxCode));
     qx.setItemList(getItemLst(qxCode));
@@ -256,12 +256,12 @@ public class ZcQxService implements IZcQxService {
   }
 
   private List getItemLst(String qxCode) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return this.qxDao.getItemLst(qxCode);
   }
 
   private List getBiLst(String qxCode) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     List biLst = this.qxDao.getQxBiLst(qxCode);
     if(!isUseBudget()){
       return biLst;
@@ -303,19 +303,19 @@ public class ZcQxService implements IZcQxService {
   }
 
   public ZcQx callbackFN(ZcQx qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     wfEngineAdapter.callback(qx.getComment(), qx, requestMeta);
 
     return qx;
   }
 
   public void deleteByPrimaryKeyFN(String qxCode, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
   }
 
   public ZcQx newCommitFN(ZcQx qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     wfEngineAdapter.newCommit(qx.getComment(), qx, requestMeta);
 
@@ -348,7 +348,7 @@ public class ZcQxService implements IZcQxService {
 
   
   public ZcQx sendPayFN(ZcQx qx, RequestMeta requestMeta) throws Exception {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     qx=updateFN(qx, requestMeta);
     BudgetUtil bu=new BudgetUtil();
     Map map = null;

@@ -352,7 +352,7 @@ public class ZcEbBulletinZhaoBiaoListPanel_YZ_xj   extends AbstractEditListBill 
 
   public String getBulletinType() {
 
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     return "zhaobiao%";
 

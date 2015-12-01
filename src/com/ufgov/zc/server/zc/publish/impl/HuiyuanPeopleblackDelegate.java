@@ -13,13 +13,13 @@ public class HuiyuanPeopleblackDelegate implements IHuiyuanPeopleblackDelegate {
   private IHuiyuanPeopleblackService huiyuanPeopleblackService;
   
   public List getMainDataLst(ElementConditionDto elementConditionDto, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanPeopleblackService.getMainDataLst(elementConditionDto, requestMeta);
   }
 
 
   public HuiyuanPeopleblack selectByPrimaryKey(String guid, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanPeopleblackService.selectByPrimaryKey(guid, requestMeta);
   }
 
@@ -28,7 +28,7 @@ public class HuiyuanPeopleblackDelegate implements IHuiyuanPeopleblackDelegate {
    */
   
   public HuiyuanPeopleblack saveFN(HuiyuanPeopleblack record, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanPeopleblackService.saveFN(record, requestMeta);
   }
 
@@ -37,7 +37,7 @@ public class HuiyuanPeopleblackDelegate implements IHuiyuanPeopleblackDelegate {
    */
   
   public void deleteByPrimaryKeyFN(String guid, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     huiyuanPeopleblackService.deleteByPrimaryKeyFN(guid, requestMeta);
   }
 
@@ -46,7 +46,7 @@ public class HuiyuanPeopleblackDelegate implements IHuiyuanPeopleblackDelegate {
    */
   
   public HuiyuanPeopleblack unAuditFN(HuiyuanPeopleblack unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanPeopleblackService.unAuditFN(unit, requestMeta);
   }
 
@@ -55,7 +55,7 @@ public class HuiyuanPeopleblackDelegate implements IHuiyuanPeopleblackDelegate {
    */
   
   public HuiyuanPeopleblack untreadFN(HuiyuanPeopleblack unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanPeopleblackService.untreadFN(unit, requestMeta);
   }
 
@@ -64,7 +64,7 @@ public class HuiyuanPeopleblackDelegate implements IHuiyuanPeopleblackDelegate {
    */
   
   public HuiyuanPeopleblack auditFN(HuiyuanPeopleblack unit, RequestMeta requestMeta) throws Exception {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanPeopleblackService.auditFN(unit, requestMeta);
   }
 
@@ -73,7 +73,7 @@ public class HuiyuanPeopleblackDelegate implements IHuiyuanPeopleblackDelegate {
    */
   
   public HuiyuanPeopleblack newCommitFN(HuiyuanPeopleblack unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanPeopleblackService.newCommitFN(unit, requestMeta);
   }
 
@@ -82,7 +82,7 @@ public class HuiyuanPeopleblackDelegate implements IHuiyuanPeopleblackDelegate {
    */
   
   public HuiyuanPeopleblack callbackFN(HuiyuanPeopleblack unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanPeopleblackService.callbackFN(unit, requestMeta);
   }
   

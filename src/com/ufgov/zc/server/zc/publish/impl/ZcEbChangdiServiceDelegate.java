@@ -14,25 +14,25 @@ public class ZcEbChangdiServiceDelegate implements IZcEbChangdiServiceDelegate {
   private IZcEbChangdiService zcEbChangdiService;
   
   public List getMainDataLst(ElementConditionDto elementConditionDto, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbChangdiService.getMainDataLst(elementConditionDto, requestMeta);
   }
 
   
   public ZcEbChangdi selectByPrimaryKey(String code, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbChangdiService.selectByPrimaryKey(code, requestMeta);
   }
 
   
   public ZcEbChangdi saveFN(ZcEbChangdi record, RequestMeta requestMeta) throws BusinessException {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbChangdiService.saveFN(record, requestMeta);
   }
 
   
   public void deleteByPrimaryKeyFN(String code, RequestMeta requestMeta) throws BusinessException {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     zcEbChangdiService.deleteByPrimaryKeyFN(code, requestMeta);
   }
 

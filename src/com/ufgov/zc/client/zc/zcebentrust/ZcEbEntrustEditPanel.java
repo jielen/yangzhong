@@ -34,7 +34,6 @@ import javax.swing.table.TableModel;
 
 import org.apache.log4j.Logger;
 
-import com.ufgov.smartclient.common.UIUtilities;
 import com.ufgov.smartclient.component.table.fixedtable.JPageableFixedTable;
 import com.ufgov.zc.client.common.AsOptionMeta;
 import com.ufgov.zc.client.common.BillElementMeta;
@@ -117,14 +116,12 @@ import com.ufgov.zc.common.zc.publish.IZcEbEntrustServiceDelegate;
 
 /**
  * @author Administrator
- *
  */
 
 public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
-
   private static final Logger logger = Logger.getLogger(ZcEbEntrustEditPanel.class);
-  
+
   private IZcEbEntrustServiceDelegate zcEbEntrustServiceDelegate = (IZcEbEntrustServiceDelegate) ServiceFactory.create(
 
   IZcEbEntrustServiceDelegate.class, "zcEbEntrustServiceDelegate");
@@ -152,10 +149,12 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
   private FuncButton sendButton = new SendButton();
 
   // 工作流填写意见审核通过
-  protected FuncButton suggestPassButton = new SuggestAuditPassButton(); 
+  protected FuncButton suggestPassButton = new SuggestAuditPassButton();
+
   // 受理
 
-  private FuncButton acceptedButton = new AcceptedButton(); 
+  private FuncButton acceptedButton = new AcceptedButton();
+
   // 发送
 
   private FuncButton sendBillButton = new SendBillButton();
@@ -229,12 +228,12 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
   private List<AbstractFieldEditor> editorList = new ArrayList<AbstractFieldEditor>();
 
   private ZcEbEntrustEditDialog parent;
-  
-  public ZcEbEntrustEditPanel(ListCursor listCursor, String tabStatus, ZcEbEntrustListPanel listPanel,ZcEbEntrustEditDialog parent) {
+
+  public ZcEbEntrustEditPanel(ListCursor listCursor, String tabStatus, ZcEbEntrustListPanel listPanel, ZcEbEntrustEditDialog parent) {
 
     super(ZcEbEntrust.class, BillElementMeta.getBillElementMetaWithoutNd("ZC_EB_ENTRUST"));
-    
-    this.parent=parent;
+
+    this.parent = parent;
 
     this.listCursor = listCursor;
 
@@ -250,7 +249,7 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     requestMeta.setCompoId(compoId);
 
-//    initFieldEditors();
+    //    initFieldEditors();
 
     init();
 
@@ -276,13 +275,13 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     TextFieldEditor snCode = new TextFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_SN_CODE), "snCode");
 
-    TextFieldEditor makeCode = new TextFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ZC_MAKE_CODE), "zcMakeCode"); 
+    TextFieldEditor makeCode = new TextFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ZC_MAKE_CODE), "zcMakeCode");
 
-    TextFieldEditor zcMakeName = new TextFilePathFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ZC_MAKE_NAME), "zcMakeName"); 
+    TextFieldEditor zcMakeName = new TextFilePathFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ZC_MAKE_NAME), "zcMakeName");
 
-    MoneyFieldEditor zcMoneyBiSum = new MoneyFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ZC_MONEY_BI_SUM), "zcMoneyBiSum"); 
+    MoneyFieldEditor zcMoneyBiSum = new MoneyFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ZC_MONEY_BI_SUM), "zcMoneyBiSum");
 
-    AsValFieldEditor zcPifuCgfs = new AsValFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ZC_PIFU_CGFS), "zcPifuCgfs","ZC_VS_PITEM_OPIWAY");
+    AsValFieldEditor zcPifuCgfs = new AsValFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ZC_PIFU_CGFS), "zcPifuCgfs", "ZC_VS_PITEM_OPIWAY");
     /*{
 
       private static final long serialVersionUID = 3035799363967147800L;
@@ -295,8 +294,7 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
     IForeignEntityTreeHandler companyHandler = new IForeignEntityTreeHandler() {
 
       @Override
-      public void excute(List selectedDatas) {
-      }
+      public void excute(List selectedDatas) {}
 
       @Override
       public boolean isMultipleSelect() {
@@ -314,17 +312,17 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     };
 
-    CompanyFieldEditor coCode = new CompanyFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_CO_CODE), "coCode",companyHandler);
- 
+    CompanyFieldEditor coCode = new CompanyFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_CO_CODE), "coCode", companyHandler);
+
     // 采购单位主管业务处室
-    OrgFieldEditor zcZgCsCode = new OrgFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ORG_CODE), "orgCode", true); 
+    OrgFieldEditor zcZgCsCode = new OrgFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ORG_CODE), "orgCode", true);
 
     // 年度
-    IntFieldEditor nd = new IntFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ND), "nd"); 
+    IntFieldEditor nd = new IntFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ND), "nd");
 
-    TextFieldEditor zcMakeLinkman = new TextFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ZC_MAKE_LINKMAN), "zcMakeLinkman"); 
+    TextFieldEditor zcMakeLinkman = new TextFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ZC_MAKE_LINKMAN), "zcMakeLinkman");
 
-    TextFieldEditor zcMakeTel = new TextFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ZC_MAKE_TEL), "zcMakeTel"); 
+    TextFieldEditor zcMakeTel = new TextFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ZC_MAKE_TEL), "zcMakeTel");
 
     TextFieldEditor remark = new TextFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_REMARK), "remark");
 
@@ -333,14 +331,14 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
     DateFieldEditor zcInputDate = new DateFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_ZC_INPUT_DATE), "zcInputDate");
 
     DateFieldEditor executeDate = new DateFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_EXECUTE_DATE), "executeDate");
-    
+
     TextFieldEditor untreadReason = new TextFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_UNTREAD_REASON), "untreadReason");
 
-/*    if (zcEbEntrust == null || zcEbEntrust.getStatus() == null || zcEbEntrust.getStatus() == zcEbEntrust.STATUS_DRAFT) {
+    /*    if (zcEbEntrust == null || zcEbEntrust.getStatus() == null || zcEbEntrust.getStatus() == zcEbEntrust.STATUS_DRAFT) {
 
-      untreadReason.setEnabled(false);
+          untreadReason.setEnabled(false);
 
-    }*/
+        }*/
 
     isDesSup = new AsValFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_IS_DES_SUP), "isDesSup", "ZC_VS_YN");
 
@@ -348,9 +346,9 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     isCar = new AsValFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_IS_CAR), "isCar", "ZC_VS_YN");
 
-    AsValFieldEditor status = new AsValFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_STATUS), "status",ZcEbEntrust.STATUS_VAL_ID);
-    
- // 经办人
+    AsValFieldEditor status = new AsValFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_STATUS), "status", ZcEbEntrust.STATUS_VAL_ID);
+
+    // 经办人
 
     String columNamesJb[] = { "项目经办人" };
 
@@ -363,14 +361,14 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     ForeignEntityFieldEditor superintendentName = new ForeignEntityFieldEditor("ZcEbAuditSheet.getKeShiPersion", dto, 20,
 
-    jbrFnHandler, columNamesJb, LangTransMeta.translate(zcEbEntrust.COL_JBR_NAME),"jbrName");
+    jbrFnHandler, columNamesJb, LangTransMeta.translate(zcEbEntrust.COL_JBR_NAME), "jbrName");
 
     superintendentName.getField().addValueChangeListener(new ValueChangeListener() {
 
       @Override
       public void valueChanged(ValueChangeEvent event) {
 
-        // TODO Auto-generated method stub
+        // TCJLODO Auto-generated method stub
 
         /*if (fzrEditor.getField().getValue() == null) {
 
@@ -389,33 +387,33 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
     });
 
     AsValFieldEditor isShouli = new AsValFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_IS_SHOULI), "isShouli", "ZC_VS_YN");
-    
-//    editorList.add(sn);
-//    editorList.add(snCode);
+
+    //    editorList.add(sn);
+    //    editorList.add(snCode);
     editorList.add(makeCode);
     editorList.add(zcMakeName);
     editorList.add(status);
-    
+
     editorList.add(coCode);
     editorList.add(zcMoneyBiSum);
     editorList.add(zcPifuCgfs);
-    
-   editorList.add(zcMakeLinkman);
+
+    editorList.add(zcMakeLinkman);
     editorList.add(zcMakeTel);
     editorList.add(zcWeitoDate);
-//    editorList.add(zcZgCsCode);
+    //    editorList.add(zcZgCsCode);
     editorList.add(nd);
     editorList.add(isShouli);
-    
+
     editorList.add(remark);
-//    editorList.add(zcInputDate);
-//    editorList.add(executeDate);
+    //    editorList.add(zcInputDate);
+    //    editorList.add(executeDate);
     editorList.add(untreadReason);
-//    editorList.add(isDesSup);
-//    editorList.add(isPub);
-//    editorList.add(isCar);
-    editorList.add(superintendentName); 
-    
+    //    editorList.add(isDesSup);
+    //    editorList.add(isPub);
+    //    editorList.add(isCar);
+    editorList.add(superintendentName);
+
     return editorList;
 
   }
@@ -441,16 +439,16 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     toolBar.add(deleteButton);
 
-    toolBar.add(sendButton); 
+    toolBar.add(sendButton);
 
-    toolBar.add(suggestPassButton); 
+    toolBar.add(suggestPassButton);
 
     toolBar.add(unAuditButton);
 
     toolBar.add(unTreadButton);
 
     toolBar.add(callbackButton);
-    
+
     toolBar.add(traceButton);
 
     addButton.addActionListener(new ActionListener() {
@@ -482,7 +480,6 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
       }
 
     });
- 
 
     saveButton.addActionListener(new ActionListener() {
 
@@ -542,31 +539,29 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     });
 
-   /* openNotepadButton.addActionListener(new ActionListener() {
+    /* openNotepadButton.addActionListener(new ActionListener() {
 
-      public void actionPerformed(ActionEvent e) {
+       public void actionPerformed(ActionEvent e) {
 
-        doOpenNotepad();
+         doOpenNotepad();
 
-      }
+       }
 
-    });*/
+     });*/
 
   }
 
   protected void doUnAudit() {
-    // TODO Auto-generated method stub
-
+    // TCJLODO Auto-generated method stub
 
     ZcEbEntrust entrust = (ZcEbEntrust) ObjectUtil.deepCopy(this.listCursor.getCurrentObject());
 
     if (entrust == null) {
 
-      return;
+    return;
 
     }
 
-    
     ZcEbEntrust afterSaveBill = null;
 
     String errorInfo = "";
@@ -606,14 +601,13 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
   }
 
   protected void doUnTread() {
-    // TODO Auto-generated method stub
-
+    // TCJLODO Auto-generated method stub
 
     ZcEbEntrust entrust = (ZcEbEntrust) this.listCursor.getCurrentObject();
 
     if (entrust == null) {
 
-      return;
+    return;
 
     }
 
@@ -657,14 +651,13 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
   }
 
   protected void doSuggestPass() {
-    // TODO Auto-generated method stub
-
+    // TCJLODO Auto-generated method stub
 
     ZcEbEntrust entrust = (ZcEbEntrust) this.listCursor.getCurrentObject();
 
     if (entrust == null) {
 
-      return;
+    return;
 
     }
 
@@ -729,9 +722,7 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
       try {
         requestMeta.setFuncId(deleteButton.getFuncId());
-        if (entrust == null) {
-          return;
-        }
+        if (entrust == null) { return; }
         /**
          * 校验已经生成批办单的任务单，不允许删除
          */
@@ -852,7 +843,6 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
     setButtonStatus(entrust, requestMeta, this.listCursor);
 
   }
-  
 
   public void setButtonStatusWithoutWf() {
 
@@ -948,7 +938,6 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
       bs = new ButtonStatus();
 
-     
     }
 
     ZcEbEntrust entrust = (ZcEbEntrust) this.listCursor.getCurrentObject();
@@ -962,8 +951,7 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
   private void setSubTableButton() {
     ZcEbEntrust o = (ZcEbEntrust) this.listCursor.getCurrentObject();
 
-    if ((this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_EDIT) )
-      || this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW)) {
+    if ((this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_EDIT)) || this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW)) {
       if (this.subPackTableToolbar != null) {
         this.subPackTableToolbar.setEnabled(true);
       }
@@ -1045,7 +1033,7 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
         || zcEbEntrustDetail.getZcItemSum() == null || zcEbEntrustDetail.getZcItemSum().doubleValue() == 0)
 
-          errorInfo.append("任务明细第[" + row + "]行\n");
+        errorInfo.append("任务明细第[" + row + "]行\n");
 
         if (zcEbEntrustDetail.getZcPitemName() == null) {
 
@@ -1078,7 +1066,7 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
       }
 
     }
- 
+
     if (errorInfo.length() != 0) {
 
       JOptionPane.showMessageDialog(this, errorInfo.toString(), "提示", JOptionPane.WARNING_MESSAGE);
@@ -1095,11 +1083,12 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     if (checkBeforeSave()) {
 
-      return false;
+    return false;
 
     }
 
     ZcEbEntrust afterSaveBill = (ZcEbEntrust) this.listCursor.getCurrentObject();
+    System.out.println("dosave 0" + afterSaveBill.getCoCode());
 
     if (!isDataChanged()) {
 
@@ -1147,7 +1136,9 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
       requestMeta.setFuncId(saveButton.getFuncId());
 
+      System.out.println("dosave 1" + afterSaveBill.getCoCode());
       afterSaveBill = listPanel.zcEbEntrustServiceDelegate.saveFN(afterSaveBill, this.requestMeta);
+      System.out.println("dosave 2" + afterSaveBill.getCoCode());
 
     } catch (Exception e) {
 
@@ -1161,11 +1152,15 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     if (success) {
 
+      System.out.println("dosave 3" + afterSaveBill.getCoCode());
       this.pageStatus = ZcSettingConstants.PAGE_STATUS_BROWSE;
 
       this.listPanel.refreshCurrentTabData();
+      System.out.println("dosave 4" + afterSaveBill.getCoCode());
       this.refreshAll(afterSaveBill, false);
+      System.out.println("dosave 5" + afterSaveBill.getCoCode());
       updateFieldEditorsEditable();
+      System.out.println("dosave 6" + afterSaveBill.getCoCode());
 
       JOptionPane.showMessageDialog(this, "保存成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
 
@@ -1179,16 +1174,13 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
   }
 
- 
-
-
   private void doSend() {
 
     ZcEbEntrust entrust = (ZcEbEntrust) this.listCursor.getCurrentObject();
 
     if (entrust == null) {
 
-      return;
+    return;
 
     }
 
@@ -1283,9 +1275,6 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
     }
 
   }
- 
-   
- 
 
   private void doTrace() {
 
@@ -1293,7 +1282,7 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     if (bean == null) {
 
-      return;
+    return;
 
     }
 
@@ -1347,7 +1336,7 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
         ZcEbEntrustDetail detail = new ZcEbEntrustDetail();
         detail.setTempId(Guid.genID());
         detail.setSn(entrust.getSn());
-        detail.setZcYear(""+requestMeta.getSvNd());
+        detail.setZcYear("" + requestMeta.getSvNd());
         addSub(contentTablePanel, new ZcEbEntrustDetail());
 
       }
@@ -1361,7 +1350,7 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
         ZcEbEntrustDetail detail = new ZcEbEntrustDetail();
         detail.setTempId(Guid.genID());
         detail.setSn(entrust.getSn());
-        detail.setZcYear(""+requestMeta.getSvNd());
+        detail.setZcYear("" + requestMeta.getSvNd());
         insertSub(contentTablePanel, new ZcEbEntrustDetail());
 
       }
@@ -1423,7 +1412,7 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
       }
     });
 
-//    biTabPane.addTab("资金构成", biTablePanel);
+    //    biTabPane.addTab("资金构成", biTablePanel);
 
     itemTabPane.addTab("采购明细", contentTablePanel);
 
@@ -1585,17 +1574,17 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
       ZcEbEntrustDetail item = new ZcEbEntrustDetail();
       item.setSnd(Guid.genID());
-      item.setZcYear(""+requestMeta.getSvNd());
-      
+      item.setZcYear("" + requestMeta.getSvNd());
+
       entrust.getDetailList().add(item);
 
       ZcPProMitemBi bi = new ZcPProMitemBi();
-      
+
       bi.setFundCode("1");
       bi.setOriginCode("1");
       bi.setPaytypeCode("1");
-//      biList.add(bi);
-      
+      //      biList.add(bi);
+
       entrust.setBiList(biList);
       List lst = new ArrayList();
 
@@ -1652,17 +1641,17 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
         if (e.getColumn() >= 0
 
-          && (ZcElementConstants.FIELD_TRANS_ZC_ITEM_SUM.equals(model.getColumnIdentifier(e.getColumn()))
+        && (ZcElementConstants.FIELD_TRANS_ZC_ITEM_SUM.equals(model.getColumnIdentifier(e.getColumn()))
 
-          || ZcElementConstants.FIELD_TRANS_ZC_CAIG_NUM.equals(model.getColumnIdentifier(e.getColumn())) || ZcElementConstants.FIELD_TRANS_ZC_MER_PRICE
+        || ZcElementConstants.FIELD_TRANS_ZC_CAIG_NUM.equals(model.getColumnIdentifier(e.getColumn())) || ZcElementConstants.FIELD_TRANS_ZC_MER_PRICE
 
-          .equals(model.getColumnIdentifier(e.getColumn())))) {
+        .equals(model.getColumnIdentifier(e.getColumn())))) {
 
           int k = table.getSelectedRow();
 
           if (k < 0)
 
-            return;
+          return;
 
           ZcEbEntrustDetail zcEbEntrustDetail = (ZcEbEntrustDetail) model.getBean(table.convertRowIndexToModel(k));
 
@@ -1720,8 +1709,7 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
       for (AbstractFieldEditor editor : fieldEditors) {
         // 工作流中定义可编辑的字段
         //        System.out.println(editor.getFieldName());
-        if (editor instanceof NewLineFieldEditor)
-          continue;
+        if (editor instanceof NewLineFieldEditor) continue;
         if (wfCanEditFieldMap != null && wfCanEditFieldMap.containsKey(Utils.getDBColNameByFieldName(editor.getEditObject(), editor.getFieldName()))) {
           isEdit = true;
           this.pageStatus = ZcSettingConstants.PAGE_STATUS_EDIT;
@@ -1741,10 +1729,8 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
       for (AbstractFieldEditor fd : fieldEditors) {
         if (pageStatus.equals(ZcSettingConstants.PAGE_STATUS_EDIT) || pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW)) {
-          if (fd.getFieldName() != null
-            && ( fd.getFieldName().equals("status")  
-              || fd.getFieldName().equals("zcInputDate") || fd.getFieldName().equals("snCode")) || fd.getFieldName().equals("sn")
-              || fd.getFieldName().equals("nd")|| fd.getFieldName().equals("zcMoneyBiSum")) {
+          if (fd.getFieldName() != null && (fd.getFieldName().equals("status") || fd.getFieldName().equals("zcInputDate") || fd.getFieldName().equals("snCode")) || fd.getFieldName().equals("sn")
+            || fd.getFieldName().equals("nd") || fd.getFieldName().equals("zcMoneyBiSum")) {
             fd.setEnabled(false);
           } else {
             fd.setEnabled(true);
@@ -1791,11 +1777,11 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
     entrust.setStatus(ZcEbEntrust.STATUS_DRAFT);
 
     entrust.setNd(this.requestMeta.getSvNd());
-    
+
     entrust.setZcWeitoDate(this.requestMeta.getSysDate());
 
     entrust.setZcInputCode(this.requestMeta.getSvUserID());
-    
+
     entrust.setZcInputor(this.requestMeta.getSvUserName());
 
     entrust.setZcInputDate(this.requestMeta.getSysDate());
@@ -1803,13 +1789,13 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
     entrust.setAgency(this.requestMeta.getSvCoCode());
 
     entrust.setAgencyName(this.requestMeta.getSvCoName());
-    
+
     entrust.setOrgCode(this.requestMeta.getSvOrgCode());
 
     entrust.setIsDesSup("N");
-    
+
     entrust.setIsPub("Y");
-    
+
     entrust.setIsShouli("Y");
 
   }
@@ -1824,15 +1810,19 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     this.listCursor.setCurrentObject(entrust);
 
+    System.out.println("refreshAll 1" + entrust.getCoCode());
     this.setEditingObject(entrust);
+    System.out.println("refreshAll 2" + entrust.getCoCode());
 
     this.refreshSubTableData(entrust);
 
+    System.out.println("refreshAll 3" + entrust.getCoCode());
     setButtonStatus();
 
     //      this.refreshData();
 
     setOldObject();
+    System.out.println("refreshAll 4" + entrust.getCoCode());
 
     //      if (isRefreshButton) {
 
@@ -1845,28 +1835,28 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
   }
 
   /**
-   * <p> 获取资金构成 </p>
+   * <p>
+   * 获取资金构成
+   * </p>
    * @param entrust
-   * @return 
+   * @return
    * @return List
    * @author yuzz
    * @since Sep 20, 2012 10:07:33 AM
    */
   private List fetchBiList(ZcEbEntrust entrust) {
     List list = new ArrayList();
-  /*  if (entrust.getZcMakeCode() != null && !entrust.getZcMakeCode().equals("自动生成")) {
-      ElementConditionDto dto = new ElementConditionDto();
-      dto.setZcText0(entrust.getZcMakeCode());
-      list = zcEbBaseServiceDelegate.getForeignEntitySelectedData("ZC_P_PRO_MITEM_BI.getHtBiDetail", dto, requestMeta);
-    }*/
+    /*  if (entrust.getZcMakeCode() != null && !entrust.getZcMakeCode().equals("自动生成")) {
+        ElementConditionDto dto = new ElementConditionDto();
+        dto.setZcText0(entrust.getZcMakeCode());
+        list = zcEbBaseServiceDelegate.getForeignEntitySelectedData("ZC_P_PRO_MITEM_BI.getHtBiDetail", dto, requestMeta);
+      }*/
     return list;
   }
+
   /**
-
    * 文件经办人
-
    * @author Administrator
-
    */
 
   class JbrFnHandler implements IForeignEntityHandler {
@@ -1879,9 +1869,8 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     }
 
-
     // afterClear方法主要是在实现类中做清空后的操作。 反射调用
-    public void afterClear(){
+    public void afterClear() {
       ZcEbEntrust sheet = (ZcEbEntrust) listCursor.getCurrentObject();
       //设置项目经办人
       sheet.setJbr(null);
@@ -1895,15 +1884,15 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     public void excute(List selectedDatas) {
 
-        if(selectedDatas!=null && selectedDatas.size()>0){
-          User user = (User) selectedDatas.get(0);
-          ZcEbEntrust sheet = (ZcEbEntrust) listCursor.getCurrentObject();
-          //设置项目经办人
-          sheet.setJbr(user.getUserId());
-          sheet.setJbrName(user.getUserName()); 
+      if (selectedDatas != null && selectedDatas.size() > 0) {
+        User user = (User) selectedDatas.get(0);
+        ZcEbEntrust sheet = (ZcEbEntrust) listCursor.getCurrentObject();
+        //设置项目经办人
+        sheet.setJbr(user.getUserId());
+        sheet.setJbrName(user.getUserName());
 
-          setEditingObject(sheet);
-        }
+        setEditingObject(sheet);
+      }
     }
 
     public TableModel createTableModel(List showDatas) {

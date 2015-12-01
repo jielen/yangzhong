@@ -142,7 +142,7 @@ public class HuiyuanPeopleblackEditPanel  extends AbstractMainSubEditPanel {
  
 
   public HuiyuanPeopleblackEditPanel(HuiyuanPeopleblackDialog parent, HuiyuanUnitcominfoEditPanel unitPanel, ListCursor listCursor2) {
-    // TODO Auto-generated constructor stub
+    // TCJLODO Auto-generated constructor stub
     super(HuiyuanPeopleblackEditPanel.class, BillElementMeta.getBillElementMetaWithoutNd(compoId));
     
     this.unitPanel=unitPanel;
@@ -216,15 +216,15 @@ public class HuiyuanPeopleblackEditPanel  extends AbstractMainSubEditPanel {
 
   }
   private void setOldObject() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     oldObj = (HuiyuanPeopleblack) ObjectUtil.deepCopy(listCursor.getCurrentObject());
   }
   private void refreshSubData(HuiyuanPeopleblack curObj) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     
   }
   private void setDefaultValue(HuiyuanPeopleblack curObj) {
-    // TODO Auto-generated method stub 
+    // TCJLODO Auto-generated method stub 
     //以下属性不知道省库如何设置，暂时设定为1
     curObj.setRychufatype("1");
     curObj.setChufatype("1"); 
@@ -235,7 +235,7 @@ public class HuiyuanPeopleblackEditPanel  extends AbstractMainSubEditPanel {
    */
   @Override
   public void initToolBar(JFuncToolBar toolBar) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     toolBar.setModuleCode("ZC");
 
@@ -1014,7 +1014,7 @@ public class HuiyuanPeopleblackEditPanel  extends AbstractMainSubEditPanel {
   }
   
   public void doExit() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     if (isDataChanged()) {
 
@@ -1205,7 +1205,7 @@ public class HuiyuanPeopleblackEditPanel  extends AbstractMainSubEditPanel {
    */
   @Override
   public List<AbstractFieldEditor> createFieldEditors() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     
     TextFieldEditor peopleBlDanWeiName = new TextFieldEditor(LangTransMeta.translate(HuiyuanPeopleblack.COL_DANWEINAME), "danweiname");
     TextAreaFieldEditor peopleBlReMarkAreaFd = new TextAreaFieldEditor(LangTransMeta.translate(HuiyuanPeopleblack.COL_REMARK), "remark", 500, 2, 7); 
@@ -1224,7 +1224,7 @@ public class HuiyuanPeopleblackEditPanel  extends AbstractMainSubEditPanel {
 
       @Override
       public void excute(List selectedDatas) {
-        // TODO Auto-generated method stub
+        // TCJLODO Auto-generated method stub
         for (Object obj : selectedDatas) {
           HuiyuanPeopleblack currentBill = (HuiyuanPeopleblack) listCursor.getCurrentObject();
           HuiyuanUser user = (HuiyuanUser) obj; 
@@ -1277,7 +1277,7 @@ public class HuiyuanPeopleblackEditPanel  extends AbstractMainSubEditPanel {
    */
   @Override
   public JComponent createSubBillPanel() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return null;
   }
 

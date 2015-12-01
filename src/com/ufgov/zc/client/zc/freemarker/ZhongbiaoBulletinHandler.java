@@ -54,7 +54,7 @@ public class ZhongbiaoBulletinHandler implements ITemplateToDocumentHandler {
    */
 
   public String createDocumnet(Hashtable userDatas) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     String bulletinDocFilePath = "";
 
     AsFile asf = getTemplateFile(templateFileId, meta);
@@ -100,7 +100,7 @@ public class ZhongbiaoBulletinHandler implements ITemplateToDocumentHandler {
       template.process(dataMap, writer);
       writer.flush();
     } catch (Exception e) {
-      // TODO Auto-generated catch block
+      // TCJLODO Auto-generated catch block
       e.printStackTrace();
     } finally {
       try {
@@ -165,7 +165,7 @@ public class ZhongbiaoBulletinHandler implements ITemplateToDocumentHandler {
   }
 
   private List getPackMsgByProjCode(String projCode) {    
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     HashMap paramMap=new HashMap();
     paramMap.put("nd", ""+meta.getSvNd());
     paramMap.put("projCode", projCode);
@@ -174,12 +174,12 @@ public class ZhongbiaoBulletinHandler implements ITemplateToDocumentHandler {
   }
 
   private List getPackMsg(HashMap paramMap) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return baseService.queryDataForList("ZcEbBulletin.getEvalResultForZhongbgg", paramMap, meta);
   }
 
   private List getPackMsgByPackCode(String packCode, String projCode) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     HashMap paramMap=new HashMap();
     paramMap.put("nd", ""+meta.getSvNd());
     paramMap.put("projCode", projCode);
@@ -189,7 +189,7 @@ public class ZhongbiaoBulletinHandler implements ITemplateToDocumentHandler {
   }
 
   private void setDwMessage(Map<String, Object> dataMap, ZcEbBulletin bulletin) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
    
     ElementConditionDto dto = new ElementConditionDto();
     dto.setZcText0(bulletin.getProjCode());
@@ -237,7 +237,7 @@ public class ZhongbiaoBulletinHandler implements ITemplateToDocumentHandler {
   }
 
   private AsFile getTemplateFile(String temoplateFIleId, RequestMeta meta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     IBaseDataServiceDelegate baseService = (IBaseDataServiceDelegate) ServiceFactory
       .create(IBaseDataServiceDelegate.class, "baseDataServiceDelegate");
 

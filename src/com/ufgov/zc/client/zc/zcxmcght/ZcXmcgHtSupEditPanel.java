@@ -248,7 +248,7 @@ public class ZcXmcgHtSupEditPanel extends ZcXmcgHtEditPanel {
 
     public void excute(List selectedDatas) {
 
-      // TODO Auto-generated method stub
+      // TCJLODO Auto-generated method stub
 
       if (selectedDatas != null && selectedDatas.size() > 0) {
 
@@ -314,7 +314,7 @@ public class ZcXmcgHtSupEditPanel extends ZcXmcgHtEditPanel {
     @Override
     public boolean isMultipleSelect() {
 
-      // TODO Auto-generated method stub
+      // TCJLODO Auto-generated method stub
 
       return false;
 

@@ -135,7 +135,7 @@ public class ZcEbChangdiUsedEditPanel  extends AbstractMainSubEditPanel {
   ElementConditionDto changdiDto=new ElementConditionDto();
 
   public ZcEbChangdiUsedEditPanel(ZcEbChangdiUsedDialog parent, ListCursor listCursor, String tabStatus, ZcEbChangdiUsedListPanel listPanel) {
-    // TODO Auto-generated constructor stub
+    // TCJLODO Auto-generated constructor stub
     super(ZcEbChangdiUsedEditPanel.class, BillElementMeta.getBillElementMetaWithoutNd(compoId));
 
     zcEbBaseServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class, "zcEbBaseServiceDelegate");
@@ -163,7 +163,7 @@ public class ZcEbChangdiUsedEditPanel  extends AbstractMainSubEditPanel {
   }
 
   private void refreshData() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     ZcEbChangdiUsed curObj = (ZcEbChangdiUsed) listCursor.getCurrentObject();
 
@@ -353,7 +353,7 @@ public class ZcEbChangdiUsedEditPanel  extends AbstractMainSubEditPanel {
   }
 
   public String getCompoId() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return compoId;
   }
 
@@ -362,7 +362,7 @@ public class ZcEbChangdiUsedEditPanel  extends AbstractMainSubEditPanel {
    */
   @Override
   public void initToolBar(JFuncToolBar toolBar) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     toolBar.setModuleCode("ZC");
 
@@ -514,7 +514,7 @@ public class ZcEbChangdiUsedEditPanel  extends AbstractMainSubEditPanel {
   }
 
   private void setDefaultValue(ZcEbChangdiUsed bill) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     bill.setRequestunit(requestMeta.getSvCoName());
     bill.setRequestunitguid(requestMeta.getSvCoCode());
     bill.setRequestpeople(requestMeta.getSvUserName());
@@ -829,7 +829,7 @@ public class ZcEbChangdiUsedEditPanel  extends AbstractMainSubEditPanel {
   }
 
   public void doExit() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     if (isDataChanged()) {
 
@@ -973,7 +973,7 @@ public class ZcEbChangdiUsedEditPanel  extends AbstractMainSubEditPanel {
     }
     @Override
     public void excute(List selectedDatas) {
-      // TODO Auto-generated method stub
+      // TCJLODO Auto-generated method stub
 
       ZcEbChangdiUsed bill = (ZcEbChangdiUsed) listCursor.getCurrentObject();
       for (Object object : selectedDatas) {
@@ -987,13 +987,13 @@ public class ZcEbChangdiUsedEditPanel  extends AbstractMainSubEditPanel {
 
     @Override
     public boolean isMultipleSelect() {
-      // TODO Auto-generated method stub
+      // TCJLODO Auto-generated method stub
       return false;
     }
 
     @Override
     public TableModel createTableModel(List showDatas) {
-      // TODO Auto-generated method stub
+      // TCJLODO Auto-generated method stub
       Object data[][] = new Object[showDatas.size()][columNames.length];
       for (int i = 0; i < showDatas.size(); i++) {
         ZcEbProj rowData = (ZcEbProj) showDatas.get(i);

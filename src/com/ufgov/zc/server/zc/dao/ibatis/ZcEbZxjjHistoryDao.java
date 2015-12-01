@@ -23,7 +23,7 @@ public class ZcEbZxjjHistoryDao extends SqlMapClientDaoSupport implements IZcEbZ
    */
   
   public int insert(ZcEbZxjjHistory record) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     getSqlMapClientTemplate().insert("com.ufgov.zc.server.zc.dao.ZcEbZxjjHistoryMapper.insert", record);
     return 1;
   }
@@ -33,39 +33,39 @@ public class ZcEbZxjjHistoryDao extends SqlMapClientDaoSupport implements IZcEbZ
    */
   
   public int insertSelective(ZcEbZxjjHistory record) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return 0;
   }
 
   
   public int deleteByPrimaryKey(BigDecimal jjCode) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return getSqlMapClientTemplate().delete("com.ufgov.zc.server.zc.dao.ZcEbZxjjHistoryMapper.deleteByPrimaryKey", jjCode);
     
   }
 
   
   public ZcEbZxjjHistory selectByPrimaryKey(BigDecimal jjCode) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return (ZcEbZxjjHistory) getSqlMapClientTemplate().queryForObject("com.ufgov.zc.server.zc.dao.ZcEbZxjjHistoryMapper.selectByPrimaryKey", jjCode);
   }
 
   
   public int updateByPrimaryKeySelective(ZcEbZxjjHistory record) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return 0;
   }
 
   
   public int updateByPrimaryKey(ZcEbZxjjHistory record) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return getSqlMapClientTemplate().update("com.ufgov.zc.server.zc.dao.ZcEbZxjjHistoryMapper.updateByPrimaryKey", record);
   
   }
 
   
   public List selectByJjCode(ElementConditionDto dto) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return getSqlMapClientTemplate().queryForList("com.ufgov.zc.server.zc.dao.ZcEbZxjjHistoryMapper.selectByJjCode", dto);
   }
 

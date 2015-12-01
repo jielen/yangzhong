@@ -24,7 +24,7 @@ public class HuiyuanUserDialog  extends GkBaseDialog {
   private HuiyuanUserDialog self=this;
   
   public HuiyuanUserDialog(HuiyuanUnitcominfoEditPanel parent, List beanList, int editingRow) {
-    // TODO Auto-generated constructor stub
+    // TCJLODO Auto-generated constructor stub
     super(parent.getParentWindow(), Dialog.ModalityType.APPLICATION_MODAL);
  
     editPanel = new HuiyuanUserEditPanel(this.self, parent,new ListCursor(beanList, editingRow));

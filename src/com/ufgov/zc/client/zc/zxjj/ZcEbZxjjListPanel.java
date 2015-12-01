@@ -782,7 +782,7 @@ public class ZcEbZxjjListPanel  extends AbstractEditListBill implements ParentWi
   }
 
   public String getcompoId() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return compoId;
   }
 

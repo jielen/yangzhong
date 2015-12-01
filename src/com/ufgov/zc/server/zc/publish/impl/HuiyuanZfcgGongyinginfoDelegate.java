@@ -23,7 +23,7 @@ public class HuiyuanZfcgGongyinginfoDelegate implements IHuiyuanZfcgGongyinginfo
    */
   
   public List getMainDataLst(ElementConditionDto elementConditionDto, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanZfcginfoService.getMainDataLst(elementConditionDto, requestMeta);
   }
 
@@ -32,7 +32,7 @@ public class HuiyuanZfcgGongyinginfoDelegate implements IHuiyuanZfcgGongyinginfo
    */
   
   public HuiyuanZfcgGongyinginfo selectByPrimaryKey(String id, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanZfcginfoService.selectByPrimaryKey(id, requestMeta);
   }
 
@@ -41,7 +41,7 @@ public class HuiyuanZfcgGongyinginfoDelegate implements IHuiyuanZfcgGongyinginfo
    */
   
   public HuiyuanZfcgGongyinginfo saveFN(HuiyuanZfcgGongyinginfo inData, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanZfcginfoService.saveFN(inData, requestMeta);
   }
 
@@ -50,7 +50,7 @@ public class HuiyuanZfcgGongyinginfoDelegate implements IHuiyuanZfcgGongyinginfo
    */
   
   public void deleteByPrimaryKeyFN(String id, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     huiyuanZfcginfoService.deleteByPrimaryKeyFN(id, requestMeta);
   }
 
@@ -59,7 +59,7 @@ public class HuiyuanZfcgGongyinginfoDelegate implements IHuiyuanZfcgGongyinginfo
    */
   
   public HuiyuanZfcgGongyinginfo unAuditFN(HuiyuanZfcgGongyinginfo qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanZfcginfoService.unAuditFN(qx, requestMeta);
   }
 
@@ -68,7 +68,7 @@ public class HuiyuanZfcgGongyinginfoDelegate implements IHuiyuanZfcgGongyinginfo
    */
   
   public HuiyuanZfcgGongyinginfo untreadFN(HuiyuanZfcgGongyinginfo qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanZfcginfoService.untreadFN(qx, requestMeta);
   }
 
@@ -77,7 +77,7 @@ public class HuiyuanZfcgGongyinginfoDelegate implements IHuiyuanZfcgGongyinginfo
    */
   
   public HuiyuanZfcgGongyinginfo auditFN(HuiyuanZfcgGongyinginfo qx, RequestMeta requestMeta) throws Exception {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanZfcginfoService.auditFN(qx, requestMeta);
   }
 
@@ -86,7 +86,7 @@ public class HuiyuanZfcgGongyinginfoDelegate implements IHuiyuanZfcgGongyinginfo
    */
   
   public HuiyuanZfcgGongyinginfo newCommitFN(HuiyuanZfcgGongyinginfo qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanZfcginfoService.newCommitFN(qx, requestMeta);
   }
 
@@ -95,7 +95,7 @@ public class HuiyuanZfcgGongyinginfoDelegate implements IHuiyuanZfcgGongyinginfo
    */
   
   public HuiyuanZfcgGongyinginfo callbackFN(HuiyuanZfcgGongyinginfo qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanZfcginfoService.callbackFN(qx, requestMeta);
   }
 

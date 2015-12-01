@@ -25,7 +25,7 @@ public class ZcEbZxjjServiceDelegate implements IZcEbZxjjServiceDelegate {
    */
   
   public List getMainDataLst(ElementConditionDto elementConditionDto, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbZxjjService.getMainDataLst(elementConditionDto, requestMeta);
   }
 
@@ -34,7 +34,7 @@ public class ZcEbZxjjServiceDelegate implements IZcEbZxjjServiceDelegate {
    */
   
   public ZcEbZxjj selectByPrimaryKey(BigDecimal id, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbZxjjService.selectByPrimaryKey(id, requestMeta);
   }
 
@@ -43,7 +43,7 @@ public class ZcEbZxjjServiceDelegate implements IZcEbZxjjServiceDelegate {
    */
   
   public ZcEbZxjj saveFN(ZcEbZxjj inData, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbZxjjService.saveFN(inData, requestMeta);
   }
 
@@ -52,7 +52,7 @@ public class ZcEbZxjjServiceDelegate implements IZcEbZxjjServiceDelegate {
    */
   
   public void deleteByPrimaryKeyFN(BigDecimal id, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     zcEbZxjjService.deleteByPrimaryKeyFN(id, requestMeta);
   }
 
@@ -61,7 +61,7 @@ public class ZcEbZxjjServiceDelegate implements IZcEbZxjjServiceDelegate {
    */
   
   public ZcEbZxjj unAuditFN(ZcEbZxjj qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbZxjjService.unAuditFN(qx, requestMeta);
   }
 
@@ -70,7 +70,7 @@ public class ZcEbZxjjServiceDelegate implements IZcEbZxjjServiceDelegate {
    */
   
   public ZcEbZxjj untreadFN(ZcEbZxjj qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbZxjjService.untreadFN(qx, requestMeta);
   }
 
@@ -79,7 +79,7 @@ public class ZcEbZxjjServiceDelegate implements IZcEbZxjjServiceDelegate {
    */
   
   public ZcEbZxjj auditFN(ZcEbZxjj qx, RequestMeta requestMeta) throws Exception {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbZxjjService.auditFN(qx, requestMeta);
   }
 
@@ -88,7 +88,7 @@ public class ZcEbZxjjServiceDelegate implements IZcEbZxjjServiceDelegate {
    */
   
   public ZcEbZxjj newCommitFN(ZcEbZxjj qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbZxjjService.newCommitFN(qx, requestMeta);
   }
 
@@ -97,7 +97,7 @@ public class ZcEbZxjjServiceDelegate implements IZcEbZxjjServiceDelegate {
    */
   
   public ZcEbZxjj callbackFN(ZcEbZxjj qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbZxjjService.callbackFN(qx, requestMeta);
   }
 

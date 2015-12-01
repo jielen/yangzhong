@@ -22,19 +22,19 @@ public class ZcYearEndServiceDelegate implements IZcYearEndServiceDelegate {
 
 	public List getZcPProMake(ElementConditionDto dto, RequestMeta meta)
 			throws Exception {
-		// TODO Auto-generated method stub
+		// TCJLODO Auto-generated method stub
 		return zcYearEndService.getZcPProMake(dto, meta);
 	}
 
 	public void updateProEnd(String zcMakeCode, boolean flag, String serverAdd,
 			RequestMeta requestMeta) throws Exception {
-		// TODO Auto-generated method stub
+		// TCJLODO Auto-generated method stub
 		zcYearEndService.updateProEnd(zcMakeCode, flag, serverAdd, requestMeta);
 	}
 
 	public void updateYearEnd(String zcMakeCode, RequestMeta requestMeta)
 			throws Exception {
-		// TODO Auto-generated method stub
+		// TCJLODO Auto-generated method stub
 		zcYearEndService.updateYearEnd(zcMakeCode, requestMeta);
 	}
 
@@ -60,7 +60,7 @@ public class ZcYearEndServiceDelegate implements IZcYearEndServiceDelegate {
 	 */
 	public void carraryNewMake(ElementConditionDto dto, String serverAdd,
 			RequestMeta meta) throws Exception {
-		// TODO Auto-generated method stub
+		// TCJLODO Auto-generated method stub
 		zcYearEndService.carraryNewMake(dto, serverAdd, meta);
 	}
 

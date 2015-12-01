@@ -22,7 +22,7 @@ public class ZcEbZxjjToTableModelConverter {
 
 
   public static TableModel convertMainLst(List mainLst) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     MyTableModel tableModel = null;
     Vector names = new Vector();
@@ -71,7 +71,7 @@ public class ZcEbZxjjToTableModelConverter {
   }
 
   public static TableModel convertDetailTableData(List itemList) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     BeanTableModel<ZcEbZxjjHistory> tm = new BeanTableModel<ZcEbZxjjHistory>() {
       /**
        * 

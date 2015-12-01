@@ -52,7 +52,7 @@ public class ZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
    */
 
   public String  createDocumnet(Hashtable userDatas) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     String bulletinDocFilePath="";
     
       AsFile asf=getTemplateFile(templateFileId,meta);
@@ -99,7 +99,7 @@ public class ZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
         template.process(dataMap, writer);
         writer.flush();
       } catch (Exception e) {
-        // TODO Auto-generated catch block
+        // TCJLODO Auto-generated catch block
         e.printStackTrace();
       } finally {
         try {
@@ -165,7 +165,7 @@ public class ZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
     dataMap.put("coNames", coNames.toString());
   }
   private String getPurType(String bulletinType) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     String rtn = "";
     if (ZcEbBulletin.ZHAOBIAO_GKZB.equals(bulletinType)) {
       rtn = "公开招标";
@@ -275,7 +275,7 @@ public class ZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
 
   //freemark模版中需要重复处理的变量，通过处理，在其后面加数字，这样构成唯一的变量名
 private  List<String> createNormalRepeatStrings() {
-  // TODO Auto-generated method stub
+  // TCJLODO Auto-generated method stub
 List<String> rtn=new ArrayList<String>();
 rtn.add("packName");
 rtn.add("coName");
@@ -291,7 +291,7 @@ rtn.add("row");
 * @return
 */
 private  String processRepeat(String srcStr,int num,List<String> normalRepeatStringLst) {
-  // TODO Auto-generated method stub
+  // TCJLODO Auto-generated method stub
   StringBuffer rtn=new StringBuffer(srcStr.length());
   
   for(int i=0;i<num;i++){
@@ -310,7 +310,7 @@ private  String processRepeat(String srcStr,int num,List<String> normalRepeatStr
 
 
   private AsFile getTemplateFile(String temoplateFIleId,RequestMeta meta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     IBaseDataServiceDelegate baseService=(IBaseDataServiceDelegate)ServiceFactory.create(IBaseDataServiceDelegate.class, "baseDataServiceDelegate");
     
     AsFile asfile=baseService.getAsFileById(temoplateFIleId, meta);

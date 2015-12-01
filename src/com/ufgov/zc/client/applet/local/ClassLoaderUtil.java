@@ -90,7 +90,7 @@ public class ClassLoaderUtil {
 	    try {
 			lu.loadJarPath("D:\\workplace\\eclipseWorkplace\\JilinApplet\\tesLib");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			// TCJLODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 	    lu.testClass(); 
@@ -134,19 +134,19 @@ public class ClassLoaderUtil {
 	        } catch (ClassNotFoundException e) {
 	            System.out.println("找不到指定的类");
 	        } catch (SecurityException e) {
-				// TODO Auto-generated catch block
+				// TCJLODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
+				// TCJLODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
+				// TCJLODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
+				// TCJLODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
+				// TCJLODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	  }

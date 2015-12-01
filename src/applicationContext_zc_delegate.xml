@@ -429,4 +429,12 @@
 	<bean id="zcEbChangdiUsedServiceDelegate" class="com.ufgov.zc.server.zc.publish.impl.ZcEbChangdiUsedServiceDelegate" scope="singleton">
 		<property name="zcEbChangdiUsedService" ref="zcEbChangdiUsedService"></property>
 	</bean>
+	<bean id="zcEbConsultDelegate" class="com.ufgov.zc.server.zc.publish.impl.ZcEbConsultDelegate"		scope="singleton">
+		<property name="zcEbConsultService" ref="zcEbConsultService"></property>
+	</bean>
+	<bean id="ZcEbSupQualificationServiceDelegate"
+		class="com.ufgov.zc.server.zc.publish.impl.ZcEbSupQualificationServiceDelegate"
+		scope="singleton">
+		<property name="zcEbSupQualificationService" ref="zcEbSupQualificationService"></property>
+	</bean>
 </beans>

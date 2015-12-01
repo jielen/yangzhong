@@ -726,7 +726,7 @@ public class ZcPProBalEditPanel extends AbstractMainSubEditPanel {
 
   private Map<String, String> oldOutLayCodeMap=new HashMap<String, String>();
   private String getOldOutLayCode(String zcBiNo) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if(oldOutLayCodeMap.get(zcBiNo)!=null){
       return oldOutLayCodeMap.get(zcBiNo);
     }
@@ -958,7 +958,7 @@ public class ZcPProBalEditPanel extends AbstractMainSubEditPanel {
 
     }
     try {
-      // TODO Auto-generated method stub
+      // TCJLODO Auto-generated method stub
       requestMeta.setFuncId(this.unAuditButton.getFuncId());
       ZcPProBal bal = (ZcPProBal) ObjectUtil.deepCopy(this.listCursor.getCurrentObject());
       bal.setAuditorId(WorkEnv.getInstance().getCurrUserId());
@@ -1310,7 +1310,7 @@ public class ZcPProBalEditPanel extends AbstractMainSubEditPanel {
    * @return
    */
   private String checkShouRu() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if("Y".equalsIgnoreCase(AsOptionMeta.getOptVal("OPT_ZC_SHOURU "))){
       //获取不受收入控制的资金性质
       String zjxzStr=AsOptionMeta.getOptVal("OPT_ZC_NO_SHOURU_ZJXZ");
@@ -1361,7 +1361,7 @@ public class ZcPProBalEditPanel extends AbstractMainSubEditPanel {
    * @return
    */
   private String checkOutLay() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     boolean check = "Y".equalsIgnoreCase(AsOptionMeta.getOptVal("OPT_ZC_CHECK_OUT_LAY_IS_LEAF"));
 
     if (check) {
@@ -1392,7 +1392,7 @@ public class ZcPProBalEditPanel extends AbstractMainSubEditPanel {
   }
 
   private String checkMoneyForGys(ZcPProBal zcPProBal) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     String info = "";
     double zcBalSum = 0.0;
     if (zcPProBal.getZcBalSum() != null)

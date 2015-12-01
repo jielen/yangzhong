@@ -5,9 +5,6 @@ package com.ufgov.zc.client.applet.local;
 
 import java.applet.Applet;
 import java.awt.Window;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +14,6 @@ import javax.swing.JApplet;
 
 /**
  * @author Administrator
- *
  */
 public class LocalResourceApplet extends MyBaseApplet {
 
@@ -27,8 +23,8 @@ public class LocalResourceApplet extends MyBaseApplet {
 
   private static String oldTorken = "";
 
-  private final String[] paramNames = new String[] { "panelClassName", "token", "clientIP", "transDate", "userId", "coCode", "orgCode", "orgPoCode",
-    "poCode", "webRoot", "webIp", "accountId", "empCode", "empName", "urlArray" };
+  private final String[] paramNames = new String[] { "panelClassName", "token", "clientIP", "transDate", "userId", "coCode", "orgCode", "orgPoCode", "poCode", "webRoot", "webIp", "accountId",
+    "empCode", "empName", "urlArray" };
 
   private Window appletWindow;
 
@@ -40,19 +36,19 @@ public class LocalResourceApplet extends MyBaseApplet {
   private static final long serialVersionUID = 1401479333821197886L;
 
   public void init() {
-//    System.out.println("2============================================");
+    //    System.out.println("2============================================");
     super.init();
-//    System.out.println("==3==========================================");
+    //    System.out.println("==3==========================================");
     try {
-//      System.out.println("==4==========================================");
+      //      System.out.println("==4==========================================");
       initAppletParameters();
-//      System.out.println("===6=========================================");
+      //      System.out.println("===6=========================================");
       if (oldTorken == null || !oldTorken.equals((String) parameterInfo.get("token"))) {
-//        System.out.println("==7==========================================");
+        //        System.out.println("==7==========================================");
         oldTorken = (String) parameterInfo.get("token");
 
         downloadResource();
-//        System.out.println("==9==========================================");
+        //        System.out.println("==9==========================================");
         loadLocalJars();
       }
       initApplet();
@@ -63,18 +59,18 @@ public class LocalResourceApplet extends MyBaseApplet {
   }
 
   private void loadLocalJars() throws Exception {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
-//    System.out.println("==8==========================================");
-    File f = new File("C:/sql.txt");
-    FileReader r = new FileReader(f);
-    BufferedReader br = new BufferedReader(r);
-    String s;
-    while ((s = br.readLine()) != null) {
-      System.out.println(s);
-    }
-    br.close();
-    r.close();
+    //    System.out.println("==8==========================================");
+    /*  File f = new File("C:/sql.txt");
+      FileReader r = new FileReader(f);
+      BufferedReader br = new BufferedReader(r);
+      String s;
+      while ((s = br.readLine()) != null) {
+        System.out.println(s);
+      }
+      br.close();
+      r.close();*/
 
     ClassLoaderUtil lu = new ClassLoaderUtil();
     lu.loadJarPath(DownLoadManager.localJarUrl);
@@ -83,7 +79,7 @@ public class LocalResourceApplet extends MyBaseApplet {
   }
 
   private void initApplet() throws Exception {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     String className = "com.ufgov.zc.client.applet.LocalResouceAppletUtil";
     try {
       Class c = Class.forName(className);
@@ -99,19 +95,19 @@ public class LocalResourceApplet extends MyBaseApplet {
       Method method = c.getMethod("initApplet", JApplet.class);
       method.invoke(obj, args);
     } catch (Exception e) {
-      // TODO Auto-generated catch block
+      // TCJLODO Auto-generated catch block
       throw e;
     }
   }
 
   private void downloadResource() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     DownLoadManager.downResource((String) parameterInfo.get("webRoot"), (String) parameterInfo.get("token"));
 
   }
 
   private void initAppletParameters() {
-//    System.out.println("==5==========================================");
+    //    System.out.println("==5==========================================");
     for (int i = 0; i < paramNames.length; i++) {
       parameterInfo.put(paramNames[i], this.getParameter(paramNames[i]));
       //      System.out.println(paramNames[i] + "=" + this.getParameter(paramNames[i]));
@@ -122,10 +118,10 @@ public class LocalResourceApplet extends MyBaseApplet {
   public static void main(String[] args) {
     LocalResourceApplet a = new LocalResourceApplet();
     try {
-//      System.out.println("==1==========================================");
+      //      System.out.println("==1==========================================");
       a.init();
     } catch (Exception e) {
-      // TODO Auto-generated catch block
+      // TCJLODO Auto-generated catch block
       e.printStackTrace();
     }
   }

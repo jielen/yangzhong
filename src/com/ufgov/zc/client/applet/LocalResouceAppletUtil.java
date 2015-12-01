@@ -79,6 +79,7 @@ public class LocalResouceAppletUtil {
         isReLoad = false;
         return;
       }
+      //      System.out.println("workEnv.initWorkEnv object f class name=" + f.getClass().getName());
       WorkEnv workEnv = WorkEnv.getInstance();
       workEnv.setToken((String) getValue(method, f, "token"));
       oldTorken = workEnv.getToken();
@@ -95,6 +96,7 @@ public class LocalResouceAppletUtil {
       workEnv.setExpertName((String) getValue(method, f, "empName"));
       workEnv.setOrgCode((String) getValue(method, f, "orgCode"));
       workEnv.setOrgPoCode((String) getValue(method, f, "orgPoCode"));
+      //      System.out.println("workEnv.setOrgPoCode 1" + workEnv.getOrgPoCode());
       workEnv.setPoCode((String) getValue(method, f, "poCode"));
       workEnv.setExpertCode((String) getValue(method, f, "expertCode"));
       workEnv.setExpertName((String) getValue(method, f, "expertName"));
@@ -105,8 +107,7 @@ public class LocalResouceAppletUtil {
       workEnv.setApplet((Applet) f);
       //      ClassLoader oldLoader = Thread.currentThread().getContextClassLoader();
       //      Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
-      IBaseDataServiceDelegate baseDataServiceDelegate = (IBaseDataServiceDelegate) ServiceFactory.create(IBaseDataServiceDelegate.class,
-        "baseDataServiceDelegate");
+      IBaseDataServiceDelegate baseDataServiceDelegate = (IBaseDataServiceDelegate) ServiceFactory.create(IBaseDataServiceDelegate.class, "baseDataServiceDelegate");
 
       RequestMeta meta = WorkEnv.getInstance().getRequestMeta();
       meta.setSvUserID((String) getValue(method, f, "userId"));
@@ -114,25 +115,24 @@ public class LocalResouceAppletUtil {
       workEnv.setCurrUser(user);
       Company company = baseDataServiceDelegate.getCompanyByCoCode(workEnv.getTransNd(), (String) getValue(method, f, "coCode"), meta);
       workEnv.setCurrCompany(company);
+      meta.setSvCoCode(workEnv.getCurrCoCode());
+      meta.setSvCoName(workEnv.getCurrCompany() == null ? null : workEnv.getCurrCompany().getName());
       java.util.Date sysDate = baseDataServiceDelegate.getSysDate(meta);
       workEnv.setSysDate(sysDate);
 
-      IConsoleServiceDelegate consoleServiceDelegate = (IConsoleServiceDelegate) ServiceFactory.create(IConsoleServiceDelegate.class,
-        "consoleServiceDelegate");
+      IConsoleServiceDelegate consoleServiceDelegate = (IConsoleServiceDelegate) ServiceFactory.create(IConsoleServiceDelegate.class, "consoleServiceDelegate");
 
       List<AsRole> roles = consoleServiceDelegate.getAsRoleByPosi(workEnv.getPoCode(), meta);
       workEnv.setRoles(roles);
 
-      IZcEbBaseServiceDelegate zcbaseDataServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class,
-        "zcEbBaseServiceDelegate");
+      IZcEbBaseServiceDelegate zcbaseDataServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class, "zcEbBaseServiceDelegate");
 
       List empLst = zcbaseDataServiceDelegate.queryDataForList("AsEmp.getAsEmp", null, meta);
 
       EmpMeta.setEmpLst(empLst);
 
       if (workEnv.getOrgPoCode() == null || workEnv.getOrgPoCode().trim().equals("")) {
-        workEnv.setOrgPoCode(getOrgPoCode(baseDataServiceDelegate, meta.getSvCoCode(), meta.getSvOrgCode(), meta.getSvPoCode(), workEnv.getTransNd(),
-          meta));
+        workEnv.setOrgPoCode(getOrgPoCode(baseDataServiceDelegate, meta.getSvCoCode(), meta.getSvOrgCode(), meta.getSvPoCode(), workEnv.getTransNd(), meta));
       }
 
       //      Thread.currentThread().setContextClassLoader(oldLoader);
@@ -142,14 +142,17 @@ public class LocalResouceAppletUtil {
 
   }
 
-  private String getOrgPoCode(IBaseDataServiceDelegate baseDataServiceDelegate, String coCode, String orgCode, String posiCode, int nd,
-    RequestMeta requestMeta) {
+  private String getOrgPoCode(IBaseDataServiceDelegate baseDataServiceDelegate, String coCode, String orgCode, String posiCode, int nd, RequestMeta requestMeta) {
     String key = coCode + "-" + orgCode + "-" + posiCode;
     String orgPoCode = orgPoCodeCache.get(key);
+    //    System.out.println("workEnv.setOrgPoCode2 key" + key);
+    //    System.out.println("workEnv.setOrgPoCode3 orgPoCode" + orgPoCode);
     if (orgPoCode == null) {
       orgPoCode = baseDataServiceDelegate.getOrgPosiId(coCode, orgCode, posiCode, nd, requestMeta);
+      //      System.out.println("workEnv.setOrgPoCode4 orgPoCode" + orgPoCode);
       orgPoCodeCache.put(key, orgPoCode);
     }
+    //    System.out.println("workEnv.setOrgPoCode4 orgPoCode5 " + orgPoCode);
     return orgPoCode;
   }
 

@@ -75,13 +75,13 @@ public class HuiyuanUserService implements IHuiyuanUserService {
 
 
   public List getMainDataLst(ElementConditionDto elementConditionDto, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUserMapper.getMainDataLst(elementConditionDto);
   }
 
   
   public HuiyuanUser selectByPrimaryKey(String userguid, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     HuiyuanUser rtn= huiyuanUserMapper.selectByPrimaryKey(userguid);
     if(rtn!=null){
       rtn.setPasswd(GeneralFunc.recodePwd(rtn.getPasswd()));
@@ -92,7 +92,7 @@ public class HuiyuanUserService implements IHuiyuanUserService {
 
   
   public HuiyuanUser saveFN(HuiyuanUser record, RequestMeta requestMeta) throws BusinessException {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     boolean isNewUser=false;
     if(record.getUserguid()==null || record.getUserguid().trim().length()==0){
       //新增用户
@@ -134,7 +134,7 @@ public class HuiyuanUserService implements IHuiyuanUserService {
    * @return
    */
   private boolean existLoginId(HuiyuanUser record, RequestMeta requestMeta, boolean isNewUser,String oldLoginId) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if(record==null || record.getLoginid()==null || record.getLoginid().trim().length()==0){
       return false;
     }
@@ -182,7 +182,7 @@ public class HuiyuanUserService implements IHuiyuanUserService {
    * @return
    */
   private boolean existCa(HuiyuanUser record, RequestMeta requestMeta,boolean isNewUser,String oldLoginId) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if(record==null || record.getDognum()==null || record.getDognum().trim().length()==0){
       return false;
     }
@@ -226,7 +226,7 @@ public class HuiyuanUserService implements IHuiyuanUserService {
   }
 
   private HuiyuanUser update(HuiyuanUser record, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     User existUser=userService.getUserById(record.getLoginid());
     if(existUser!=null){
       record.setPasswd(existUser.getPassword());
@@ -258,7 +258,7 @@ public class HuiyuanUserService implements IHuiyuanUserService {
 
 
   private HuiyuanUser insert(HuiyuanUser record, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub 
+    // TCJLODO Auto-generated method stub 
     record.setUserguid(UUID.randomUUID().toString());    
     record.setPasswd(GeneralFunc._encodePwd(record.getPasswd()));
     huiyuanUserMapper.insert(record);  
@@ -283,7 +283,7 @@ public class HuiyuanUserService implements IHuiyuanUserService {
   }
 
   private void createWfDraf(HuiyuanUser record, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if (record.getProcessInstId() == null || record.getProcessInstId().longValue() == -1) {
       Long draftid = workflowDao.createDraftId();
       record.setProcessInstId(draftid);
@@ -300,7 +300,7 @@ public class HuiyuanUserService implements IHuiyuanUserService {
   }
 
   public void deleteByPrimaryKeyFN(String userguid, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     huiyuanUserMapper.deleteByPrimaryKey(userguid);
     userService.deleteUser(userguid,requestMeta);
 //    userService.updateAsEmpLogin(userguid, false);
@@ -308,37 +308,37 @@ public class HuiyuanUserService implements IHuiyuanUserService {
 
   
   public HuiyuanUser unAuditFN(HuiyuanUser unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return null;
   }
 
   
   public HuiyuanUser untreadFN(HuiyuanUser unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return null;
   }
 
   
   public HuiyuanUser auditFN(HuiyuanUser unit, RequestMeta requestMeta) throws Exception {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return null;
   }
 
   
   public HuiyuanUser newCommitFN(HuiyuanUser unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return null;
   }
 
   
   public HuiyuanUser callbackFN(HuiyuanUser unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return null;
   }
 
   
   public HuiyuanUser updateAuditStatusFN(HuiyuanUser record, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
      huiyuanUserMapper.updateAuditStatusFN(record);
      record.setDbDigest(record.digest());
      return record;
@@ -356,7 +356,7 @@ public class HuiyuanUserService implements IHuiyuanUserService {
 
  
   public HuiyuanUser upateAccountStatusFN(HuiyuanUser unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     String func=requestMeta.getFuncId();
     if("fqiyong".equals(func)){

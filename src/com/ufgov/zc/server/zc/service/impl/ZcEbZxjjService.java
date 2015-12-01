@@ -65,13 +65,13 @@ public class ZcEbZxjjService implements IZcEbZxjjService {
 
 
   public List getMainDataLst(ElementConditionDto elementConditionDto, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return getZxjjMapper().getMainDataLst(elementConditionDto);
   }
 
   
   public ZcEbZxjj selectByPrimaryKey(BigDecimal id, RequestMeta requestMeta) {
-    // TODO Auto-generated method stu
+    // TCJLODO Auto-generated method stu
     ZcEbZxjj rtn=getZxjjMapper().selectByPrimaryKey(id);
     if(rtn==null)return null;
     ElementConditionDto dto=new ElementConditionDto();
@@ -83,7 +83,7 @@ public class ZcEbZxjjService implements IZcEbZxjjService {
 
   
   public ZcEbZxjj saveFN(ZcEbZxjj inData, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if (inData.getJjCode()==null ) {
 
       BigDecimal id=new BigDecimal(ZcSUtil.getNextVal(ZcEbZxjj.SEQ_NAME));
@@ -116,7 +116,7 @@ public class ZcEbZxjjService implements IZcEbZxjjService {
 
 
   private void insert(ZcEbZxjj inData, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     getZxjjMapper().insert(inData);
     if(inData.getHistoryList()!=null){
       for(int i=0;i<inData.getHistoryList().size();i++){
@@ -129,7 +129,7 @@ public class ZcEbZxjjService implements IZcEbZxjjService {
   }
 
   private void update(ZcEbZxjj inData, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     getZxjjMapper().updateByPrimaryKey(inData);
     
     getZxjjHistoryMapper().deleteByPrimaryKey(inData.getJjCode());
@@ -146,28 +146,28 @@ public class ZcEbZxjjService implements IZcEbZxjjService {
   }
   
   public void deleteByPrimaryKeyFN(BigDecimal id, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     getZxjjHistoryMapper().deleteByPrimaryKey(id);
     getZxjjMapper().deleteByPrimaryKey(id);
   }
 
   
   public ZcEbZxjj unAuditFN(ZcEbZxjj qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     wfEngineAdapter.rework(qx.getComment(), qx, requestMeta);
     return qx;
   }
 
   
   public ZcEbZxjj untreadFN(ZcEbZxjj qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     wfEngineAdapter.untread(qx.getComment(), qx, requestMeta);
     return qx;
   }
 
   
   public ZcEbZxjj auditFN(ZcEbZxjj qx, RequestMeta requestMeta) throws Exception {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     qx=saveFN(qx, requestMeta);
     wfEngineAdapter.commit(qx.getComment(), qx, requestMeta);
     return selectByPrimaryKey(qx.getJjCode(),requestMeta);
@@ -175,14 +175,14 @@ public class ZcEbZxjjService implements IZcEbZxjjService {
 
   
   public ZcEbZxjj newCommitFN(ZcEbZxjj qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     wfEngineAdapter.newCommit(qx.getComment(), qx, requestMeta);
     return selectByPrimaryKey(qx.getJjCode(),requestMeta);
   }
 
   
   public ZcEbZxjj callbackFN(ZcEbZxjj qx, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     wfEngineAdapter.callback(qx.getComment(), qx, requestMeta);
     return qx;
   }

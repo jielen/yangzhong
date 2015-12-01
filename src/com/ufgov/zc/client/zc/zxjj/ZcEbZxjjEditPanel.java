@@ -176,7 +176,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
   JLabel labelMm = new JLabel("00",JLabel.CENTER);
 
   public ZcEbZxjjEditPanel(ZcEbZxjjDialog parent, ListCursor listCursor, String tabStatus, ZcEbZxjjListPanel listPanel) {
-    // TODO Auto-generated constructor stub
+    // TCJLODO Auto-generated constructor stub
     super(ZcEbZxjjEditPanel.class, BillElementMeta.getBillElementMetaWithoutNd(compoId));
 
     this.workPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), LangTransMeta.translate(compoId),
@@ -198,7 +198,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
   }
 
   private void refreshData() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     ZcEbZxjj jj = (ZcEbZxjj) listCursor.getCurrentObject();
 
@@ -301,7 +301,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
   }
 
   private void setDefaultValue(ZcEbZxjj jj) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     jj.setStatus(ZcSettingConstants.WF_STATUS_DRAFT);
     jj.setNd(this.requestMeta.getSvNd());
     jj.setInputDate(this.requestMeta.getSysDate());
@@ -456,7 +456,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
  
 
   private void refreshSubData(ZcEbZxjj jj) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     historyTablePanel.setTableModel(new ZcEbZxjjToTableModelConverter().convertDetailTableData(jj.getHistoryList()));
  
   
@@ -477,7 +477,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
   }
 
   private void setTablePorperty() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     //
     //    addBiTableLisenter(biTablePanel.getTable());
     //
@@ -485,13 +485,13 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
   }
 
   private void setBiTableEditor(JPageableFixedTable table) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
   }
   
  
  
   public String getCompoId() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return compoId;
   }
 
@@ -500,7 +500,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
    */
   @Override
   public void initToolBar(JFuncToolBar toolBar) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     toolBar.setModuleCode("ZC");
 
@@ -1318,7 +1318,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
  
 
   protected void selectCompany(Company company) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     ZcEbZxjj jj = (ZcEbZxjj) listCursor.getCurrentObject();
     jj.setCoCode(company.getCode());
     jj.setCoName(company.getName());
@@ -1329,7 +1329,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
    */
   @Override
   public JComponent createSubBillPanel() {
-    // TODO Auto-generated method stub 
+    // TCJLODO Auto-generated method stub 
     
     JTabbedPane biTabPane = new JTabbedPane();
 
@@ -1366,7 +1366,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
  
 
   public void doExit() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     if (isDataChanged()) {
 
@@ -1432,7 +1432,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
   //倒计时牌
   private JPanel initTimePanel() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     JPanel p=new JPanel();
     p.setMinimumSize(new Dimension(400, 200));
     p.setPreferredSize(new Dimension(400,200));

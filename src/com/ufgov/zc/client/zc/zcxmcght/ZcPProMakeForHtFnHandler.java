@@ -53,7 +53,7 @@ public class ZcPProMakeForHtFnHandler implements IForeignEntityHandler {
 
   public void excute(List selectedDatas) {
 
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if (ZcUtil.isYsdw()) {
       for (Object object : selectedDatas) {
 
@@ -97,12 +97,12 @@ public class ZcPProMakeForHtFnHandler implements IForeignEntityHandler {
   }
 
   private List createHtItemLst(List itemList) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return null;
   }
 
   private List createHtBiLst(List biList) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return null;
   }
 
@@ -152,7 +152,7 @@ public class ZcPProMakeForHtFnHandler implements IForeignEntityHandler {
   @Override
   public boolean isMultipleSelect() {
 
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     return false;
 

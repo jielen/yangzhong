@@ -21,7 +21,7 @@ public class ZcEbEntrustZuRenNodeListener extends TaskAdapter {
    * 主任审核时，要指定采购方式
    */
   public void beforeExecution(WorkflowContext context) throws WorkflowException {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     super.beforeExecution(context);
 
     Long processId=context.getInstanceId();

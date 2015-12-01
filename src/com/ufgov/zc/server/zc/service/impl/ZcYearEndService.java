@@ -25,13 +25,13 @@ public class ZcYearEndService implements IZcYearEndService {
 
 	public List getZcPProMake(ElementConditionDto dto, RequestMeta meta)
 			throws Exception {
-		// TODO Auto-generated method stub
+		// TCJLODO Auto-generated method stub
 		return baseDao.query("ZC_YEAR_END.selectZcProEnd", dto);
 	}
 
 	public void updateProEnd(String zcMakeCode, boolean flag, String serverAdd,
 			RequestMeta requestMeta) throws Exception {
-		// TODO Auto-generated method stub
+		// TCJLODO Auto-generated method stub
 		// 取得要解冻的指标
 		Map map = new BudgetUtil().getProEndBudget(baseDao, true, zcMakeCode);
 		// 更新计划表，yepflag变为10

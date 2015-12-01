@@ -51,7 +51,7 @@ public class ZcEbBaseServiceDelegate implements IZcEbBaseServiceDelegate {
 
   public String getSequenceNextVal(String sequenceName, RequestMeta meta) {
 
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     return this.zcEbBaseService.getSequenceNextVal(sequenceName);
 
@@ -76,27 +76,27 @@ public class ZcEbBaseServiceDelegate implements IZcEbBaseServiceDelegate {
   }
 
   public ZcBaseBill auditFN(ZcBaseBill bill, RequestMeta meta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbBaseService.auditFN(bill, meta);
   }
 
   public ZcBaseBill callbackFN(ZcBaseBill bill, RequestMeta meta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbBaseService.callbackFN(bill, meta);
   }
 
   public ZcBaseBill newCommitFN(ZcBaseBill bill, RequestMeta meta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbBaseService.newCommitFN(bill, meta);
   }
 
   public ZcBaseBill unAuditFN(ZcBaseBill bill, RequestMeta meta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbBaseService.unauditFN(bill, meta);
   }
 
   public ZcBaseBill untreadFN(ZcBaseBill bill, RequestMeta meta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbBaseService.untreadFN(bill, meta);
   }
 

@@ -25,7 +25,7 @@ public class ZcEbZxjjDao extends SqlMapClientDaoSupport implements IZcEbZxjjDao 
    */
   
   public int deleteByPrimaryKey(BigDecimal jjCode) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return getSqlMapClientTemplate().delete("com.ufgov.zc.server.zc.dao.ZcEbZxjjMapper.deleteByPrimaryKey", jjCode);
     
   }
@@ -35,7 +35,7 @@ public class ZcEbZxjjDao extends SqlMapClientDaoSupport implements IZcEbZxjjDao 
    */
   
   public int insert(ZcEbZxjj record) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     getSqlMapClientTemplate().insert("com.ufgov.zc.server.zc.dao.ZcEbZxjjMapper.insert", record);
     return 1;
   }
@@ -45,7 +45,7 @@ public class ZcEbZxjjDao extends SqlMapClientDaoSupport implements IZcEbZxjjDao 
    */
   
   public int insertSelective(ZcEbZxjj record) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return 0;
   }
 
@@ -54,7 +54,7 @@ public class ZcEbZxjjDao extends SqlMapClientDaoSupport implements IZcEbZxjjDao 
    */
   
   public ZcEbZxjj selectByPrimaryKey(BigDecimal jjCode) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return (ZcEbZxjj) getSqlMapClientTemplate().queryForObject("com.ufgov.zc.server.zc.dao.ZcEbZxjjMapper.selectByPrimaryKey", jjCode);
   }
 
@@ -63,7 +63,7 @@ public class ZcEbZxjjDao extends SqlMapClientDaoSupport implements IZcEbZxjjDao 
    */
   
   public int updateByPrimaryKeySelective(ZcEbZxjj record) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return 0;
   }
 
@@ -72,12 +72,12 @@ public class ZcEbZxjjDao extends SqlMapClientDaoSupport implements IZcEbZxjjDao 
    */
   
   public int updateByPrimaryKey(ZcEbZxjj record) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return getSqlMapClientTemplate().update("com.ufgov.zc.server.zc.dao.ZcEbZxjjMapper.updateByPrimaryKey", record);
   }
 
   public List getMainDataLst(ElementConditionDto elementConditionDto) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     elementConditionDto.setNumLimitStr(NumLimUtil.getInstance().getNumLimCondByCoType(elementConditionDto.getWfcompoId(), NumLimConstants.FWATCH));
 
     return getSqlMapClientTemplate().queryForList("com.ufgov.zc.server.zc.dao.ZcEbZxjjMapper.selectMainDataLst", elementConditionDto);

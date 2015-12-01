@@ -272,7 +272,7 @@ public class ZcEbSupplierEditPanel extends AbstractMainSubEditPanel {
  * 根据ZC_VS_SUPPLIER_TYPE获取供应商类别全集，然后根据从后头保存的typeLst，确定哪个是选中的
  */
   private List _createGysTypeLst(List typeLst,String suppilerCode) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     List allLst=AsValDataCache.getAsVal("ZC_VS_SUPPLIER_TYPE");
     if(allLst==null || allLst.size()==0)return typeLst;
     List rtn=new ArrayList();
@@ -315,7 +315,7 @@ public class ZcEbSupplierEditPanel extends AbstractMainSubEditPanel {
   }
 
   private void setGysTypeTableProperty(JPageableFixedTable table) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     ZcUtil.translateColName(tablePanelGysType.getTable(), ZcEbSupplierToTableModelConverter.getGysTypeTableColumnInfo());
     SwingUtil.setTableCellEditor(table, "选中", new CheckBoxCellEditor(new Boolean(true),new Boolean(false)));
     SwingUtil.setTableCellRenderer(table, "选中", new CheckBoxTableCellRenderer(new Boolean(true),new Boolean(false)));
@@ -1303,7 +1303,7 @@ public class ZcEbSupplierEditPanel extends AbstractMainSubEditPanel {
 
     @Override
     public boolean isMultipleSelect() {
-      // TODO Auto-generated method stub
+      // TCJLODO Auto-generated method stub
       return false;
     }
 

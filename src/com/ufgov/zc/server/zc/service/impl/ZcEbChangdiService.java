@@ -15,13 +15,13 @@ public class ZcEbChangdiService implements IZcEbChangdiService {
   private ZcEbChangdiMapper zcEbChangdiMapper;
   
   public List getMainDataLst(ElementConditionDto elementConditionDto, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbChangdiMapper.getMainDataLst(elementConditionDto);
   }
 
   
   public ZcEbChangdi selectByPrimaryKey(String code, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     ZcEbChangdi rtn= zcEbChangdiMapper.selectByPrimaryKey(code);
     rtn.setDbDigest(rtn.digest());
     return rtn;
@@ -29,7 +29,7 @@ public class ZcEbChangdiService implements IZcEbChangdiService {
 
   
   public ZcEbChangdi saveFN(ZcEbChangdi record, RequestMeta requestMeta) throws BusinessException {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if(record.getChangdiguid()==null || record.getChangdiguid().trim().length()==0){
       record.setChangdiguid(UUID.randomUUID().toString());
       zcEbChangdiMapper.insert(record);
@@ -42,7 +42,7 @@ public class ZcEbChangdiService implements IZcEbChangdiService {
 
   
   public void deleteByPrimaryKeyFN(String code, RequestMeta requestMeta) throws BusinessException {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     //判断是否已经使用，如果已经使用，则不让删除，抛出异常
     
     if(isUsed(code)){
@@ -54,7 +54,7 @@ public class ZcEbChangdiService implements IZcEbChangdiService {
 
 
   private boolean isUsed(String code) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return false;
   }
 

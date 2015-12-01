@@ -27,7 +27,7 @@ import com.ufgov.zc.common.zc.model.HuiyuanZfcgGongyingzizhi;
 public class HuiyuanUnitcominfoToTableModelConverter {
 
   public static TableModel convertToTableModel(List mainDataLst) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     MyTableModel tableModel = null;
     Vector names = new Vector();
@@ -68,7 +68,7 @@ public class HuiyuanUnitcominfoToTableModelConverter {
   }
 
   public TableModel convertUserTableData(List userLst) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     MyTableModel tableModel = null;
     Vector names = new Vector();
@@ -119,7 +119,7 @@ public class HuiyuanUnitcominfoToTableModelConverter {
   }
 
   public TableModel convertZizhiTableData(List lst) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     MyTableModel tableModel = null;
     Vector names = new Vector();
@@ -169,7 +169,7 @@ public class HuiyuanUnitcominfoToTableModelConverter {
   }
 
   public TableModel convertUnitBlackTableData(List unitBlackLst) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     MyTableModel tableModel = null;
     Vector names = new Vector();
@@ -216,7 +216,7 @@ public class HuiyuanUnitcominfoToTableModelConverter {
 
 
   public TableModel convertPeopleBlackTableData(List peopleBlackLst) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     MyTableModel tableModel = null;
     Vector names = new Vector();

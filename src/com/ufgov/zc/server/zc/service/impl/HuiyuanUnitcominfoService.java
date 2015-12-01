@@ -85,7 +85,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
   }
 
   public List getMainDataLst(ElementConditionDto elementConditionDto, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUnitcominfoMapper.getMainDataLst(elementConditionDto);
   }
 
@@ -94,7 +94,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
    */
   
   public HuiyuanUnitcominfo selectByPrimaryKey(String danweiguid, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     HuiyuanUnitcominfo unit=huiyuanUnitcominfoMapper.selectByPrimaryKey(danweiguid);
     if(unit==null)return null;
     unit.setZfcgGysInfo(huiyuanZfcgGongyinginfoMapper.selectByPrimaryKey(danweiguid));
@@ -112,7 +112,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
    */
   
   public HuiyuanUnitcominfo saveFN(HuiyuanUnitcominfo record, RequestMeta requestMeta) throws BusinessException{
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     List existUnitLst=getUnitByNameOrOrgNUm(record, requestMeta);
     if(record.getDanweiguid()==null || record.getDanweiguid().trim().length()==0){
       if(duplicateUnit(record,existUnitLst,false)){
@@ -136,7 +136,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
   }
 
   private void updateDefaultUser(HuiyuanUnitcominfo record, RequestMeta requestMeta,String oldUnitOrgNum) {
-    // TODO Auto-generated method stub 
+    // TCJLODO Auto-generated method stub 
     ElementConditionDto eto=new ElementConditionDto();
     eto.setZcText2(oldUnitOrgNum);
     List userLst=huiyuanUserService.getMainDataLst(eto, requestMeta);    
@@ -153,7 +153,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
   }
 
   private void addDefaultUser(HuiyuanUnitcominfo record, RequestMeta requestMeta)  throws BusinessException {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     HuiyuanUser user=new HuiyuanUser();
     user.setPasswd(GeneralFunc.recodePwd(record.getUnitorgnum()));
     buildUserInfo(record,user);
@@ -161,7 +161,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
   }
 
   private void buildUserInfo(HuiyuanUnitcominfo unitInfo, HuiyuanUser user) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     user.setDanweiguid(unitInfo.getDanweiguid());
     user.setDanweiname(unitInfo.getDanweiname());
     user.setLoginid(unitInfo.getUnitorgnum());
@@ -179,7 +179,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
     return rtn;
   }
   private boolean duplicateUnit(HuiyuanUnitcominfo record, List existUnitLst,boolean isUpdate) {
-    // TODO Auto-generated method stub   
+    // TCJLODO Auto-generated method stub   
     if(existUnitLst!=null && existUnitLst.size()>0){      
     //新增的情况下，检测到了重名、重机构码的供应商
       if(!isUpdate){
@@ -199,7 +199,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
   }
 
   private void createWfDraf(HuiyuanUnitcominfo record, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if (record.getProcessInstId() == null || record.getProcessInstId().longValue() == -1) {
       Long draftid = workflowDao.createDraftId();
       record.setProcessInstId(draftid);
@@ -220,7 +220,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
    */
   
   private HuiyuanUnitcominfo update(HuiyuanUnitcominfo record) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     huiyuanUnitcominfoMapper.updateByPrimaryKey(record);
     if(record.getZfcgGysInfo()!=null){
       huiyuanZfcgGongyinginfoMapper.updateByPrimaryKey(record.getZfcgGysInfo());
@@ -229,7 +229,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
   }
 
   private HuiyuanUnitcominfo insert(HuiyuanUnitcominfo record) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     String uuid=UUID.randomUUID().toString();
     record.setDanweiguid(uuid);
     huiyuanUnitcominfoMapper.insert(record);
@@ -242,7 +242,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
   }
 
   public HuiyuanUnitcominfo updateAuditStatusFN(HuiyuanUnitcominfo record, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     huiyuanZfcgGongyinginfoMapper.updateAuditStatusFN(record.getZfcgGysInfo());
     record.setDbDigest(record.digest());
     return record;
@@ -253,7 +253,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
    */
   
   public void deleteByPrimaryKeyFN(String danweiguid, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     huiyuanUnitcominfoMapper.deleteByPrimaryKey(danweiguid);
     huiyuanZfcgGongyinginfoMapper.deleteByPrimaryKey(danweiguid);
   }
@@ -263,7 +263,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
    */
   
   public HuiyuanUnitcominfo unAuditFN(HuiyuanUnitcominfo unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     wfEngineAdapter.rework(unit.getComment(), unit, requestMeta);
     return unit;
   }
@@ -273,7 +273,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
    */
   
   public HuiyuanUnitcominfo untreadFN(HuiyuanUnitcominfo unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     wfEngineAdapter.untread(unit.getComment(), unit, requestMeta);
     return unit;
   }
@@ -283,7 +283,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
    */
   
   public HuiyuanUnitcominfo auditFN(HuiyuanUnitcominfo unit, RequestMeta requestMeta) throws Exception {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     unit=saveFN(unit, requestMeta);
     wfEngineAdapter.commit(unit.getComment(), unit, requestMeta);
     return selectByPrimaryKey(unit.getDanweiguid(),requestMeta);
@@ -294,7 +294,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
    */
   
   public HuiyuanUnitcominfo newCommitFN(HuiyuanUnitcominfo unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     wfEngineAdapter.newCommit(unit.getComment(), unit, requestMeta);
     return selectByPrimaryKey(unit.getDanweiguid(),requestMeta);
   }
@@ -304,7 +304,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
    */
   
   public HuiyuanUnitcominfo callbackFN(HuiyuanUnitcominfo unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     wfEngineAdapter.callback(unit.getComment(), unit, requestMeta);
     return unit;
   }
@@ -343,7 +343,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
 
   
   public HuiyuanUnitcominfo upateAccountStatusFN(HuiyuanUnitcominfo inData, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     String func=requestMeta.getFuncId();
     if("fqiyong".equals(func)){
       //启用全部人员信息
@@ -368,7 +368,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
   }
  
   private void updateUserStatus(List userLst, String accountStatus) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if(userLst==null)return;
     for(int i=0;i<userLst.size();i++){
       HuiyuanUser user=(HuiyuanUser) userLst.get(i);
@@ -377,7 +377,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
     }
   }
   private void updateUserLogin(List userLst, boolean isLogin) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if(userLst==null)return;  
     for(int i=0;i<userLst.size();i++){
       HuiyuanUser user=(HuiyuanUser) userLst.get(i); 

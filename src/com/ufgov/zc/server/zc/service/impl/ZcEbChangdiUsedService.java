@@ -15,13 +15,13 @@ public class ZcEbChangdiUsedService implements IZcEbChangdiUsedService {
   private ZcEbChangdiUsedMapper zcEbChangdiUsedMapper;
   
   public List getMainDataLst(ElementConditionDto elementConditionDto, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return zcEbChangdiUsedMapper.getMainDataLst(elementConditionDto);
   }
 
   
   public ZcEbChangdiUsed selectByPrimaryKey(String code, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     ZcEbChangdiUsed rtn= zcEbChangdiUsedMapper.selectByPrimaryKey(code);
     rtn.setDbDigest(rtn.digest());
     return rtn;
@@ -29,7 +29,7 @@ public class ZcEbChangdiUsedService implements IZcEbChangdiUsedService {
 
   
   public ZcEbChangdiUsed saveFN(ZcEbChangdiUsed record, RequestMeta requestMeta) throws BusinessException {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if(record.getChangdiusedid()==null || record.getChangdiusedid().trim().length()==0){
       record.setChangdiusedid(UUID.randomUUID().toString());
       zcEbChangdiUsedMapper.insert(record);
@@ -41,7 +41,7 @@ public class ZcEbChangdiUsedService implements IZcEbChangdiUsedService {
 
   
   public void deleteByPrimaryKeyFN(String code, RequestMeta requestMeta) throws BusinessException {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     zcEbChangdiUsedMapper.deleteByPrimaryKey(code);
   }
 

@@ -160,7 +160,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
  
 
   public HuiyuanUserEditPanel(HuiyuanUserDialog parent, HuiyuanUnitcominfoEditPanel unitPanel, ListCursor listCursor2) {
-    // TODO Auto-generated constructor stub
+    // TCJLODO Auto-generated constructor stub
     super(HuiyuanUserEditPanel.class, BillElementMeta.getBillElementMetaWithoutNd(compoId));
     
     this.unitPanel=unitPanel;
@@ -278,15 +278,15 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
   }
   private void setOldObject() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     oldHuiyuanUser = (HuiyuanUser) ObjectUtil.deepCopy(listCursor.getCurrentObject());
   }
   private void refreshSubData(HuiyuanUser user) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     
   }
   private void setDefaultValue(HuiyuanUser user) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     user.setAuditstatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_DRAFT);
     user.setStatuscode(ZcSettingConstants.HUI_YUAN_ACCOUNT_STATUS_ZAN_TING);
     user.setUsertype("1");//这个用户类型值集不知，数据库需要填，目前默认用1
@@ -296,7 +296,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
    */
   @Override
   public void initToolBar(JFuncToolBar toolBar) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     toolBar.setModuleCode("ZC");
 
@@ -546,23 +546,23 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
  
 
   protected void doDestroy() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     updateAuditStatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_DESTROY);    
   }
 
   protected void doReback() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     updateAuditStatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_BACK);
     
   }
 
   protected void doUnPass() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     updateAuditStatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_UNPASS);
   }
 
   protected void doPass() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     updateAuditStatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS);
   }
 
@@ -1152,7 +1152,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
   }
   
   public void doExit() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     if (isDataChanged()) {
 
@@ -1340,7 +1340,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
    */
   @Override
   public List<AbstractFieldEditor> createFieldEditors() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     
     TextFieldEditor userDogNum = new TextFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_DOGNUM), "dognum");
     TextFieldEditor userLoginID = new TextFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_LOGINID), "loginid");
@@ -1399,7 +1399,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
    */
   @Override
   public JComponent createSubBillPanel() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return null;
   }
 
@@ -1413,7 +1413,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
   }
 
   private void updateAccountStatus(String opreation,FuncButton btn) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     int num = JOptionPane.showConfirmDialog(this, "确定要"+opreation+"吗?" , opreation+"确认", 0);
     if (num == JOptionPane.NO_OPTION)
     {
@@ -1442,7 +1442,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
   }
 
   protected void doZanting() {
-    // TODO Auto-generated method stub 
+    // TCJLODO Auto-generated method stub 
     HuiyuanUser inData = (HuiyuanUser) this.listCursor.getCurrentObject();
     if(!inData.getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)){
       JOptionPane.showMessageDialog(this, "只有审核通过的用户才可以暂停！", "提示", JOptionPane.INFORMATION_MESSAGE);
@@ -1452,7 +1452,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
   }
 
   protected void doZhuxiao() {
-    // TODO Auto-generated method stub 
+    // TCJLODO Auto-generated method stub 
     HuiyuanUser inData = (HuiyuanUser) this.listCursor.getCurrentObject();
     if(!inData.getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)){
       JOptionPane.showMessageDialog(this, "只有审核通过的用户才可以注销！", "提示", JOptionPane.INFORMATION_MESSAGE);

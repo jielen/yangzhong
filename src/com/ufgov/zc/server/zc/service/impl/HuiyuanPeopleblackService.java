@@ -54,19 +54,19 @@ public class HuiyuanPeopleblackService implements IHuiyuanPeopleblackService {
 
 
   public List getMainDataLst(ElementConditionDto elementConditionDto, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanPeopleblackMapper.getMainDataLst(elementConditionDto);
   }
 
   
   public HuiyuanPeopleblack selectByPrimaryKey(String guid, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanPeopleblackMapper.selectByPrimaryKey(guid);
   }
 
   
   public HuiyuanPeopleblack saveFN(HuiyuanPeopleblack record, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if(record.getBlguid()==null || record.getBlguid().trim().length()==0){
       record=insert(record,requestMeta);
     }else{
@@ -79,21 +79,21 @@ public class HuiyuanPeopleblackService implements IHuiyuanPeopleblackService {
 
   
   private HuiyuanPeopleblack update(HuiyuanPeopleblack record, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     huiyuanPeopleblackMapper.updateByPrimaryKey(record);
     return record;
   }
 
 
   private HuiyuanPeopleblack insert(HuiyuanPeopleblack record, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     record.setBlguid(UUID.randomUUID().toString());
     huiyuanPeopleblackMapper.insert(record);    
     return record;
   }
 
   private void createWfDraf(HuiyuanPeopleblack record, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if (record.getProcessInstId() == null || record.getProcessInstId().longValue() == -1) {
       Long draftid = workflowDao.createDraftId();
       record.setProcessInstId(draftid);
@@ -110,37 +110,37 @@ public class HuiyuanPeopleblackService implements IHuiyuanPeopleblackService {
   }
 
   public void deleteByPrimaryKeyFN(String guid, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     huiyuanPeopleblackMapper.deleteByPrimaryKey(guid);
   }
 
   
   public HuiyuanPeopleblack unAuditFN(HuiyuanPeopleblack unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return null;
   }
 
   
   public HuiyuanPeopleblack untreadFN(HuiyuanPeopleblack unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return null;
   }
 
   
   public HuiyuanPeopleblack auditFN(HuiyuanPeopleblack unit, RequestMeta requestMeta) throws Exception {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return null;
   }
 
   
   public HuiyuanPeopleblack newCommitFN(HuiyuanPeopleblack unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return null;
   }
 
   
   public HuiyuanPeopleblack callbackFN(HuiyuanPeopleblack unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return null;
   }
 

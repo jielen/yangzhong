@@ -14,7 +14,7 @@ public class HuiyuanUnitblackMapperImp extends SqlMapClientDaoSupport implements
 
   
   public int deleteByPrimaryKey(String guid) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return getSqlMapClientTemplate().delete("com.ufgov.zc.server.zc.dao.HuiyuanUnitblackMapper.deleteByPrimaryKey", guid);
   }
 
@@ -23,7 +23,7 @@ public class HuiyuanUnitblackMapperImp extends SqlMapClientDaoSupport implements
    */
   
   public int insert(HuiyuanUnitblack record) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     getSqlMapClientTemplate().insert("com.ufgov.zc.server.zc.dao.HuiyuanUnitblackMapper.insert", record);
     return 1;
@@ -34,7 +34,7 @@ public class HuiyuanUnitblackMapperImp extends SqlMapClientDaoSupport implements
    */
   
   public int insertSelective(HuiyuanUnitblack record) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return 0;
   }
 
@@ -43,7 +43,7 @@ public class HuiyuanUnitblackMapperImp extends SqlMapClientDaoSupport implements
    */
   
   public HuiyuanUnitblack selectByPrimaryKey(String guid) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return (HuiyuanUnitblack) getSqlMapClientTemplate().queryForObject("com.ufgov.zc.server.zc.dao.HuiyuanUnitblackMapper.selectByPrimaryKey", guid);
   }
 
@@ -52,7 +52,7 @@ public class HuiyuanUnitblackMapperImp extends SqlMapClientDaoSupport implements
    */
   
   public int updateByPrimaryKeySelective(HuiyuanUnitblack record) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return 0;
   }
 
@@ -61,12 +61,12 @@ public class HuiyuanUnitblackMapperImp extends SqlMapClientDaoSupport implements
    */
   
   public int updateByPrimaryKey(HuiyuanUnitblack record) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return getSqlMapClientTemplate().update("com.ufgov.zc.server.zc.dao.HuiyuanUnitblackMapper.updateByPrimaryKey", record);
   }
  
   public List getMainDataLst(ElementConditionDto elementConditionDto) {
-    // TODO Auto-generated method stub 
+    // TCJLODO Auto-generated method stub 
     elementConditionDto.setNumLimitStr(NumLimUtil.getInstance().getNumLimCondByCoType(elementConditionDto.getWfcompoId(), NumLimConstants.FWATCH));
 
     return getSqlMapClientTemplate().queryForList("com.ufgov.zc.server.zc.dao.HuiyuanUnitblackMapper.selectMainDataLst", elementConditionDto);

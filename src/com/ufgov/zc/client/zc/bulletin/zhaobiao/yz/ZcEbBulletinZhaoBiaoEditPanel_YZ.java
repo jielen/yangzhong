@@ -957,7 +957,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
   }
 
   protected void doBuildBulletin() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if(!checkBeforeSave()){
       return;
     }
@@ -979,7 +979,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
   }
 
   protected void doUpdateZbFile() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     ZcEbBulletin curObj = (ZcEbBulletin) this.listCursor.getCurrentObject();
     
@@ -1028,7 +1028,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
       wordPaneZbFile.replaceBookMarks(names, values);
       JOptionPane.showMessageDialog(this, "成功更新招标文件 ！", "缺失", JOptionPane.INFORMATION_MESSAGE);
     } catch (Exception e) {
-      // TODO Auto-generated catch block
+      // TCJLODO Auto-generated catch block
       e.printStackTrace();
       JOptionPane.showMessageDialog(this, e.getMessage(), "异常", JOptionPane.ERROR_MESSAGE);
     }    
@@ -1039,7 +1039,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
    * @return
    */
   private boolean completePlan() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     ZcEbBulletin curObj = (ZcEbBulletin) this.listCursor.getCurrentObject(); 
     StringBuffer error=new StringBuffer();
     if(curObj.getZcEbPlan()==null){
@@ -1065,7 +1065,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
   }
 
   protected void doReserveChangdi() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     ZcEbBulletin sheet = (ZcEbBulletin) this.listCursor.getCurrentObject();
     ZcEbChangdiUsed changdiUsed=new ZcEbChangdiUsed();
     changdiUsed.setStartdate(sheet.getZcEbPlan().getOpenBidTime());
@@ -1079,7 +1079,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
   }
 
   protected void doAdd() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     this.listCursor.setCurrentObject(null);
     refreshData();
   }
@@ -1178,7 +1178,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
 
     } catch (RuntimeException e) {
 
-      // TODO Auto-generated catch block
+      // TCJLODO Auto-generated catch block
 
       e.printStackTrace();
 
@@ -1702,7 +1702,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
   }
 
   private void deleteOldFile(String oldFileId) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if (oldFileId == null || oldFileId.trim().length() == 0) {
       return;
     }
@@ -2210,7 +2210,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
 
   protected String checkBeforePublish() {
 
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     return null;
 
@@ -2386,7 +2386,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
       
       @Override
       public void valueChanged(ValueChangeEvent e) {
-        // TODO Auto-generated method stub
+        // TCJLODO Auto-generated method stub
         syncOpenBidTime();
       }
     });
@@ -2412,7 +2412,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
   }
 
   protected void syncOpenBidTime() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     ZcEbBulletin bulletin = (ZcEbBulletin) this.listCursor.getCurrentObject();
     if(bidEndTime.getField().getDate()!=null && openBidTime.getField().getDate()==null){
@@ -2686,7 +2686,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
   }
 
   private String getBulletinType(String purType) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     String rtn = null;
     if (ZcSettingConstants.PITEM_OPIWAY_GKZB.equals(purType)) {
       rtn = ZcEbBulletin.ZHAOBIAO_GKZB;
@@ -2707,7 +2707,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ  extends AbstractMainSubEditPanel 
   }
 
   private List getBulletinPack(ZcEbBulletin bulletin) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     ArrayList rtn = new ArrayList();
     if (bulletin.getZcEbProj().getPackList() == null) {
       return rtn;

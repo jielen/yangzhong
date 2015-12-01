@@ -48,18 +48,14 @@ public class ZcEbEntrustDao extends SqlMapClientDaoSupport implements IZcEbEntru
   }
 
   public List getOriginZcEbEntrustByIdList(List idList) {
-    if (idList.isEmpty()) {
-      return new ArrayList();
-    }
+    if (idList.isEmpty()) { return new ArrayList(); }
     Map param = new HashMap();
     param.put("idList", idList);
     return this.getSqlMapClientTemplate().queryForList("ZcEbEntrust.getOriginZcEbEntrustByIdList", param);
   }
 
   public List getZcEbEntrustDetailList(List zcEbEntrustIdList) {
-    if (zcEbEntrustIdList.isEmpty()) {
-      return new ArrayList();
-    }
+    if (zcEbEntrustIdList.isEmpty()) { return new ArrayList(); }
     Map param = new HashMap();
     param.put("idList", zcEbEntrustIdList);
     return this.getSqlMapClientTemplate().queryForList("ZcEbEntrust.getZcEbEntrustDetailList", param);
@@ -79,6 +75,7 @@ public class ZcEbEntrustDao extends SqlMapClientDaoSupport implements IZcEbEntru
 
   public void insertZcEbEntrust(final ZcEbEntrust entrust) {
 
+    System.out.println("entrustdao.insertZcEbEntrust 1" + entrust.getCoCode());
     this.getSqlMapClientTemplate().insert("ZcEbEntrust.insertZcEbEntrust", entrust);
 
     for (int i = 0; i < entrust.getDetailList().size(); i++) {
@@ -158,8 +155,7 @@ public class ZcEbEntrustDao extends SqlMapClientDaoSupport implements IZcEbEntru
 
   public boolean checkUniqueZcMakeCode(ZcEbEntrust zeas, RequestMeta meta) {
     boolean isUnique = true;
-    ZcEbEntrust zcEbEntrust = (ZcEbEntrust) this.getSqlMapClientTemplate().queryForObject("ZcEbEntrust.getZcEbEntrustByMakeCode",
-      zeas.getZcMakeCode());
+    ZcEbEntrust zcEbEntrust = (ZcEbEntrust) this.getSqlMapClientTemplate().queryForObject("ZcEbEntrust.getZcEbEntrustByMakeCode", zeas.getZcMakeCode());
     if (zcEbEntrust != null && !zcEbEntrust.getSn().equals(zeas.getSn())) {
       isUnique = false;
     }

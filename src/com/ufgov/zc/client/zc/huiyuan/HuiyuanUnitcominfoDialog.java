@@ -20,7 +20,7 @@ public class HuiyuanUnitcominfoDialog extends GkBaseDialog {
   private HuiyuanUnitcominfoDialog self=this;
   
   public HuiyuanUnitcominfoDialog(HuiyuanUnitcominfoListPanel listPanel, List beanList, int editingRow, String tabStatus) {
-    // TODO Auto-generated constructor stub
+    // TCJLODO Auto-generated constructor stub
     super(listPanel.getParentWindow(), Dialog.ModalityType.APPLICATION_MODAL);
 
     this.listPanel = listPanel;

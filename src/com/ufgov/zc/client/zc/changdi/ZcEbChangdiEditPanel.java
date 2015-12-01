@@ -131,7 +131,7 @@ public class ZcEbChangdiEditPanel  extends AbstractMainSubEditPanel {
   private IZcEbChangdiServiceDelegate zcEbChangdiServiceDelegate;
 
   public ZcEbChangdiEditPanel(ZcEbChangdiDialog parent, ListCursor listCursor, String tabStatus, ZcEbChangdiListPanel listPanel) {
-    // TODO Auto-generated constructor stub
+    // TCJLODO Auto-generated constructor stub
     super(ZcEbChangdiEditPanel.class, BillElementMeta.getBillElementMetaWithoutNd(compoId));
 
     zcEbBaseServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class, "zcEbBaseServiceDelegate");
@@ -159,7 +159,7 @@ public class ZcEbChangdiEditPanel  extends AbstractMainSubEditPanel {
   }
 
   private void refreshData() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     ZcEbChangdi curObj = (ZcEbChangdi) listCursor.getCurrentObject();
 
@@ -273,7 +273,7 @@ public class ZcEbChangdiEditPanel  extends AbstractMainSubEditPanel {
   }
 
   public String getCompoId() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return compoId;
   }
 
@@ -282,7 +282,7 @@ public class ZcEbChangdiEditPanel  extends AbstractMainSubEditPanel {
    */
   @Override
   public void initToolBar(JFuncToolBar toolBar) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     toolBar.setModuleCode("ZC");
 
@@ -395,7 +395,7 @@ public class ZcEbChangdiEditPanel  extends AbstractMainSubEditPanel {
   }
 
   protected void doDisable() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     int num = JOptionPane.showConfirmDialog(this, "确定停用吗", "停用确认", 0);
     if (num == JOptionPane.YES_OPTION) {
       ZcEbChangdi curObj=(ZcEbChangdi)listCursor.getCurrentObject();
@@ -406,7 +406,7 @@ public class ZcEbChangdiEditPanel  extends AbstractMainSubEditPanel {
   }
 
   protected void doEnable() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     int num = JOptionPane.showConfirmDialog(this, "确定启用吗", "启用确认", 0);
     if (num == JOptionPane.YES_OPTION) {
@@ -435,7 +435,7 @@ public class ZcEbChangdiEditPanel  extends AbstractMainSubEditPanel {
   }
 
   private void setDefaultValue(ZcEbChangdi bill) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     bill.setStatus(ZcEbChangdi.V_ZC_EB_CHANGDI_STATUS_ENABLE);
     bill.setComputernum(0);
     bill.setTouyingyinum(0);
@@ -652,7 +652,7 @@ public class ZcEbChangdiEditPanel  extends AbstractMainSubEditPanel {
   }
 
   public void doExit() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     if (isDataChanged()) {
 

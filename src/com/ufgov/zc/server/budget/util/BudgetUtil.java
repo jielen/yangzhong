@@ -326,7 +326,7 @@ public class BudgetUtil {
   }
 
   private static Object qxbiToMap(ZcQxBi bi) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if (bi == null) {
       return null;
     }
@@ -1065,7 +1065,7 @@ public class BudgetUtil {
   }
 
   private void callService(Map map) throws ZcBudgetInterfaceException {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     //先注释掉，目前没有指标借口
     try {
       String serverAdd = "";
@@ -1096,16 +1096,16 @@ public class BudgetUtil {
       System.out.println("指标传参==>" + map.toString());
       throw new ZcBudgetInterfaceException("调用指标接口时出错:" + e.getMessage(), e);
     } catch (MalformedURLException e) {
-      // TODO Auto-generated catch block
+      // TCJLODO Auto-generated catch block
       throw new ZcBudgetInterfaceException("调用指标接口时出错:" + e.getMessage(), e);
     } catch (RemoteException e) {
-      // TODO Auto-generated catch block
+      // TCJLODO Auto-generated catch block
       throw new ZcBudgetInterfaceException("调用指标接口时出错:" + e.getMessage(), e);
     }
   }
 
   public Map getSaveBudgetByZcQb(IZcQbDao qbDao, IBaseDao baseDao, boolean useBi, ZcQb qb, List biList) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if (!useBi) {
       return null;
     }
@@ -1194,7 +1194,7 @@ public class BudgetUtil {
   }
 
   public Map getQbShiFangBudget(IBaseDao baseDao, boolean flag, ZcQb qb) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if (!flag) {
       return null;
     }
@@ -1232,7 +1232,7 @@ public class BudgetUtil {
   }
 
   public void callService(Map map, int year) throws ZcBudgetInterfaceException {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if (map == null || map.size() == 0)
       return;
     //先释放指标
@@ -1248,7 +1248,7 @@ public class BudgetUtil {
     zhanYongBudget(zhanYongStr, year);
   }
   public void callShifangService(Map map, int year) throws ZcBudgetInterfaceException {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if (map == null || map.size() == 0)
       return;
     //释放指标
@@ -1257,7 +1257,7 @@ public class BudgetUtil {
   }
   
   private void delBudget(String delStr, int year) throws ZcBudgetInterfaceException {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if (delStr == null || delStr.trim().length() == 0)
       return;
     Map budgetMap = new HashMap();
@@ -1271,7 +1271,7 @@ public class BudgetUtil {
 
   }
   private void zhanYongBudget(String zhanYongStr, int year) throws ZcBudgetInterfaceException {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if (zhanYongStr == null || zhanYongStr.trim().length() == 0)
       return;
     Map budgetMap = new HashMap();
@@ -1286,7 +1286,7 @@ public class BudgetUtil {
   }
 
   private void updateBudget(String shifangStr, int year) throws ZcBudgetInterfaceException {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     if (shifangStr == null || shifangStr.trim().length() == 0)
       return;
 

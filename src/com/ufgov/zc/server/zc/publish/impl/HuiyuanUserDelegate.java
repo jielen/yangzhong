@@ -18,7 +18,7 @@ public class HuiyuanUserDelegate implements IHuiyuanUserDelegate {
    */
   
   public List getMainDataLst(ElementConditionDto elementConditionDto, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUserService.getMainDataLst(elementConditionDto, requestMeta);
   }
 
@@ -27,7 +27,7 @@ public class HuiyuanUserDelegate implements IHuiyuanUserDelegate {
    */
   
   public HuiyuanUser selectByPrimaryKey(String danweiguid, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUserService.selectByPrimaryKey(danweiguid, requestMeta);
   }
 
@@ -36,7 +36,7 @@ public class HuiyuanUserDelegate implements IHuiyuanUserDelegate {
    */
   
   public HuiyuanUser saveFN(HuiyuanUser record, RequestMeta requestMeta)  throws BusinessException{
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUserService.saveFN(record, requestMeta);
   }
 
@@ -45,7 +45,7 @@ public class HuiyuanUserDelegate implements IHuiyuanUserDelegate {
    */
   
   public void deleteByPrimaryKeyFN(String danweiguid, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     huiyuanUserService.deleteByPrimaryKeyFN(danweiguid, requestMeta);
   }
 
@@ -54,7 +54,7 @@ public class HuiyuanUserDelegate implements IHuiyuanUserDelegate {
    */
   
   public HuiyuanUser unAuditFN(HuiyuanUser unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUserService.unAuditFN(unit, requestMeta);
   }
 
@@ -63,7 +63,7 @@ public class HuiyuanUserDelegate implements IHuiyuanUserDelegate {
    */
   
   public HuiyuanUser untreadFN(HuiyuanUser unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUserService.untreadFN(unit, requestMeta);
   }
 
@@ -72,7 +72,7 @@ public class HuiyuanUserDelegate implements IHuiyuanUserDelegate {
    */
   
   public HuiyuanUser auditFN(HuiyuanUser unit, RequestMeta requestMeta) throws Exception {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUserService.auditFN(unit, requestMeta);
   }
 
@@ -81,7 +81,7 @@ public class HuiyuanUserDelegate implements IHuiyuanUserDelegate {
    */
   
   public HuiyuanUser newCommitFN(HuiyuanUser unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUserService.newCommitFN(unit, requestMeta);
   }
 
@@ -90,12 +90,12 @@ public class HuiyuanUserDelegate implements IHuiyuanUserDelegate {
    */
   
   public HuiyuanUser callbackFN(HuiyuanUser unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUserService.callbackFN(unit, requestMeta);
   }
 
   public HuiyuanUser updateAuditStatusFN(HuiyuanUser record, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUserService.updateAuditStatusFN(record, requestMeta);
   }
 
@@ -109,7 +109,7 @@ public class HuiyuanUserDelegate implements IHuiyuanUserDelegate {
   }
  
   public HuiyuanUser upateAccountStatusFN(HuiyuanUser unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUserService.upateAccountStatusFN(unit, requestMeta) ;
   }
 

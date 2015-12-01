@@ -25,7 +25,7 @@ public class HuiyuanUnitcominfoDelegate implements IHuiyuanUnitcominfoDelegate {
    */
   
   public List getMainDataLst(ElementConditionDto elementConditionDto, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUnitcominfoService.getMainDataLst(elementConditionDto, requestMeta);
   }
 
@@ -34,7 +34,7 @@ public class HuiyuanUnitcominfoDelegate implements IHuiyuanUnitcominfoDelegate {
    */
   
   public HuiyuanUnitcominfo selectByPrimaryKey(String danweiguid, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUnitcominfoService.selectByPrimaryKey(danweiguid, requestMeta);
   }
 
@@ -43,7 +43,7 @@ public class HuiyuanUnitcominfoDelegate implements IHuiyuanUnitcominfoDelegate {
    */
   
   public HuiyuanUnitcominfo saveFN(HuiyuanUnitcominfo record, RequestMeta requestMeta) throws BusinessException{
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUnitcominfoService.saveFN(record, requestMeta);
   }
 
@@ -52,7 +52,7 @@ public class HuiyuanUnitcominfoDelegate implements IHuiyuanUnitcominfoDelegate {
    */
   
   public void deleteByPrimaryKeyFN(String danweiguid, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     huiyuanUnitcominfoService.deleteByPrimaryKeyFN(danweiguid, requestMeta);
   }
 
@@ -61,7 +61,7 @@ public class HuiyuanUnitcominfoDelegate implements IHuiyuanUnitcominfoDelegate {
    */
   
   public HuiyuanUnitcominfo unAuditFN(HuiyuanUnitcominfo unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUnitcominfoService.unAuditFN(unit, requestMeta);
   }
 
@@ -70,7 +70,7 @@ public class HuiyuanUnitcominfoDelegate implements IHuiyuanUnitcominfoDelegate {
    */
   
   public HuiyuanUnitcominfo untreadFN(HuiyuanUnitcominfo unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUnitcominfoService.untreadFN(unit, requestMeta);
   }
 
@@ -79,7 +79,7 @@ public class HuiyuanUnitcominfoDelegate implements IHuiyuanUnitcominfoDelegate {
    */
   
   public HuiyuanUnitcominfo auditFN(HuiyuanUnitcominfo unit, RequestMeta requestMeta) throws Exception {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUnitcominfoService.auditFN(unit, requestMeta);
   }
 
@@ -88,7 +88,7 @@ public class HuiyuanUnitcominfoDelegate implements IHuiyuanUnitcominfoDelegate {
    */
   
   public HuiyuanUnitcominfo newCommitFN(HuiyuanUnitcominfo unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUnitcominfoService.newCommitFN(unit, requestMeta);
   }
 
@@ -97,7 +97,7 @@ public class HuiyuanUnitcominfoDelegate implements IHuiyuanUnitcominfoDelegate {
    */
   
   public HuiyuanUnitcominfo callbackFN(HuiyuanUnitcominfo unit, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUnitcominfoService.callbackFN(unit, requestMeta);
   }
 
@@ -110,13 +110,13 @@ public class HuiyuanUnitcominfoDelegate implements IHuiyuanUnitcominfoDelegate {
   }
  
   public HuiyuanUnitcominfo updateAuditStatusFN(HuiyuanUnitcominfo record, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUnitcominfoService.updateAuditStatusFN(record, requestMeta);
   }
 
    
   public HuiyuanUnitcominfo upateAccountStatusFN(HuiyuanUnitcominfo inData, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return huiyuanUnitcominfoService.upateAccountStatusFN(inData, requestMeta);
   }
 

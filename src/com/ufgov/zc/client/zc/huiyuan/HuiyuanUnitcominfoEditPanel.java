@@ -189,7 +189,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
   JTablePanel peopleBlackTablePanel = new JTablePanel();
   
   public HuiyuanUnitcominfoEditPanel(HuiyuanUnitcominfoDialog parent, ListCursor listCursor, String tabStatus, HuiyuanUnitcominfoListPanel listPanel) {
-    // TODO Auto-generated constructor stub
+    // TCJLODO Auto-generated constructor stub
     super(HuiyuanUnitcominfoEditPanel.class, BillElementMeta.getBillElementMetaWithoutNd(compoId));
 
     this.workPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), LangTransMeta.translate(compoId),
@@ -213,7 +213,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
   }
 
   private void refreshData() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     HuiyuanUnitcominfo qx = (HuiyuanUnitcominfo) listCursor.getCurrentObject();
 
@@ -318,7 +318,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
   }
 
   private void setDefaultValue(HuiyuanUnitcominfo qx) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     qx.getZfcgGysInfo().setAuditstatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_DRAFT);
     qx.getZfcgGysInfo().setStatuscode(ZcSettingConstants.HUI_YUAN_ACCOUNT_STATUS_ZAN_TING);
     qx.setDanweitype(ZcSettingConstants.V_HUI_YUAN_DAN_WEI_TYPE_GONG_YING_SHANG);
@@ -505,7 +505,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
  
 
   private void refreshSubData(HuiyuanUnitcominfo qx) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     HuiyuanUnitcominfoToTableModelConverter convert=new HuiyuanUnitcominfoToTableModelConverter();
     userTablePanel.setTableModel(convert.convertUserTableData(qx.getUserLst()));
     unitBlackTablePanel.setTableModel(convert.convertUnitBlackTableData(qx.getUnitBlackLst()));
@@ -528,7 +528,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
  
 
   public String getCompoId() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return compoId;
   }
 
@@ -537,7 +537,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
    */
   @Override
   public void initToolBar(JFuncToolBar toolBar) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     toolBar.setModuleCode("ZC");
 
@@ -795,7 +795,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
   }
 
   private void updateAccountStatus(String opreation,FuncButton btn) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     int num = JOptionPane.showConfirmDialog(this, "确定要"+opreation+"吗?" , opreation+"确认", 0);
 
     if (num == JOptionPane.NO_OPTION)
@@ -825,7 +825,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
   }
 
   protected void doZanting() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     HuiyuanUnitcominfo inData = (HuiyuanUnitcominfo) this.listCursor.getCurrentObject();
     if(!inData.getZfcgGysInfo().getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)){
       JOptionPane.showMessageDialog(this, "只有审核通过的供应商才可以暂停！", "提示", JOptionPane.INFORMATION_MESSAGE);
@@ -835,7 +835,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
   }
 
   protected void doZhuxiao() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     HuiyuanUnitcominfo inData = (HuiyuanUnitcominfo) this.listCursor.getCurrentObject();
     if(!inData.getZfcgGysInfo().getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)){
       JOptionPane.showMessageDialog(this, "只有审核通过的供应商才可以注销！", "提示", JOptionPane.INFORMATION_MESSAGE);
@@ -845,23 +845,23 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
   }
 
   protected void doDestroy() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     updateAuditStatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_DESTROY);    
   }
 
   protected void doReback() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     updateAuditStatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_BACK);
     
   }
 
   protected void doUnPass() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     updateAuditStatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_UNPASS);
   }
 
   protected void doPass() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     updateAuditStatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS);
   }
 
@@ -1661,7 +1661,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
 
 
   private void initPeopleBlackPanel() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     peopleBlackTablePanel.init();
     peopleBlackTablePanel.setPanelId("peopleBlackTablePanel");
     peopleBlackTablePanel.getSearchBar().setVisible(true);
@@ -1722,7 +1722,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
   }
 
   private void initUnitBlackPanel() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     unitBlackTablePanel.init();
     unitBlackTablePanel.setPanelId("unitBlackTablePanel");
@@ -1786,7 +1786,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
   }
 
   private void initUserPanel() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     
     userTablePanel.init();
     userTablePanel.setPanelId("userTablePanel");
@@ -1898,7 +1898,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
   }
 
   public void doExit() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     if (isDataChanged()) {
 

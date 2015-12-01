@@ -21,7 +21,7 @@ public class ZcEbZxjjDialog   extends GkBaseDialog{
   private ZcEbZxjjDialog self=this;
   
   public ZcEbZxjjDialog(ZcEbZxjjListPanel listPanel, List beanList, int editingRow, String tabStatus) {
-    // TODO Auto-generated constructor stub
+    // TCJLODO Auto-generated constructor stub
 
     super(listPanel.getParentWindow(), Dialog.ModalityType.APPLICATION_MODAL);
 

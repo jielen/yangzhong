@@ -65,7 +65,7 @@ public class DownLoadTask implements Callable<Boolean> {
   }
 
   private void deleteLocalFile(String path) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     LOG.info("delete file:" + path);
     File f = new File(path);
     if (f.exists()) {

@@ -809,7 +809,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
   }
 
   private void buildHtItems(ZcXmcgHt zcXmcgHt) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     // get the project
     if(zcXmcgHt.getProjCode()==null)return;
     ZcEbProj proj=projService.getZcEbProjByProjCode(zcXmcgHt.getProjCode(), requestMeta);
@@ -865,7 +865,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
   }
 
   private void setBjDetail(ZcTBchtItem htItem, BigDecimal detailCode, List xjbjLst) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     for (int i=0;i<xjbjLst.size();i++) {
       HashMap map=(HashMap) xjbjLst.get(i);
       String xjCode=(String) map.get("XJ_CODE");      
@@ -881,7 +881,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
     }
   }
   private BigDecimal getBigDecimal(Object object) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     BigDecimal t=new BigDecimal(0);
     if(object==null) return null;
     try {
@@ -899,7 +899,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
         return null;
       }
     } catch (Exception e) {
-      // TODO: handle exception
+      // TCJLODO: handle exception
       logger.error(e.getMessage(),e);
       return null;
     }
@@ -2172,7 +2172,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     } catch (RuntimeException e) {
 
-      // TODO Auto-generated catch block
+      // TCJLODO Auto-generated catch block
 
       e.printStackTrace();
 
@@ -4126,7 +4126,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
   public ZcXmcgHtListPanel getListPanel() {
 
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     return self.listPanel;
 
@@ -4134,7 +4134,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
   public RequestMeta getRequestMeta() {
 
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     return self.requestMeta;
 
@@ -4142,7 +4142,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
   public ListCursor getListCursor() {
 
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     return self.listCursor;
 
@@ -4150,7 +4150,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
   public ElementConditionDto getDtoForBidWinner() {
 
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
 
     return self.dtoForBidWinner;
 
@@ -4598,13 +4598,13 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
   @Override
   public boolean isGys() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return ZcUtil.isGys();
   }
 
   @Override
   public void setIsCar(boolean b) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     this.isCar = b;
   }
 

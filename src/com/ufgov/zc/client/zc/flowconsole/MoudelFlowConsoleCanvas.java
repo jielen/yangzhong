@@ -40,16 +40,14 @@ public class MoudelFlowConsoleCanvas extends FlowConsoleCanvas {
 
   private MoudelFlowConsoleCanvas self = this;
 
-  private IZcEbBaseServiceDelegate zcEbBaseServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class,
-    "zcEbBaseServiceDelegate");
+  private IZcEbBaseServiceDelegate zcEbBaseServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class, "zcEbBaseServiceDelegate");
 
-  private IZcEbEntrustServiceDelegate zcEbEntrustServiceDelegate = (IZcEbEntrustServiceDelegate) ServiceFactory.create(
-    IZcEbEntrustServiceDelegate.class, "zcEbEntrustServiceDelegate");
+  private IZcEbEntrustServiceDelegate zcEbEntrustServiceDelegate = (IZcEbEntrustServiceDelegate) ServiceFactory.create(IZcEbEntrustServiceDelegate.class, "zcEbEntrustServiceDelegate");
 
   private ActionListener defaultAction = new ActionListener() {
 
     public void actionPerformed(ActionEvent e) {
-      //String command = e.getActionCommand();
+      // String command = e.getActionCommand();
 
       if (e instanceof NodeMouseEvent) {
       } else if (e instanceof ButtonMouseEvent) {
@@ -88,9 +86,7 @@ public class MoudelFlowConsoleCanvas extends FlowConsoleCanvas {
     para.put("svNd", requestMeta.getSvNd() + "");
     List list = zcEbBaseServiceDelegate.queryDataForList("consoleChart.getCompoCurrentTaskByUserId", para, this.requestMeta);
 
-    if (list == null || list.size() == 0) {
-      return;
-    }
+    if (list == null || list.size() == 0) { return; }
 
     List<String> todo = new ArrayList<String>();
     for (Iterator iterator = list.iterator(); iterator.hasNext();) {
@@ -100,14 +96,10 @@ public class MoudelFlowConsoleCanvas extends FlowConsoleCanvas {
         todo.add(record.get("COMPO_ID").toString());
       }
     }
-    if (todo.size() == 0) {
-      return;
-    }
+    if (todo.size() == 0) { return; }
 
     todo = zcEbEntrustServiceDelegate.getTodoListByUser(todo, requestMeta.getSvUserID(), requestMeta);
-    if (todo == null) {
-      return;
-    }
+    if (todo == null) { return; }
 
     for (int i = 0; i < todo.size(); i++) {
       Node node = nodeMap.get(todo.get(i));
@@ -152,13 +144,10 @@ public class MoudelFlowConsoleCanvas extends FlowConsoleCanvas {
     try {
       frame.getContentPane().add((Component) StringToModel.stringToInstance(param));
     } catch (ClassNotFoundException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     } catch (IllegalAccessException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     } catch (InstantiationException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     frame.setVisible(true);
@@ -170,9 +159,7 @@ public class MoudelFlowConsoleCanvas extends FlowConsoleCanvas {
       Map asMenus = (Map) list.get(0);
       String url = (String) asMenus.get("URL");
       String[] urlarr = url.split("=");
-      if (urlarr.length > 1) {
-        return urlarr[1];
-      }
+      if (urlarr.length > 1) { return urlarr[1]; }
     }
     return null;
   }

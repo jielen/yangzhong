@@ -35,7 +35,7 @@ public class DigestCheckServlet extends HttpServlet {
   }
 
   public DigestCheckServlet() {
-    // TODO Auto-generated constructor stub
+    // TCJLODO Auto-generated constructor stub
   }
 
   /**
@@ -48,8 +48,8 @@ public class DigestCheckServlet extends HttpServlet {
     String resourcePath = request.getRealPath("") + "/resource";
     String jarPath = request.getRealPath("") + "/applet";
     
-    System.out.println(resourcePath);
-    System.out.println(jarPath);
+//    System.out.println(resourcePath);
+//    System.out.println(jarPath);
 
     String resourceResult = getFilesDigist(resourcePath, "*", request);
     String jarResutl = getFilesDigist(jarPath, "jar", request);
@@ -73,7 +73,7 @@ public class DigestCheckServlet extends HttpServlet {
   }
 
   private String getFilesDigist(String resourcePath, String type, HttpServletRequest request) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     StringBuffer rtn = new StringBuffer();
     File f = new File(resourcePath);
     if (f.exists() && f.isDirectory()) {

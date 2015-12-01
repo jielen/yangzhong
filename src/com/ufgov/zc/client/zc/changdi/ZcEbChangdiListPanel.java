@@ -775,7 +775,7 @@ public class ZcEbChangdiListPanel  extends AbstractEditListBill implements Paren
   }
 
   public String getcompoId() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     return compoId;
   }
 

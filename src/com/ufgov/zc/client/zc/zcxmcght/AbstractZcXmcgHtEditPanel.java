@@ -38,7 +38,7 @@ public abstract class AbstractZcXmcgHtEditPanel extends AbstractMainSubEditPanel
   public abstract boolean isGys();
 
   public void setIsCar(boolean b) {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     
   }
   
@@ -49,7 +49,7 @@ public abstract class AbstractZcXmcgHtEditPanel extends AbstractMainSubEditPanel
    * 如果是询价类的，根据询价单和报价单构建
    */
   public void buildHtDetail() {
-    // TODO Auto-generated method stub
+    // TCJLODO Auto-generated method stub
     
   }
 }
