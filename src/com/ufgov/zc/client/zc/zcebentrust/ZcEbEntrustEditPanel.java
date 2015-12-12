@@ -10,6 +10,8 @@ import static com.ufgov.zc.common.system.constants.ZcElementConstants.FIELD_TRAN
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.DefaultKeyboardFocusManager;
+import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -44,6 +46,7 @@ import com.ufgov.zc.client.common.ServiceFactory;
 import com.ufgov.zc.client.common.WorkEnv;
 import com.ufgov.zc.client.common.converter.ZcEbEntrustToTableModelConverter;
 import com.ufgov.zc.client.component.AsValComboBox;
+import com.ufgov.zc.client.component.GkCommentDialog;
 import com.ufgov.zc.client.component.JFuncToolBar;
 import com.ufgov.zc.client.component.JSaveableSplitPane;
 import com.ufgov.zc.client.component.JTablePanel;
@@ -80,6 +83,7 @@ import com.ufgov.zc.client.component.table.codecellrenderer.AsValCellRenderer;
 import com.ufgov.zc.client.component.ui.fieldeditor.AbstractFieldEditor;
 import com.ufgov.zc.client.component.zc.AbstractMainSubEditPanel;
 import com.ufgov.zc.client.component.zc.fieldeditor.AsValFieldEditor;
+import com.ufgov.zc.client.component.zc.fieldeditor.AutoNumFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.CompanyFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.DateFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.ForeignEntityFieldEditor;
@@ -271,7 +275,9 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     ZcEbEntrust zcEbEntrust = (ZcEbEntrust) listCursor.getCurrentObject();
 
-    TextFieldEditor sn = new TextFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_SN), "sn");
+    AutoNumFieldEditor sn = new AutoNumFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_SN), "sn");
+
+    //    TextFieldEditor sn = new TextFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_SN), "sn");
 
     TextFieldEditor snCode = new TextFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_SN_CODE), "snCode");
 
@@ -390,7 +396,7 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     //    editorList.add(sn);
     //    editorList.add(snCode);
-    editorList.add(makeCode);
+    editorList.add(sn);
     editorList.add(zcMakeName);
     editorList.add(status);
 
@@ -667,6 +673,14 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     boolean success = true;
 
+    GkCommentDialog commentDialog = new GkCommentDialog(DefaultKeyboardFocusManager.getCurrentKeyboardFocusManager().getActiveWindow(), ModalityType.APPLICATION_MODAL, "同意");
+
+    if (commentDialog.cancel) {
+
+    return;
+
+    }
+    entrust.setComment(commentDialog.getComment());
     try {
 
       requestMeta.setFuncId(this.auditPassButton.getFuncId());
@@ -823,6 +837,8 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
     ZcEbEntrustDetail detail = new ZcEbEntrustDetail();
 
     detail.setSnd(Guid.genID());
+    detail.setTempId(detail.getSnd());
+    detail.setZcYear("" + requestMeta.getSvNd());
 
     trust.getDetailList().add(detail);
 
@@ -1088,7 +1104,8 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
     }
 
     ZcEbEntrust afterSaveBill = (ZcEbEntrust) this.listCursor.getCurrentObject();
-    System.out.println("dosave 0" + afterSaveBill.getCoCode());
+
+    //    System.out.println("dosave 0" + afterSaveBill.getCoCode());
 
     if (!isDataChanged()) {
 
@@ -1136,9 +1153,9 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
       requestMeta.setFuncId(saveButton.getFuncId());
 
-      System.out.println("dosave 1" + afterSaveBill.getCoCode());
+      //      System.out.println("dosave 1" + afterSaveBill.getCoCode()); 
       afterSaveBill = listPanel.zcEbEntrustServiceDelegate.saveFN(afterSaveBill, this.requestMeta);
-      System.out.println("dosave 2" + afterSaveBill.getCoCode());
+      //      System.out.println("dosave 2" + afterSaveBill.getCoCode());
 
     } catch (Exception e) {
 
@@ -1152,15 +1169,15 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     if (success) {
 
-      System.out.println("dosave 3" + afterSaveBill.getCoCode());
+      //      System.out.println("dosave 3" + afterSaveBill.getCoCode());
       this.pageStatus = ZcSettingConstants.PAGE_STATUS_BROWSE;
 
       this.listPanel.refreshCurrentTabData();
-      System.out.println("dosave 4" + afterSaveBill.getCoCode());
+      //      System.out.println("dosave 4" + afterSaveBill.getCoCode());
       this.refreshAll(afterSaveBill, false);
-      System.out.println("dosave 5" + afterSaveBill.getCoCode());
+      //      System.out.println("dosave 5" + afterSaveBill.getCoCode());
       updateFieldEditorsEditable();
-      System.out.println("dosave 6" + afterSaveBill.getCoCode());
+      //      System.out.println("dosave 6" + afterSaveBill.getCoCode());
 
       JOptionPane.showMessageDialog(this, "保存成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
 
@@ -1334,7 +1351,8 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
         ZcEbEntrust entrust = (ZcEbEntrust) listCursor.getCurrentObject();
         ZcEbEntrustDetail detail = new ZcEbEntrustDetail();
-        detail.setTempId(Guid.genID());
+        detail.setSnd(Guid.genID());
+        detail.setTempId(detail.getSnd());
         detail.setSn(entrust.getSn());
         detail.setZcYear("" + requestMeta.getSvNd());
         addSub(contentTablePanel, new ZcEbEntrustDetail());
@@ -1348,7 +1366,8 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
       public void actionPerformed(ActionEvent e) {
         ZcEbEntrust entrust = (ZcEbEntrust) listCursor.getCurrentObject();
         ZcEbEntrustDetail detail = new ZcEbEntrustDetail();
-        detail.setTempId(Guid.genID());
+        detail.setSnd(Guid.genID());
+        detail.setTempId(detail.getSnd());
         detail.setSn(entrust.getSn());
         detail.setZcYear("" + requestMeta.getSvNd());
         insertSub(contentTablePanel, new ZcEbEntrustDetail());
@@ -1574,6 +1593,7 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
       ZcEbEntrustDetail item = new ZcEbEntrustDetail();
       item.setSnd(Guid.genID());
+      item.setTempId(item.getSnd());
       item.setZcYear("" + requestMeta.getSvNd());
 
       entrust.getDetailList().add(item);
@@ -1810,19 +1830,19 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     this.listCursor.setCurrentObject(entrust);
 
-    System.out.println("refreshAll 1" + entrust.getCoCode());
+    //    System.out.println("refreshAll 1" + entrust.getCoCode());
     this.setEditingObject(entrust);
-    System.out.println("refreshAll 2" + entrust.getCoCode());
+    //    System.out.println("refreshAll 2" + entrust.getCoCode());
 
     this.refreshSubTableData(entrust);
 
-    System.out.println("refreshAll 3" + entrust.getCoCode());
+    //    System.out.println("refreshAll 3" + entrust.getCoCode());
     setButtonStatus();
 
     //      this.refreshData();
 
     setOldObject();
-    System.out.println("refreshAll 4" + entrust.getCoCode());
+    //    System.out.println("refreshAll 4" + entrust.getCoCode());
 
     //      if (isRefreshButton) {
 

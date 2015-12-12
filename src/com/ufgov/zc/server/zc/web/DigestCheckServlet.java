@@ -45,17 +45,49 @@ public class DigestCheckServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     // String resourceName = request.getParameter("resname");
 
-    String resourcePath = request.getSession().getServletContext().getRealPath("/") + "resource";
-    String jarPath = request.getSession().getServletContext().getRealPath("/") + "applet";
+    /*    URL tt = request.getSession().getServletContext().getResource("/resource");
 
-    //    System.out.println("path=" + request.getSession().getServletContext().getRealPath("/"));
-    //    System.out.println("path=" + request.getSession().getServletContext().getRealPath(""));
+        String ft = tt.getFile();
+        System.out.println("DigestCheckServlet path=1" + ft);
+        File f1 = new File(ft);
+        if (f1.isFile()) {
+          System.out.println("DigestCheckServlet path=2" + ft);
+        } else {
+          String[] fs = f1.list();
+          for (int i = 0; i < fs.length; i++) {
+            System.out.println("DigestCheckServlet path=3" + fs[i]);
+          }
+        }*/
 
-    //    System.out.println(resourcePath);
-    //    System.out.println(jarPath);
+    //    String root = request.getSession().getServletContext().getRealPath("/");
+    //    String root2 = request.getSession().getServletContext().getRealPath("");
+    //    System.out.println("DigestCheckServlet path=4" + root);
+    //    System.out.println("DigestCheckServlet path=5" + root2);
+    //    root = request.getRealPath("/");
+    //    System.out.println("DigestCheckServlet path=6" + root);
+    //    root = request.getRealPath("");
+    //    System.out.println("DigestCheckServlet path=7" + root);
+    String resourcePath = request.getSession().getServletContext().getRealPath("") + "/resource";
+
+    String jarPath = request.getSession().getServletContext().getRealPath("") + "/applet";
+
+    //    System.out.println("DigestCheckServlet path=8" + request.getSession().getServletContext().getRealPath("/"));
+    //    System.out.println("DigestCheckServlet path=9" + request.getSession().getServletContext().getRealPath(""));
+
+    //    System.out.println("DigestCheckServlet =10" + resourcePath);
+    //    System.out.println("DigestCheckServlet =11" + jarPath);
 
     String resourceResult = getFilesDigist(resourcePath, "*", request);
+    //    System.out.println("DigestCheckServlet =12" + resourceResult);
     String jarResutl = getFilesDigist(jarPath, "jar", request);
+
+    /*System.out.println("根目录所对应的绝对路径:" + request.getServletPath() + "<br/>");
+
+    String strPathFile = request.getSession().getServletContext().getRealPath(request.getRequestURI());
+    System.out.println("文件的绝对路径:" + strPathFile + "<br/>");
+
+    String strDirPath = new File(request.getSession().getServletContext().getRealPath(request.getRequestURI())).getParent();
+    System.out.println("目录的绝对路径:" + strDirPath + "<br/>");*/
 
     StringBuffer rtn = new StringBuffer();
     if (resourceResult.length() > 0) {

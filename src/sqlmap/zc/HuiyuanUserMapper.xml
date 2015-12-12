@@ -256,4 +256,12 @@
     from HUIYUAN_USER
     where DOGNUM = #ca#
   </select>
+  <select id="getUserByLoginId" resultMap="ResultMapWithBLOBs" parameterClass="java.util.HashMap" > 
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HUIYUAN_USER
+    where LOGINID = #loginId#
+  </select>
 </sqlMap>

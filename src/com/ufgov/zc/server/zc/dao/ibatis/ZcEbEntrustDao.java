@@ -75,7 +75,7 @@ public class ZcEbEntrustDao extends SqlMapClientDaoSupport implements IZcEbEntru
 
   public void insertZcEbEntrust(final ZcEbEntrust entrust) {
 
-    System.out.println("entrustdao.insertZcEbEntrust 1" + entrust.getCoCode());
+    //    System.out.println("entrustdao.insertZcEbEntrust 1" + entrust.getCoCode());
     this.getSqlMapClientTemplate().insert("ZcEbEntrust.insertZcEbEntrust", entrust);
 
     for (int i = 0; i < entrust.getDetailList().size(); i++) {

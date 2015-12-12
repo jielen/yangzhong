@@ -2175,9 +2175,7 @@
 
 	</select>
 
-	<select id="getAllZcEbProjByConditions" resultMap="ZcEbProjResult"
-
-		parameterClass="elementCondition">
+	<select id="getAllZcEbProjByConditions" resultMap="ZcEbProjResult"	parameterClass="elementCondition">
 
 		select * from ZC_EB_PROJ
 		where 1=1
@@ -2205,6 +2203,13 @@
 						          from ZC_EB_BULLETIN b
 						         where b.proj_code = ZC_EB_PROJ.Proj_Code
 						           and b.bulletin_type like 'zhaobiao%')
+				</isEqual>
+				<isEqual property="zcText2" compareValue="forBiangengBulletin">
+					exists (select 1
+						          from ZC_EB_BULLETIN b
+						         where b.proj_code = ZC_EB_PROJ.Proj_Code
+						           and b.bulletin_type like 'zhaobiao%'
+						           and b.BULLETIN_STATUS='exec')
 				</isEqual>
 			</isNotNull>
 	</select>

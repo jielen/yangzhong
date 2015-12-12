@@ -1,9 +1,5 @@
 package com.ufgov.zc.client.zc.ztb.fileResumeBroken.authentication;
 
-import com.caucho.hessian.client.HessianProxyFactory;
-import com.ufgov.zc.client.zc.ztb.util.GV;
-import com.ufgov.zc.common.zc.Communication;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +7,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
+
+import com.caucho.hessian.client.HessianProxyFactory;
+import com.ufgov.zc.client.zc.ztb.util.GV;
+import com.ufgov.zc.common.zc.Communication;
 
 public class Transfer {
   private Map parameterMap = new HashMap();
@@ -77,14 +77,21 @@ public class Transfer {
         e3.printStackTrace();
       }
     }
-    url = url + "communication";
+    //    System.out.println("Transfer.startTransfer()" + url);
+    //    System.out.println("Transfer.startTransfer()'s last char=" + url.charAt(url.length() - 1));
+    if ('/' != url.charAt(url.length() - 1)) {
+      url = url + "/communication";
+    } else {
+      url = url + "communication";
+    }
+    //    System.out.println("Transfer.startTransfer()" + url);
     try {
-        ClassLoader oLoader = Thread.currentThread().getContextClassLoader();
-        Thread.currentThread().setContextClassLoader(Transfer.class.getClassLoader());
-        HessianProxyFactory factory = new HessianProxyFactory();
-        Communication communication = (Communication) factory.create(Communication.class, url, Transfer.class.getClassLoader());
-        setReturnMap(communication.buildCommunication(parameterMap, functionDo));
-        Thread.currentThread().setContextClassLoader(oLoader);
+      ClassLoader oLoader = Thread.currentThread().getContextClassLoader();
+      Thread.currentThread().setContextClassLoader(Transfer.class.getClassLoader());
+      HessianProxyFactory factory = new HessianProxyFactory();
+      Communication communication = (Communication) factory.create(Communication.class, url, Transfer.class.getClassLoader());
+      setReturnMap(communication.buildCommunication(parameterMap, functionDo));
+      Thread.currentThread().setContextClassLoader(oLoader);
     } catch (Exception e) {
       e.printStackTrace();
       returnMap.put("ERRORMESSAGE", GV.getSimpleMsg("serverLinkErr") + e.getMessage());

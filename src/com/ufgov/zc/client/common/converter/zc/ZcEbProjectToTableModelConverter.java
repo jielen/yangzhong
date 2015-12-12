@@ -7,7 +7,6 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import com.ufgov.zc.client.common.AsCompoMeta;
 import com.ufgov.zc.client.common.LangTransMeta;
 import com.ufgov.zc.client.common.MyTableModel;
 import com.ufgov.zc.client.component.table.BeanTableModel;
@@ -96,7 +95,7 @@ public class ZcEbProjectToTableModelConverter {
 
             if (getValueAt(row, column) != null) {
 
-              return getValueAt(row, column).getClass();
+            return getValueAt(row, column).getClass();
 
             }
 
@@ -262,7 +261,7 @@ public class ZcEbProjectToTableModelConverter {
 
             if (getValueAt(row, column) != null) {
 
-              return getValueAt(row, column).getClass();
+            return getValueAt(row, column).getClass();
 
             }
 
@@ -301,20 +300,19 @@ public class ZcEbProjectToTableModelConverter {
 
     packTableColumnInfo.add(new ColumnBeanPropertyPair("PACK_DESC", "packDesc", "分包名称"));
 
-    packTableColumnInfo.add(new ColumnBeanPropertyPair("ENTRUST_CODE", "entrust.sn","采购计划"));
+    packTableColumnInfo.add(new ColumnBeanPropertyPair("ENTRUST_CODE", "entrust.sn", "采购任务"));
 
     packTableColumnInfo.add(new ColumnBeanPropertyPair("CO_Name", "coName", "采购单位"));
 
     packTableColumnInfo.add(new ColumnBeanPropertyPair("PUR_TYPE", "purType", "采购方式"));
 
-    packTableColumnInfo.add(new ColumnBeanPropertyPair("PACK_BUDGET", "packBudget", LangTransMeta
-      .translate(ZcElementConstants.FIELD_TRANS_ZC_EB_FIELD_PACK_BUDGET)));
+    packTableColumnInfo.add(new ColumnBeanPropertyPair("PACK_BUDGET", "packBudget", LangTransMeta.translate(ZcElementConstants.FIELD_TRANS_ZC_EB_FIELD_PACK_BUDGET)));
 
     packTableColumnInfo.add(new ColumnBeanPropertyPair("BID_DEPOSIT", "bidDeposit", "投标保证金"));
-    
+
     packTableColumnInfo.add(new ColumnBeanPropertyPair("IS_CHECK_QUALIFICATION", "isCheckQualification", "是否资格预审"));
-    
-//    packTableColumnInfo.add(new ColumnBeanPropertyPair("PACK_MAX_PRICE", "packMaxPrice", "最高限额"));
+
+    //    packTableColumnInfo.add(new ColumnBeanPropertyPair("PACK_MAX_PRICE", "packMaxPrice", "最高限额"));
 
   }
 
@@ -322,7 +320,7 @@ public class ZcEbProjectToTableModelConverter {
 
   static {
 
-//    packReqTableColumnInfo.add(new ColumnBeanPropertyPair("NAME1", "requirementDetail.name", "选择明细需求"));
+    //    packReqTableColumnInfo.add(new ColumnBeanPropertyPair("NAME1", "requirementDetail.name", "选择明细需求"));
 
     packReqTableColumnInfo.add(new ColumnBeanPropertyPair("NAME", "requirementDetail.name", "选择明细需求"));
 
@@ -447,30 +445,27 @@ public class ZcEbProjectToTableModelConverter {
 
         if (!this.isEditable()) {
 
-          return false;
+        return false;
 
         }
 
         String columnId = this.getColumnIdentifier(column);
 
         if (//"PACK_BUDGET".equals(columnId) ||
-        		"CO_CODE".equals(columnId)
+        "CO_CODE".equals(columnId)
 
-//        || "PACK_DESC".equals(columnId) 
-        || "PROJ_CODE".equals(columnId) || "PUR_TYPE".equals(columnId)
+        //        || "PACK_DESC".equals(columnId) 
+          || "PROJ_CODE".equals(columnId) || "PUR_TYPE".equals(columnId)
 
-//        || "ENTRUST_CODE".equals(columnId)
+        //        || "ENTRUST_CODE".equals(columnId)
         ) {
 
-          return false;
+        return false;
 
         }
-        if("PACK_MAX_PRICE".equals(columnId)){
+        if ("PACK_MAX_PRICE".equals(columnId)) {
           ZcEbPack pk = this.getBean(row);
-          if(!ZcSettingConstants.PITEM_OPIWAY_XJ.equals(pk.getPurType())
-            || pk.getEntrust() == null || !"Y".equals(pk.getEntrust().getIsCar())){
-            return false;
-          }
+          if (!ZcSettingConstants.PITEM_OPIWAY_XJ.equals(pk.getPurType()) || pk.getEntrust() == null || !"Y".equals(pk.getEntrust().getIsCar())) { return false; }
         }
 
         return true;
@@ -482,7 +477,7 @@ public class ZcEbProjectToTableModelConverter {
     tm.setOidFieldName("tempId");
 
     for (ZcEbPack data : packList) {
-//      data.getEntrust().setCoName()
+      //      data.getEntrust().setCoName()
       data.setTempId(Guid.genID());
 
     }
@@ -565,9 +560,7 @@ public class ZcEbProjectToTableModelConverter {
         //          return false;
         //
         //        }
-        if (!isEnable) {
-          return false;
-        }
+        if (!isEnable) { return false; }
         return isEditable();
 
       }
@@ -653,7 +646,7 @@ public class ZcEbProjectToTableModelConverter {
 
         || "SP_NUM".equals(columnId) || "SP_UNIT".equals(columnId)) {
 
-          return true;
+        return true;
 
         }
 
@@ -833,7 +826,7 @@ public class ZcEbProjectToTableModelConverter {
 
         if (!"SP_UNIT".equals(columnId) && !"SP_BRAND".equals(columnId) && !"ARR_DATE".equals(columnId)) {
 
-          return false;
+        return false;
 
         }
 
@@ -861,16 +854,13 @@ public class ZcEbProjectToTableModelConverter {
 
         if ("PACK_CODE".equals(columnId) || "PACK_NAME".equals(columnId)) {
 
-          return false;
+        return false;
 
         }
-        if (!isEnable) {
-          return false;
-        }
+        if (!isEnable) { return false; }
         return isEditable();
 
       }
-
 
       public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 
@@ -913,7 +903,8 @@ public class ZcEbProjectToTableModelConverter {
     return tm;
 
   }
-//
+
+  //
   public static TableModel convertPackReqToTableModel(List<ZcEbPackReq> packReqList) {
 
     BeanTableModel<ZcEbPackReq> tm = new BeanTableModel<ZcEbPackReq>() {
@@ -945,7 +936,7 @@ public class ZcEbProjectToTableModelConverter {
 
           fireTableCellUpdated(rowIndex, columnIndex);
 
-        }else  if ("ZC_CATALOGUE_CODE".equals(this.getColumnIdentifier(columnIndex))) {
+        } else if ("ZC_CATALOGUE_CODE".equals(this.getColumnIdentifier(columnIndex))) {
 
           if (aValue == null) {
 
@@ -978,7 +969,7 @@ public class ZcEbProjectToTableModelConverter {
 
         if (!this.isEditable()) {
 
-          return false;
+        return false;
 
         }
 
@@ -988,7 +979,7 @@ public class ZcEbProjectToTableModelConverter {
 
         || "ZC_CATALOGUE_NAME".equals(columnId)) {
 
-          return false;
+        return false;
 
         }
 

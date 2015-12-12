@@ -3,12 +3,9 @@ package com.ufgov.zc.client.zc.zxjj;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.DefaultKeyboardFocusManager;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
@@ -23,7 +20,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.TableColumn;
 
@@ -31,7 +27,6 @@ import org.apache.log4j.Logger;
 
 import com.ufgov.smartclient.common.UIUtilities;
 import com.ufgov.smartclient.component.table.fixedtable.JPageableFixedTable;
-import com.ufgov.smartclient.component.text.JNumberTextField;
 import com.ufgov.zc.client.common.BillElementMeta;
 import com.ufgov.zc.client.common.LangTransMeta;
 import com.ufgov.zc.client.common.ListCursor;
@@ -46,7 +41,6 @@ import com.ufgov.zc.client.component.JFuncToolBar;
 import com.ufgov.zc.client.component.JTablePanel;
 import com.ufgov.zc.client.component.MoneyField;
 import com.ufgov.zc.client.component.button.AddButton;
-import com.ufgov.zc.client.component.button.BidButton;
 import com.ufgov.zc.client.component.button.CallbackButton;
 import com.ufgov.zc.client.component.button.DeleteButton;
 import com.ufgov.zc.client.component.button.EditButton;
@@ -67,7 +61,6 @@ import com.ufgov.zc.client.component.button.SuggestAuditPassButton;
 import com.ufgov.zc.client.component.button.TraceButton;
 import com.ufgov.zc.client.component.button.UnauditButton;
 import com.ufgov.zc.client.component.button.UntreadButton;
-import com.ufgov.zc.client.component.table.cellrenderer.TopAlignTableCellRenderer;
 import com.ufgov.zc.client.component.ui.fieldeditor.AbstractFieldEditor;
 import com.ufgov.zc.client.component.zc.AbstractMainSubEditPanel;
 import com.ufgov.zc.client.component.zc.fieldeditor.AsValFieldEditor;
@@ -91,13 +84,12 @@ import com.ufgov.zc.common.zc.model.ZcEbZxjj;
 import com.ufgov.zc.common.zc.publish.IZcEbBaseServiceDelegate;
 import com.ufgov.zc.common.zc.publish.IZcEbZxjjServiceDelegate;
 
-public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
+public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel {
 
   /**
    * 
    */
   private static final long serialVersionUID = -3432371310612565726L;
-
 
   private static final Logger logger = Logger.getLogger(ZcEbZxjjEditPanel.class);
 
@@ -152,10 +144,10 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
   public ZcEbZxjjListPanel listPanel;
 
   protected JTablePanel historyTablePanel = new JTablePanel();
- 
+
   protected ZcEbZxjjEditPanel self = this;
 
-  protected GkBaseDialog parent; 
+  protected GkBaseDialog parent;
 
   private ArrayList<ButtonStatus> btnStatusList = new ArrayList<ButtonStatus>();
 
@@ -169,18 +161,20 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
   public IZcEbZxjjServiceDelegate zcEbZxjjServiceDelegate = (IZcEbZxjjServiceDelegate) ServiceFactory.create(IZcEbZxjjServiceDelegate.class,
 
-  "zcEbZxjjServiceDelegate");  
+  "zcEbZxjjServiceDelegate");
 
-  JLabel labelSs = new JLabel("00",JLabel.CENTER);
-  JLabel labelFf = new JLabel("00",JLabel.CENTER);
-  JLabel labelMm = new JLabel("00",JLabel.CENTER);
+  JLabel labelSs = new JLabel("00", JLabel.CENTER);
+
+  JLabel labelFf = new JLabel("00", JLabel.CENTER);
+
+  JLabel labelMm = new JLabel("00", JLabel.CENTER);
 
   public ZcEbZxjjEditPanel(ZcEbZxjjDialog parent, ListCursor listCursor, String tabStatus, ZcEbZxjjListPanel listPanel) {
     // TCJLODO Auto-generated constructor stub
     super(ZcEbZxjjEditPanel.class, BillElementMeta.getBillElementMetaWithoutNd(compoId));
 
-    this.workPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), LangTransMeta.translate(compoId),
-      TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体", Font.BOLD, 15), Color.BLUE));
+    this.workPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), LangTransMeta.translate(compoId), TitledBorder.CENTER, TitledBorder.TOP,
+      new Font("宋体", Font.BOLD, 15), Color.BLUE));
 
     this.listCursor = listCursor;
 
@@ -202,27 +196,27 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
     ZcEbZxjj jj = (ZcEbZxjj) listCursor.getCurrentObject();
 
-    if (jj.getJjCode()!=null) {//已经存在竞价code了
+    if (jj.getJjCode() != null) {//已经存在竞价code了
 
       this.pageStatus = ZcSettingConstants.PAGE_STATUS_BROWSE;
 
       jj = zcEbZxjjServiceDelegate.selectByPrimaryKey(jj.getJjCode(), this.requestMeta);
-      
+
       jj.setCoName(CompanyDataCache.getNameByCode(jj.getCoCode()));
-  
+
       listCursor.setCurrentObject(jj);
     } else {//未保存竞价初始化数据的情况进入，还没有竞价code
 
       this.pageStatus = ZcSettingConstants.PAGE_STATUS_NEW;
 
       jj.setCoName(CompanyDataCache.getNameByCode(jj.getCoCode()));
-      
+
       setDefaultValue(jj);
-   
+
     }
-    
-    this.setEditingObject(jj); 
-    
+
+    this.setEditingObject(jj);
+
     refreshSubData(jj);
 
     setOldObject();
@@ -232,7 +226,6 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
     updateFieldEditorsEditable();
 
   }
- 
 
   protected void updateFieldEditorsEditable() {
 
@@ -280,9 +273,8 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
     } else {
       for (AbstractFieldEditor editor : fieldEditors) {
         if (pageStatus.equals(ZcSettingConstants.PAGE_STATUS_EDIT) || pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW)) {
-          if ("zheRangLv".equals(editor.getFieldName()) || "qxName".equals(editor.getFieldName()) || "remark".equals(editor.getFieldName())
-            || "suLinkMan".equals(editor.getFieldName()) || "suLinkTel".equals(editor.getFieldName()) || "wxDate".equals(editor.getFieldName())
-            || "coLinkMan".equals(editor.getFieldName()) || "coCode".equals(editor.getFieldName())) {
+          if ("zheRangLv".equals(editor.getFieldName()) || "qxName".equals(editor.getFieldName()) || "remark".equals(editor.getFieldName()) || "suLinkMan".equals(editor.getFieldName())
+            || "suLinkTel".equals(editor.getFieldName()) || "wxDate".equals(editor.getFieldName()) || "coLinkMan".equals(editor.getFieldName()) || "coCode".equals(editor.getFieldName())) {
             editor.setEnabled(true);
           } else {
             editor.setEnabled(false);
@@ -297,7 +289,6 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
     setWFSubTableEditable(historyTablePanel, isEdit);
 
-
   }
 
   private void setDefaultValue(ZcEbZxjj jj) {
@@ -305,12 +296,12 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
     jj.setStatus(ZcSettingConstants.WF_STATUS_DRAFT);
     jj.setNd(this.requestMeta.getSvNd());
     jj.setInputDate(this.requestMeta.getSysDate());
-    jj.setExecutor(requestMeta.getSvUserID());  
+    jj.setExecutor(requestMeta.getSvUserID());
     jj.setHistoryList(new ArrayList());
     jj.setJjAllRounds(3);
     jj.setJjCurRound(1);
     jj.setJjTimeLen(new BigDecimal(10));
- 
+
   }
 
   protected void setButtonStatus() {
@@ -453,19 +444,17 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
     oldZcEbZxjj = (ZcEbZxjj) ObjectUtil.deepCopy(listCursor.getCurrentObject());
 
   }
- 
 
   private void refreshSubData(ZcEbZxjj jj) {
     // TCJLODO Auto-generated method stub
     historyTablePanel.setTableModel(new ZcEbZxjjToTableModelConverter().convertDetailTableData(jj.getHistoryList()));
- 
-  
+
     ZcUtil.translateColName(historyTablePanel.getTable(), ZcEbZxjjToTableModelConverter.getDetailInfo());
- 
+
     // 设置从表属性 
 
     setTablePorperty();
- 
+
   }
 
   protected void hideCol(JTable table, String colName) {
@@ -487,9 +476,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
   private void setBiTableEditor(JPageableFixedTable table) {
     // TCJLODO Auto-generated method stub
   }
-  
- 
- 
+
   public String getCompoId() {
     // TCJLODO Auto-generated method stub
     return compoId;
@@ -533,7 +520,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
     toolBar.add(nextButton);*/
 
     toolBar.add(exitButton);
-    
+
     editButton.addActionListener(new ActionListener() {
 
       public void actionPerformed(ActionEvent e) {
@@ -543,7 +530,6 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
       }
 
     });
- 
 
     sendButton.addActionListener(new ActionListener() {
 
@@ -675,7 +661,6 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
     });
   }
- 
 
   protected void doSend() {
 
@@ -733,7 +718,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
         if (!doSave()) {
 
-          return;
+        return;
 
         }
 
@@ -761,7 +746,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
         if (!doSave()) {
 
-          return;
+        return;
 
         }
 
@@ -791,7 +776,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
     if (!checkBeforeSave()) {
 
-      return false;
+    return false;
 
     }
 
@@ -805,9 +790,9 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
       ZcEbZxjj inData = (ZcEbZxjj) this.listCursor.getCurrentObject();
 
-      System.out.println("before=" + inData.getCoCode() + inData.getCoName());
+      //      System.out.println("before=" + inData.getCoCode() + inData.getCoName());
 
-      ZcEbZxjj jj = zcEbZxjjServiceDelegate.saveFN(inData, this.requestMeta); 
+      ZcEbZxjj jj = zcEbZxjjServiceDelegate.saveFN(inData, this.requestMeta);
 
       listCursor.setCurrentObject(jj);
 
@@ -840,28 +825,24 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
   }
 
   /**
-
    * 保存前校验
-
    * @param cpApply
-
    * @return
-
    */
 
   protected boolean checkBeforeSave() {
 
     List mainNotNullList = mainBillElementMeta.getNotNullBillElement();
 
-    List biNotNullList = biBillElementMeta.getNotNullBillElement(); 
-    
+    List biNotNullList = biBillElementMeta.getNotNullBillElement();
+
     ZcEbZxjj jj = (ZcEbZxjj) this.listCursor.getCurrentObject();
 
     StringBuilder errorInfo = new StringBuilder();
 
     String mainValidateInfo = ZcUtil.validateBillElementNull(jj, mainNotNullList);
 
-    String biValidateInfo = ZcUtil.validateDetailBillElementNull(jj.getHistoryList(), biNotNullList, false); 
+    String biValidateInfo = ZcUtil.validateDetailBillElementNull(jj.getHistoryList(), biNotNullList, false);
 
     if (mainValidateInfo.length() != 0) {
 
@@ -873,7 +854,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
       errorInfo.append("报价历史：\n").append(biValidateInfo.toString()).append("\n");
 
-    }  
+    }
 
     if (errorInfo.length() != 0) {
 
@@ -881,11 +862,9 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
       return false;
 
-    } 
+    }
     return true;
   }
- 
- 
 
   protected void doDelete() {
 
@@ -957,7 +936,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
     if (bean == null) {
 
-      return;
+    return;
 
     }
 
@@ -1019,7 +998,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
     if (!checkBeforeSave()) {
 
-      return;
+    return;
 
     }
 
@@ -1051,7 +1030,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
     if (commentDialog.cancel) {
 
-      return;
+    return;
 
     }
 
@@ -1063,7 +1042,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
       ht.setComment(commentDialog.getComment());
 
-      ht.setAuditorId(WorkEnv.getInstance().getCurrUserId()); 
+      ht.setAuditorId(WorkEnv.getInstance().getCurrUserId());
 
       ht = zcEbZxjjServiceDelegate.auditFN(ht, requestMeta);
 
@@ -1092,7 +1071,6 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
     }
 
   }
- 
 
   /*
 
@@ -1103,9 +1081,8 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
   protected void doUnAudit() {
     /**
      * 合同备案，销审添加校验,做了支付申请确认单和验收单的，不让销审。
-     * 
      */
-    ZcEbZxjj jj = (ZcEbZxjj) ObjectUtil.deepCopy(this.listCursor.getCurrentObject()); 
+    ZcEbZxjj jj = (ZcEbZxjj) ObjectUtil.deepCopy(this.listCursor.getCurrentObject());
 
     boolean success = true;
 
@@ -1117,7 +1094,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
     if (i != 0) {
 
-      return;
+    return;
 
     }
 
@@ -1165,16 +1142,14 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
       biTable.getCellEditor().stopCellEditing();
 
-    } 
+    }
 
   }
 
   public boolean isDataChanged() {
 
     stopTableEditing();
-    if (!this.saveButton.isVisible() || !saveButton.isEnabled()) {
-      return false;
-    }
+    if (!this.saveButton.isVisible() || !saveButton.isEnabled()) { return false; }
 
     return !DigestUtil.digest(oldZcEbZxjj).equals(DigestUtil.digest(listCursor.getCurrentObject()));
 
@@ -1194,7 +1169,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
     if (commentDialog.cancel) {
 
-      return;
+    return;
 
     }
 
@@ -1266,56 +1241,54 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
     List<AbstractFieldEditor> editorList = new ArrayList<AbstractFieldEditor>();
 
-    AsValFieldEditor qxStatus = new AsValFieldEditor(LangTransMeta.translate(ZcEbZxjj.COL_STATUS), "status",ZcEbZxjj.ZC_VS_ZXJJ_STATUS);
+    AsValFieldEditor qxStatus = new AsValFieldEditor(LangTransMeta.translate(ZcEbZxjj.COL_STATUS), "status", ZcEbZxjj.ZC_VS_ZXJJ_STATUS);
 
     TextFieldEditor projCode = new TextFieldEditor(LangTransMeta.translate(ZcEbZxjj.COL_PROJ_CODE), "projCode");
 
     TextAreaFieldEditor purContent = new TextAreaFieldEditor(LangTransMeta.translate(ZcEbZxjj.COL_PUR_CONTENT), "purContent", -1, 2, 3);
-    
+
     TextFieldEditor coCode = new TextFieldEditor(LangTransMeta.translate(ZcEbZxjj.COL_CO_CODE), "coName");
 
     TextFieldEditor inputor = new TextFieldEditor(LangTransMeta.translate(ZcEbZxjj.COL_INPUTOR), "inputor");
-    
-    DateFieldEditor beginTime = new DateFieldEditor(LangTransMeta.translate(ZcEbZxjj.COL_BEGIN_TIME), "beginTime",DateField.TimeTypeH24,"2015-01-01 00:00:00",true,true,true);
+
+    DateFieldEditor beginTime = new DateFieldEditor(LangTransMeta.translate(ZcEbZxjj.COL_BEGIN_TIME), "beginTime", DateField.TimeTypeH24, "2015-01-01 00:00:00", true, true, true);
 
     MoneyFieldEditor jjTimeLen = new MoneyFieldEditor(LangTransMeta.translate(ZcEbZxjj.COL_JJ_TIME_LEN), "jjTimeLen");
-    
+
     IntFieldEditor jjAllRounds = new IntFieldEditor(LangTransMeta.translate(ZcEbZxjj.COL_JJ_ALL_ROUNDS), "jjAllRounds");
 
     IntFieldEditor jjCurRound = new IntFieldEditor(LangTransMeta.translate(ZcEbZxjj.COL_JJ_CUR_ROUND), "jjCurRound");
 
     MoneyFieldEditor jjCurQuote = new MoneyFieldEditor(LangTransMeta.translate(ZcEbZxjj.COL_JJ_CUR_QUOTE), "jjCurQuote");
-    
+
     TextFieldEditor jjCurQuoter = new TextFieldEditor(LangTransMeta.translate(ZcEbZxjj.COL_JJ_CUR_QUOTER), "jjCurQuoter");
 
     TextAreaFieldEditor failReason = new TextAreaFieldEditor(LangTransMeta.translate(ZcEbZxjj.COL_FAIL_REASON), "failReason", -1, 1, 3);
-    
-    TextAreaFieldEditor remark = new TextAreaFieldEditor(LangTransMeta.translate(ZcEbZxjj.COL_REMARK), "remark", -1, 1, 3); 
-    
+
+    TextAreaFieldEditor remark = new TextAreaFieldEditor(LangTransMeta.translate(ZcEbZxjj.COL_REMARK), "remark", -1, 1, 3);
+
     editorList.add(projCode);
     editorList.add(coCode);
 
-    editorList.add(purContent);    
+    editorList.add(purContent);
 
     editorList.add(beginTime);
     editorList.add(jjTimeLen);
-    
+
     editorList.add(jjAllRounds);
     editorList.add(jjCurRound);
-    
-    
+
     editorList.add(jjCurQuote);
     editorList.add(jjCurQuoter);
 
     editorList.add(qxStatus);
-    
+
     editorList.add(failReason);
-    editorList.add(remark); 
-    
+    editorList.add(remark);
+
     return editorList;
 
   }
- 
 
   protected void selectCompany(Company company) {
     // TCJLODO Auto-generated method stub
@@ -1330,7 +1303,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
   @Override
   public JComponent createSubBillPanel() {
     // TCJLODO Auto-generated method stub 
-    
+
     JTabbedPane biTabPane = new JTabbedPane();
 
     historyTablePanel.init();
@@ -1357,13 +1330,12 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
     bottomToolBar1.add(insertBtn1);
 
-    bottomToolBar1.add(delBtn1); 
-    
-    biTabPane.setMinimumSize(new Dimension(240, 300)); 
-    
+    bottomToolBar1.add(delBtn1);
+
+    biTabPane.setMinimumSize(new Dimension(240, 300));
+
     return biTabPane;
   }
- 
 
   public void doExit() {
     // TCJLODO Auto-generated method stub
@@ -1376,7 +1348,7 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
         if (!doSave()) {
 
-          return;
+        return;
 
         }
 
@@ -1408,14 +1380,13 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
 
     }
 
-    JPanel djsPanel=initTimePanel();
-    
-    
-    JPanel topPanel=new JPanel();
+    JPanel djsPanel = initTimePanel();
+
+    JPanel topPanel = new JPanel();
     topPanel.setLayout(new BorderLayout());
     topPanel.add(fieldEditorPanel, BorderLayout.CENTER);
-    topPanel.add(djsPanel,BorderLayout.EAST);
-    
+    topPanel.add(djsPanel, BorderLayout.EAST);
+
     workPanel.setLayout(new BorderLayout());
 
     workPanel.add(topPanel, BorderLayout.NORTH);
@@ -1433,83 +1404,80 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
   //倒计时牌
   private JPanel initTimePanel() {
     // TCJLODO Auto-generated method stub
-    JPanel p=new JPanel();
+    JPanel p = new JPanel();
     p.setMinimumSize(new Dimension(400, 200));
-    p.setPreferredSize(new Dimension(400,200));
-//    p.setLayout(new GridBagLayout());
+    p.setPreferredSize(new Dimension(400, 200));
+    //    p.setLayout(new GridBagLayout());
     p.setLayout(null);
-    
-    p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "竞价倒计时",
-      TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体", Font.BOLD, 15), Color.BLUE));
+
+    p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "竞价倒计时", TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体", Font.BOLD, 15), Color.BLUE));
 
     /*JLabel labelS = new JLabel("<html><font face=\"宋体\";style=font:15pt>" + "时" + "</font>");
     JLabel labelF = new JLabel("<html><font face=\"宋体\";style=font:15pt>" + "分" + "</font>");
     JLabel labelM = new JLabel("<html><font face=\"宋体\";style=font:15pt>" + "秒" + "</font>");*/
-    
-    int w=100,h=50,x=30,y=30,margin=10;
-    JLabel labelS = new JLabel("时",JLabel.CENTER);    
+
+    int w = 100, h = 50, x = 30, y = 30, margin = 10;
+    JLabel labelS = new JLabel("时", JLabel.CENTER);
     labelS.setBounds(x, y, w, h);
-//    labelS.setBackground(Color.red);
-    
+    //    labelS.setBackground(Color.red);
+
     labelS.setOpaque(true);
     labelS.setBackground(Color.green); //  设置背景的颜色
-    labelS.setForeground(Color.red);   //设置前景色
-    labelS.setFont(new   Font("宋体",Font.BOLD,28)); //设置字体  
-     
-    
-    x=x+w+margin;
-    JLabel labelF = new JLabel("分",JLabel.CENTER);   
+    labelS.setForeground(Color.red); //设置前景色
+    labelS.setFont(new Font("宋体", Font.BOLD, 28)); //设置字体  
+
+    x = x + w + margin;
+    JLabel labelF = new JLabel("分", JLabel.CENTER);
     labelF.setBounds(x, y, w, h);
     labelF.setBackground(Color.green);
-    labelF.setForeground(Color.red);   //设置前景色
-    labelF.setFont(new   Font("宋体",Font.BOLD,28)); //设置字体  
+    labelF.setForeground(Color.red); //设置前景色
+    labelF.setFont(new Font("宋体", Font.BOLD, 28)); //设置字体  
     labelF.setOpaque(true);
-    
-    JLabel labelM = new JLabel("秒",JLabel.CENTER);
-    x=x+w+margin;  
+
+    JLabel labelM = new JLabel("秒", JLabel.CENTER);
+    x = x + w + margin;
     labelM.setBounds(x, y, w, h);
     labelM.setBackground(Color.green);
-    labelM.setForeground(Color.red);   //设置前景色
-    labelM.setFont(new   Font("宋体",Font.BOLD,28)); //设置字体  
+    labelM.setForeground(Color.red); //设置前景色
+    labelM.setFont(new Font("宋体", Font.BOLD, 28)); //设置字体  
     labelM.setOpaque(true);
-    
-   /* p.add(labelS, new GridBagConstraints(0,0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER,
-      GridBagConstraints.NONE, new Insets(4, 0, 4, 4), 0,0));
-    
-    p.add(labelF, new GridBagConstraints(1,0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER,
-      GridBagConstraints.NONE, new Insets(4, 0, 4, 4), 0,0));
-    
-    p.add(labelM, new GridBagConstraints(2,0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER,
-      GridBagConstraints.NONE, new Insets(4, 0, 4, 4), 0,0));*/
+
+    /* p.add(labelS, new GridBagConstraints(0,0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER,
+       GridBagConstraints.NONE, new Insets(4, 0, 4, 4), 0,0));
+     
+     p.add(labelF, new GridBagConstraints(1,0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER,
+       GridBagConstraints.NONE, new Insets(4, 0, 4, 4), 0,0));
+     
+     p.add(labelM, new GridBagConstraints(2,0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER,
+       GridBagConstraints.NONE, new Insets(4, 0, 4, 4), 0,0));*/
     p.add(labelS);
     p.add(labelF);
     p.add(labelM);
-    
-    
-    y=y+h+margin;
-    x=30;
-    h=80;
+
+    y = y + h + margin;
+    x = 30;
+    h = 80;
     //  “dialog”代表字体，1代表样式(1是粗体，0是平常的）15是字号 
     labelSs.setForeground(Color.red);
     labelSs.setBounds(x, y, w, h);
-    labelSs.setBackground(Color.gray); 
-    labelSs.setFont(new   Font("宋体",Font.BOLD,38)); //设置字体  
+    labelSs.setBackground(Color.gray);
+    labelSs.setFont(new Font("宋体", Font.BOLD, 38)); //设置字体  
     labelSs.setOpaque(true);
-    
-    x=x+w+margin;   
+
+    x = x + w + margin;
     labelFf.setForeground(Color.red);
     labelFf.setBounds(x, y, w, h);
-    labelFf.setBackground(Color.gray); 
-    labelFf.setFont(new   Font("宋体",Font.BOLD,38)); //设置字体  
+    labelFf.setBackground(Color.gray);
+    labelFf.setFont(new Font("宋体", Font.BOLD, 38)); //设置字体  
     labelFf.setOpaque(true);
-    
-    x=x+w+margin;  
+
+    x = x + w + margin;
     labelMm.setForeground(Color.red);
     labelMm.setBounds(x, y, w, h);
-    labelMm.setBackground(Color.gray); 
-    labelMm.setFont(new   Font("宋体",Font.BOLD,38)); //设置字体  
+    labelMm.setBackground(Color.gray);
+    labelMm.setFont(new Font("宋体", Font.BOLD, 38)); //设置字体  
     labelMm.setOpaque(true);
-    
+
     /*p.add(labelSs, new GridBagConstraints(0,1, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER,
       GridBagConstraints.NONE, new Insets(4, 0, 4, 4), 0,0));
     
@@ -1523,38 +1491,37 @@ public class ZcEbZxjjEditPanel extends AbstractMainSubEditPanel{
     p.add(labelFf);
     p.add(labelMm);
 
-    margin=10;
-    y=y+h+50;
-    x=30;
-    h=30;
-    
-    JButton beginBtn=new JButton("开始竞价"),cancelBtn=new JButton("废    标"),bidBtn=new JButton("提    交 ");
-    
-    if(ZcUtil.isGys()){
-      JLabel labelPrice = new JLabel("我要竞价(元)",JLabel.RIGHT);   
+    margin = 10;
+    y = y + h + 50;
+    x = 30;
+    h = 30;
+
+    JButton beginBtn = new JButton("开始竞价"), cancelBtn = new JButton("废    标"), bidBtn = new JButton("提    交 ");
+
+    if (ZcUtil.isGys()) {
+      JLabel labelPrice = new JLabel("我要竞价(元)", JLabel.RIGHT);
       labelPrice.setBounds(x, y, w, h);
 
-      x=x+w+margin; 
-      
-      MoneyField priceFd=new MoneyField();
-//      priceFd.setPreferredSize(new Dimension(100, 30));
+      x = x + w + margin;
+
+      MoneyField priceFd = new MoneyField();
+      //      priceFd.setPreferredSize(new Dimension(100, 30));
       priceFd.setBounds(x, y, w, h);
-      
-      
-      x=x+w+margin;  
+
+      x = x + w + margin;
       bidBtn.setBounds(x, y, w, h);
-      
+
       p.add(labelPrice);
       p.add(priceFd);
       p.add(bidBtn);
-    }else{
+    } else {
       beginBtn.setBounds(x, y, w, h);
-      x=x+w+margin;  
+      x = x + w + margin;
       cancelBtn.setBounds(x, y, w, h);
       p.add(beginBtn);
       p.add(cancelBtn);
     }
-    
+
     return p;
   }
 

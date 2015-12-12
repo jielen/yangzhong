@@ -446,7 +446,7 @@
       ZC_ZB_NAME,
       decode(pj.pur_type,'5',r.win_bid_provider_name,v.PROVIDER_NAME)
       ZC_SU_NAME,
-      e.zc_make_code ZC_MAKE_CODE,
+      e.sn ZC_MAKE_CODE,
       e.zc_make_name ZC_MAKE_NAME,
       e.zc_money_bi_sum ZC_MONEY_BI_SUM,
       p.pack_code ZC_BID_CODE,

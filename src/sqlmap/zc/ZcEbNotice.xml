@@ -220,7 +220,11 @@
 		ZC_EB_NOTICE
 		where NOTICE_ID = #noticeID:VARCHAR#
 	</delete>
-
+	<delete id="deleteByPackCode" parameterClass="string">
+		delete from
+		ZC_EB_NOTICE
+		where pack_code = #value#
+	</delete>
 	<select id="getZcEbNoticeById" parameterClass="string"
 		resultMap="ZcEbNoticeResult">
 		select * from ZC_EB_NOTICE
