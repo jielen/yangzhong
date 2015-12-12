@@ -1964,24 +1964,26 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
     logger.debug("path=" + path + ".files");
 
     File[] fs = dir.listFiles();
-    int t = 0;
-    while (t < 3 && (fs == null || fs.length == 0)) {
-      ++t;
-      try {
-        Thread.sleep(1000);
-      } catch (InterruptedException e) {
+    if (fs != null) {
+      int t = 0;
+      while (t < 3 && (fs == null || fs.length == 0)) {
+        ++t;
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        }
+        fs = dir.listFiles();
       }
-      fs = dir.listFiles();
-    }
 
-    //  logger.debug("fs.size=" + fs == null ? null : fs.length);
+      //  logger.debug("fs.size=" + fs == null ? null : fs.length);
 
-    for (File f : fs) {
-      String name = f.getName();
-      logger.debug("file=" + name);
-      //      if(name.endsWith(".thmx") || name.endsWith(".mso") || name.endsWith(".png")){
-      f.delete();
-      //      }
+      for (File f : fs) {
+        String name = f.getName();
+        logger.debug("file=" + name);
+        //      if(name.endsWith(".thmx") || name.endsWith(".mso") || name.endsWith(".png")){
+        f.delete();
+        //      }
+      }
     }
     dir.delete();
 

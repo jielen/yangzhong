@@ -14,9 +14,9 @@ public class Demo {
   static ResultSet ret = null;
 
   public static void main(String[] args) {
-    //    sql = "select * from jc_content";//SQL语句  
+    sql = "select * from jc_content";//SQL语句  
     //    sql = "select max(content_id) from jc_content";//SQL语句  
-    sql = "select max(content_id) from jc_content where content_id like '20151212%'";
+    //    sql = "select max(content_id) from jc_content where content_id like '20151213%'";
     Connection con = null;
     Statement st = null;
     MysqlDBHelper dbHelper = MysqlDBHelper.getInstance();
@@ -25,18 +25,18 @@ public class Demo {
       st = con.createStatement();
       ret = st.executeQuery(sql);//执行语句，得到结果集  
       while (ret.next()) {
-        /*     String uid = ret.getString(1);
-             String ufname = ret.getString(2);
-             String ulname = ret.getString(3);
-             String udate = ret.getString(4);
-             String udate2 = ret.getString(5);
-             String udate3 = ret.getString(6);
-             String udate4 = ret.getString(7);
-             String udate5 = ret.getString(8);
-             System.out.println(uid + "\t" + ufname + "\t" + ulname + "\t" + udate + "\t" + udate2 + "\t" + udate3 + "\t" + udate4 + "\t" + udate5);
-        */
         String uid = ret.getString(1);
-        System.out.println(uid);
+        String ufname = ret.getString(2);
+        String ulname = ret.getString(3);
+        String udate = ret.getString(4);
+        String udate2 = ret.getString(5);
+        String udate3 = ret.getString(6);
+        String udate4 = ret.getString(7);
+        String udate5 = ret.getString(8);
+        System.out.println(uid + "\t" + ufname + "\t" + ulname + "\t" + udate + "\t" + udate2 + "\t" + udate3 + "\t" + udate4 + "\t" + udate5);
+
+        //        String uid = ret.getString(1);
+        //        System.out.println(uid);
 
       }//显示数据  
       sql = "insert into jc_content(content_id,channel_id,user_id,type_id,model_id,site_id,status,sort_date) value(2015121101,98,1,1,9,1,2,NOW())";

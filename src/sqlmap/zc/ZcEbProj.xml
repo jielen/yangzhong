@@ -3945,22 +3945,20 @@
 	<select id="getDwMessage" resultClass="java.util.HashMap"
 		parameterClass="elementCondition">
 		select s.proj_code,
-		s.pack_code,
-		m.co_code,
-		c.co_name,
-		m.zc_make_linkman,
-		m.zc_make_tel
-		from (select k.pack_code, k.proj_code, k.entrust_code,
-		p.nd
-		from zc_eb_pack k, zc_eb_proj p
-		where k.proj_code = p.proj_code) s,
-		zc_p_pro_make m,
-		ma_company c
-		where s.entrust_code = m.zc_make_code
-		and
-		s.nd = m.nd
-		and m.co_code = c.co_code
-		and m.nd = c.nd
+       s.pack_code,
+       e.co_code,
+       c.co_name,
+       e.zc_make_linkman,
+	   e.zc_make_tel
+	  from (select k.pack_code, k.proj_code, k.entrust_code, p.nd
+	          from zc_eb_pack k, zc_eb_proj p
+	         where k.proj_code = p.proj_code) s,
+	       zc_eb_entrust e,
+	       ma_company c
+	 where s.entrust_code = e.sn
+	   and s.nd = e.nd
+	   and e.co_code = c.co_code
+	   and e.nd = c.nd
 		<isNotNull prepend="and" property="zcText0">
 			s.proj_code =#zcText0#
 		</isNotNull>

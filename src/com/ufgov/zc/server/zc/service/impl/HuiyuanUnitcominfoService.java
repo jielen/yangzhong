@@ -26,7 +26,6 @@ import com.ufgov.zc.server.zc.dao.HuiyuanZfcgGongyinginfoMapper;
 import com.ufgov.zc.server.zc.dao.IZcEbBaseServiceDao;
 import com.ufgov.zc.server.zc.service.IHuiyuanUnitcominfoService;
 import com.ufgov.zc.server.zc.service.IHuiyuanUserService;
-import com.ufgov.zc.server.zc.util.GeneralFunc;
 
 /**
  * @author Administrator
@@ -146,7 +145,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
       if (!user.getLoginid().equals(record.getUnitorgnum())) {
         huiyuanUserService.deleteByPrimaryKeyFN(user.getUserguid(), requestMeta);
         user = new HuiyuanUser();
-        user.setPasswd(GeneralFunc.encodePwd(record.getUnitorgnum()));
+        //        user.setPasswd(GeneralFunc.encodePwd(record.getUnitorgnum()));
       }
       buildUserInfo(record, user);
       huiyuanUserService.saveFN(user, requestMeta);
@@ -156,7 +155,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
   private void addDefaultUser(HuiyuanUnitcominfo record, RequestMeta requestMeta) throws BusinessException {
     // TCJLODO Auto-generated method stub
     HuiyuanUser user = new HuiyuanUser();
-    user.setPasswd(GeneralFunc.encodePwd(record.getUnitorgnum()));
+    //    user.setPasswd(GeneralFunc.encodePwd(record.getUnitorgnum()));
     buildUserInfo(record, user);
 
     if (!existUser(user, requestMeta)) {

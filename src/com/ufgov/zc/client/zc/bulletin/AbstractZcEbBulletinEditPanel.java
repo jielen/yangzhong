@@ -1888,26 +1888,22 @@ public abstract class AbstractZcEbBulletinEditPanel extends AbstractMainSubEditP
     ZcEbBulletin zcEbBulletin = (ZcEbBulletin) this.listCursor.getCurrentObject();
 
     requestMeta.setFuncId(this.suggestPassButton.getFuncId());
-    if (ZcSettingConstants.BILL_STATUS_FOR_PUB.equals(zcEbBulletin.getBulletinStatus())
-    //&& ZcSettingConstants.ROLE_CODE_CG_CGZX_FZR.equals(zcEbBulletin.getRoleCode())
-    ) {
-      doPublish();
-      return;
-    }
 
-    String jianShenRoleId = AsOptionMeta.getOptVal("OPT_ZC_CGZX_JSKY_ROLE");//监审组员角色
+    /*  String jianShenRoleId = AsOptionMeta.getOptVal("OPT_ZC_CGZX_JSKY_ROLE");//监审组员角色
 
-    if (WorkEnv.getInstance().containRole(jianShenRoleId)) {//如果是监审员，则不修改审批状态
+      if (WorkEnv.getInstance().containRole(jianShenRoleId)) {//如果是监审员，则不修改审批状态
 
-      Integer auditFlag = zcEbBulletin.getIsGoonAudit();
+        Integer auditFlag = zcEbBulletin.getIsGoonAudit();
 
-      executeAudit(zcEbBulletin, auditFlag, null);
+        executeAudit(zcEbBulletin, auditFlag, null);
 
-    } else {
+      } else {
 
-      executeAudit(zcEbBulletin, ZcSettingConstants.IS_GOON_AUDIT_NO, null);
+        executeAudit(zcEbBulletin, ZcSettingConstants.IS_GOON_AUDIT_NO, null);
 
-    }
+      }*/
+
+    executeAudit(zcEbBulletin, ZcSettingConstants.IS_GOON_AUDIT_NO, null);
 
   }
 

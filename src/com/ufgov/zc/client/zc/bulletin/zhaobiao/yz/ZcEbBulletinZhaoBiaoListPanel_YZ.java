@@ -67,22 +67,13 @@ import com.ufgov.zc.common.zc.model.ZcEbBulletin;
 import com.ufgov.zc.common.zc.publish.IZcEbBulletinServiceDelegate;
 
 /**
- * 针对扬中专门开发
- * 思路：
- * 在制定公告的时候，才制定开评标时间
- * 所以这里涉及几个问题：
- * 1、询价招标和以前的招标公告区别不大，只要更新公告就行了；
- * 2、有招标文件的招标（公开、竞争性谈判、单一来源、邀请），需要更新招标文件里的相关事件设置
- * 
- * 本类是非询价类的采购招标公告
- * 
+ * 针对扬中专门开发 思路： 在制定公告的时候，才制定开评标时间 所以这里涉及几个问题： 1、询价招标和以前的招标公告区别不大，只要更新公告就行了；
+ * 2、有招标文件的招标（公开、竞争性谈判、单一来源、邀请），需要更新招标文件里的相关事件设置 本类是非询价类的采购招标公告
  * @author Administrator
- *
  */
-public class ZcEbBulletinZhaoBiaoListPanel_YZ  extends AbstractEditListBill implements ParentWindowAware {
+public class ZcEbBulletinZhaoBiaoListPanel_YZ extends AbstractEditListBill implements ParentWindowAware {
 
   private String compoId = "ZC_EB_BULLETIN_BID";
-  
 
   private static final Logger logger = Logger.getLogger(AbstractZcEbBulletinBaseListPanel.class);
 
@@ -180,8 +171,6 @@ public class ZcEbBulletinZhaoBiaoListPanel_YZ  extends AbstractEditListBill impl
     init();
   }
 
- 
-
   protected void init() {
 
     UIUtilities.asyncInvoke(new DefaultInvokeHandler<List<SearchCondition>>() {
@@ -254,7 +243,7 @@ public class ZcEbBulletinZhaoBiaoListPanel_YZ  extends AbstractEditListBill impl
 
               List beanList = (List) ObjectUtil.deepCopy(ListUtil.convertToTableViewOrderList(model.getList(), table));
 
-              new ZcEbBulletinZhaoBiaoDialog_YZ(self,  beanList, row, tabStatus);
+              new ZcEbBulletinZhaoBiaoDialog_YZ(self, beanList, row, tabStatus);
             }
 
           }
@@ -280,8 +269,8 @@ public class ZcEbBulletinZhaoBiaoListPanel_YZ  extends AbstractEditListBill impl
 
       elementConditionDto.setBillType(getBulletinType());
 
-      elementConditionDto.setZcText3("feixunjia");
-      
+      //      elementConditionDto.setZcText3("feixunjia");
+
       if (WorkEnv.getInstance().containRole(ZcSettingConstants.ROLE_GYS_NORMAL)) {
         elementConditionDto.setZcText0(ZcSettingConstants.ROLE_GYS_NORMAL);
       }
@@ -379,9 +368,7 @@ public class ZcEbBulletinZhaoBiaoListPanel_YZ  extends AbstractEditListBill impl
 
   }
 
-  
   /**
-   * 
    * 添加工具栏按钮
    */
 
@@ -396,11 +383,11 @@ public class ZcEbBulletinZhaoBiaoListPanel_YZ  extends AbstractEditListBill impl
 
     // toolBar.add(updateButton);
 
-//    toolBar.add(deleteButton);
+    //    toolBar.add(deleteButton);
 
     toolBar.add(helpButton);
 
-//    toolBar.add(sendButton);// 送审
+    //    toolBar.add(sendButton);// 送审
 
     // toolBar.add(suggestPassButton);//填写意见审核通过
 
@@ -412,13 +399,13 @@ public class ZcEbBulletinZhaoBiaoListPanel_YZ  extends AbstractEditListBill impl
 
     // toolBar.add(cancelButton);//撤销
 
-//    toolBar.add(traceButton);
+    //    toolBar.add(traceButton);
 
     // toolBar.add(printButton);
 
     // toolBar.add(isSendToNextButton);
 
-//    toolBar.add(traceDataButton);
+    //    toolBar.add(traceDataButton);
 
     // 初始化按钮的action事件
 
@@ -578,10 +565,9 @@ public class ZcEbBulletinZhaoBiaoListPanel_YZ  extends AbstractEditListBill impl
 
   }
 
-  protected void doAdd(){
+  protected void doAdd() {
 
-    new ZcEbBulletinZhaoBiaoDialog_YZ(self, new ArrayList(), this.topDataDisplay.getActiveTableDisplay().getTable().getRowCount(), topDataDisplay
-      .getActiveTableDisplay().getStatus());
+    new ZcEbBulletinZhaoBiaoDialog_YZ(self, new ArrayList(), this.topDataDisplay.getActiveTableDisplay().getTable().getRowCount(), topDataDisplay.getActiveTableDisplay().getStatus());
   }
 
   protected void doPrintSetting() {
@@ -595,7 +581,6 @@ public class ZcEbBulletinZhaoBiaoListPanel_YZ  extends AbstractEditListBill impl
   }
 
   /**
-   * 
    * 是否送主任审核
    */
 
@@ -633,7 +618,7 @@ public class ZcEbBulletinZhaoBiaoListPanel_YZ  extends AbstractEditListBill impl
 
     if (commentDialog.cancel) {
 
-      return;
+    return;
 
     }
 
@@ -818,9 +803,7 @@ public class ZcEbBulletinZhaoBiaoListPanel_YZ  extends AbstractEditListBill impl
 
     boolean success = true;
 
-    if (!checkBeforeSave(beanList)) {
-      return;
-    }
+    if (!checkBeforeSave(beanList)) { return; }
 
     try {
 
@@ -1000,7 +983,7 @@ public class ZcEbBulletinZhaoBiaoListPanel_YZ  extends AbstractEditListBill impl
 
     if (commentDialog.cancel) {
 
-      return;
+    return;
 
     }
 
@@ -1114,7 +1097,7 @@ public class ZcEbBulletinZhaoBiaoListPanel_YZ  extends AbstractEditListBill impl
 
     if (commentDialog.cancel) {
 
-      return;
+    return;
 
     }
 
@@ -1194,9 +1177,7 @@ public class ZcEbBulletinZhaoBiaoListPanel_YZ  extends AbstractEditListBill impl
 
     int num = JOptionPane.showConfirmDialog(this, "是否删除当前选择的单据", "删除确认", 0);
 
-    if (num == JOptionPane.NO_OPTION) {
-      return;
-    }
+    if (num == JOptionPane.NO_OPTION) { return; }
 
     boolean success = true;
 
@@ -1376,31 +1357,31 @@ public class ZcEbBulletinZhaoBiaoListPanel_YZ  extends AbstractEditListBill impl
   private boolean checkBeforeSave(List beanList) {
 
     boolean isPass = true;
-/*
-    StringBuilder errorInfo = new StringBuilder();
+    /*
+        StringBuilder errorInfo = new StringBuilder();
 
-    for (int i = 0; i < beanList.size(); i++) {
-      ZcEbBulletin bulletin = (ZcEbBulletin) beanList.get(i);
+        for (int i = 0; i < beanList.size(); i++) {
+          ZcEbBulletin bulletin = (ZcEbBulletin) beanList.get(i);
 
-      if (bulletin.getBulletinType().equals(ZcEbBulletinConstants.TYPE_BULLETIN_BID)) {
-        if (bulletin.getFileId1() == null || "".equals(bulletin.getFileId1().trim())) {
-          errorInfo.append("项目为：" + bulletin.getProjName() + "的[抽取专家申请表]不能为空 \n");
-          isPass = false;
+          if (bulletin.getBulletinType().equals(ZcEbBulletinConstants.TYPE_BULLETIN_BID)) {
+            if (bulletin.getFileId1() == null || "".equals(bulletin.getFileId1().trim())) {
+              errorInfo.append("项目为：" + bulletin.getProjName() + "的[抽取专家申请表]不能为空 \n");
+              isPass = false;
+            }
+            if (bulletin.getFileId2() == null || "".equals(bulletin.getFileId2().trim())) {
+              errorInfo.append("项目为：" + bulletin.getProjName() + "的[抽取纪检申请表]不能为空 \n");
+              isPass = false;
+            }
+          }
+
         }
-        if (bulletin.getFileId2() == null || "".equals(bulletin.getFileId2().trim())) {
-          errorInfo.append("项目为：" + bulletin.getProjName() + "的[抽取纪检申请表]不能为空 \n");
-          isPass = false;
+
+        if (errorInfo.length() != 0) {
+
+          JOptionPane.showMessageDialog(this.parentWindow, errorInfo.toString(), "提示", JOptionPane.WARNING_MESSAGE);
+
         }
-      }
-
-    }
-
-    if (errorInfo.length() != 0) {
-
-      JOptionPane.showMessageDialog(this.parentWindow, errorInfo.toString(), "提示", JOptionPane.WARNING_MESSAGE);
-
-    }
-*/
+    */
     return isPass;
 
   }
@@ -1410,6 +1391,7 @@ public class ZcEbBulletinZhaoBiaoListPanel_YZ  extends AbstractEditListBill impl
     LangTransMeta.init("ZC%");
 
   }
+
   public static void main(String[] args) throws Exception {
 
     SwingUtilities.invokeLater(new Runnable() {

@@ -59,11 +59,16 @@ public class GeneralFunc {
   }
 
   public static void main(String[] args) {
-    String name = "12345678";
+    String name = "abcdefg";
     String s1 = GeneralFunc.encodePwd(name);
     String s2 = GeneralFunc.recodePwd(s1);
     System.out.println(name);
     System.out.println(s1);
     System.out.println(s2);
+
+    String t1 = com.anyi.gp.pub.GeneralFunc.encodePwd(name);
+    String t2 = com.anyi.gp.pub.GeneralFunc.recodePwd(t1);
+    System.out.println(t1);
+    System.out.println(t2);
   }
 }

@@ -1936,7 +1936,7 @@ repeatend
 							<w:sz w:val="24"/>
 							<w:sz-cs w:val="24"/>
 						</w:rPr>
-						<w:t>扬中政府采购</w:t>
+						<w:t>扬中公共资源交易</w:t>
 					</w:r>
 					<w:r wsp:rsidR="00E629FE" wsp:rsidRPr="00CA4393">
 						<w:rPr>
@@ -2061,7 +2061,7 @@ repeatend
 							<w:sz w:val="24"/>
 							<w:sz-cs w:val="24"/>
 						</w:rPr>
-						<w:t>办理详见扬中政府采购</w:t>
+						<w:t>办理详见扬中公共资源交易</w:t>
 					</w:r>
 					<w:r wsp:rsidRPr="00CA4393">
 						<w:rPr>
@@ -2274,7 +2274,7 @@ repeatend
 							<w:sz w:val="24"/>
 							<w:sz-cs w:val="24"/>
 						</w:rPr>
-						<w:t>扬中政府采购</w:t>
+						<w:t>扬中公共资源交易</w:t>
 					</w:r>
 					<w:r wsp:rsidRPr="00CA4393">
 						<w:rPr>
@@ -2296,7 +2296,7 @@ repeatend
 							<w:sz w:val="24"/>
 							<w:sz-cs w:val="24"/>
 						</w:rPr>
-						<w:t>在线交易大厅栏目，</w:t>
+						<w:t>登陆后，</w:t>
 					</w:r>
 					<w:r wsp:rsidRPr="00CA4393">
 						<w:rPr>
@@ -2307,7 +2307,7 @@ repeatend
 							<w:sz w:val="24"/>
 							<w:sz-cs w:val="24"/>
 						</w:rPr>
-						<w:t>使用CA锁可以直接进行网上报价</w:t>
+						<w:t>直接进行网上报价</w:t>
 					</w:r>
 					<w:r wsp:rsidR="006A532F">
 						<w:rPr>
@@ -2374,7 +2374,7 @@ repeatend
 							<w:sz w:val="24"/>
 							<w:sz-cs w:val="24"/>
 						</w:rPr>
-						<w:t>扬中市政府采购中心</w:t>
+						<w:t>扬中市公共资源交易中心</w:t>
 					</w:r>
 				</w:p>
 				<w:p wsp:rsidR="00BF04D9" wsp:rsidRPr="00CA4393" wsp:rsidRDefault="00CD57FE" wsp:rsidP="00CD57FE">

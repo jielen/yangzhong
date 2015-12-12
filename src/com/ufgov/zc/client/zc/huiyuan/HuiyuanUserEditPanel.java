@@ -9,7 +9,6 @@ import java.awt.Dialog.ModalityType;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,14 +62,11 @@ import com.ufgov.zc.common.system.util.Utils;
 import com.ufgov.zc.common.zc.model.HuiyuanUnitcominfo;
 import com.ufgov.zc.common.zc.model.HuiyuanUser;
 import com.ufgov.zc.common.zc.model.ZcBaseBill;
-import com.ufgov.zc.common.zc.model.ZcQx;
-import com.ufgov.zc.common.zc.model.ZcQxBi;
 import com.ufgov.zc.common.zc.publish.IHuiyuanUserDelegate;
 import com.ufgov.zc.common.zc.publish.IZcEbBaseServiceDelegate;
 
 /**
  * @author Administrator
- *
  */
 public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
@@ -78,7 +74,6 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
    * 
    */
   private static final long serialVersionUID = -6247354150917309961L;
-
 
   private static final Logger logger = Logger.getLogger(HuiyuanUserEditPanel.class);
 
@@ -105,7 +100,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
   private FuncButton nextButton = new NextButton();
 
   private FuncButton exitButton = new ExitButton();
- 
+
   protected FuncButton sendButton = new SendButton();
 
   public FuncButton printButton = new PrintButton();
@@ -118,57 +113,60 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
   // 工作流退回
   protected FuncButton unTreadButton = new UntreadButton();
-  
+
   //退回
   protected FuncButton frebackBtn = new CommonButton("freback", null);
+
   //审核通过
   protected FuncButton fpassBtn = new CommonButton("fpass", null);
+
   //审核不通过
   protected FuncButton funpassBtn = new CommonButton("funpass", null);
+
   //作废
   protected FuncButton fdestroyBtn = new CommonButton("fdestroy", null);
+
   //注销
   protected FuncButton fzhuxiaoBtn = new CommonButton("fzhuxiao", null);
+
   //启用
   protected FuncButton fqiyongBtn = new CommonButton("fqiyong", null);
+
   //暂停
   protected FuncButton fzantingBtn = new CommonButton("fzanting", null);
 
   protected ListCursor<HuiyuanUser> listCursor;
 
-  private HuiyuanUser oldHuiyuanUser; 
- 
+  private HuiyuanUser oldHuiyuanUser;
+
   protected HuiyuanUserEditPanel self = this;
 
-  protected GkBaseDialog parent; 
+  protected GkBaseDialog parent;
 
   private ArrayList<ButtonStatus> auditBtnStatusList = new ArrayList<ButtonStatus>();
-  
+
   private ArrayList<ButtonStatus> accountBtnStatusList = new ArrayList<ButtonStatus>();
 
-  private BillElementMeta mainBillElementMeta = BillElementMeta.getBillElementMetaWithoutNd("HUIYUAN_USER");  
- 
+  private BillElementMeta mainBillElementMeta = BillElementMeta.getBillElementMetaWithoutNd("HUIYUAN_USER");
 
-  private IZcEbBaseServiceDelegate zcEbBaseServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class,"zcEbBaseServiceDelegate");
+  private IZcEbBaseServiceDelegate zcEbBaseServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class, "zcEbBaseServiceDelegate");
 
-  private IHuiyuanUserDelegate huiyuanUserServiceDelegate = (IHuiyuanUserDelegate) ServiceFactory.create(IHuiyuanUserDelegate.class,"huiyuanUserDelegate"); 
+  private IHuiyuanUserDelegate huiyuanUserServiceDelegate = (IHuiyuanUserDelegate) ServiceFactory.create(IHuiyuanUserDelegate.class, "huiyuanUserDelegate");
 
   private HuiyuanUnitcominfoEditPanel unitPanel;
-  
-  private HuiyuanUnitcominfo unit=new HuiyuanUnitcominfo();
 
- 
+  private HuiyuanUnitcominfo unit = new HuiyuanUnitcominfo();
 
   public HuiyuanUserEditPanel(HuiyuanUserDialog parent, HuiyuanUnitcominfoEditPanel unitPanel, ListCursor listCursor2) {
     // TCJLODO Auto-generated constructor stub
     super(HuiyuanUserEditPanel.class, BillElementMeta.getBillElementMetaWithoutNd(compoId));
-    
-    this.unitPanel=unitPanel;
-    this.listCursor=listCursor2;
-    this.parent=parent;
 
-    this.workPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), LangTransMeta.translate(compoId),
-      TitledBorder.CENTER, TitledBorder.TOP,new Font("宋体", Font.BOLD, 15), Color.BLUE));
+    this.unitPanel = unitPanel;
+    this.listCursor = listCursor2;
+    this.parent = parent;
+
+    this.workPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), LangTransMeta.translate(compoId), TitledBorder.CENTER, TitledBorder.TOP,
+      new Font("宋体", Font.BOLD, 15), Color.BLUE));
 
     this.colCount = 4;
 
@@ -178,8 +176,8 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
     refreshData();
   }
-  private void refreshData() {
 
+  private void refreshData() {
 
     HuiyuanUser user = (HuiyuanUser) listCursor.getCurrentObject();
 
@@ -188,13 +186,12 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
       this.pageStatus = ZcSettingConstants.PAGE_STATUS_BROWSE;
 
       user = huiyuanUserServiceDelegate.selectByPrimaryKey(user.getUserguid(), this.requestMeta);
- 
+
       listCursor.setCurrentObject(user);
       this.setEditingObject(user);
     } else {//新增按钮进入
 
       this.pageStatus = ZcSettingConstants.PAGE_STATUS_NEW;
- 
 
       setDefaultValue(user);
 
@@ -204,7 +201,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
       this.setEditingObject(user);
 
-    } 
+    }
     refreshSubData(user);
 
     setOldObject();
@@ -260,7 +257,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
     } else {
       for (AbstractFieldEditor editor : fieldEditors) {
         if (pageStatus.equals(ZcSettingConstants.PAGE_STATUS_EDIT) || pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW)) {
-          if ("auditstatus".equals(editor.getFieldName())||"statuscode".equals(editor.getFieldName())) {
+          if ("auditstatus".equals(editor.getFieldName()) || "statuscode".equals(editor.getFieldName())) {
             editor.setEnabled(false);
           } else {
             editor.setEnabled(true);
@@ -268,29 +265,33 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
           isEdit = true;
         } else {
           editor.setEnabled(false);
-        } 
+        }
       }
     }
 
-//    setWFSubTableEditable(biTablePanel, isEdit);
-//
-//    setWFSubTableEditable(itemTablePanel, isEdit);
+    //    setWFSubTableEditable(biTablePanel, isEdit);
+    //
+    //    setWFSubTableEditable(itemTablePanel, isEdit);
 
   }
+
   private void setOldObject() {
     // TCJLODO Auto-generated method stub
     oldHuiyuanUser = (HuiyuanUser) ObjectUtil.deepCopy(listCursor.getCurrentObject());
   }
+
   private void refreshSubData(HuiyuanUser user) {
     // TCJLODO Auto-generated method stub
-    
+
   }
+
   private void setDefaultValue(HuiyuanUser user) {
     // TCJLODO Auto-generated method stub
     user.setAuditstatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_DRAFT);
     user.setStatuscode(ZcSettingConstants.HUI_YUAN_ACCOUNT_STATUS_ZAN_TING);
     user.setUsertype("1");//这个用户类型值集不知，数据库需要填，目前默认用1
   }
+
   /* (non-Javadoc)
    * @see com.ufgov.zc.client.component.zc.AbstractMainSubEditPanel#initToolBar(com.ufgov.zc.client.component.JFuncToolBar)
    */
@@ -306,29 +307,28 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
     toolBar.add(saveButton);
 
-//    toolBar.add(sendButton);
- 
-//    toolBar.add(suggestPassButton); 
+    //    toolBar.add(sendButton);
 
-//    toolBar.add(unAuditButton);
+    //    toolBar.add(suggestPassButton); 
 
-//    toolBar.add(unTreadButton);
+    //    toolBar.add(unAuditButton);
 
-//    toolBar.add(callbackButton);
+    //    toolBar.add(unTreadButton);
 
- 
-//    toolBar.add(printButton);
+    //    toolBar.add(callbackButton);
 
-//    toolBar.add(traceButton);
+    //    toolBar.add(printButton);
 
-//    toolBar.add(previousButton);
+    //    toolBar.add(traceButton);
 
-//    toolBar.add(nextButton);
-//    
+    //    toolBar.add(previousButton);
+
+    //    toolBar.add(nextButton);
+    //    
     toolBar.add(fpassBtn);
     toolBar.add(funpassBtn);
-//    toolBar.add(frebackBtn);
-//    toolBar.add(fdestroyBtn);
+    //    toolBar.add(frebackBtn);
+    //    toolBar.add(fdestroyBtn);
     toolBar.add(deleteButton);
     toolBar.add(fqiyongBtn);
     toolBar.add(fzantingBtn);
@@ -344,7 +344,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
       }
 
-    }); 
+    });
 
     fzantingBtn.addActionListener(new ActionListener() {
 
@@ -354,7 +354,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
       }
 
-    }); 
+    });
 
     fqiyongBtn.addActionListener(new ActionListener() {
 
@@ -364,7 +364,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
       }
 
-    }); 
+    });
     fpassBtn.addActionListener(new ActionListener() {
 
       public void actionPerformed(ActionEvent e) {
@@ -373,7 +373,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
       }
 
-    }); 
+    });
     funpassBtn.addActionListener(new ActionListener() {
 
       public void actionPerformed(ActionEvent e) {
@@ -382,7 +382,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
       }
 
-    }); 
+    });
     frebackBtn.addActionListener(new ActionListener() {
 
       public void actionPerformed(ActionEvent e) {
@@ -391,7 +391,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
       }
 
-    }); 
+    });
     fdestroyBtn.addActionListener(new ActionListener() {
 
       public void actionPerformed(ActionEvent e) {
@@ -400,8 +400,8 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
       }
 
-    }); 
- 
+    });
+
     editButton.addActionListener(new ActionListener() {
 
       public void actionPerformed(ActionEvent e) {
@@ -410,7 +410,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
       }
 
-    }); 
+    });
 
     sendButton.addActionListener(new ActionListener() {
 
@@ -542,18 +542,16 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
     });
   }
- 
- 
 
   protected void doDestroy() {
     // TCJLODO Auto-generated method stub
-    updateAuditStatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_DESTROY);    
+    updateAuditStatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_DESTROY);
   }
 
   protected void doReback() {
     // TCJLODO Auto-generated method stub
     updateAuditStatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_BACK);
-    
+
   }
 
   protected void doUnPass() {
@@ -622,7 +620,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
         if (!doSave()) {
 
-          return;
+        return;
 
         }
 
@@ -650,7 +648,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
         if (!doSave()) {
 
-          return;
+        return;
 
         }
 
@@ -680,7 +678,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
     if (!checkBeforeSave()) {
 
-      return false;
+    return false;
 
     }
 
@@ -688,15 +686,14 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
     String errorInfo = "";
 
-
     HuiyuanUser inData = (HuiyuanUser) this.listCursor.getCurrentObject();
-    
+
     try {
 
       requestMeta.setFuncId(saveButton.getFuncId());
 
-      HuiyuanUser user = huiyuanUserServiceDelegate.saveFN(inData, this.requestMeta); 
-      
+      HuiyuanUser user = huiyuanUserServiceDelegate.saveFN(inData, this.requestMeta);
+
       listCursor.setCurrentObject(user);
 
     } catch (Exception e) {
@@ -728,7 +725,6 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
   private boolean updateAuditStatus(String auditStatus) {
 
-    
     boolean success = true;
 
     String errorInfo = "";
@@ -764,7 +760,6 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
       refreshData();
       unitPanel.refreshSubData((HuiyuanUser) this.listCursor.getCurrentObject());
 
-
     } else {
 
       JOptionPane.showMessageDialog(this, "操作失败 ！\n" + errorInfo, "错误", JOptionPane.ERROR_MESSAGE);
@@ -774,34 +769,28 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
     return success;
 
   }
+
   /**
-
    * 保存前校验
-
    * @param cpApply
-
    * @return
-
    */
 
   protected boolean checkBeforeSave() {
 
-    List mainNotNullList = mainBillElementMeta.getNotNullBillElement();  
-    
+    List mainNotNullList = mainBillElementMeta.getNotNullBillElement();
+
     HuiyuanUser user = (HuiyuanUser) this.listCursor.getCurrentObject();
 
     StringBuilder errorInfo = new StringBuilder();
 
     String mainValidateInfo = ZcUtil.validateBillElementNull(user, mainNotNullList);
- 
 
     if (mainValidateInfo.length() != 0) {
 
       errorInfo.append("\n").append(mainValidateInfo.toString()).append("\n");
 
     }
-
-   
 
     if (errorInfo.length() != 0) {
 
@@ -810,10 +799,9 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
       return false;
 
     }
- 
+
     return true;
   }
-  
 
   protected void doDelete() {
     requestMeta.setFuncId(deleteButton.getFuncId());
@@ -832,8 +820,8 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
         errorInfo += e.getMessage();
       }
 
-      if (success) { 
-        JOptionPane.showMessageDialog(this, "删除成功！", "提示", JOptionPane.INFORMATION_MESSAGE); 
+      if (success) {
+        JOptionPane.showMessageDialog(this, "删除成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
         unitPanel.refreshSubData((HuiyuanUser) this.listCursor.getCurrentObject());
         parent.closeDialog();
       } else {
@@ -854,7 +842,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
     if (bean == null) {
 
-      return;
+    return;
 
     }
 
@@ -904,7 +892,6 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
       unitPanel.refreshSubData((HuiyuanUser) this.listCursor.getCurrentObject());
 
-
     } else {
 
       JOptionPane.showMessageDialog(this, "收回失败 ！" + errorInfo, "错误", JOptionPane.ERROR_MESSAGE);
@@ -917,7 +904,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
     if (!checkBeforeSave()) {
 
-      return;
+    return;
 
     }
 
@@ -949,7 +936,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
     if (commentDialog.cancel) {
 
-      return;
+    return;
 
     }
 
@@ -992,8 +979,6 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
     }
 
   }
- 
- 
 
   /*
 
@@ -1001,8 +986,8 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
    */
 
-  protected void doUnAudit() { 
-    HuiyuanUser user = (HuiyuanUser) ObjectUtil.deepCopy(this.listCursor.getCurrentObject()); 
+  protected void doUnAudit() {
+    HuiyuanUser user = (HuiyuanUser) ObjectUtil.deepCopy(this.listCursor.getCurrentObject());
 
     boolean success = true;
 
@@ -1014,7 +999,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
     if (i != 0) {
 
-      return;
+    return;
 
     }
 
@@ -1046,7 +1031,6 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
       unitPanel.refreshSubData((HuiyuanUser) this.listCursor.getCurrentObject());
 
-
     } else {
 
       JOptionPane.showMessageDialog(this, "销审失败 ！" + errorInfo, "错误", JOptionPane.ERROR_MESSAGE);
@@ -1057,16 +1041,12 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
   private void stopTableEditing() {
 
-    
-
   }
 
   public boolean isDataChanged() {
 
     stopTableEditing();
-    if (!this.saveButton.isVisible() || !saveButton.isEnabled()) {
-      return false;
-    }
+    if (!this.saveButton.isVisible() || !saveButton.isEnabled()) { return false; }
 
     return !DigestUtil.digest(oldHuiyuanUser).equals(DigestUtil.digest(listCursor.getCurrentObject()));
 
@@ -1086,7 +1066,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
     if (commentDialog.cancel) {
 
-      return;
+    return;
 
     }
 
@@ -1128,7 +1108,6 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
       unitPanel.refreshSubData((HuiyuanUser) this.listCursor.getCurrentObject());
 
-
     } else {
 
       JOptionPane.showMessageDialog(this, "退回失败 ！" + errorInfo, "错误", JOptionPane.ERROR_MESSAGE);
@@ -1150,7 +1129,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
     setButtonStatus();
 
   }
-  
+
   public void doExit() {
     // TCJLODO Auto-generated method stub
 
@@ -1162,7 +1141,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
         if (!doSave()) {
 
-          return;
+        return;
 
         }
 
@@ -1201,7 +1180,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
       auditBtnStatusList.add(bs);
-      
+
       bs = new ButtonStatus();
       bs.setButton(this.editButton);
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
@@ -1209,15 +1188,15 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
       auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
-      bs.setButton(this.saveButton);      
-      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_EDIT);      
-      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_NEW);      
+      bs.setButton(this.saveButton);
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_EDIT);
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_NEW);
       bs.addPageStatus(ZcSettingConstants.BILL_STATUS_ALL);
 
       auditBtnStatusList.add(bs);
       bs = new ButtonStatus();
-      bs.setButton(this.deleteButton);      
-      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE); 
+      bs.setButton(this.deleteButton);
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
       bs.addBillStatus("1");//编辑中
       bs.addBillStatus("2");//待审核
       auditBtnStatusList.add(bs);
@@ -1262,8 +1241,8 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
       bs.setButton(this.printButton);
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
       bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
-      auditBtnStatusList.add(bs); 
-      
+      auditBtnStatusList.add(bs);
+
       //----
       bs = new ButtonStatus();
       bs.setButton(this.fpassBtn);
@@ -1273,32 +1252,33 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
       bs.addBillStatus("4");//审核不通过
       bs.addBillStatus("5");//作废
       bs.addBillStatus("7");//退回
-      auditBtnStatusList.add(bs); 
+      auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
       bs.setButton(this.funpassBtn);
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
       bs.addBillStatus("1");//编辑中
       bs.addBillStatus("2");//待审核 
-      auditBtnStatusList.add(bs); 
+      auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
       bs.setButton(this.fdestroyBtn);
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
       bs.addBillStatus("1");//编辑中
-      auditBtnStatusList.add(bs); 
+      auditBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
       bs.setButton(this.frebackBtn);
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
       bs.addBillStatus("1");//编辑中
-      auditBtnStatusList.add(bs); 
+      auditBtnStatusList.add(bs);
     }
 
     HuiyuanUser qx = (HuiyuanUser) this.listCursor.getCurrentObject();
     String billStatus = qx.getAuditstatus();
     ZcUtil.setButtonEnable(this.auditBtnStatusList, billStatus, this.pageStatus, getCompoId(), qx.getProcessInstId());
   }
+
   /**
    * 设置审核相关按钮状态s
    */
@@ -1306,7 +1286,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
 
     if (this.accountBtnStatusList.size() == 0) {
 
-      ButtonStatus bs = new ButtonStatus(); 
+      ButtonStatus bs = new ButtonStatus();
       //----
       bs = new ButtonStatus();
       bs.setButton(this.fqiyongBtn);
@@ -1314,45 +1294,46 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
       bs.addBillStatus("1");//注销 
       bs.addBillStatus("3");//暂停
       bs.addBillStatus("4");//处罚中 
-      accountBtnStatusList.add(bs); 
+      accountBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
       bs.setButton(this.fzantingBtn);
-      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE); 
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
       bs.addBillStatus("2");//启用 
-      accountBtnStatusList.add(bs); 
+      accountBtnStatusList.add(bs);
 
       bs = new ButtonStatus();
       bs.setButton(this.fzhuxiaoBtn);
-      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE); 
+      bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
       bs.addBillStatus("2");//启用
       bs.addBillStatus("3");//暂停
       bs.addBillStatus("4");//处罚中 
-      accountBtnStatusList.add(bs);  
+      accountBtnStatusList.add(bs);
     }
 
     HuiyuanUser qx = (HuiyuanUser) this.listCursor.getCurrentObject();
     String billStatus = qx.getStatuscode();
     ZcUtil.setButtonEnable(this.accountBtnStatusList, billStatus, this.pageStatus, getCompoId(), qx.getProcessInstId());
   }
+
   /* (non-Javadoc)
    * @see com.ufgov.zc.client.component.zc.AbstractMainSubEditPanel#createFieldEditors()
    */
   @Override
   public List<AbstractFieldEditor> createFieldEditors() {
     // TCJLODO Auto-generated method stub
-    
+
     TextFieldEditor userDogNum = new TextFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_DOGNUM), "dognum");
     TextFieldEditor userLoginID = new TextFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_LOGINID), "loginid");
-    AsValFieldEditor userAuditStatus = new AsValFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_AUDITSTATUS), "auditstatus",ZcSettingConstants.V_HUI_YUAN_AUDIT_STATUS);
-    AsValFieldEditor userStatusCode = new AsValFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_STATUSCODE), "statuscode",ZcSettingConstants.V_HUI_YUAN_ACCOUNT_STATUS);
-    
+    AsValFieldEditor userAuditStatus = new AsValFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_AUDITSTATUS), "auditstatus", ZcSettingConstants.V_HUI_YUAN_AUDIT_STATUS);
+    AsValFieldEditor userStatusCode = new AsValFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_STATUSCODE), "statuscode", ZcSettingConstants.V_HUI_YUAN_ACCOUNT_STATUS);
+
     TextFieldEditor userDisplayName = new TextFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_DISPLAYNAME), "displayname");
     DateFieldEditor userBirthDay = new DateFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_BIRTHDAY), "birthday");
-    AsValFieldEditor userSex = new AsValFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_SEX), "sex",ZcSettingConstants.V_HUI_YUAN_SEX);
-    
+    AsValFieldEditor userSex = new AsValFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_SEX), "sex", ZcSettingConstants.V_HUI_YUAN_SEX);
+
     TextFieldEditor userIDCard = new TextFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_IDCARD), "idcard");
-    TextFieldEditor userCompanyPhone = new TextFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_COMPANYPHONE), "companyphone"); 
+    TextFieldEditor userCompanyPhone = new TextFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_COMPANYPHONE), "companyphone");
     TextFieldEditor userMobilePhone = new TextFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_MOBILEPHONE), "mobilephone");
     TextFieldEditor userEMail = new TextFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_EMAIL), "email");
     TextAreaFieldEditor userComAddressAreaField = new TextAreaFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_COMADDRESS), "comaddress", 200, 1, 7);
@@ -1360,11 +1341,11 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
     TextAreaFieldEditor userRemarkAreaField = new TextAreaFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_REMARK), "remark", 240, 2, 7);
     DateFieldEditor userYXQ = new DateFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_YXQ), "yxq");
     TextFieldEditor userDeviceNum = new TextFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_DEVICENUM), "devicenum");
-    TextFieldEditor userJiaoYanNo = new TextFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_JIAOYANNO), "jiaoyanno"); 
+    TextFieldEditor userJiaoYanNo = new TextFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_JIAOYANNO), "jiaoyanno");
     DateFieldEditor userCertYouXiaoQi = new DateFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_CERTYOUXIAOQI), "certyouxiaoqi");
     TextAreaFieldEditor userCertSubjectKeyIDAreaField = new TextAreaFieldEditor(LangTransMeta.translate(HuiyuanUser.COL_CERTSUBJECTKEYID), "certsubjectkeyid", 2000, 5, 7);
-    
-    fieldEditors=new ArrayList<AbstractFieldEditor>();
+
+    fieldEditors = new ArrayList<AbstractFieldEditor>();
 
     fieldEditors.add(userDisplayName);
     fieldEditors.add(userLoginID);
@@ -1375,22 +1356,22 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
     fieldEditors.add(userBirthDay);
     fieldEditors.add(userSex);
     fieldEditors.add(userYXQ);
-    
+
     fieldEditors.add(userCompanyPhone);
     fieldEditors.add(userMobilePhone);
     fieldEditors.add(userEMail);
     fieldEditors.add(userComZip);
-    
+
     fieldEditors.add(userComAddressAreaField);
-    
+
     fieldEditors.add(userDogNum);
     fieldEditors.add(userDeviceNum);
-    fieldEditors.add(userJiaoYanNo);    
+    fieldEditors.add(userJiaoYanNo);
     fieldEditors.add(userCertYouXiaoQi);
-    
+
     fieldEditors.add(userCertSubjectKeyIDAreaField);
     fieldEditors.add(userRemarkAreaField);
-    
+
     return fieldEditors;
   }
 
@@ -1403,28 +1384,25 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
     return null;
   }
 
-  protected void doQiyong() { 
+  protected void doQiyong() {
     HuiyuanUser inData = (HuiyuanUser) this.listCursor.getCurrentObject();
-    if(!inData.getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)){
+    if (!inData.getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)) {
       JOptionPane.showMessageDialog(this, "只有审核通过的用户才可以启用！", "提示", JOptionPane.INFORMATION_MESSAGE);
       return;
     }
-    updateAccountStatus("启用",fqiyongBtn);
+    updateAccountStatus("启用", fqiyongBtn);
   }
 
-  private void updateAccountStatus(String opreation,FuncButton btn) {
+  private void updateAccountStatus(String opreation, FuncButton btn) {
     // TCJLODO Auto-generated method stub
-    int num = JOptionPane.showConfirmDialog(this, "确定要"+opreation+"吗?" , opreation+"确认", 0);
-    if (num == JOptionPane.NO_OPTION)
-    {
-      return;
-    }
-      
-    boolean success = true; 
-    String errorInfo = ""; 
+    int num = JOptionPane.showConfirmDialog(this, "确定要" + opreation + "吗?", opreation + "确认", 0);
+    if (num == JOptionPane.NO_OPTION) { return; }
+
+    boolean success = true;
+    String errorInfo = "";
     HuiyuanUser inData = (HuiyuanUser) this.listCursor.getCurrentObject();
     try {
-      requestMeta.setFuncId(btn.getFuncId()); 
+      requestMeta.setFuncId(btn.getFuncId());
       HuiyuanUser qx = huiyuanUserServiceDelegate.upateAccountStatusFN(inData, this.requestMeta);
       listCursor.setCurrentObject(qx);
     } catch (Exception e) {
@@ -1433,31 +1411,31 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
       errorInfo += e.getMessage();
     }
     if (success) {
-      JOptionPane.showMessageDialog(this, opreation+"成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+      JOptionPane.showMessageDialog(this, opreation + "成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
       refreshData();
       unitPanel.refreshSubData((HuiyuanUser) this.listCursor.getCurrentObject());
     } else {
-      JOptionPane.showMessageDialog(this, opreation+"失败 ！\n" + errorInfo, "错误", JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(this, opreation + "失败 ！\n" + errorInfo, "错误", JOptionPane.ERROR_MESSAGE);
     }
   }
 
   protected void doZanting() {
     // TCJLODO Auto-generated method stub 
     HuiyuanUser inData = (HuiyuanUser) this.listCursor.getCurrentObject();
-    if(!inData.getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)){
+    if (!inData.getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)) {
       JOptionPane.showMessageDialog(this, "只有审核通过的用户才可以暂停！", "提示", JOptionPane.INFORMATION_MESSAGE);
       return;
     }
-    updateAccountStatus("暂停",fzantingBtn);    
+    updateAccountStatus("暂停", fzantingBtn);
   }
 
   protected void doZhuxiao() {
     // TCJLODO Auto-generated method stub 
     HuiyuanUser inData = (HuiyuanUser) this.listCursor.getCurrentObject();
-    if(!inData.getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)){
+    if (!inData.getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)) {
       JOptionPane.showMessageDialog(this, "只有审核通过的用户才可以注销！", "提示", JOptionPane.INFORMATION_MESSAGE);
       return;
     }
-    updateAccountStatus("注销",fzhuxiaoBtn);
+    updateAccountStatus("注销", fzhuxiaoBtn);
   }
 }

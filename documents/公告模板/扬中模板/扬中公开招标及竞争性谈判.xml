@@ -854,7 +854,7 @@
 						<w:sz w:val="24"/>
 						<w:sz-cs w:val="24"/>
 					</w:rPr>
-					<w:t>7、领取招标文件时应携带上述有效期内4-6资质文件的复印件（加盖单位公章）及承诺函（见“扬中政府采购网”本项目招标公告中“标书下载”，用户名和密码均为</w:t>
+					<w:t>7、领取招标文件时应携带上述有效期内4-6资质文件的复印件（加盖单位公章）及承诺函（见“扬中公告资源交易网”本项目招标公告中“标书下载”，用户名和密码均为</w:t>
 				</w:r>
 				<w:proofErr w:type="spellStart"/>
 				<w:r wsp:rsidRPr="00F12BAF">
@@ -1665,7 +1665,7 @@ repeatend
 						<w:sz w:val="24"/>
 						<w:sz-cs w:val="24"/>
 					</w:rPr>
-					<w:t>扬中市政府采购中心</w:t>
+					<w:t>扬中市公告资源交易中心</w:t>
 				</w:r>
 			</w:p>
 			<w:p wsp:rsidR="00F12BAF" wsp:rsidRPr="00F12BAF" wsp:rsidRDefault="00F12BAF" wsp:rsidP="0009732A">

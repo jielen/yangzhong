@@ -38,9 +38,9 @@ import com.ufgov.zc.common.zc.model.ZcPProMake;
 import com.ufgov.zc.server.system.dao.IWorkflowDao;
 import com.ufgov.zc.server.system.util.AsOptionUtil;
 import com.ufgov.zc.server.system.util.NumLimUtil;
-import com.ufgov.zc.server.system.util.NumUtil;
 import com.ufgov.zc.server.system.workflow.WFEngineAdapter;
 import com.ufgov.zc.server.webservice.zwdt.ZwdtWebServiceUtil;
+import com.ufgov.zc.server.zc.ZcSUtil;
 import com.ufgov.zc.server.zc.dao.IBaseDao;
 import com.ufgov.zc.server.zc.dao.IDataExchangeDao;
 import com.ufgov.zc.server.zc.dao.IZcEbBulletinDao;
@@ -69,7 +69,7 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
   private IZcEbProjService zcEbProjService;
 
   private IZcEbPlanService zcEbPlanService;
-  
+
   private IZcEbZbFileService zcEbZbFileService;
 
   private boolean isDataChange = false;
@@ -160,37 +160,39 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
       }
     }
     zcEbBulletinDao.insert(zcEbBulletin);
-    String bulletinType=zcEbBulletin.getBulletinType();
-    if(bulletinType!=null && bulletinType.indexOf("zhaobiao")>=0){
+    String bulletinType = zcEbBulletin.getBulletinType();
+    if (bulletinType != null && bulletinType.indexOf("zhaobiao") >= 0) {
       savePlan(zcEbBulletin, meta);
       saveZbFile(zcEbBulletin, meta);
     }
-    return zcEbBulletin ;
+    return zcEbBulletin;
   }
 
   /*
    * 保存招标执行计划
    */
-  private void savePlan(ZcEbBulletin zcEbBulletin, RequestMeta meta) throws BusinessException{
-    if(zcEbBulletin.getZcEbPlan()==null || zcEbBulletin.getZcEbPlan().getBidEndTime()==null) throw new BusinessException("缺失相关招标执行计划！");
+  private void savePlan(ZcEbBulletin zcEbBulletin, RequestMeta meta) throws BusinessException {
+    if (zcEbBulletin.getZcEbPlan() == null || zcEbBulletin.getZcEbPlan().getBidEndTime() == null) throw new BusinessException("缺失相关招标执行计划！");
     zcEbBulletin.getZcEbPlan().setProjCode(zcEbBulletin.getProjCode());
     zcEbBulletin.getZcEbPlan().setProjName(zcEbBulletin.getProjName());
-    if(zcEbBulletin.getZcEbPlan().getOpenBidTime()==null)zcEbBulletin.getZcEbPlan().setOpenBidTime(zcEbBulletin.getZcEbPlan().getBidEndTime());
-    if(zcEbBulletin.getZcEbPlan().getSellEndTime()==null)zcEbBulletin.getZcEbPlan().setSellEndTime(zcEbBulletin.getZcEbPlan().getBidEndTime());
-    if(zcEbBulletin.getZcEbPlan().getNd()==null)zcEbBulletin.getZcEbPlan().setNd(new Integer(meta.getSvNd()));
+    if (zcEbBulletin.getZcEbPlan().getOpenBidTime() == null) zcEbBulletin.getZcEbPlan().setOpenBidTime(zcEbBulletin.getZcEbPlan().getBidEndTime());
+    if (zcEbBulletin.getZcEbPlan().getSellEndTime() == null) zcEbBulletin.getZcEbPlan().setSellEndTime(zcEbBulletin.getZcEbPlan().getBidEndTime());
+    if (zcEbBulletin.getZcEbPlan().getNd() == null) zcEbBulletin.getZcEbPlan().setNd(new Integer(meta.getSvNd()));
     zcEbPlanService.save(zcEbBulletin.getZcEbPlan(), meta);
   }
+
   /*
    * 更新招标word文件
    */
-  private void saveZbFile(ZcEbBulletin zcEbBulletin, RequestMeta meta){
-    if(!zcEbBulletin.getZcEbProj().getPurType().equals(ZcSettingConstants.ZC_CGFS_XJ)){//非询价的采购
+  private void saveZbFile(ZcEbBulletin zcEbBulletin, RequestMeta meta) {
+    if (!zcEbBulletin.getZcEbProj().getPurType().equals(ZcSettingConstants.ZC_CGFS_XJ)) {//非询价的采购
       //更新招标word文件
-      ZcEbProjZbFile zbfile=(ZcEbProjZbFile) zcEbBulletin.getZcEbProj().getProjFileList().get(0);
+      ZcEbProjZbFile zbfile = (ZcEbProjZbFile) zcEbBulletin.getZcEbProj().getProjFileList().get(0);
       zcEbZbFileService.insertOrUpdateZcEbProjZBFile(zbfile, "update");
-    }      
+    }
   }
-  public int update(ZcEbBulletin zcEbBulletin, RequestMeta meta)  throws BusinessException{
+
+  public int update(ZcEbBulletin zcEbBulletin, RequestMeta meta) throws BusinessException {
     int rows = zcEbBulletinDao.updateSelectBulletin(zcEbBulletin);
     baseDao.delete("ZcEbBulletin.deleteBulletinPackByPrimaryKey", zcEbBulletin.getBulletinID());
     if (zcEbBulletin.getPackList() != null) {
@@ -201,8 +203,8 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
       }
     }
     //保存招标执行计划
-    String bulletinType=zcEbBulletin.getBulletinType();
-    if(bulletinType!=null && bulletinType.indexOf("zhaobiao")>=0){
+    String bulletinType = zcEbBulletin.getBulletinType();
+    if (bulletinType != null && bulletinType.indexOf("zhaobiao") >= 0) {
       savePlan(zcEbBulletin, meta);
       saveZbFile(zcEbBulletin, meta);
     }
@@ -266,7 +268,6 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
 
   /**
    * 删除掉同一栏目中相同title的文章
-   * 
    * @param title
    * @param pletIDs
    */
@@ -281,7 +282,6 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
 
   /**
    * 根据栏目的id获得所有的栏目下的文章id
-   * 
    * @param pletIDs
    * @return id1,id2,id3,....
    */
@@ -315,7 +315,6 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
 
   /**
    * 根据文章id删除指定的文章
-   * 
    * @param ids
    */
   private void deleteArticleWithIDs(List ids) {
@@ -326,7 +325,6 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
 
   /**
    * 根据栏目id和文章id删除栏目和文章的关联表
-   * 
    * @param artIDs
    * @param pletIDs
    */
@@ -396,9 +394,7 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
   }
 
   public void createExchangeData(ZcEbBulletin tin, RequestMeta meta) {
-    if (isDataChange) {
-      return;
-    }
+    if (isDataChange) { return; }
     DataExchangeRedo redo = new DataExchangeRedo();
     if ("frelease".equals(meta.getFuncId())) {
       redo.setRecordName("发布公告");
@@ -424,9 +420,7 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
 
   public List findTransData(ElementConditionDto dto, RequestMeta meta) {
     List list = new ArrayList();
-    if (dto.getPmAdjustCodeList() == null) {
-      return list;
-    }
+    if (dto.getPmAdjustCodeList() == null) { return list; }
     for (int i = 0; i < dto.getPmAdjustCodeList().size(); i++) {
       DataExchangeRedo redo = (DataExchangeRedo) dto.getPmAdjustCodeList().get(i);
       String id = redo.getRecordID();
@@ -510,7 +504,7 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
   }
 
   public ZcEbBulletin auditFN(ZcEbBulletin bulletin, RequestMeta requestMeta) throws Exception {
-    checkCanSend(bulletin);
+    //    checkCanSend(bulletin);
     zcEbBulletinDao.updateSelectBulletin(bulletin);
 
     wfEngineAdapter.commit(bulletin.getComment(), bulletin, requestMeta);
@@ -519,15 +513,13 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
   }
 
   private void checkCanSend(ZcEbBulletin bulletin) throws Exception {
-//    if (!"B".equals(bulletin.getBulletinType())) {
-//      return;
-//    }
+    //    if (!"B".equals(bulletin.getBulletinType())) {
+    //      return;
+    //    }
     Integer temp = (Integer) baseDao.read("ZcEbBulletin.checkCanSend", bulletin.getProjCode());
     int temp2 = temp == null ? 0 : temp.intValue();
     int count = temp2;
-    if (count > 0) {
-      throw new Exception("招标文件未终审，不能进行该操作");
-    }
+    if (count > 0) { throw new Exception("招标文件未终审，不能进行该操作"); }
   }
 
   private ZcEbBulletin getZcEbBulletinById(String id) {
@@ -559,9 +551,7 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
       ZcPProMake make = new ZcPProMake();
       make.setZcMakeCode(bulletin.getProjCode());
       list = this.baseDao.query("ZC_P_PRO_MAKE.ibatorgenerated_selectByPrimaryKey", make);
-      if (list != null && list.size() > 0) {
-        return (ZcPProMake) list.get(0);
-      }
+      if (list != null && list.size() > 0) { return (ZcPProMake) list.get(0); }
     } else {
       ElementConditionDto con = new ElementConditionDto();
       con.setZcText1(bulletin.getProjCode());
@@ -637,9 +627,7 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
 
   public ZcEbBulletin sendRecord(ZcEbBulletin bulletin, RequestMeta requestMeta) {
     String cgcfzr = getCgcfzr(bulletin, requestMeta);
-    if (cgcfzr == null || "".equals(cgcfzr)) {
-      throw new RuntimeException("不能确认此项目，对应采购处负责人！");
-    }
+    if (cgcfzr == null || "".equals(cgcfzr)) { throw new RuntimeException("不能确认此项目，对应采购处负责人！"); }
     WorkflowContext workflowContext = wfEngineAdapter.genCommonWFC(bulletin.getComment(), bulletin, requestMeta);
     List result = new ArrayList();
     result.add(cgcfzr);
@@ -650,35 +638,41 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
 
   public ZcEbBulletin publishBulletinFN(ZcEbBulletin tin, String dir, Map option, RequestMeta meta) throws Exception {
     // 更新外网网站
-//    System.out.println("公告开始更新外网开始");
-    addOut(tin,meta);
-//    System.out.println("公告更新外网结束");
+    System.out.println("公告开始更新外网开始");
+    //更新原自己的网站
+    addOut(tin, meta);
+    //发布到第三者网站，目前扬中使用
+    if ("y".equalsIgnoreCase(ZcSUtil.getAsOptionVal(ZcSettingConstants.OPT_ZC_SEND_TO_THIRD_WEB))) {
+      ZcEbBulletinPublishUtil pu = new ZcEbBulletinPublishUtil();
+      pu.publishBulletin(tin);
+    }
+    System.out.println("公告更新外网结束");
 
     // 配置数据
-//    final MailInfo mailInfo = new MailInfo();
-//    String server = "";
-//    String comp = "";
-//    String pass = "";
-//
-//    mailInfo.setMailServerHost(option.get("OPT_ZC_MAIL_FROM_POP").toString());
-//    mailInfo.setMailServerPort(option.get("OPT_ZC_MAIL_FROM_PORT").toString());
-//    mailInfo.setUserName(option.get("OPT_ZC_MAIL_FROM_USER").toString());
-//    mailInfo.setFromAddress(option.get("OPT_ZC_MAIL_FROM_USER").toString());
-//    mailInfo.setPassword(option.get("OPT_ZC_MAIL_FROM_PASS").toString());
-//    if (tin.getCgtype() != null && ("1".equals(tin.getCgtype()) || "2".equals(tin.getCgtype()))) {
-//      mailInfo.setToAddress(option.get("OPT_ZC_MAIL_TO_GKYQ_USER").toString());
-//    } else {
-//      mailInfo.setToAddress(option.get("OPT_ZC_MAIL_TO_USER").toString());
-//    }
-//    mailInfo.setSubject(option.get("OPT_ZC_MAIL_TITLE") + tin.getBulname());
-//    server = option.get("OPT_ZC_MAIL_INTERFACE_SERVER").toString();
-//    comp = option.get("OPT_ZC_MAIL_INTERFACE_COMP").toString();
-//    pass = option.get("OPT_ZC_MAIL_INTERFACE_PASS").toString();
+    //    final MailInfo mailInfo = new MailInfo();
+    //    String server = "";
+    //    String comp = "";
+    //    String pass = "";
+    //
+    //    mailInfo.setMailServerHost(option.get("OPT_ZC_MAIL_FROM_POP").toString());
+    //    mailInfo.setMailServerPort(option.get("OPT_ZC_MAIL_FROM_PORT").toString());
+    //    mailInfo.setUserName(option.get("OPT_ZC_MAIL_FROM_USER").toString());
+    //    mailInfo.setFromAddress(option.get("OPT_ZC_MAIL_FROM_USER").toString());
+    //    mailInfo.setPassword(option.get("OPT_ZC_MAIL_FROM_PASS").toString());
+    //    if (tin.getCgtype() != null && ("1".equals(tin.getCgtype()) || "2".equals(tin.getCgtype()))) {
+    //      mailInfo.setToAddress(option.get("OPT_ZC_MAIL_TO_GKYQ_USER").toString());
+    //    } else {
+    //      mailInfo.setToAddress(option.get("OPT_ZC_MAIL_TO_USER").toString());
+    //    }
+    //    mailInfo.setSubject(option.get("OPT_ZC_MAIL_TITLE") + tin.getBulname());
+    //    server = option.get("OPT_ZC_MAIL_INTERFACE_SERVER").toString();
+    //    comp = option.get("OPT_ZC_MAIL_INTERFACE_COMP").toString();
+    //    pass = option.get("OPT_ZC_MAIL_INTERFACE_PASS").toString();
 
     // 更新公告内容
-//    System.out.println("公告开始更新外网开始aa");
+    //    System.out.println("公告开始更新外网开始aa");
     baseDao.update("ZcEbBulletin.updateByPrimaryKeySelective", tin);
-//    System.out.println("公告开始更新外网开始bb");
+    //    System.out.println("公告开始更新外网开始bb");
     if (ZcEbBulletin.ZHAOBIAO_DYLY.equals(tin.getBulletinType())) {
       // baseDao.update("ZcEbBulletin.updateZcEbPlanBidEndDate", tin);
       ZcEbPackPlan pp = new ZcEbPackPlan();
@@ -686,33 +680,33 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
       pp.setBidEndTime(tin.getOpenBidTime());
       pp.setOpenBidTime(tin.getOpenBidTime());
       pp.setSellEndTime(tin.getFailureDate());
-//      System.out.println("公告开始更新外网开始cc");
+      //      System.out.println("公告开始更新外网开始cc");
       baseDao.insert("ZcEbBulletin.insertDlyBidInfo", tin.getBulletinID());
-//      System.out.println("公告开始更新外网开始dd");
+      //      System.out.println("公告开始更新外网开始dd");
       for (int i = 0; i < tin.getPackList().size(); i++) {
         ZcEbBulletinPack bp = (ZcEbBulletinPack) tin.getPackList().get(i);
         pp.setPackCode(bp.getPackCode());
-//        System.out.println("公告开始更新外网开始ee");
+        //        System.out.println("公告开始更新外网开始ee");
         baseDao.delete("ZcEbBulletin.deletePackPlanByPrimaryKey", pp);
-//        System.out.println("公告开始更新外网开始ff");
+        //        System.out.println("公告开始更新外网开始ff");
         baseDao.insert("ZcEbBulletin.insertPackPlan", pp);
-//        System.out.println("公告开始更新外网开始gg");
+        //        System.out.println("公告开始更新外网开始gg");
       }
     }
 
-    System.out.println("公告开始更新外网开始hh");
+    //    System.out.println("公告开始更新外网开始hh");
     baseDao.update("ZC_WCMS_CONTENT.updateDeclarationContent", tin);
-    System.out.println("公告开始更新外网开始kk");
-    
+    //    System.out.println("公告开始更新外网开始kk");
+
     // 调用用政务大厅接口
-//    sendBulletinToZWDT(tin, option, server, comp, pass);
+    //    sendBulletinToZWDT(tin, option, server, comp, pass);
 
     // 送审
     wfEngineAdapter.commit(tin.getComment(), tin, meta);
-    
+
     //延期、变更公告时，给报名供应商发邮件通知
-//    String content = tin.getFile().toString();
-//    sendMailToSupplier(tin, mailInfo, content);
+    //    String content = tin.getFile().toString();
+    //    sendMailToSupplier(tin, mailInfo, content);
 
     // 取最新值
     HashMap map = new HashMap();
@@ -729,12 +723,9 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
    * @param pass
    * @throws RuntimeException
    * @throws Exception
-   * @throws UnsupportedEncodingException
-   * Administrator 
-   * Jul 15, 2013
+   * @throws UnsupportedEncodingException Administrator Jul 15, 2013
    */
-  private void sendBulletinToZWDT(ZcEbBulletin tin, Map option, String server, String comp, String pass) throws RuntimeException, Exception,
-    UnsupportedEncodingException {
+  private void sendBulletinToZWDT(ZcEbBulletin tin, Map option, String server, String comp, String pass) throws RuntimeException, Exception, UnsupportedEncodingException {
     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SS");
     String code = option.get("C-" + tin.getBulletinType()).toString();
     if (code == null || "".equals(code)) {
@@ -752,21 +743,18 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
     } catch (Exception e) {
       throw new RuntimeException("配置政务大厅发布公告有效期出错！");
     }
-    String result = ZwdtWebServiceUtil.callZWDTService(server, comp, pass, code, new String(tin.getBulname().getBytes("utf-8"), "utf-8"), tin
-      .getFile().toString(), df.format(new Date()), df.format(c.getTime()), "", "", "");
+    String result = ZwdtWebServiceUtil.callZWDTService(server, comp, pass, code, new String(tin.getBulname().getBytes("utf-8"), "utf-8"), tin.getFile().toString(), df.format(new Date()),
+      df.format(c.getTime()), "", "", "");
     if (!"0".equals(result)) {
 
-      throw new RuntimeException("调用政务大厅接口出错！");
-    }
+    throw new RuntimeException("调用政务大厅接口出错！"); }
   }
 
   /**
    * 延期、变更公告时，给报名供应商发邮件通知
    * @param tin
    * @param mailInfo
-   * @param content
-   * Administrator 
-   * Jul 15, 2013
+   * @param content Administrator Jul 15, 2013
    */
   private void sendMailToSupplier(ZcEbBulletin tin, final MailInfo mailInfo, String content) {
     // 延期、变更公告时，给报名供应商发邮件通知
@@ -811,7 +799,7 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
 
   private void addOut(ZcEbBulletin zcEbBulletin, RequestMeta meta) {
     // TCJLODO Auto-generated method stub
-//    System.out.println("公告开始更新外网开始11");
+    //    System.out.println("公告开始更新外网开始11");
     DeclarationContent dc = new DeclarationContent();
     dc.setID(zcEbBulletin.getBulletinID());
     dc.setDeclarationType(getBulType(zcEbBulletin.getBulletinType()));
@@ -820,7 +808,7 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
     } else {
       dc.setProjCode(zcEbBulletin.getProjCode());
     }
-//    System.out.println("公告开始更新外网开始22");
+    //    System.out.println("公告开始更新外网开始22");
     dc.setDownloadInfo(zcEbBulletin.getDownLoad());
     List list = baseDao.query("ZC_WCMS_CONTENT.getBulInfo", dc.getProjCode());
     if (list != null && list.size() > 0) {
@@ -833,11 +821,11 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
       dc.setOrgName(dcs.getOrgName());
       dc.setExecutorName(dcs.getExecutorName());
       dc.setRegion("220000");
-//      dc.setRegion(EleRegionUsingUtil.getInstance().getTopEleRegionCode());
+      //      dc.setRegion(EleRegionUsingUtil.getInstance().getTopEleRegionCode());
       zcEbBulletin.setCgtype(dcs.getBidMenu());
       zcEbBulletin.setBulname(dcs.getDeclarationType());
     }
-//    System.out.println("公告开始更新外网开始33");
+    //    System.out.println("公告开始更新外网开始33");
     if (zcEbBulletin.getBulname() == null || "".equals(zcEbBulletin.getBulname())) {
       zcEbBulletin.setBulname(zcEbBulletin.getProjName());
     }
@@ -847,79 +835,56 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
     c.setType("DECLARATION");
     c.setIsImport("Y");
     c.setAuthor(zcEbBulletin.getExecutor());
-//    System.out.println("=====公告内容====\n"+zcEbBulletin.getFile());
+    //    System.out.println("=====公告内容====\n"+zcEbBulletin.getFile());
     c.setContent(zcEbBulletin.getFile().toString());
     c.setCreateDate(zcEbBulletin.getExecuteDate());
     // c.setExpireDate(zcEbBulletin.getFailureDate());
     c.setID(zcEbBulletin.getBulletinID());
     // c.setValidDate(zcEbBulletin.getEffectiveDate());
-//    System.out.println("公告开始更新外网开始44");
+    //    System.out.println("公告开始更新外网开始44");
     baseDao.insert("ZC_WCMS_CONTENT.insertContent", c);
-//    System.out.println("公告开始更新外网开始55");
+    //    System.out.println("公告开始更新外网开始55");
     baseDao.insert("ZC_WCMS_CONTENT.insertDeclarationContent", dc);
-//    System.out.println("公告开始更新外网开始66");
+    //    System.out.println("公告开始更新外网开始66");
   }
 
   private String getBulType(String str) {
     // ZQYJGG("征求意见公告"),
-    if ("O".equals(str)) {
-      return "ZQYJGG";
-    }
+    if ("O".equals(str)) { return "ZQYJGG"; }
     // GSGG("公示公告"),
-    if ("GS".equals(str)) {
-      return "GSGG";
-    }
+    if ("GS".equals(str)) { return "GSGG"; }
     // ZGYSGG("资格预审公告"),
-    if ("ZGYS".equals(str)) {
-      return "ZGYSGG";
-    }
+    if ("ZGYS".equals(str)) { return "ZGYSGG"; }
     // ZHAOBGG("招标公告"),
     // CGGG("采购公告"),
-    if (ZcEbBulletin.ZHAOBIAO_GKZB.equals(str) 
-      ||ZcEbBulletin.ZHAOBIAO_YQZB.equals(str) 
-      ||ZcEbBulletin.ZHAOBIAO_JZXTP.equals(str)
-      ||ZcEbBulletin.ZHAOBIAO_XJ.equals(str)
-      ||ZcEbBulletin.ZHAOBIAO_DYLY.equals(str) 
-      ||ZcEbBulletin.ZHAOBIAO_QT.equals(str)) {
-      return "ZHAOBGG";
-    }
+    if (ZcEbBulletin.ZHAOBIAO_GKZB.equals(str) || ZcEbBulletin.ZHAOBIAO_YQZB.equals(str) || ZcEbBulletin.ZHAOBIAO_JZXTP.equals(str) || ZcEbBulletin.ZHAOBIAO_XJ.equals(str)
+      || ZcEbBulletin.ZHAOBIAO_DYLY.equals(str) || ZcEbBulletin.ZHAOBIAO_QT.equals(str)) { return "ZHAOBGG"; }
     // XJGG("询价公告"),
-   /* if (ZcEbBulletin.ZHAOBIAO_XJ.equals(str) ) {
-      return "XJGG";
-    }*/
+    /* if (ZcEbBulletin.ZHAOBIAO_XJ.equals(str) ) {
+       return "XJGG";
+     }*/
     // BGGG("变更公告"),
-    if ("C".equals(str) || "D".equals(str)) {
-      return "BGGG";
-    }
+    if ("C".equals(str) || "D".equals(str)) { return "BGGG"; }
 
     // YZBGS("预中标公示"),
-    if ("YZB".equals(str)) {
-      return "YZBGS";
-    }
+    if ("YZB".equals(str)) { return "YZBGS"; }
     // ZHONGBGG("中标公告"),
     // CJGG("成交公告"),
     // JGGG("结果公告");
-    if (ZcEbBulletin.ZHONGBIAO_GKZB.equals(str)
-      ||ZcEbBulletin.ZHONGBIAO_YQZB.equals(str)
-      ||ZcEbBulletin.ZHONGBIAO_JZXTP.equals(str)
-      ||ZcEbBulletin.ZHONGBIAO_XJ.equals(str)
-      ||ZcEbBulletin.ZHONGBIAO_DYLY.equals(str)
-      ||ZcEbBulletin.ZHONGBIAO_QT.equals(str)) {
-      return "ZHONGBGG";
-    }
+    if (ZcEbBulletin.ZHONGBIAO_GKZB.equals(str) || ZcEbBulletin.ZHONGBIAO_YQZB.equals(str) || ZcEbBulletin.ZHONGBIAO_JZXTP.equals(str) || ZcEbBulletin.ZHONGBIAO_XJ.equals(str)
+      || ZcEbBulletin.ZHONGBIAO_DYLY.equals(str) || ZcEbBulletin.ZHONGBIAO_QT.equals(str)) { return "ZHONGBGG"; }
     return str;
   }
+
   public ZcEbBulletin getZcEbBulletinByKey(String key, RequestMeta meta) {
     // TCJLODO Auto-generated method stub
     Map map = new HashMap();
     map.put("BULLETIN_ID", key);
     List list = baseDao.query("ZcEbBulletin.readBulletinById", map);
-    if (list == null || list.size() == 0) {
-      return new ZcEbBulletin();
-    }
+    if (list == null || list.size() == 0) { return new ZcEbBulletin(); }
 
     ZcEbBulletin tin = (ZcEbBulletin) list.get(0);
-//    tin.setRoleCode((String) baseDao.read("AsRole.getRoleCodeById", meta.getSvRoleId()));
+    //    tin.setRoleCode((String) baseDao.read("AsRole.getRoleCodeById", meta.getSvRoleId()));
     if ("C".equals(tin.getBulletinType())) {
       Map map1 = new HashMap();
       map1.put("projCode", tin.getProjectCode());// 变更公告，projectCode存放的是zc_Eb_proj表中的proj_code的值
@@ -933,7 +898,7 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
       ZcEbProj zcEbProj = (ZcEbProj) baseDao.read("ZcEbProj.getOriginalZcEbProjByProjCode", tin.getProjectCode());
 
       zcEbProj.setProjFileList(baseDao.query("ZcEbProjZbFile.getZcEbProjZbFileByProjCode", tin.getProjectCode()));
-      
+
       Date publishDate = (Date) baseDao.read("ZcEbBulletin.selectGgPubListDate", tin.getProjectCode());
 
       if (publishDate != null) {
@@ -942,8 +907,8 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
       }
 
       tin.setZcEbProj(zcEbProj);
-    } else{
-      ZcEbProj zcEbProj=zcEbProjService.getZcEbProjByProjCode(tin.getProjCode());
+    } else {
+      ZcEbProj zcEbProj = zcEbProjService.getZcEbProjByProjCode(tin.getProjCode());
       tin.setZcEbProj(zcEbProj);
       tin.setZcEbPlan(zcEbProj.getPlan());
       if (ZcEbBulletinConstants.TYPE_BULLETIN_DLY.equals(tin.getBulletinType())) {
