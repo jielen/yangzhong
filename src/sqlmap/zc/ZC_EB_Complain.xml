@@ -5,20 +5,17 @@
 
 <sqlMap namespace="ZCComplain">
 
-	<typeAlias alias="elementCondition"
-		type="com.ufgov.zc.common.system.dto.ElementConditionDto" />
+	<typeAlias alias="elementCondition"	type="com.ufgov.zc.common.system.dto.ElementConditionDto" />
 
-	<typeAlias alias="ZCQuestion" type="com.ufgov.zc.common.zc.model.ZCQuestion" />
+	<typeAlias alias="ZcEbQuestion" type="com.ufgov.zc.common.zc.model.ZcEbQuestion" />
 
 	<typeAlias alias="ZcEbProj" type="com.ufgov.zc.common.zc.model.ZcEbProj" />
 
 	<typeAlias alias="ZcEbSignup" type="com.ufgov.zc.common.zc.model.ZcEbSignup" />
 
-	<typeAlias alias="ZcEbSignupPackDetail"
-		type="com.ufgov.zc.common.zc.model.ZcEbSignupPackDetail" />
+	<typeAlias alias="ZcEbSignupPackDetail"	type="com.ufgov.zc.common.zc.model.ZcEbSignupPackDetail" />
 
-	<typeAlias alias="ZCEbQuestionPack"
-		type="com.ufgov.zc.common.zc.model.ZCQuestionPack" />
+	<typeAlias alias="ZCEbQuestionPack"	type="com.ufgov.zc.common.zc.model.ZcEbQuestionPack" />
 
 	<typeAlias alias="ZcEbPack" type="com.ufgov.zc.common.zc.model.ZcEbPack" />
 
@@ -37,42 +34,12 @@
 		<!-- <result property="clientTSFile" column="CLIENTTSFILE" /> -->
 		<result property="temp" column="TEMP" />
 		<result property="processInstId" column="PROCESS_INST_ID" />
-		<result property="zcQuestion.sn" column="QUES_ID" />
+		<result property="zcQuestion.zyCode" column="QUES_ID" />
 		<result property="zcQuestion" column="QUES_ID"
 			select="ZCComplain.selectQuestionBySn" />
 	</resultMap>
 
-	<resultMap id="ZCQuestionResult" class="ZCQuestion">
-		<result property="sn" column="id" />
-		<result property="zcEbProj.projCode" column="PROJ" />
-		<result property="quesId" column="QUES_ID" />
-		<result property="personOrg" column="PERSONORG" />
-		<result property="personName" column="PERSON" />
-		<result property="personTel" column="PERSON_TEL" />
-		<result property="createDate" column="CREATEDATE" />
-		<result property="clientSubmitZYDate" column="CLIENT_SUBMIT_ZYDATE" />
-		<result property="clientReason" column="CLIENT_REASON" />
-		<result property="clientFileName" column="CLIENT_FILENAME" />
-		<result property="jbPerson" column="JB_PERSON" />
-		<result property="jbReason" column="JB_REASON" />
-		<result property="jbFileName" column="JB_FILENAME" />
-		<result property="jbDoDate" column="JB_DODATE" />
-		<!--
-			<result property="clientSubmitTSDate" column="CLIENT_SUBMIT_TSDATE"
-			/> <result property="jgPerson" column="JG_PERSON" /> <result
-			property="jgReason" column="JG_REASON" /> <result
-			property="jgFileName" column="JG_FILENAME" /> <result
-			property="jgDoDate" column="JG_DODATE" />
-		-->
-		<result property="state" column="STATE" />
-		<result property="temp" column="TEMP" />
-		<result property="temp1" column="TEMP1" />
-		<result property="temp2" column="TEMP2" />
-		<result property="temp3" column="TEMP3" />
-		<result property="processInstId" column="PROCESS_INST_ID"
-			jdbcType="NUMERIC" javaType="java.lang.Long" />
-		<result property="zcEbProj" column="PROJ"
-			select="ZCQuestion.getProjByProjCode" />
+	<resultMap id="ZCQuestionResult" class="ZcEbQuestion">    <result column="ZY_CODE" property="zyCode" jdbcType="VARCHAR" />    <result column="PROJ_CODE" property="projCode" jdbcType="VARCHAR" />    <result column="ZY_UNIT" property="zyUnit" jdbcType="VARCHAR" />    <result column="ZY_DATE" property="zyDate" jdbcType="DATE" />    <result column="ZY_LINK_MAN" property="zyLinkMan" jdbcType="VARCHAR" />    <result column="ZY_LINK_TEL" property="zyLinkTel" jdbcType="VARCHAR" />    <result column="ZY_FILE" property="zyFile" jdbcType="VARCHAR" />    <result column="ZY_FILE_BLOBID" property="zyFileBlobid" jdbcType="VARCHAR" />    <result column="HY_DATE" property="hyDate" jdbcType="DATE" />    <result column="HY_FILE" property="hyFile" jdbcType="VARCHAR" />    <result column="HY_FILE_BLOBID" property="hyFileBlobid" jdbcType="VARCHAR" />    <result column="INPUTOR" property="inputor" jdbcType="VARCHAR" />    <result column="INPUT_DATE" property="inputDate" jdbcType="DATE" />    <result column="STATUS" property="status" jdbcType="VARCHAR" />    <result column="PROJ_JBR" property="projJbr" jdbcType="VARCHAR" />    <result column="PROJ_NAME" property="projName" jdbcType="VARCHAR" />    <result column="ND" property="nd" jdbcType="VARCHAR" />    <result column="PROCESS_INST_ID" property="processInstId" jdbcType="DECIMAL" />    <result column="REMARK" property="remark" jdbcType="VARCHAR" />    <result column="DANWEINAME" property="zyUnitName" jdbcType="VARCHAR" />    <result column="ZY_TYPE" property="zyType" jdbcType="VARCHAR" />    <result column="ZY_CONTENT" property="zyContent" jdbcType="CLOB" typeHandler="org.springframework.orm.ibatis.support.ClobStringTypeHandler" />    <result column="HY_CONTENT" property="hyContent" jdbcType="CLOB" typeHandler="org.springframework.orm.ibatis.support.ClobStringTypeHandler" />  
 	</resultMap>
 
 	<!-- 报名相关 -->
@@ -151,14 +118,7 @@
 		<result property="openBidRemark" column="OPEN_BID_REMARK" />
 		<result property="submitBidDocDate" column="SUBMIT_BID_DOC_DATE" />
 	</resultMap>
-
-	<resultMap id="ZCEbQuestionPackResult" class="ZCEbQuestionPack">
-		<result property="id" column="id" />
-		<result property="quesId" column="ques_id" />
-		<result property="zcEbPack.packCode" column="packCode" />
-		<result property="zcEbPack" column="packCode" select="ZCQuestion.selectPack" />
-	</resultMap>
-
+  <resultMap id="packResultMap" class="com.ufgov.zc.common.zc.model.ZcEbQuestionPack" >      <result column="ZY_CODE" property="zyCode" jdbcType="VARCHAR" />     <result column="PACK_CODE" property="packCode" jdbcType="VARCHAR" />  	    <result column="PACK_NAME" property="packName" jdbcType="VARCHAR" />  	    <result column="PACK_CONTENT" property="packContent" jdbcType="VARCHAR" />  	  </resultMap>   
 	<resultMap class="ZcEbPack" id="ZcEbPackResult">
 		<result property="packCode" column="PACK_CODE" />
 		<result property="packName" column="PACK_NAME" />
@@ -272,10 +232,10 @@
 	</select>
 
 	<!-- 后面读取信息的时候获取分包信息 -->
-	<select id="getPackList" parameterClass="ZCQuestion" resultMap="ZCEbQuestionPackResult">
+	<select id="getPackList" parameterClass="ZcEbQuestion" resultMap="packResultMap">
 		SELECT *
 		FROM zc_eb_question_pack qp
-		WHERE qp.ques_id=#sn#
+		WHERE qp.zy_code=#zyCode#
 	</select>
 
 	<!-- 获取项目信息通过项目ID -->
@@ -317,7 +277,7 @@
 		values (
 		seq_complain.nextval,
 		#complainId:VARCHAR#,
-		#zcQuestion.sn:VARCHAR#,
+		#zcQuestion.zyCode:VARCHAR#,
 		#state:VARCHAR#,
 		#jgPerson:VARCHAR#,
 		#jgReason:VARCHAR#,
@@ -335,7 +295,7 @@
 		update zc_eb_complain
 		set
 		COMPLAIN_ID=#complainId:VARCHAR#,
-		QUES_ID=#zcQuestion.sn:VARCHAR#,
+		QUES_ID=#zcQuestion.zyCode:VARCHAR#,
 		STATE=#state:VARCHAR#,
 		JGPERSON=#jgPerson:VARCHAR#,
 		JGREASON=#jgReason:VARCHAR#,

@@ -153,7 +153,7 @@
       JINYINGFANWEI = #jinyingfanwei:VARCHAR#,
       YINGYEQIXIANFROM = #yingyeqixianfrom:DATE#,
       YINGYEQIXIANTO = #yingyeqixianto:DATE#,
-      COMPANYDES = #companydes:VARCHAR#,
+      COMPANYDES = #companydes,handler=org.springframework.orm.ibatis.support.ClobStringTypeHandler#,
       BUILDDATE = #builddate:DATE#,
       MAINITEM = #mainitem:VARCHAR#,
       MIANPRODUCT = #mianproduct:VARCHAR#,

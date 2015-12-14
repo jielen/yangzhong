@@ -638,114 +638,74 @@
 		where 1=1
 
 		<isNotEqual prepend="and" compareValue="0" property="nd">
-
 			ZC_EB_PROJ.ND = #nd#
-
 		</isNotEqual>
 
 		<isNotNull prepend="and" property="zcText0">
-
-			ZC_EB_PROJ.PUR_TYPE in
-
-			($zcText0$)
-
+			ZC_EB_PROJ.PUR_TYPE in ($zcText0$)
 		</isNotNull>
 
 		<include refid="BusiNumLim.BusiNumLimStr" />
-
+		
 		<isNotNull prepend="and" property="bulletinType">
 			not exists (select 1 from
 			ZC_EB_BULLETIN b where b.proj_code = ZC_EB_PROJ.Proj_Code and
 			b.bulletin_type = #bulletinType#)
 		</isNotNull>
 
-
 		<isNotNull prepend="and" property="status">
 
 			<isEqual property="status" compareValue="todo">
-
 				ZC_EB_PROJ.PROCESS_INST_ID in (select instance_id from
-
-				V_WF_CURRENT_TASK_ZC_TODO where executor =#executor# and instance_id
-
-				= ZC_EB_PROJ.process_inst_id)
-
+				V_WF_CURRENT_TASK_ZC_TODO where executor =#executor# and instance_id= ZC_EB_PROJ.process_inst_id)
 			</isEqual>
 
 			<isEqual property="status" compareValue="untread">
-
-				exists ( select
-
-				instance_id from V_WF_CURRENT_TASK_ZC_UNTREAD where executor
-
-				=#executor# and instance_id = ZC_EB_PROJ.process_inst_id)
-
+				exists ( select	instance_id from V_WF_CURRENT_TASK_ZC_UNTREAD where executor=#executor# and instance_id = ZC_EB_PROJ.process_inst_id)
 			</isEqual>
 
 			<isEqual property="status" compareValue="done">
 
 				ZC_EB_PROJ.PROCESS_INST_ID in (select
-
 				instance_id from
-
-				V_WF_ACTION_HISTORY_GK53 where executor =
-
-				#executor# and instance_id
-
-				= ZC_EB_PROJ.process_inst_id)
-
+				V_WF_ACTION_HISTORY_GK53 where executor =#executor# and instance_id= ZC_EB_PROJ.process_inst_id)
 				and
-
 				ZC_EB_PROJ.status!='cancel'
-
 				and
-
 				ZC_EB_PROJ.status!='exec'
-
 				and ZC_EB_PROJ.status !='finish'
 
 			</isEqual>
 
 			<isEqual property="status" compareValue="exec">
 
-				(ZC_EB_PROJ.status
-
-				='exec' or ZC_EB_PROJ.status='finish')
+				(ZC_EB_PROJ.status='exec' or ZC_EB_PROJ.status='finish')
 
 			</isEqual>
 
 			<isEqual property="status" compareValue="draft">
 
-				exists (select
+				exists (select	WF_DRAFT_NAME from as_wf_draft where user_id=#executor# and
 
-				WF_DRAFT_NAME from as_wf_draft where user_id=#executor# and
-
-				compo_id=#wfcompoId# and WF_DRAFT_ID=ZC_EB_PROJ.process_inst_id)
-				and
-				ZC_EB_PROJ.status!='cancel'
+				compo_id=#wfcompoId# and WF_DRAFT_ID=ZC_EB_PROJ.process_inst_id) and ZC_EB_PROJ.status!='cancel'
 
 			</isEqual>
 
 			<isEqual property="status" compareValue="doing">
 
-				(ZC_EB_PROJ.status
-
-				='exec')
+				(ZC_EB_PROJ.status='exec')
 
 			</isEqual>
 
 			<isEqual property="status" compareValue="finish">
 
-				(ZC_EB_PROJ.status
-
-				='finish')
+				(ZC_EB_PROJ.status='finish')
 
 			</isEqual>
 
 			<isEqual property="status" compareValue="cancel">
 
-				(ZC_EB_PROJ.status
-				='cancel')
+				(ZC_EB_PROJ.status='cancel')
 
 			</isEqual>
 
@@ -823,9 +783,7 @@
 				</isNotNull>
 
 				<isNotNull prepend="and" property="manageCode">
-
 					ZC_EB_PROJ.EXECUTOR=#manageCode#
-
 				</isNotNull>
 
 			</isEqual>
@@ -836,8 +794,14 @@
 			ZC_EB_PROJ.PUR_TYPE!=#zcPifuCgfs#
 
 		</isNotNull>
-
-		<!-- ORDER BY INPUT_DATE DESC -->
+		<isNotNull prepend="and" property="zcText3">
+			<isEqual property="zcText3" compareValue="forZhiYi">
+				(
+				ZC_EB_PROJ.status='exec'
+				and exists( select 1 from zc_eb_bulletin b where b.proj_code=ZC_EB_PROJ.proj_code and b.bulletin_type like 'zhaobiao%' AND B.BULLETIN_STATUS='exec')
+				)
+			</isEqual>
+		</isNotNull> 
 
 		ORDER BY WH.D DESC
 
