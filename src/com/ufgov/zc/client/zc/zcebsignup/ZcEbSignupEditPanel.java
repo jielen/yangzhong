@@ -28,6 +28,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
@@ -44,6 +45,7 @@ import com.ufgov.zc.client.common.MyTableModel;
 import com.ufgov.zc.client.common.ServiceFactory;
 import com.ufgov.zc.client.common.WorkEnv;
 import com.ufgov.zc.client.common.converter.ZcEbSignupToTableModelConverter;
+import com.ufgov.zc.client.component.FileUploader;
 import com.ufgov.zc.client.component.GkBaseDialog;
 import com.ufgov.zc.client.component.JFuncToolBar;
 import com.ufgov.zc.client.component.JTablePanel;
@@ -73,6 +75,7 @@ import com.ufgov.zc.client.component.zc.fieldeditor.FileFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.ForeignEntityFieldCellEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.ForeignEntityFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.SupplierFieldEditor;
+import com.ufgov.zc.client.component.zc.fieldeditor.TextAreaFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.TextFieldEditor;
 import com.ufgov.zc.client.datacache.AsValDataCache;
 import com.ufgov.zc.client.util.SwingUtil;
@@ -80,7 +83,6 @@ import com.ufgov.zc.client.zc.ButtonStatus;
 import com.ufgov.zc.client.zc.ZcUtil;
 import com.ufgov.zc.common.system.Guid;
 import com.ufgov.zc.common.system.RequestMeta;
-import com.ufgov.zc.common.system.constants.WFConstants;
 import com.ufgov.zc.common.system.constants.ZcElementConstants;
 import com.ufgov.zc.common.system.constants.ZcSettingConstants;
 import com.ufgov.zc.common.system.constants.ZcValSetConstants;
@@ -92,6 +94,7 @@ import com.ufgov.zc.common.zc.foreignentity.IForeignEntityHandler;
 import com.ufgov.zc.common.zc.model.ZcEbPack;
 import com.ufgov.zc.common.zc.model.ZcEbPackPlan;
 import com.ufgov.zc.common.zc.model.ZcEbPackSupplier;
+import com.ufgov.zc.common.zc.model.ZcEbPlan;
 import com.ufgov.zc.common.zc.model.ZcEbProj;
 import com.ufgov.zc.common.zc.model.ZcEbSignup;
 import com.ufgov.zc.common.zc.model.ZcEbSignupPackDetail;
@@ -140,13 +143,13 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
 
   private final FuncButton helpButton = new HelpButton();
 
-//  private final FuncButton auditButton = new AuditButton();
-//
-//  private final FuncButton unAuditButton = new UnauditButton();
+  //  private final FuncButton auditButton = new AuditButton();
+  //
+  //  private final FuncButton unAuditButton = new UnauditButton();
 
-  private final FuncButton bidButton = new CommonButton("zc_fsignup","报名","audit.jpg");
+  private final FuncButton bidButton = new CommonButton("zc_fsignup", "报名", "audit.jpg");
 
-  private final FuncButton unBidButton =  new CommonButton("zc_funsignup","撤销报名","callback.jpg");
+  private final FuncButton unBidButton = new CommonButton("zc_funsignup", "撤销报名", "callback.jpg");
 
   private final ListCursor listCursor;
 
@@ -157,6 +160,10 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
   private final ZcEbSignupListPanel listPanel;
 
   private JTablePanel tablePanel = null;
+
+  JTabbedPane ziZhiTabPanel = new JTabbedPane();
+
+  JTabbedPane subTabPane = new JTabbedPane();
 
   private final ZcEbSignupEditPanel self = this;
 
@@ -185,9 +192,12 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
   private final BillElementMeta detailBillElementMeta = BillElementMeta.getBillElementMetaWithoutNd(this.compoId + "_PACK");
 
   private FileFieldEditor zbwjEditor = null;
+
   private FileFieldEditor zbwjWordEditor = null;
 
-private SupplierFieldEditor supplierEditor=null;
+  private SupplierFieldEditor supplierEditor = null;
+
+  private FileFieldEditor signupFileEditor;
 
   public ZcEbSignupEditPanel(ZcEbSignupDialog parent, ListCursor listCursor, String tabStatus, ZcEbSignupListPanel listPanel) {
 
@@ -203,9 +213,10 @@ private SupplierFieldEditor supplierEditor=null;
 
     this.parent = parent;
 
-    this.workPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), LangTransMeta.translate("ZC_SUPPLIER_SIGNUP_TITLE"),
+    this.workPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
+      LangTransMeta.translate("ZC_SUPPLIER_SIGNUP_TITLE"),
 
-    TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体", Font.BOLD, 15), Color.BLUE));
+      TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体", Font.BOLD, 15), Color.BLUE));
 
     this.colCount = 3;
 
@@ -235,52 +246,90 @@ private SupplierFieldEditor supplierEditor=null;
 
   private void setButtonStatus() {
 
-   /* ZcEbSignup signup = (ZcEbSignup) this.listCursor.getCurrentObject();
-
-    if ("1".equals(signup.getStatus())) {
-
-      addButton.setEnabled(true);
-
+    ZcEbSignup signup = (ZcEbSignup) this.listCursor.getCurrentObject();
+    if (ZcUtil.isGys()) {
       saveButton.setEnabled(false);
-
-      deleteButton.setEnabled(false);
-
-      previousButton.setEnabled(true);
-
-      editButton.setEnabled(false);
-
-      nextButton.setEnabled(true);
-
       exitButton.setEnabled(true);
-
       helpButton.setEnabled(true);
-
       bidButton.setEnabled(true);
-
       unBidButton.setEnabled(true);
-
-    } else if ("0".equals(signup.getStatus())) {
-
-      addButton.setEnabled(true);
-
+    }
+    if (ZcUtil.isCgzx()) {
       saveButton.setEnabled(true);
-
-      deleteButton.setEnabled(true);
-
-      previousButton.setEnabled(true);
-
       editButton.setEnabled(true);
-
-      nextButton.setEnabled(true);
-
       exitButton.setEnabled(true);
-
       helpButton.setEnabled(true);
-
-      bidButton.setEnabled(true);
-
+      bidButton.setEnabled(false);
       unBidButton.setEnabled(false);
-    }*/
+    }
+
+    /*if (this.btnStatusList.size() == 0) {
+
+     ButtonStatus bs = new ButtonStatus();
+     bs.setButton(this.addButton);
+     bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
+     bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
+     btnStatusList.add(bs);
+
+     bs = new ButtonStatus();
+     bs.setButton(this.editButton);
+     bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
+     bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
+     btnStatusList.add(bs);
+
+     bs = new ButtonStatus();
+     bs.setButton(this.saveButton);
+     bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_EDIT);
+     bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_NEW);
+     bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
+     btnStatusList.add(bs);
+
+     bs = new ButtonStatus();
+     bs.setButton(this.deleteButton);
+     bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
+     bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
+     btnStatusList.add(bs);
+
+     bs = new ButtonStatus();
+     bs.setButton(this.exitButton);
+     bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_ALL);
+     bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
+     btnStatusList.add(bs);
+
+     bs = new ButtonStatus();
+     bs.setButton(this.helpButton);
+     bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_ALL);
+     bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
+     btnStatusList.add(bs);
+
+     bs = new ButtonStatus();
+     bs.setButton(this.previousButton);
+     bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
+     bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
+     btnStatusList.add(bs);
+
+     bs = new ButtonStatus();
+     bs.setButton(this.nextButton);
+     bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
+     bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
+     btnStatusList.add(bs);
+
+     bs = new ButtonStatus();
+     bs.setButton(this.bidButton);
+     bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
+     bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
+     btnStatusList.add(bs);
+
+     bs = new ButtonStatus();
+     bs.setButton(this.unBidButton);
+     bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
+     bs.addBillStatus(ZcSettingConstants.BILL_STATUS_ALL);
+     btnStatusList.add(bs);
+    }
+
+    ZcEbSignup signup = (ZcEbSignup) (this.listCursor.getCurrentObject());
+    ZcUtil.setButtonEnable(this.btnStatusList, ZcSettingConstants.BILL_STATUS_ALL, this.pageStatus, this.compoId, signup.getProcessInstId());
+    */
 
   }
 
@@ -404,8 +453,6 @@ private SupplierFieldEditor supplierEditor=null;
 
   }*/
 
-
-
   private void refreshData() {
 
     // TODO Auto-generated method stub
@@ -442,35 +489,36 @@ private SupplierFieldEditor supplierEditor=null;
       listCursor.setCurrentObject(bean);
       signup = bean;
     }
-    if(signup.getStatus().equals("0")){
-        this.pageStatus = ZcSettingConstants.PAGE_STATUS_NEW;
+    if (signup.getStatus().equals("0")) {
+      this.pageStatus = ZcSettingConstants.PAGE_STATUS_NEW;
     }
     this.setEditingObject(signup);
 
     List detailList = new ArrayList();
 
     if (signup != null && (signup.getSignupPacks() == null || signup.getSignupPacks().size() == 0)) {
-    	ElementConditionDto dto=new ElementConditionDto();
-    	if(signup.getStatus().equals("0")){//获取当前的所有项目分包
-    		dto.setZcText0(signup.getProjCode());
-    	}else{//获取已经报名的分包
-    		dto.setZcText1(signup.getSignupId());
-    	}
-		 detailList = zcEbSignupServiceDelegate.getZcEbSignupPackDetail(dto, requestMeta);
-    	signup.setSignupPacks(detailList);
+      ElementConditionDto dto = new ElementConditionDto();
+      if (signup.getStatus().equals("0")) {//获取当前的所有项目分包
+        dto.setZcText0(signup.getProjCode());
+      } else {//获取已经报名的分包
+        dto.setZcText1(signup.getSignupId());
+      }
+      detailList = zcEbSignupServiceDelegate.getZcEbSignupPackDetail(dto, requestMeta);
+      signup.setSignupPacks(detailList);
 
     }
-  /*  if (WFConstants.AUDIT_TAB_STATUS_CANCEL.equals(signup.getStatus())) {
-      setCancelStatus(listCursor);
-    }*/
+    /*  if (WFConstants.AUDIT_TAB_STATUS_CANCEL.equals(signup.getStatus())) {
+        setCancelStatus(listCursor);
+      }*/
 
     refreshSubTableData(signup.getSignupPacks());
 
     setOldObject();
     //具有采购中心供应商报名角色的人，并且是新增状态，可用选择供应商
-    if(WorkEnv.getInstance().containRole(ZcSettingConstants.ROLE_CGZX_GYSBM) && signup.getStatus().equals("0")){
-    	supplierEditor.setEnabled(true);
+    if (WorkEnv.getInstance().containRole(ZcSettingConstants.ROLE_CGZX_GYSBM) && signup.getStatus().equals("0")) {
+      supplierEditor.setEnabled(true);
     }
+    setButtonStatus();
   }
 
   private void setDefualtValue(ZcEbSignup signup, String pageStatus) {
@@ -543,6 +591,26 @@ private SupplierFieldEditor supplierEditor=null;
 
     setTableProperty(tablePanel.getTable());
 
+    refreshZiZhiPanel(deList);
+  }
+
+  private void refreshZiZhiPanel(List deList) {
+    // TODO Auto-generated method stub
+    if (ziZhiTabPanel.getTabCount() > 0) {//已经初始化好了，不需要在初始化      
+      return;
+    }
+    if (deList == null)
+      return;
+    for (int i = 0; i < deList.size(); i++) {
+      ZcEbSignupPackDetail detail = (ZcEbSignupPackDetail) deList.get(i);
+      if ("Y".equalsIgnoreCase(detail.getIsCheckQualification())) {
+        TextAreaFieldEditor tx = new TextAreaFieldEditor("", "qualificationRequire", 2000, 10, 10);
+        tx.setEnabled(false);
+        tx.setEditObject(detail);
+        JScrollPane j = new JScrollPane(tx);
+        ziZhiTabPanel.add(detail.getPackName(), j);
+      }
+    }
   }
 
   public List convertZcEbPackToSignupPack(List packs) {
@@ -562,6 +630,9 @@ private SupplierFieldEditor supplierEditor=null;
       detail.setPackName(pack.getPackName());
 
       detail.setPackDesc(pack.getPackDesc());
+      detail.setBidDeposit(pack.getBidDeposit());
+      detail.setIsCheckQualification(pack.getIsCheckQualification());
+      detail.setQualificationRequire(pack.getQualificationRequire());
 
       if (pack.getBidDocPrice() == null) {
 
@@ -625,42 +696,42 @@ private SupplierFieldEditor supplierEditor=null;
   protected void updateFieldEditorsEditable() {
 
     super.updateFieldEditors();
-/*
-    if (this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW) || this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_EDIT)) {
+    /*
+        if (this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW) || this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_EDIT)) {
 
-      for (AbstractFieldEditor fd : this.fieldEditors) {
+          for (AbstractFieldEditor fd : this.fieldEditors) {
 
-        if (fd.getFieldName() != null
+            if (fd.getFieldName() != null
 
-        && (fd.getFieldName().equals("signupDate") || fd.getFieldName().equals("status") || fd.getFieldName().equals("projName") || (
+            && (fd.getFieldName().equals("signupDate") || fd.getFieldName().equals("status") || fd.getFieldName().equals("projName") || (
 
-        WorkEnv.getInstance().containRole(AsOptionMeta.getOptVal("OPT_ZC_GYS_NORMAL_ROLE"))
+            WorkEnv.getInstance().containRole(AsOptionMeta.getOptVal("OPT_ZC_GYS_NORMAL_ROLE"))
 
-        && "providerName".equals(fd.getFieldName()) || "zbFileName".equals(fd.getFieldName())))) {
-          //时间、状态、项目名称、供应商登陆时的供应商名称
-          fd.setEnabled(false);
+            && "providerName".equals(fd.getFieldName()) || "zbFileName".equals(fd.getFieldName())))) {
+              //时间、状态、项目名称、供应商登陆时的供应商名称
+              fd.setEnabled(false);
 
-        } else {
+            } else {
 
-          fd.setEnabled(true);
+              fd.setEnabled(true);
 
-        }
+            }
 
-      }
+          }
 
-      //      this.tablePanel.getTable().setEnabled(true);
+          //      this.tablePanel.getTable().setEnabled(true);
 
-    } else if (this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_BROWSE)) {
+        } else if (this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_BROWSE)) {
 
-      for (AbstractFieldEditor fd : this.fieldEditors) {
+          for (AbstractFieldEditor fd : this.fieldEditors) {
 
-        fd.setEnabled(false);
+            fd.setEnabled(false);
 
-      }
+          }
 
-      //      this.tablePanel.getTable().setEnabled(false);
+          //      this.tablePanel.getTable().setEnabled(false);
 
-    }*/
+        }*/
 
     //    if ("102".equals(requestMeta.getSvOrgCode())) {
 
@@ -670,6 +741,15 @@ private SupplierFieldEditor supplierEditor=null;
 
     setZbFileEnabled();
 
+    Date sysDate = (Date) zcEbBaseServiceDelegate.queryObject("ZcEbPlan.getSysdate", null, requestMeta);
+    ZcEbSignup signup = (ZcEbSignup) listCursor.getCurrentObject();
+    if (sysDate.compareTo(signup.getPlan().getSellEndTime()) >= 0) {
+      FileUploader ful=(FileUploader)signupFileEditor.getEditorComponent();
+      ful.setDelFileButton(false);
+      ful.setUploadFileButton(false);
+      ful.setDownloadFileButton(true);
+      ful.setButtonEnable();
+    }
   }
 
   /**
@@ -879,6 +959,12 @@ private SupplierFieldEditor supplierEditor=null;
 
     SwingUtil.setTableCellRenderer(table, "SP_STATUS", new AsValCellRenderer(ZcValSetConstants.ZC_VS_SIGNUP_PACK_STATUS));
 
+    SwingUtil.setTableCellEditor(table, "CHECK_RESULT", new AsValComboBoxCellEditor(ZcValSetConstants.ZC_VS_SIGNUP_CHECK_RESULT));
+
+    SwingUtil.setTableCellRenderer(table, "CHECK_RESULT", new AsValCellRenderer(ZcValSetConstants.ZC_VS_SIGNUP_CHECK_RESULT));
+
+    SwingUtil.setTableCellRenderer(table, "IS_CHECK_QUALIFICATION", new AsValCellRenderer("VS_Y/N"));
+
   }
 
   private void setOldObject() {
@@ -909,15 +995,14 @@ private SupplierFieldEditor supplierEditor=null;
     dto.setStatus("specialNum134");
 
     if (WorkEnv.getInstance().containRole(AsOptionMeta.getOptVal(ZcElementConstants.OPT_ZC_GYS_NORMAL_ROLE))
-      ||WorkEnv.getInstance().containRole(AsOptionMeta.getOptVal(ZcElementConstants.OPT_ZC_GYS_HUIYUAN_ROLE))) {
+      || WorkEnv.getInstance().containRole(AsOptionMeta.getOptVal(ZcElementConstants.OPT_ZC_GYS_HUIYUAN_ROLE))) {
       dto.setZcText0(requestMeta.getSvUserID());
     } else {
       dto.setExecutor(requestMeta.getSvUserID());
     }
 
-    ForeignEntityFieldEditor projEditor = new ForeignEntityFieldEditor(this.projSqlMapSelectedId, dto, 20, projHandler, columNames, "项目编号", "projCode");
-
-   
+    ForeignEntityFieldEditor projEditor = new ForeignEntityFieldEditor(this.projSqlMapSelectedId, dto, 20, projHandler, columNames, "项目编号",
+      "projCode");
 
     projEditor.addValueChangeListener(new ValueChangeListener() {
 
@@ -962,7 +1047,7 @@ private SupplierFieldEditor supplierEditor=null;
 
     TextFieldEditor dianhua = new TextFieldEditor("电话", "phone");
 
-    TextFieldEditor shouji = new TextFieldEditor("手机", "mobilePhone"); 
+    TextFieldEditor shouji = new TextFieldEditor("手机", "mobilePhone");
 
     //    TextFieldEditor editor4b = new TextFieldEditor("邮件", "email");
     //
@@ -1000,34 +1085,35 @@ private SupplierFieldEditor supplierEditor=null;
     zbwjEditor = new FileFieldEditor("招标文件", "zbFileName", "zbFileId", true);
     zbwjEditor.setEnabled(false);
 
-
     zbwjWordEditor = new FileFieldEditor("招标文件(word版)", "zbFileName", "zbFileWordId", true);
     zbwjWordEditor.setEnabled(false);
+
+    signupFileEditor=new FileFieldEditor("报名上传附件", "signupFileName", "signupFileId" );
     
     TextFieldEditor beizhu = new TextFieldEditor("备注", "remark");
 
     DateFieldEditor bskssj = new DateFieldEditor("标书开售时间", "plan.sellStartTime", DateFieldEditor.TimeTypeH12);
     bskssj.setEnabled(false);
     DateFieldEditor bmzjsj = new DateFieldEditor("报名截止时间", "plan.sellEndTime", DateFieldEditor.TimeTypeH24);
-    bmzjsj.setEnabled(false);    
+    bmzjsj.setEnabled(false);
     DateFieldEditor tbzzsj = new DateFieldEditor("投标截止时间", "plan.bidEndTime", DateFieldEditor.TimeTypeH24);
     tbzzsj.setEnabled(false);
     TextFieldEditor kbdd = new TextFieldEditor("开标地点", "plan.openBidAddress");
     kbdd.setEnabled(false);
-    
+
     AsValFieldEditor cgfs = new AsValFieldEditor("采购方式", "purType", "ZC_VS_PITEM_OPIWAY");
     cgfs.setEnabled(false);
-    
+
     editorList.add(projEditor);
-    editorList.add(projNameEditor); 
-    editorList.add(cgfs); 
+    editorList.add(projNameEditor);
+    editorList.add(cgfs);
     editorList.add(bskssj);
     editorList.add(bmzjsj);
     editorList.add(tbzzsj);
     editorList.add(kbdd);
     editorList.add(zbwjEditor);
     editorList.add(zbwjWordEditor);
-    editorList.add(supplierEditor);   
+    editorList.add(supplierEditor);
     editorList.add(gysdizhi);
     editorList.add(lxr);
     editorList.add(dianhua);
@@ -1035,7 +1121,8 @@ private SupplierFieldEditor supplierEditor=null;
     editorList.add(beizhu);
     editorList.add(signupDateEditor);
     editorList.add(zhuangtai);
-    
+    editorList.add(signupFileEditor);
+
     return editorList;
 
   }
@@ -1337,8 +1424,7 @@ private SupplierFieldEditor supplierEditor=null;
   @Override
   public JComponent createSubBillPanel() {
 
-    JTabbedPane tabPane = new JTabbedPane();
-    tablePanel=new JTablePanel("zc_eb_signup_pack_table_panel",AsOptionMeta.getOptVal(ZcSettingConstants.ZC_OPTON_SIGNUP_PACK_HELP_MSG));
+    tablePanel = new JTablePanel("zc_eb_signup_pack_table_panel", AsOptionMeta.getOptVal(ZcSettingConstants.ZC_OPTON_SIGNUP_PACK_HELP_MSG));
     tablePanel.init();
 
     tablePanel.setTablePreferencesKey(this.getClass().getName() + "_table");
@@ -1349,7 +1435,7 @@ private SupplierFieldEditor supplierEditor=null;
 
     setTableCell(tablePanel.getTable());
 
-    tabPane.addTab("报名分包", tablePanel);
+    subTabPane.addTab("报名分包", tablePanel);
 
     this.subPackTableToolbar = new JFuncToolBar();
 
@@ -1365,7 +1451,7 @@ private SupplierFieldEditor supplierEditor=null;
 
     this.subPackTableToolbar.add(delBtn1);
 
-//    tablePanel.add(this.subPackTableToolbar, BorderLayout.SOUTH);
+    //    tablePanel.add(this.subPackTableToolbar, BorderLayout.SOUTH);
 
     addBtn1.addActionListener(new ActionListener() {
 
@@ -1397,7 +1483,8 @@ private SupplierFieldEditor supplierEditor=null;
 
     });
 
-    return tabPane;
+    subTabPane.addTab("报名资质要求", ziZhiTabPanel);
+    return subTabPane;
 
   }
 
@@ -1501,7 +1588,8 @@ private SupplierFieldEditor supplierEditor=null;
 
   private boolean checkBidEndTime(ZcEbSignupPackDetail detail, ZcEbPackPlan plan) {
 
-    if (requestMeta.getSysDate().compareTo(plan.getSellEndTime()) >= 0 && ZcValSetConstants.VAL_ZC_VS_SIGNUP_STATUS_SIGNUPED.equals(detail.getSpStatus())) {
+    if (requestMeta.getSysDate().compareTo(plan.getSellEndTime()) >= 0
+      && ZcValSetConstants.VAL_ZC_VS_SIGNUP_STATUS_SIGNUPED.equals(detail.getSpStatus())) {
 
       return false;
     }
@@ -1622,21 +1710,23 @@ private SupplierFieldEditor supplierEditor=null;
 
     toolBar.setCompoId(compoId);
 
-//    toolBar.add(addButton);
+    toolBar.add(saveButton);
 
-//    toolBar.add(editButton);
+    //    toolBar.add(addButton);
+    //    toolBar.add(addButton);
+    //    toolBar.add(editButton);
 
     //    toolBar.add(saveButton);
 
-//    toolBar.add(deleteButton);
+    //    toolBar.add(deleteButton);
 
-//    toolBar.add(auditButton);
-//
-//    toolBar.add(unAuditButton);
+    //    toolBar.add(auditButton);
+    //
+    //    toolBar.add(unAuditButton);
 
-//    toolBar.add(previousButton);
-//
-//    toolBar.add(nextButton);
+    //    toolBar.add(previousButton);
+    //
+    //    toolBar.add(nextButton);
 
     toolBar.add(bidButton);
 
@@ -1692,31 +1782,31 @@ private SupplierFieldEditor supplierEditor=null;
 
     });
 
-//    auditButton.addActionListener(new ActionListener() {
-//
-//      @Override
-//      public void actionPerformed(ActionEvent e) {
-//
-//        // TODO Auto-generated method stub
-//
-//        doAudit();
-//
-//      }
-//
-//    });
-//
-//    unAuditButton.addActionListener(new ActionListener() {
-//
-//      @Override
-//      public void actionPerformed(ActionEvent e) {
-//
-//        // TODO Auto-generated method stub
-//
-//        doUnAudit();
-//
-//      }
-//
-//    });
+    //    auditButton.addActionListener(new ActionListener() {
+    //
+    //      @Override
+    //      public void actionPerformed(ActionEvent e) {
+    //
+    //        // TODO Auto-generated method stub
+    //
+    //        doAudit();
+    //
+    //      }
+    //
+    //    });
+    //
+    //    unAuditButton.addActionListener(new ActionListener() {
+    //
+    //      @Override
+    //      public void actionPerformed(ActionEvent e) {
+    //
+    //        // TODO Auto-generated method stub
+    //
+    //        doUnAudit();
+    //
+    //      }
+    //
+    //    });
 
     previousButton.addActionListener(new ActionListener() {
 
@@ -1949,24 +2039,22 @@ private SupplierFieldEditor supplierEditor=null;
   }
 
   public boolean checkPackBidEndTime(ZcEbSignup signup, boolean isBid) {
-	  Date sysDate = (Date) zcEbBaseServiceDelegate.queryObject("ZcEbPlan.getSysdate", null, requestMeta);
-	  StringBuffer msg=new StringBuffer();
-	  if(sysDate.compareTo(signup.getPlan().getSellEndTime())>=0){
-		  if(isBid){
-			  msg.append("报名截止时间已过，不能报名");
-	       }else{
-	         msg.append("报名截止时间已过，不能撤销报名报名");
-	       }
-	  }
-	  
-	  if(msg.toString().length()>0){
-		  JOptionPane.showMessageDialog(this, "报名失败 ！\n" + msg.toString(), "错误", JOptionPane.ERROR_MESSAGE);
-	        return false;
-	  }else{
-		  return true;
-	  }
-	  
-   
+    Date sysDate = (Date) zcEbBaseServiceDelegate.queryObject("ZcEbPlan.getSysdate", null, requestMeta);
+    StringBuffer msg = new StringBuffer();
+    if (sysDate.compareTo(signup.getPlan().getSellEndTime()) >= 0) {
+      if (isBid) {
+        msg.append("报名截止时间已过，不能报名");
+      } else {
+        msg.append("报名截止时间已过，不能撤销报名报名");
+      }
+    }
+    if (msg.toString().length() > 0) {
+      JOptionPane.showMessageDialog(this, "报名失败 ！\n" + msg.toString(), "错误", JOptionPane.ERROR_MESSAGE);
+      return false;
+    } else {
+      return true;
+    }
+
   }
 
   private List getPackPlanListByPackCode(String projCode) {
@@ -2153,6 +2241,9 @@ private SupplierFieldEditor supplierEditor=null;
     if (!checkPackBidEndTime(signup, true))
       return;
 
+    if (!checkSignupAudited(signup))
+      return;
+
     if (!checkBullinBid()) {
 
       JOptionPane.showMessageDialog(this.parent, "尚未发布招标公告，不能报名", "提示", JOptionPane.WARNING_MESSAGE);
@@ -2175,39 +2266,41 @@ private SupplierFieldEditor supplierEditor=null;
     dto.setProjCode(signup.getProjCode());
 
     List list = zcEbSignupServiceDelegate.getProjPack(dto, requestMeta);
-boolean havePackSelected=false;
+    boolean havePackSelected = false;
     for (int i = 0; i < packs.size(); i++) {
 
       ZcEbSignupPackDetail detail = (ZcEbSignupPackDetail) packs.get(i);
 
-//      detail.setSpStatus(ZcValSetConstants.VAL_ZC_VS_SIGNUP_PACK_STATUS_SIGNUPED);
-//
-      if (ZcValSetConstants.VAL_ZC_VS_SIGNUP_PACK_STATUS_SIGNUPED.equals(detail.getSpStatus())){
-    	  detail.setSpDate(requestMeta.getTransDate());
-    	  havePackSelected=true;
+      //      detail.setSpStatus(ZcValSetConstants.VAL_ZC_VS_SIGNUP_PACK_STATUS_SIGNUPED);
+      //
+      if (ZcValSetConstants.VAL_ZC_VS_SIGNUP_PACK_STATUS_SIGNUPED.equals(detail.getSpStatus())) {
+        detail.setSpDate(requestMeta.getTransDate());
+        havePackSelected = true;
       }
-        
 
       for (int j = 0; j < list.size(); j++) {
 
         ZcEbPack zcebPack = (ZcEbPack) list.get(j);
 
-        if (ZcValSetConstants.VAL_ZC_VS_SIGNUP_PACK_STATUS_SIGNUPED.equals(detail.getSpStatus()) 
-        		&& detail.getPackCode().equals(zcebPack.getPackCode())
-        		&& zcebPack.getBidDeposit().signum() == 0) {
+        if (ZcValSetConstants.VAL_ZC_VS_SIGNUP_PACK_STATUS_SIGNUPED.equals(detail.getSpStatus())
+          && detail.getPackCode().equals(zcebPack.getPackCode()) && zcebPack.getBidDeposit().signum() == 0) {
 
           signup.setIsPayGuarantee("1");
 
           detail.setIsPayGuarantee("1");
 
         }
+        if (ZcEbSignupPackDetail.BAOMING_AUDIT_NO.equalsIgnoreCase(detail.getCheckResult())
+          && ZcEbSignupPackDetail.BAOMING_YES.equalsIgnoreCase(detail.getSpStatus())) {//报名审核不通过，将其报名状态置为否
+          detail.setSpStatus(ZcEbSignupPackDetail.BAOMING_AUDIT_NO);
+        }
 
       }
 
     }
-    if(!havePackSelected){
-    	 JOptionPane.showMessageDialog(self, "请选择要参与投标的分包，下拉框选择报名后，在进行提交，", "提示", JOptionPane.INFORMATION_MESSAGE);
-    	 return;
+    if (!havePackSelected) {
+      JOptionPane.showMessageDialog(self, "请选择要参与投标的分包，下拉框选择报名后，在进行提交，", "提示", JOptionPane.INFORMATION_MESSAGE);
+      return;
     }
 
     try {
@@ -2233,7 +2326,7 @@ boolean havePackSelected=false;
 
       this.listPanel.refreshCurrentTabData();
 
-      JOptionPane.showMessageDialog(self, "报名成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+      JOptionPane.showMessageDialog(self, "报名成功！如果需要资质审核，必须通过资质审核报名才有效，如有疑问，请联系采购中心", "提示", JOptionPane.INFORMATION_MESSAGE);
 
       this.pageStatus = ZcSettingConstants.PAGE_STATUS_BROWSE;
 
@@ -2256,6 +2349,24 @@ boolean havePackSelected=false;
       return;
 
     }
+  }
+
+  /**
+   * 报名已经审核的情况下，不能进行报名
+   * @param signup
+   * @return
+   */
+  private boolean checkSignupAudited(ZcEbSignup signup) {
+    // TODO Auto-generated method stub
+
+    List packs = signup.getSignupPacks();
+    for (int i = 0; i < packs.size(); i++) {
+      ZcEbSignupPackDetail detail = (ZcEbSignupPackDetail) packs.get(i);
+      if ("N".equalsIgnoreCase(detail.getCheckResult()) && "Y".equalsIgnoreCase(detail.getSpStatus())) {//报名审核不通过，还要进行报名的情况，将其报名状态置为否
+        detail.setSpStatus("N");
+      }
+    }
+    return true;
   }
 
   public void doUnBid() {
@@ -2284,9 +2395,9 @@ boolean havePackSelected=false;
     List packs = signup.getSignupPacks();
     for (int i = 0; i < packs.size(); i++) {
 
-        ZcEbSignupPackDetail detail = (ZcEbSignupPackDetail) packs.get(i);
+      ZcEbSignupPackDetail detail = (ZcEbSignupPackDetail) packs.get(i);
 
-        detail.setSpStatus(ZcValSetConstants.VAL_ZC_VS_SIGNUP_PACK_STATUS_CANCEL);
+      detail.setSpStatus(ZcValSetConstants.VAL_ZC_VS_SIGNUP_PACK_STATUS_CANCEL);
     }
 
     boolean success = true;
@@ -2334,28 +2445,32 @@ boolean havePackSelected=false;
   public void doExit() {
 
     stopTableEditing();
-/*
-    if (isDataChanged()) {
+    /*
+        if (isDataChanged()) {
 
-      int num = JOptionPane.showConfirmDialog(this, "当前页面数据已修改，是否要保存", "保存确认", 0);
+          int num = JOptionPane.showConfirmDialog(this, "当前页面数据已修改，是否要保存", "保存确认", 0);
 
-      if (num == JOptionPane.YES_OPTION) {
+          if (num == JOptionPane.YES_OPTION) {
 
-        if (!doSave()) {
+            if (!doSave()) {
 
-          return;
+              return;
 
-        }
+            }
 
-      }
+          }
 
-    }*/
+        }*/
 
     this.parent.dispose();
 
   }
 
   public boolean doSave() {
+    ZcEbSignup signup = (ZcEbSignup) this.listCursor.getCurrentObject();
+    //    if(!checkPackBidEndTime(signup, true)||!checkPackBidEndTime(signup, false)){ 
+    //      return false;      
+    //    }
 
     if (!isDataChanged()) {
 
@@ -2365,8 +2480,6 @@ boolean havePackSelected=false;
 
     }
 
-    ZcEbSignup signup = (ZcEbSignup) this.listCursor.getCurrentObject();
-
     if (!checkBeforeSave())
 
       return false;
@@ -2374,6 +2487,13 @@ boolean havePackSelected=false;
     if (!checkInvited())
       return false;
 
+    Date sysDate = (Date) zcEbBaseServiceDelegate.queryObject("ZcEbPlan.getSysdate", null, requestMeta);
+    if (sysDate.compareTo(signup.getPlan().getSellEndTime()) >= 0) {
+      int num = JOptionPane.showConfirmDialog(this, "该项目已经过了开标时间了，还需要更新报名信息吗？", "更新报名", 0);
+      if (num == JOptionPane.NO_OPTION) {
+        return false;
+      }
+    }
     boolean success = true;
 
     String errorInfo = "";
@@ -2403,7 +2523,16 @@ boolean havePackSelected=false;
           detail.setIsPayGuarantee("1");
 
         }
-
+        if (ZcEbSignupPackDetail.BAOMING_AUDIT_NO.equalsIgnoreCase(detail.getCheckResult())
+          && ZcEbSignupPackDetail.BAOMING_YES.equalsIgnoreCase(detail.getSpStatus())) {//报名审核不通过，将其报名状态置为否
+          detail.setSpStatus(ZcEbSignupPackDetail.BAOMING_AUDIT_NO);
+        }
+        if (ZcEbSignupPackDetail.BAOMING_AUDIT_YES.equalsIgnoreCase(detail.getCheckResult())
+          && (ZcEbSignupPackDetail.BAOMING_NO.equalsIgnoreCase(detail.getSpStatus()) || detail.getSpStatus() == null)) {
+          //报名审核通过，将其报名状态置为是
+          //这么做是为了供应商报名后审核后，供应商不能再修改报名信息，只能由采购中心的人修改
+          detail.setSpStatus(ZcEbSignupPackDetail.BAOMING_YES);
+        }
       }
 
     }
@@ -2459,19 +2588,19 @@ boolean havePackSelected=false;
 
     ZcEbSignup curObj = (ZcEbSignup) this.listCursor.getCurrentObject();
 
-//    if (this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW)) {
-//
-//      ZcEbSignup oldObj = this.zcEbSignupServiceDelegate.getZcEbSignupByIdProvider(curObj, this.requestMeta);
-//
-//      if (oldObj != null) {
-//
-//        //        JOptionPane.showMessageDialog(this.parent, "供应商\"" + curObj.getProviderName() + "\"已经报过名了，请检查！", "提示", JOptionPane.WARNING_MESSAGE);
-//        //
-//        //        return false;
-//
-//      }
-//
-//    }
+    //    if (this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW)) {
+    //
+    //      ZcEbSignup oldObj = this.zcEbSignupServiceDelegate.getZcEbSignupByIdProvider(curObj, this.requestMeta);
+    //
+    //      if (oldObj != null) {
+    //
+    //        //        JOptionPane.showMessageDialog(this.parent, "供应商\"" + curObj.getProviderName() + "\"已经报过名了，请检查！", "提示", JOptionPane.WARNING_MESSAGE);
+    //        //
+    //        //        return false;
+    //
+    //      }
+    //
+    //    }
 
     List<ZcEbSignupPackDetail> packs = curObj.getSignupPacks();
     if (packs == null || packs.size() == 0) {
@@ -2621,7 +2750,7 @@ boolean havePackSelected=false;
     List bullinList = this.zcEbBaseServiceDelegate.queryDataForList(this.bulletinSqlMapSelectId, dto, requestMeta);
 
     if (bullinList == null || bullinList.size() < 1) {
-    	  //JOptionPane.showMessageDialog(this.parent, "招标公告尚未发出，暂时不能报名，请稍等", "提示", JOptionPane.WARNING_MESSAGE);
+      //JOptionPane.showMessageDialog(this.parent, "招标公告尚未发出，暂时不能报名，请稍等", "提示", JOptionPane.WARNING_MESSAGE);
       return false;
     }
     return true;
@@ -2641,19 +2770,82 @@ boolean havePackSelected=false;
     return false;
   }
 
-  public void setZbFileEnabled() {
+  /**
+   * 不需要资质审核的项目，报名后即可下载招标文件
+   * 需要审核的项目，审核通过过才可以下载招标文件
+   */
+  private void setZbFileEnabled() {
 
     ZcEbSignup obj = (ZcEbSignup) this.listCursor.getCurrentObject();
+    if (obj.getSignupPacks() == null || obj.getSignupPacks().size() == 0)
+      return;
+    boolean isPassed = false;
+    boolean isZizhiCheck = false;
+    boolean isSignup=false;
+    for (int i = 0; i < obj.getSignupPacks().size(); i++) {
+      ZcEbSignupPackDetail d = (ZcEbSignupPackDetail) obj.getSignupPacks().get(i);
+      if ("Y".equals(d.getIsCheckQualification()) ) {//要求资质检查
+        isZizhiCheck = true;
+        if (ZcEbSignupPackDetail.BAOMING_YES.equals(d.getSpStatus())) {//报名了
+          isSignup=true;
+          if(ZcEbSignupPackDetail.BAOMING_AUDIT_YES.equals(d.getCheckResult())){//资质审核通过了
+            isPassed = true;
+            break;
+          }
+        }
+      }
+    }
 
     if (!"1".equals(obj.getStatus())) {
       zbwjEditor.setEnabled(false);
       zbwjEditor.setDownButtonEnabled(false);
       zbwjWordEditor.setEnabled(false);
-      zbwjWordEditor.setDownButtonEnabled(false);
-    }else{
-      zbwjEditor.setDownButtonEnabled(true);
-      zbwjWordEditor.setDownButtonEnabled(true);
+      zbwjWordEditor.setDownButtonEnabled(false);      
+    } else {
+      if(isZizhiCheck){
+        if(isSignup){
+          if(isPassed){
+            zbwjEditor.setDownButtonEnabled(true);
+            zbwjWordEditor.setDownButtonEnabled(true);                
+          }else{
+            zbwjEditor.setEnabled(false);
+            zbwjEditor.setDownButtonEnabled(false);
+            zbwjWordEditor.setEnabled(false);
+            zbwjWordEditor.setDownButtonEnabled(false);                  
+          }
+        }else{
+          zbwjEditor.setEnabled(false);
+          zbwjEditor.setDownButtonEnabled(false);
+          zbwjWordEditor.setEnabled(false);
+          zbwjWordEditor.setDownButtonEnabled(false);                 
+        }
+      }else{
+        zbwjEditor.setDownButtonEnabled(true);
+        zbwjWordEditor.setDownButtonEnabled(true);        
+      }
     }
+    /*
+    if (isZizhiCheck) {
+      if(isPassed){
+        zbwjEditor.setDownButtonEnabled(true);
+        zbwjWordEditor.setDownButtonEnabled(true);
+      }else{
+        zbwjEditor.setEnabled(false);
+        zbwjEditor.setDownButtonEnabled(false);
+        zbwjWordEditor.setEnabled(false);
+        zbwjWordEditor.setDownButtonEnabled(false);        
+      }
+    } else {
+      if (!"1".equals(obj.getStatus())) {
+        zbwjEditor.setEnabled(false);
+        zbwjEditor.setDownButtonEnabled(false);
+        zbwjWordEditor.setEnabled(false);
+        zbwjWordEditor.setDownButtonEnabled(false);
+      } else {
+        zbwjEditor.setDownButtonEnabled(true);
+        zbwjWordEditor.setDownButtonEnabled(true);
+      }
+    }*/
 
   }
 

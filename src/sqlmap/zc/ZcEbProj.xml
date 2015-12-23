@@ -3959,5 +3959,14 @@
             </iterate>
         </isNotEmpty>	
 	</select>
+	<select id="getReqDetailByDetailCodes" resultClass="hashmap"		parameterClass="elementCondition">
+		select	*	from
+		ZC_EB_PACK_REQ_DETAIL 			
+		where
+            detail_code in
+            <iterate property="pmAdjustCodeList"  conjunction="," open="(" close=")">
+                #pmAdjustCodeList[]#
+            </iterate>
+	</select>
 </sqlMap>
 

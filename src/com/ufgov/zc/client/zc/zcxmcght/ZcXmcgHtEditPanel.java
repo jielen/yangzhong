@@ -127,6 +127,9 @@ import com.ufgov.zc.common.system.util.Utils;
 import com.ufgov.zc.common.zc.model.ZcBaseBill;
 import com.ufgov.zc.common.zc.model.ZcEbAuditSheet;
 import com.ufgov.zc.common.zc.model.ZcEbBulletinWordMold;
+import com.ufgov.zc.common.zc.model.ZcEbPack;
+import com.ufgov.zc.common.zc.model.ZcEbPackReq;
+import com.ufgov.zc.common.zc.model.ZcEbProj;
 import com.ufgov.zc.common.zc.model.ZcEbSupplier;
 import com.ufgov.zc.common.zc.model.ZcHtPrePayBillItem;
 import com.ufgov.zc.common.zc.model.ZcPProMake;
@@ -137,7 +140,9 @@ import com.ufgov.zc.common.zc.model.ZcXmcgHt;
 import com.ufgov.zc.common.zc.model.ZcXmcgHtBi;
 import com.ufgov.zc.common.zc.model.ZcebZbItem;
 import com.ufgov.zc.common.zc.publish.IZcEbBaseServiceDelegate;
+import com.ufgov.zc.common.zc.publish.IZcEbProjServiceDelegate;
 import com.ufgov.zc.common.zc.publish.IZcEbSupplierServiceDelegate;
+import com.ufgov.zc.common.zc.publish.IZcPProMakeServiceDelegate;
 import com.ufgov.zc.common.zc.publish.IZcXmcgHtChgServiceDelegate;
 import com.ufgov.zc.common.zc.publish.IZcXmcgHtServiceDelegate;
 
@@ -280,6 +285,12 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
   moldColumNames, "载入模板", "moldName");
 
+  private IZcPProMakeServiceDelegate ZcPProMakeServiceDelegate = (IZcPProMakeServiceDelegate) ServiceFactory.create(IZcPProMakeServiceDelegate.class,
+
+  "zcPProMakeServiceDelegate");
+  
+  private IZcEbProjServiceDelegate projService=(IZcEbProjServiceDelegate)ServiceFactory.create(IZcEbProjServiceDelegate.class, "zcEbProjServiceDelegate");
+
   protected WordPane wordPane = new WordPane();
 
   private AsFile file = new AsFile();
@@ -395,12 +406,13 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
     MoneyFieldEditor zcMoneyBiSum = new MoneyFieldEditor(LangTransMeta.translate(ZcElementConstants.FIELD_TRANS_ZC_MONEY_BI_SUM), "zcPProMake.zcMoneyBiSum");
     
     String columNames[];
-    if (isGys()) {
+    /*if (isGys()) {
       columNames = new String[] { "项目代码", "采购项目", "分包名称", "供应商名称", "采购方式" };
     } else {
       columNames = new String[] { "项目代码", "采购项目", "供应商名称", "采购方式" };
-    }
-
+    }*/
+    columNames = new String[] { "项目代码", "采购项目", "分包名称", "供应商名称", "采购方式" };
+    
     ZcEbProjFnHandler projHandler = new ZcEbProjFnHandler(columNames, self);
     
     ZcPProMakeForHtFnHandler makeHandler = new ZcPProMakeForHtFnHandler(columNames, self);
@@ -516,11 +528,12 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     TextFieldEditor zcPackCodeText = new TextFieldEditor("分包编号", "zcZbCode");
 
-    if (isGys()) {
+   /* if (isGys()) {
       editorList.add(packCode);
     } else {
       editorList.add(zcMakeCode);
-    }
+    }*/
+    editorList.add(packCode);
     editorList.add(zcHtName);
     editorList.add(zcProjType);
     editorList.add(zcProLimitStartDate);
@@ -542,9 +555,9 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
     editorList.add(zcDeliveryType);
     editorList.add(zcMemo);
 
-    if (!isGys()) {
+   /* if (!isGys()) {
       editorList.add(zcPackCodeText);
-    }
+    }*/
     editorList.add(zcHtStatus);
     editorList.add(zcInputDate);
 
@@ -723,30 +736,36 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
   public void zcMakeCodeChange() {
 
+
     ZcXmcgHt zcXmcgHt = (ZcXmcgHt) this.listCursor.getCurrentObject();
 
     String zcMakeCode = zcXmcgHt.getZcMakeCode();
 
-    dtoForBidWinner.setProjectCode(zcMakeCode);
-    ZcPProMake zcPProMake = getZcPProMakeByZcMakeCode(zcMakeCode);
-    zcXmcgHt.setZcPProMake(zcPProMake);
+//    dtoForBidWinner.setProjectCode(zcMakeCode);
+//    ZcPProMake zcPProMake = getZcPProMakeByZcMakeCode(zcMakeCode);
+//    zcXmcgHt.setZcPProMake(zcPProMake);
     zcXmcgHt.setZcMakeCode(zcMakeCode);
-    zcXmcgHt.setZcCoCode(zcPProMake.getCoCode());
+//    zcXmcgHt.setZcCoCode(zcPProMake.getCoCode());
     //    zcXmcgHt.setNd(zcPProMake.getNd());
-    zcXmcgHt.setZcFukuanType(zcPProMake.getZcFukuanType());
+//    zcXmcgHt.setZcFukuanType(zcPProMake.getZcFukuanType());
     List<ZcTBchtItem> itemHtList = new ArrayList<ZcTBchtItem>();
 
-    List<ZcXmcgHtBi> biHtList = this.getBiList(zcXmcgHt);
 
     List<ZcHtPrePayBillItem> payBiList = new ArrayList<ZcHtPrePayBillItem>();
 
     //带出商品内容
-    List<ZcPProMitem> itemMakeList = self.listPanel.ZcPProMakeServiceDelegate.getZcPProMitem(zcMakeCode, requestMeta);
-
-    if (itemMakeList != null) {
-
-      buildZcTBchtItems(itemMakeList, itemHtList);
-
+    if(ZcUtil.isYsdw()){
+      List<ZcPProMitem> itemMakeList = ZcPProMakeServiceDelegate.getZcPProMitem(zcMakeCode, requestMeta);
+      if (itemMakeList != null) {
+        buildZcTBchtItems(itemMakeList, itemHtList);
+        for (Iterator iterator = itemHtList.iterator(); iterator.hasNext();) {
+          ZcTBchtItem zcTBchtItem = (ZcTBchtItem) iterator.next();
+          zcTBchtItem.setZcItemSum(BigDecimal.ZERO);
+        }
+        zcXmcgHt.setItemList(itemHtList);
+      }
+    }else if(ZcUtil.isGys() || ZcUtil.isCgzx()){
+      buildHtItems(zcXmcgHt);
     }
 
     if (zcXmcgHt.getZcSuCode() != null) {
@@ -764,27 +783,189 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
       zcXmcgHt.setZcIsZxqyZb(supp.getIsZxqy());
 
     }
-
-    for (Iterator iterator = itemHtList.iterator(); iterator.hasNext();) {
-
-      ZcTBchtItem zcTBchtItem = (ZcTBchtItem) iterator.next();
-
-      zcTBchtItem.setZcItemSum(BigDecimal.ZERO);
-
-    }
-
-    zcXmcgHt.setItemList(itemHtList);
-
+  //start of change --20141223 chenjl
+//原来是直接获取资金信息，后来因有结转项目到来年，再签订合同的情况，因此这里隐藏，换成下面预算单位才获取指标情况
+//也就是说，供应商填报合同时，选择也该分包，不会带入资金信息
+/*    List<ZcXmcgHtBi> biHtList = this.getBiList(zcXmcgHt);
     zcXmcgHt.setBiList(biHtList);
+    //采购计划如果已经做了补充资金了，再次获取一次
+    zcXmcgHt.setBiList(getBuChongBiList(zcXmcgHt));*/
+    List<ZcXmcgHtBi> biHtList=new ArrayList<ZcXmcgHtBi>();
+    if(ZcUtil.isYsdw()){
+      biHtList = this.getBiList(zcXmcgHt);
+      zcXmcgHt.setBiList(biHtList);
+      //采购计划如果已经做了补充资金了，再次获取一次
+      zcXmcgHt.setBiList(getBuChongBiList(zcXmcgHt));
+    }
+//end of change --20141223 chenjl
     zcXmcgHt.setPayBiList(payBiList);
     setEditingObject(zcXmcgHt);
 
-    self.refreshSubData(biHtList, itemHtList, payBiList);
+    self.refreshSubData(biHtList, zcXmcgHt.getItemList(), payBiList);
 
     listCursor.setCurrentObject(zcXmcgHt);
+    
+    updateFieldEditorsEditable();
 
   }
 
+  private void buildHtItems(ZcXmcgHt zcXmcgHt) {
+    // TODO Auto-generated method stub
+    // get the project
+    if(zcXmcgHt.getProjCode()==null)return;
+    ZcEbProj proj=projService.getZcEbProjByProjCode(zcXmcgHt.getProjCode(), requestMeta);
+    if(proj==null||proj.getPackList()==null)return;
+    ArrayList detailIdLst=new ArrayList();
+    for(int i=0;i<proj.getPackList().size();i++){
+      ZcEbPack pack=(ZcEbPack) proj.getPackList().get(i);
+      proj.setPurType(pack.getPurType());
+      if(pack.getPackCode().equals(zcXmcgHt.getZcBidCode())){
+        if(pack.getRequirementDetailList()==null)continue;
+        for(int j=0;j<pack.getRequirementDetailList().size();j++){
+          ZcEbPackReq req=(ZcEbPackReq)pack.getRequirementDetailList().get(j);
+          detailIdLst.add(req.getDetailCode());
+        }
+      }
+    }
+    //获取分包对应的需求明细
+    ElementConditionDto dto=new ElementConditionDto();
+    dto.setPmAdjustCodeList(detailIdLst);
+    List reqDetailLst=zcEbBaseServiceDelegate.queryDataForList("ZcEbProj.getReqDetailByDetailCodes", dto, requestMeta);
+    dto.setZcText0(zcXmcgHt.getZcSuCode());
+    List xjbjLst=zcEbBaseServiceDelegate.queryDataForList("ZC_EB_XUNJIA_BAOJIA.getBaojiaDetailByDetailCodes", dto, requestMeta);
+    zcXmcgHt.setItemList(new ArrayList());
+    for (int i=0;i<reqDetailLst.size();i++) {
+      HashMap map=(HashMap) reqDetailLst.get(i);
+      ZcTBchtItem htItem = new ZcTBchtItem();
+      htItem.setZcSpName((String) map.get("NAME"));//商品名称
+      htItem.setZcCatalogueCode((String) map.get("ZC_CATALOGUE_CODE"));//品目代码
+      htItem.setZcCatalogueName((String) map.get("ZC_CATALOGUE_NAME"));//品目名称NUM
+
+      //如果是询价的话，获取供应商的询价报价单
+      if(ZcSettingConstants.PITEM_OPIWAY_XJ.equalsIgnoreCase(proj.getPurType())){
+        setBjDetail(htItem,(BigDecimal)map.get("DETAIL_CODE"),xjbjLst);
+      }else{
+        BigDecimal t1=getBigDecimal(map.get("NUM"));
+        htItem.setZcCaigShl(t1);
+//        BigDecimal t2=getBigDecimal(map.get("MER_PRICE"));
+//        htItem.setZcCaigPrice(t2);
+//        BigDecimal t3=t1.multiply(t2);
+//        htItem.setZcCaigMoney(t3);
+      }
+      htItem.setZcMerSpec((String) map.get("BASE_REQ"));
+      htItem.setZcItemVal(BigDecimal.ZERO);
+      htItem.setZcHtBiMoney(new BigDecimal(0.00));
+      htItem.setZcHtOtherMoney(new BigDecimal(0.00));
+      htItem.setZcHtGkMoney(new BigDecimal(0.00));     
+      //节能、节水、绿色环保默认设置为否
+      htItem.setZcMerIsLshb("N");
+      htItem.setZcMerIsZzcx("N");
+      htItem.setZcIsJnjs("N");
+      zcXmcgHt.getItemList().add(htItem);
+    }
+  }
+
+  private void setBjDetail(ZcTBchtItem htItem, BigDecimal detailCode, List xjbjLst) {
+    // TODO Auto-generated method stub
+    for (int i=0;i<xjbjLst.size();i++) {
+      HashMap map=(HashMap) xjbjLst.get(i);
+      String xjCode=(String) map.get("XJ_CODE");      
+      if(detailCode.compareTo(new BigDecimal(xjCode))==0){
+        BigDecimal t1=getBigDecimal(map.get("SP_NUM"));
+        BigDecimal t2=getBigDecimal(map.get("SP_PRICE"));
+        BigDecimal t3=t1.multiply(t2);
+        htItem.setZcCaigMoney(t3);
+        htItem.setZcCaigShl(t1);
+        htItem.setZcCaigPrice(t2);
+        htItem.setZcCaigJldw((String) map.get("UNIT"));
+      }
+    }
+  }
+  private BigDecimal getBigDecimal(Object object) {
+    // TODO Auto-generated method stub
+    BigDecimal t=new BigDecimal(0);
+    if(object==null) return null;
+    try {
+      if(object instanceof String){
+        t=new BigDecimal((String)object);
+      }else if(object instanceof Integer){
+        t=new BigDecimal((Integer)object);
+      }else if(object instanceof Long){
+        t=new BigDecimal((Long)object);
+      }else if(object instanceof Double){
+        t=new BigDecimal((Double)object);
+      }else if(object instanceof BigDecimal){
+        return (BigDecimal)object;
+      }else{
+        return null;
+      }
+    } catch (Exception e) {
+      // TODO: handle exception
+      logger.error(e.getMessage(),e);
+      return null;
+    }
+    return t;
+  }
+
+
+  /**
+   * 获取采购计划相关的补充资金，因为合同的资金是在建立合同，选择中标或者采购计划时就带过来了，并保存了，因此如果一个合同供应商建立了，并送到了内网，此时才批准补充资金时，需要在打开合同时，将该计划的补充资金加进来
+   * 
+   * @param zcXmcgHt
+   * @return
+   */
+  private List<ZcXmcgHtBi> getBuChongBiList(ZcXmcgHt zcXmcgHt) {
+
+    if (!isSubHt()) {
+      ElementConditionDto dto = new ElementConditionDto();
+      dto.setZcText0(zcXmcgHt.getZcMakeCode());
+      List<ZcPProMitemBi> biMakeList = ZcPProMakeServiceDelegate.getMitemBiWithHtBi(dto, requestMeta);
+      Map param = new HashMap();
+      param.put("ZC_HT_CODE", zcXmcgHt.getZcHtCode());
+      for (int i = 0; i < biMakeList.size(); i++) {
+        param.put("ZC_PRO_BI_SEQ", biMakeList.get(i).getZcProBiSeq());
+        
+        //获取当前资金的可用金额，合同占用资金的金额不能超过他
+        BigDecimal sum = (BigDecimal) this.zcEbBaseServiceDelegate.queryObject("ZC_XMCG_HT_BI.getCanUseMoney", param, this.requestMeta);
+        biMakeList.get(i).setZcBiDoSum(sum);
+      }
+      List<ZcXmcgHtBi> biHtList = new ArrayList<ZcXmcgHtBi>();
+      List buChongLst=new ArrayList();
+      for (ZcPProMitemBi bi : biMakeList) {
+        boolean find=false;
+        for(int i=0;i<zcXmcgHt.getBiList().size();i++){
+          ZcXmcgHtBi htBi=(ZcXmcgHtBi) zcXmcgHt.getBiList().get(i);
+          if(bi.getZcProBiSeq().equals(htBi.getZcProBiSeq())){
+            find=true;
+            break;
+          }
+        }
+        if(find){
+          continue;
+        }
+        //如果没有找到，说明是补充资金，因此加入到合同资金列表中
+        ZcXmcgHtBi htBi = new ZcXmcgHtBi();
+        htBi.setZcPProMitemBi(bi);
+        htBi.setZcProBiSeq(bi.getZcProBiSeq());
+
+        htBi.setZcBiBcsySum(BigDecimal.ZERO);
+
+        htBi.setZcCanUseSum(bi.getZcBiDoSum());
+        htBi.setZcBiSum(bi.getZcBiSum());
+        buChongLst.add(htBi);
+      }
+      zcXmcgHt.getBiList().addAll(buChongLst);
+      return zcXmcgHt.getBiList();
+    } else {
+      return zcXmcgHt.getBiList();
+    }
+  }
+  /**
+   * 是否补充合同,主合同不需要操作指标，补充合同需要操作指标,补充合同的edit界面，这个方法要重写，返回true
+   */
+  protected boolean isSubHt() {
+    return false;
+  }
   private List<ZcXmcgHtBi> getBiList(ZcXmcgHt zcXmcgHt) {
 
     if (!budgetFlag) {
@@ -1230,7 +1411,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
     splitPane.setDividerDefaultLocation(this.getClass().getName() + "_splitPane_dividerLocation", 150);
 
     splitPane.setContinuousLayout(true);
-
+/*
     if (isGys()) {
 
       biTabPane.setVisible(false);
@@ -1241,7 +1422,11 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
       splitPane.setOneTouchExpandable(true);
 
-    }
+    }*/
+
+    biTabPane.setVisible(false);
+
+    splitPane.setOneTouchExpandable(false);
 
     // 只显示向下的箭头
 
@@ -1286,7 +1471,8 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
     if (isGys()) {
       return itemTabPane;
     }
-    return topTabPane;
+//    return topTabPane;
+    return itemTabPane;
 
   }
 
@@ -1934,9 +2120,9 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     }
 
-    if (budgetFlag && ZcUtil.isYsdw()) {
+    /*if (budgetFlag && ZcUtil.isYsdw()) {
       makeToHtBi(ht);
-    }
+    }*/
     boolean success = true;
 
     String errorInfo = "";
@@ -2126,11 +2312,11 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
   protected void doSuggestPass() {
 
-    if (ZcUtil.isYsdw() && !calcBeforeSave()) {
+   /* if (ZcUtil.isYsdw() && !calcBeforeSave()) {
 
       return;
 
-    }
+    }*/
 
     ZcXmcgHt ht = (ZcXmcgHt) ObjectUtil.deepCopy(this.listCursor.getCurrentObject());
 
@@ -2812,7 +2998,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     String mainValidateInfo = ZcUtil.validateBillElementNull(zcXmcgHt, mainNotNullList);
 
-    String biValidateInfo = ZcUtil.validateDetailBillElementNull(zcXmcgHt.getBiList(), biNotNullList, false);
+//    String biValidateInfo = ZcUtil.validateDetailBillElementNull(zcXmcgHt.getBiList(), biNotNullList, false);
 
     String itemValidateInfo = ZcUtil.validateDetailBillElementNull(zcXmcgHt.getItemList(), itemNotNullList, false);
 
@@ -2822,11 +3008,11 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     }
 
-    if (biValidateInfo.length() != 0) {
+    /*if (biValidateInfo.length() != 0) {
 
       errorInfo.append("资金构成：\n").append(biValidateInfo.toString()).append("\n");
 
-    }
+    }*/
 
     if (itemValidateInfo.length() != 0) {
 
@@ -2936,11 +3122,11 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     }
 
-    if (ZcUtil.isYsdw() && !calcBeforeSave()) {
+   /* if (ZcUtil.isYsdw() && !calcBeforeSave()) {
 
       return false;
 
-    }
+    }*/
 
     boolean success = true;
 
@@ -2961,9 +3147,9 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
         inData.setZcConTextBlobid(fileId);
 
       }
-      if (!budgetFlag && ZcUtil.isYsdw()) {
+      /*if (!budgetFlag && ZcUtil.isYsdw()) {
         makeToHtBi(inData);
-      }
+      }*/
       //原来这里的flag在使用指标的情况下，这个值是false，不知道原作者是怎么想的，这里按照字面意义处理,true:使用指标借口，false:不使用指标借口
       ZcXmcgHt zcXmcgHt = zcXmcgHtServiceDelegate.updateZcXmcgHtFN(inData, budgetFlag, WorkEnv.getInstance().getWebRoot(), this.requestMeta);
 
@@ -3280,7 +3466,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
     }
 
     setWordButtonStataus(zcXmcgHt);
-
+/*
     if (isGys()) {
 
       JPageableFixedTable ta = itemTablePanel.getTable();
@@ -3299,8 +3485,21 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
       //      hideCol(ta, "ZC_HT_GK_MONEY");
 
-    }
+    }*/
+    JPageableFixedTable ta = itemTablePanel.getTable();
 
+    hideCol(ta, "ZC_ITEM_SUM");
+
+    hideCol(ta, "BUDGET_BI_MONEY");
+
+    hideCol(ta, "BUDGET_OTHER_MONEY");
+
+    hideCol(ta, "ZC_ITEM_VAL");
+
+    hideCol(ta, "ZC_HT_BI_MONEY");
+
+    hideCol(ta, "ZC_HT_OTHER_MONEY"); 
+    
     setSumLabelText();
 
     setOldObject();
@@ -3726,7 +3925,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     refreshItemData(itemList);
 
-    if (isGys()) {
+   /* if (isGys()) {
 
       JPageableFixedTable ta = itemTablePanel.getTable();
 
@@ -3744,8 +3943,24 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
       hideCol(ta, "ZC_HT_GK_MONEY");
 
-    }
+    }*/
 
+
+    JPageableFixedTable ta = itemTablePanel.getTable();
+
+    hideCol(ta, "ZC_ITEM_SUM");
+
+    hideCol(ta, "BUDGET_BI_MONEY");
+
+    hideCol(ta, "BUDGET_OTHER_MONEY");
+
+    hideCol(ta, "ZC_ITEM_VAL");
+
+    hideCol(ta, "ZC_HT_BI_MONEY");
+
+    hideCol(ta, "ZC_HT_OTHER_MONEY");//
+
+    hideCol(ta, "ZC_HT_GK_MONEY");
   }
 
   protected void setBiTableEditor(JTable table) {
@@ -3953,10 +4168,12 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
   }
 
   protected String getProjectSqlId() {
-    if (isGys()) {
+   /* if (isGys()) {
       return "selectPage.selectProjectForZxCaiGouHt";
     }
-    return "selectPage.selectProjectForCaiGouHt";
+    return "selectPage.selectProjectForCaiGouHt";*/
+    
+    return "selectPage.selectProjectForZxCaiGouHt";
   }
 
   public BillElementMeta getMainBillElementMeta() {

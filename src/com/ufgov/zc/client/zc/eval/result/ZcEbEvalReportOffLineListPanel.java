@@ -173,7 +173,7 @@ public class ZcEbEvalReportOffLineListPanel extends AbstractEditListBill impleme
 
       super(displays, showingDisplays, conditionArea, showConditionArea, ZcSettingConstants.TAB_ID_ZC_EB_EVAL_REPORT);
 
-      setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "评审报告", TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体",
+      setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), LangTransMeta.translate(getCompoId()), TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体",
 
       Font.BOLD, 15), Color.BLUE));
 
@@ -226,6 +226,8 @@ public class ZcEbEvalReportOffLineListPanel extends AbstractEditListBill impleme
       elementConditionDto.setNd(WorkEnv.getInstance().getTransNd());
 
       elementConditionDto.setStatus(tableDisplay.getStatus());
+      
+      elementConditionDto.setZcText0("offLine");
 
       for (AbstractSearchConditionItem item : searchConditionItems) {
 
@@ -334,7 +336,7 @@ public class ZcEbEvalReportOffLineListPanel extends AbstractEditListBill impleme
 
     toolBar.add(helpButton);
 
-    toolBar.add(traceDataButton);
+//    toolBar.add(traceDataButton);
 
     // 初始化按钮的action事件
 
@@ -1108,9 +1110,9 @@ public class ZcEbEvalReportOffLineListPanel extends AbstractEditListBill impleme
 
         }
 
-        ZcEbEvalReportListPanel bill = new ZcEbEvalReportListPanel();
+        ZcEbEvalReportOffLineListPanel bill = new ZcEbEvalReportOffLineListPanel();
 
-        JFrame frame = new JFrame("评标报告");
+        JFrame frame = new JFrame(LangTransMeta.translate(bill.getCompoId()));
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

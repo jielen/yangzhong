@@ -41,4 +41,15 @@ public abstract class AbstractZcXmcgHtEditPanel extends AbstractMainSubEditPanel
     // TODO Auto-generated method stub
     
   }
+  
+
+  /**
+   * 构建合同明细
+   * 如果是非询价类的采购，则根据分包的需求明细构建
+   * 如果是询价类的，根据询价单和报价单构建
+   */
+  public void buildHtDetail() {
+    // TODO Auto-generated method stub
+    
+  }
 }

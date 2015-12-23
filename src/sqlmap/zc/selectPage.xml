@@ -443,47 +443,45 @@
 			decode(pj.pur_type,'5',r.win_bid_provider_code,v.PROVIDER_CODE) ZC_SU_CODE,
 			p.PACK_NAME ZC_ZB_CODE,
 			decode(pj.pur_type,'5',r.win_bid_provider_name,v.PROVIDER_NAME)
-			ZC_ZB_NAME,
-			decode(pj.pur_type,'5',r.win_bid_provider_name,v.PROVIDER_NAME)
-			ZC_SU_NAME,
-			e.zc_make_code ZC_MAKE_CODE,
-			e.zc_make_name ZC_MAKE_NAME,
-			e.zc_money_bi_sum ZC_MONEY_BI_SUM,
-			p.pack_code ZC_BID_CODE,
-			p.PACK_DESC ZC_BID_CONTENT,
-			p.nd ND,
-			decode(pj.pur_type, '5', r.win_bid_sum, v.bid_sum) ZC_HT_NUM,
-			p.pur_type
-			ZC_PIFU_CGFS,
-			av.val ZC_CG_LEIXING,
-			pj.proj_code,
-			pj.proj_name
-		from zc_eb_proj pj,
-			zc_eb_duty_audit_sheet sh,
-			zc_eb_entrust e,
-			zc_eb_pack p,
-			zc_eb_eval_report v,
-			zc_eb_rfq_pack r,
-			ZC_EB_NOTICE n,
-			zc_xmcg_ht ht,
-			(select * from as_val where valset_id='ZC_VS_PITEM_OPIWAY') av
-		where pj.proj_code =
-			p.proj_code
-			and p.entrust_code = sh.sn
-			and sh.sn = e.sn
-			and p.pack_code = v.PACK_CODE(+)
-			and p.pack_code = r.PACK_CODE(+)
-			and p.proj_code = r.proj_code(+)
-			and p.pack_code = n.pack_code(+)
-			and
-			p.pack_code = ht.zc_bid_code(+)
-			and ht.zc_ht_code is null
-			and
-			(p.pur_type = '4' or
-			(p.pur_type != '4' and n.notice_status is not
-			null))
-			and (v.proj_code is not null or r.open_bid_status='1')
-			and p.pur_type = av.val_id(+)
+      ZC_ZB_NAME,
+      decode(pj.pur_type,'5',r.win_bid_provider_name,v.PROVIDER_NAME)
+      ZC_SU_NAME,
+      e.zc_make_code ZC_MAKE_CODE,
+      e.zc_make_name ZC_MAKE_NAME,
+      e.zc_money_bi_sum ZC_MONEY_BI_SUM,
+      p.pack_code ZC_BID_CODE,
+      p.PACK_DESC ZC_BID_CONTENT,
+      p.nd ND,
+      decode(pj.pur_type, '5', r.win_bid_sum, v.bid_sum) ZC_HT_NUM,
+      p.pur_type
+      ZC_PIFU_CGFS,
+      av.val ZC_CG_LEIXING,
+      pj.proj_code,
+      pj.proj_name
+    from zc_eb_proj pj,
+      zc_eb_entrust e,
+      zc_eb_pack p,
+      zc_eb_eval_report v,
+      zc_eb_rfq_pack r,
+      ZC_EB_NOTICE n,
+      zc_xmcg_ht ht,
+      (select * from as_val where valset_id='ZC_VS_PITEM_OPIWAY') av
+    where pj.proj_code =
+      p.proj_code
+      and p.entrust_code = e.sn
+      and p.pack_code = v.PACK_CODE(+)
+      and p.pack_code = r.PACK_CODE(+)
+      and p.proj_code = r.proj_code(+)
+      and p.pack_code = n.pack_code(+)
+      and
+      p.pack_code = ht.zc_bid_code(+)
+      and ht.zc_ht_code is null
+      and
+      (p.pur_type = '4' or
+      (p.pur_type != '4' and n.notice_status is not
+      null))
+      and (v.proj_code is not null or r.open_bid_status='1')
+      and p.pur_type = av.val_id(+)
 			<isNotNull prepend="and" property="userId">
 				(
 				r.win_bid_provider_code=#userId#

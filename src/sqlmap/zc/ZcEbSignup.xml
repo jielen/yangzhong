@@ -52,7 +52,9 @@
 		<result column="ND" property="nd" />
 		<result column="OPERATOR" property="operator" />
 		<result column="ZB_FILE_ID" property="zbFileId" />	
-		<result column="ZB_FILE_WORD_ID" property="zbFileWordId" />		
+		<result column="ZB_FILE_WORD_ID" property="zbFileWordId" />	
+		<result column="SIGNUP_FILE_ID" property="signupFileId" />	
+		<result column="SIGNUP_FILE_NAME" property="signupFileName" />			
 	</resultMap>
 	<resultMap id="ZcEbSignupResultCoCode" class="ZcEbSignup" extends="ZcEbSignupResult">
 		<result column="CO_CODE" property="coCode" />		
@@ -139,6 +141,8 @@
 		<result property="tbylbFileId" column="TBYLB_FILE_ID" />
 		<result property="ecbjSum" column="ECBJ_SUM" />
 		<result property="checkResult" column="CHECK_RESULT" />
+		<result property="isCheckQualification" column="IS_CHECK_QUALIFICATION" />
+		<result property="qualificationRequire" column="QUALIFICATION_REQUIRE" />
 	</resultMap>
 	<resultMap id="ZcEbSignupPackDetailResultWithProjcode" class="ZcEbSignupPackDetail"
 		extends="ZcEbSignupPackDetailResult">
@@ -307,11 +311,17 @@ group by ZC_EB_PROJ.Proj_Code,ZC_EB_PROJ.Proj_Name,plan.open_bid_time,sh.attn_na
 		</isNotEqual>
 		<include refid="BusiNumLim.BusiNumLimStr" />
 		<isNotNull prepend="AND" property="status">
+		<!-- 我参与的项目 -->
 			<isEqual property="status" compareValue="todo">
 				ZC_EB_SIGNUP.STATUS='1'
 			</isEqual>
+			<!-- 我撤销报名的项目 -->
 			<isEqual property="status" compareValue="cancel">
 				ZC_EB_SIGNUP.STATUS='cancel'
+			</isEqual>
+			<!-- 审批供应商报名情况，针对需要报名审核的分包 -->
+			<isEqual property="status" compareValue="audit">
+				exists (select pk.proj_code from zc_eb_pack pk where pk.proj_code=zc_eb_proj.proj_code and pk.is_check_qualification='Y')
 			</isEqual>
 		</isNotNull>
 		<isNotNull prepend="AND" property="billStatus">
@@ -435,6 +445,24 @@ group by ZC_EB_PROJ.Proj_Code,ZC_EB_PROJ.Proj_Name,plan.open_bid_time,sh.attn_na
 		 AND P.SIGNUP_ID=#VALUE#
 	</select>
 
+		<!-- 用于报名数据导出时，根据项目号获取报名情况-->
+	<select id="getZcEbSignupByProjCode" resultMap="ZcEbSignupResult"
+		parameterClass="elementCondition">
+		SELECT P.*,
+       	N.PROJ_NAME                 AS PROJ_NAME,
+     	 ZC_EB_PROJ_ZBFILE.FILE_ID   AS ZB_FILE_ID,
+     	 ZC_EB_PROJ_ZBFILE.WORD_FILE_ID   AS ZB_FILE_WORD_ID
+  		FROM ZC_EB_SIGNUP P, ZC_EB_PROJ N, ZC_EB_PROJ_ZBFILE ZC_EB_PROJ_ZBFILE
+ 		WHERE N.PROJ_CODE = P.PROJ_CODE
+  		 AND ZC_EB_PROJ_ZBFILE.PROJ_CODE(+) = P.PROJ_CODE
+		<isNotEmpty prepend="and" property="pmAdjustCodeList">
+			P.PROJ_CODE in 
+            <iterate property="pmAdjustCodeList"  conjunction="," open="(" close=")">
+                #pmAdjustCodeList[]#
+            </iterate>
+		</isNotEmpty>
+	</select>
+	
 	<select id="getZcEbSignupByIdProvider" resultMap="ZcEbSignupResult"
 		parameterClass="ZcEbSignup">
 		SELECT P.*,
@@ -481,6 +509,8 @@ group by ZC_EB_PROJ.Proj_Code,ZC_EB_PROJ.Proj_Name,plan.open_bid_time,sh.attn_na
 		PK.PACK_CODE,
 		PK.PACK_NAME,
 		PK.PACK_DESC,
+		pk.QUALIFICATION_REQUIRE,
+		pk.IS_CHECK_QUALIFICATION,
 		SP.IS_PAY_GUARANTEE,
 		SP.GUARANTEE_DESC,
 		sp.bid_doc_id,
@@ -550,7 +580,8 @@ group by ZC_EB_PROJ.Proj_Code,ZC_EB_PROJ.Proj_Name,plan.open_bid_time,sh.attn_na
 		S.IS_SUBMIT_BID_DOC=#isSubmitBidDoc#,
 		S.SUBMIT_BID_DOC_TYPE=#submitBidDocType#,
 		S.BID_DOC_ID=#bidDocFileId#,
-		S.BID_DOC_NAME=#bidDocFile#, S.ORG_CODE=#orgCode#, S.AGENCY=#agency#
+		S.BID_DOC_NAME=#bidDocFile#, S.ORG_CODE=#orgCode#, S.AGENCY=#agency#,
+		s.SIGNUP_FILE_ID=#signupFileId#,s.SIGNUP_FILE_NAME=#signupFileName#
 		WHERE
 		S.SIGNUP_ID=#signupId#
 	</update>
@@ -658,7 +689,7 @@ group by ZC_EB_PROJ.Proj_Code,ZC_EB_PROJ.Proj_Name,plan.open_bid_time,sh.attn_na
 		REMARK,
 		ND,
 		IS_PAY_GUARANTEE, AGENCY,
-		ORG_CODE)
+		ORG_CODE,SIGNUP_FILE_ID,SIGNUP_FILE_NAME)
 		values(#signupId:VARCHAR#,
 		#providerCode:VARCHAR#,
 		#providerName:VARCHAR#,
@@ -680,7 +711,9 @@ group by ZC_EB_PROJ.Proj_Code,ZC_EB_PROJ.Proj_Name,plan.open_bid_time,sh.attn_na
 		#remark:VARCHAR#,
 		#nd#,
 		#isPayGuarantee#, #agency#,
-		#orgCode#)
+		#orgCode#,
+		#signupFileId#,
+		#signupFileName#)
 	</insert>
 	<insert id="insertZcEbSignupPackDetail" parameterClass="ZcEbSignupPackDetail">
 		insert
@@ -768,7 +801,9 @@ group by ZC_EB_PROJ.Proj_Code,ZC_EB_PROJ.Proj_Name,plan.open_bid_time,sh.attn_na
 		P.AGENCY,
 		P.ORG_CODE,
      	 ZC_EB_PROJ_ZBFILE.FILE_ID   AS ZB_FILE_ID,
-     	 ZC_EB_PROJ_ZBFILE.WORD_FILE_ID   AS ZB_FILE_WORD_ID
+     	 ZC_EB_PROJ_ZBFILE.WORD_FILE_ID   AS ZB_FILE_WORD_ID,
+     	 p.SIGNUP_FILE_ID,
+     	 p.SIGNUP_FILE_NAME
 		from ZC_EB_SIGNUP P,
 		ZC_EB_PROJ N,
 		ZC_EB_PROJ_ZBFILE ZC_EB_PROJ_ZBFILE

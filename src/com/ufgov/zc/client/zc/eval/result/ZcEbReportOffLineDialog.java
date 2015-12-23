@@ -9,6 +9,7 @@ import java.awt.Window;
 import java.util.List;
 
 import com.ufgov.zc.client.common.BillElementMeta;
+import com.ufgov.zc.client.common.LangTransMeta;
 import com.ufgov.zc.client.common.ListCursor;
 import com.ufgov.zc.client.component.GkBaseDialog;
 import com.ufgov.zc.common.zc.model.ZcEbProj;
@@ -40,7 +41,7 @@ public class ZcEbReportOffLineDialog extends GkBaseDialog {
 
     add(editPanel);
 
-    this.setTitle("评审结果报告");
+    this.setTitle(LangTransMeta.translate("ZC_EB_EVAL_REPORT_OFF_LINE"));
 
     this.setMaxSizeWindow();
 

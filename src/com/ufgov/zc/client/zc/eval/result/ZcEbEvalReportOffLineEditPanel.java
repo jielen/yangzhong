@@ -101,6 +101,7 @@ import com.ufgov.zc.client.component.zc.fieldeditor.DateFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.ForeignEntityFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.MoneyFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.SelectFileFieldEditor;
+import com.ufgov.zc.client.component.zc.fieldeditor.TextAreaFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.TextFieldEditor;
 import com.ufgov.zc.client.datacache.AsValDataCache;
 import com.ufgov.zc.client.print.PrintSettingDialog;
@@ -108,6 +109,7 @@ import com.ufgov.zc.client.util.SwingUtil;
 import com.ufgov.zc.client.zc.ButtonStatus;
 import com.ufgov.zc.client.zc.ZcUtil;
 import com.ufgov.zc.client.zc.notepad.ZcNotepadDialog;
+import com.ufgov.zc.client.zc.project.integration_dt.ZcEbProjectEditPanel_dt;
 import com.ufgov.zc.client.zc.ztb.ChangeRMB;
 import com.ufgov.zc.common.commonbiz.model.Company;
 import com.ufgov.zc.common.commonbiz.publish.IBaseDataServiceDelegate;
@@ -237,8 +239,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
   private ZcEbEvalReportEditPanel self;
 
-   
-  protected String getCompoId() {
+  protected  String getCompoId() {
     // TODO Auto-generated method stub
     return "ZC_EB_EVAL_REPORT_OFF_LINE";
   }
@@ -364,7 +365,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
     this.listPanel = listPanel;
 
-    this.workPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), LangTransMeta.translate("评审报告管理"),
+    this.workPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), LangTransMeta.translate(getCompoId()),
 
     TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体", Font.BOLD, 15), Color.BLUE));
 
@@ -499,7 +500,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
     dto.setPackCode(zcEbEvalReport.getPackCode());
 
     ZcEbRfqPack zcEbRfqPack = zcEbRfqServiceDelegate.getZcEbRfqPack(dto, requestMeta);
-    
+
     zcEbEvalReport.setProviderCode(zcEbRfqPack.getWinBidProviderCode());
     zcEbEvalReport.setProviderName(zcEbRfqPack.getWinBidProviderName());
     zcEbEvalReport.setBidSum(zcEbRfqPack.getWinBidSum());
@@ -1039,7 +1040,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
      */
     memberTablePanel.init();
     memberTablePanel.getSearchBar().setVisible(false);
-    commentTabPane.add("评审专家", memberTablePanel);
+    //    commentTabPane.add("评审专家", memberTablePanel);
 
     defaultSubPanel.add(tabbedPane);
 
@@ -1059,7 +1060,9 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
       zcEbEvalReport = new ZcEbEvalReport();
       zcEbEvalReport.setStatus("0");
-      zcEbEvalReport.setExecutor(requestMeta.getSvUserName());
+      zcEbEvalReport.setIsOffLine("Y");
+      zcEbEvalReport.setExecutor(requestMeta.getSvUserID());
+      zcEbEvalReport.setExecutorName(requestMeta.getSvUserName());
       zcEbEvalReport.setExecuteDate(requestMeta.getSysDate());
       zcEbEvalReport.setNd(requestMeta.getSvNd());
       zcEbEvalReport.setOrgCode(requestMeta.getSvOrgCode());
@@ -1070,7 +1073,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
       listCursor.getDataList().add(zcEbEvalReport);
       List resultList = new ArrayList();
       zcEbEvalReport.setPackEvalResultList(resultList);
-
+      refreshSubData();
     }
     if (zcEbEvalReport.getProjCode() != null && zcEbEvalReport.getPackCode() != null) {
       Map<String, String> para = new HashMap<String, String>();
@@ -1078,8 +1081,10 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
       para.put("projCode", zcEbEvalReport.getProjCode());
       ZcEbPack zcEbPack = (ZcEbPack) zcEbBaseServiceDelegate.queryObject("ZcEbProj.getZcEbPackByPackCode", para, requestMeta);
       zcEbEvalReport.setZcEbPack(zcEbPack);
+      zcEbEvalReport.setPackStatus(zcEbPack.getStatus());
+      zcEbEvalReport.setFailReason(zcEbPack.getFailedReason());
       packStatus = zcEbPack.getStatus();
-      
+
       if (zcEbEvalReport.getProcessInstId() != null && zcEbEvalReport.getProcessInstId() > 0) {
         pageStatus = ZcSettingConstants.PAGE_STATUS_BROWSE;
       }
@@ -1088,15 +1093,10 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
       } else {
 
         elementConditionDto.setPackCode(zcEbEvalReport.getPackCode());
-
         elementConditionDto.setProjCode(zcEbEvalReport.getProjCode());
-
         bidelementConditionDto.setPackCode(zcEbEvalReport.getPackCode());
-
         bidelementConditionDto.setProjectCode(zcEbEvalReport.getProjCode());
-
         packDto.setDattr1(zcEbEvalReport.getProjCode());
-
         List resultList = zcEbEvalServiceDelegate.getZcEbPackEvalResultList(elementConditionDto, requestMeta);
         zcEbEvalReport.setPackEvalResultList(resultList);
         refreshSubData();
@@ -1245,6 +1245,8 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
     dto.setZcText0(requestMeta.getSvUserID());
 
+    dto.setZcText1("offLine");
+
     dto.setNd(requestMeta.getSvNd());
 
     ForeignEntityFieldEditor editor = new ForeignEntityFieldEditor("ZcEbEval.getZcEbProj", dto, 20, handler1, projColumNames, LangTransMeta
@@ -1272,7 +1274,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
     String pakeColumNames[] = { "分包编号", "分包名称" };
 
     ZcEbPackHandler handler2 = new ZcEbPackHandler(pakeColumNames);
-
+    packDto.setZcText0("offLine");
     packSelectEdit = new ForeignEntityFieldEditor("ZcEbEval.getZcEbPack", packDto, 20, handler2, pakeColumNames, LangTransMeta
 
     .translate(ZcElementConstants.FIELD_TRANS_PACK_CODE), "packName");
@@ -1305,7 +1307,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
     editorList.add(editor5);
 
-    TextFieldEditor editor6 = new TextFieldEditor("开标负责人", "executor");
+    TextFieldEditor editor6 = new TextFieldEditor("开标负责人", "executorName");
     editor6.setEnabled(false);
     editorList.add(editor6);
 
@@ -1341,6 +1343,12 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
     //    editorList.add(status);
 
+    AsValFieldEditor packStatus = new AsValFieldEditor("分包状态", "packStatus","VS_ZC_PACK_STATUS");
+    editorList.add(packStatus);
+    
+    TextAreaFieldEditor fail= new TextAreaFieldEditor("废标原因", "failReason",50,2,5);
+
+    editorList.add(fail);
     return editorList;
 
   }
@@ -1452,17 +1460,17 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
     toolBar.add(auditPassButton);
 
-//    toolBar.add(isSendToNextButton);
+    //    toolBar.add(isSendToNextButton);
 
-//    toolBar.add(sendToProcurementUnitButton);
+    //    toolBar.add(sendToProcurementUnitButton);
 
-//    toolBar.add(agreeButton);
+    //    toolBar.add(agreeButton);
 
-//    toolBar.add(disagreeButton);
+    //    toolBar.add(disagreeButton);
 
-//    toolBar.add(sendToXieBanButton);
+    //    toolBar.add(sendToXieBanButton);
 
-//    toolBar.add(auditFinalPassButton);
+    //    toolBar.add(auditFinalPassButton);
 
     toolBar.add(unAuditButton);
 
@@ -1470,11 +1478,11 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
     toolBar.add(traceButton);
 
-    toolBar.add(printButton);
-
-    toolBar.add(printSettingButton);
-
-    toolBar.add(openNotepadButton);
+//    toolBar.add(printButton);
+//
+//    toolBar.add(printSettingButton);
+//
+//    toolBar.add(openNotepadButton);
 
     toolBar.add(previousButton);
 
@@ -2171,6 +2179,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
       bs.setButton(this.editButton);
 
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
+      bs.addBillStatus("0");
 
       btnStatusList.add(bs);
 
@@ -2201,6 +2210,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
       bs.setButton(this.deleteButton);
 
       bs.addPageStatus(ZcSettingConstants.PAGE_STATUS_BROWSE);
+      bs.addBillStatus("0");
 
       btnStatusList.add(bs);
 
@@ -2251,7 +2261,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
     if (this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW)) {
 
       for (AbstractFieldEditor fd : this.fieldEditors) {
-        if (fd.getFieldName().equals("projName") || fd.getFieldName().equals("bidDate") || fd.getFieldName().equals("bidLocation")) {
+        if (fd.getFieldName().equals("projName") || fd.getFieldName().equals("bidDate") || fd.getFieldName().equals("bidLocation")|| fd.getFieldName().equals("packStatus")) {
           fd.setEnabled(false);
           continue;
         }
@@ -2280,7 +2290,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
       } else {
 
         for (AbstractFieldEditor fd : this.fieldEditors) {
-          if (fd.getFieldName().equals("projName") || fd.getFieldName().equals("bidDate") || fd.getFieldName().equals("bidLocation")) {
+          if (fd.getFieldName().equals("projName") || fd.getFieldName().equals("bidDate") || fd.getFieldName().equals("bidLocation")|| fd.getFieldName().equals("packStatus")) {
             fd.setEnabled(false);
             continue;
           }
@@ -2343,7 +2353,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
         bill = (ZcEbEvalReport) this.listCursor.getCurrentObject();
 
-        zcEbEvalServiceDelegate.deleteZcEbEvalReport(bill, requestMeta);
+        zcEbEvalServiceDelegate.deleteOfflineZcEbEvalReport(bill, requestMeta);
 
       } catch (Exception e) {
 
@@ -2379,29 +2389,20 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
   }
 
   public boolean doSave(boolean isShowConfirm) {
-
-    if (!checkBeforeSave()) {
-
+    ZcEbEvalReport afterBill = (ZcEbEvalReport) this.listCursor.getCurrentObject();
+    if (ZcSettingConstants.ZC_CGFS_XJ.equals(afterBill.getPurType())) {
+      JOptionPane.showMessageDialog(this, "不支持询价的线下评标报告！", "提示", JOptionPane.INFORMATION_MESSAGE);
       return false;
-
     }
-
-    ZcEbEvalReport afterBill;
+    if (!checkBeforeSave()) {
+      return false;
+    }
 
     boolean success = true;
 
     try {
-
-      ZcEbEvalReport bill = (ZcEbEvalReport) this.listCursor.getCurrentObject();
-
-      if (bill.getStatus().equals("0") && bill.getPackEvalResultList() != null && bill.getPackEvalResultList().size() > 0 && !ZcSettingConstants.ZC_CGFS_XJ.equals(bill.getPurType())) {
-
-        zcEbEvalServiceDelegate.updateZcEbPackEvalFinalSumResultFN(bill.getPackEvalResultList(), requestMeta);
-        bill.setExpertOpinion(bidEvalOpinionArea.getText());
-      }
-
-      requestMeta.setFuncId(saveButton.getFuncId());
-      afterBill = zcEbEvalServiceDelegate.saveZcEbEvalReportFN(bill, requestMeta);
+      afterBill.setExpertOpinion(bidEvalOpinionArea.getText());
+      afterBill=zcEbEvalServiceDelegate.saveOffLineEvalResultFN(afterBill, requestMeta);
 
     } catch (BaseException ex) {
 
@@ -2413,7 +2414,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
     }
 
-    if (success&&isShowConfirm) {
+    if (success && isShowConfirm) {
 
       JOptionPane.showMessageDialog(this, "保存成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
 
@@ -2869,32 +2870,27 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
       if (reportIsExists(zcEbEvalReport.getProjCode(), zcEbEvalReport.getPackCode())) {
 
-        JOptionPane.showMessageDialog(null, "已经存在该项目： " + zcEbEvalReport.getProjName() + " 的评标报告!");
+        JOptionPane.showMessageDialog(null, "已经存在该项目： " + zcEbEvalReport.getProjName() + zcEbEvalReport.getPackName() + " 的评标报告!");
 
         return false;
 
       }
 
-    }
+    }    
     if (!setWinProvider(zcEbEvalReport)) {
-      if (isCancel) {
-
-        JOptionPane.showMessageDialog(this, "废标项目不能选择预中标/中标供应商", "提示", JOptionPane.INFORMATION_MESSAGE);
-
-      } else {
-
-        JOptionPane.showMessageDialog(this, "请选择一个预中标/中标供应商", "提示", JOptionPane.INFORMATION_MESSAGE);
-
-      }
-
       return false;
-    }
-    if (!ZcSettingConstants.ZC_CGFS_XJ.equals(zcEbEvalReport.getPurType())) {
+    }//if (zcEbEvalReport.getFailReason()!=null && zcEbEvalReport.getFailReason().trim().length()>0) {
+    if (!ZcSettingConstants.ZC_CGFS_XJ.equals(zcEbEvalReport.getPurType()) && (zcEbEvalReport.getFailReason()==null || zcEbEvalReport.getFailReason().trim().length()==0) ) {
 
       if ((null == bidEvalOpinionArea.getText() || "".equals(bidEvalOpinionArea.getText())) && zcEbEvalReport.getReportAttachBlobid() == null) {
         JOptionPane.showMessageDialog(this, "评审专家组意见或评审报告附件必须有一个填写！", "提示", JOptionPane.INFORMATION_MESSAGE);
         return false;
       }
+    }
+    if (zcEbEvalReport.getFailReason()!=null && zcEbEvalReport.getFailReason().trim().length()>0) {
+      zcEbEvalReport.setPackStatus(ZcEbPack.PACK_STATUS_CRAP);
+    }else{
+      zcEbEvalReport.setPackStatus(ZcEbPack.PACK_STATUS_COMPLETED);
     }
     return true;
 
@@ -2910,15 +2906,16 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
     zcEbEvalReport.setProviderName("");
     zcEbEvalReport.setBidSum(null);
     //是否是定点采购，允许有多个预中标供应商
-    if (isCancel) {
+    if (zcEbEvalReport.getFailReason()!=null && zcEbEvalReport.getFailReason().trim().length()>0) {
       int size = 0;
       for (int i = 0; i < resultList.size(); i++) {
         ZcEbPackEvalResult result = (ZcEbPackEvalResult) resultList.get(i);
-        if ("3".equals(result.getEvalResult()) || "4".equals(result.getEvalResult())) {
+        if (ZcEbPack.PACK_EVAL_STATUS_YU_ZHONGBIAO.equals(result.getEvalResult()) || ZcEbPack.PACK_EVAL_STATUS_ZHONGBIAO.equals(result.getEvalResult())) {
           size++;
         }
       }
       if (size > 0) {
+        JOptionPane.showMessageDialog(this, "如果选择了中标供应商，则不能填写废标原因！", "提示", JOptionPane.INFORMATION_MESSAGE);
         return false;
       } else {
         return true;
@@ -2928,11 +2925,12 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
       int size = 0;
       for (int i = 0; i < resultList.size(); i++) {
         ZcEbPackEvalResult result = (ZcEbPackEvalResult) resultList.get(i);
-        if ("3".equals(result.getEvalResult())) {
+        if (ZcEbPack.PACK_EVAL_STATUS_YU_ZHONGBIAO.equals(result.getEvalResult())) {
           size++;
         }
       }
       if (size == 0) {
+        JOptionPane.showMessageDialog(this, "请选择中标供应商，如果是废标，则请填充废标原因！", "提示", JOptionPane.INFORMATION_MESSAGE);
         return false;
       } else {
         return true;
@@ -2943,7 +2941,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
       int yzb = 0;
       for (int i = 0; i < resultList.size(); i++) {
         ZcEbPackEvalResult result = (ZcEbPackEvalResult) resultList.get(i);
-        if ("3".equals(result.getEvalResult())) {
+        if (ZcEbPack.PACK_EVAL_STATUS_YU_ZHONGBIAO.equals(result.getEvalResult())) {
           yzb++;
           zcEbEvalReport.setProviderCode(result.getProviderCode());
           zcEbEvalReport.setProviderName(result.getProviderName());
@@ -2953,7 +2951,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
       for (int i = 0; i < resultList.size(); i++) {
         ZcEbPackEvalResult result = (ZcEbPackEvalResult) resultList.get(i);
-        if ("4".equals(result.getEvalResult())) {
+        if (ZcEbPack.PACK_EVAL_STATUS_ZHONGBIAO.equals(result.getEvalResult())) {
           zb++;
           zcEbEvalReport.setProviderCode(result.getProviderCode());
           zcEbEvalReport.setProviderName(result.getProviderName());
@@ -2963,6 +2961,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
       if ((zb + yzb) == 1) {
         return true;
       } else {
+        JOptionPane.showMessageDialog(this, "请选择中标供应商，如果是废标，则请填充废标原因！", "提示", JOptionPane.INFORMATION_MESSAGE);
         return false;
       }
     }
@@ -3003,8 +3002,8 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
   public boolean isDataChanged() {
 
-//    return !DigestUtil.digest(oldZcEbEvalReport).equals(DigestUtil.digest(this.getEditingObject()));
-    
+    //    return !DigestUtil.digest(oldZcEbEvalReport).equals(DigestUtil.digest(this.getEditingObject()));
+
     return false;
 
   }
@@ -3041,6 +3040,10 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
     zcEbEvalReport.setProjCode(proj.getProjCode());
 
     zcEbEvalReport.setProjName(proj.getProjName());
+    
+    zcEbEvalReport.setExecutor(proj.getAttn());
+    
+    zcEbEvalReport.setExecutorName(proj.getAttnName());
 
     ElementConditionDto dto = new ElementConditionDto();
 
@@ -3190,6 +3193,26 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
     }
 
+    /*
+
+     * 设置外部实体数据条件
+
+     */
+
+    public Boolean beforeSelect(ElementConditionDto dto) {
+      ZcEbEvalReport zcEbEvalReport = (ZcEbEvalReport) listCursor.getCurrentObject();
+      if (zcEbEvalReport.getProjCode() != null) {
+        int result = JOptionPane.showConfirmDialog(self, "确认重新选择项目吗?", "选择确认", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+          listCursor.setCurrentObject(null);
+          refreshData();
+        }else{
+          return false;
+        }
+      }
+      return true;
+    }
+
   }
 
   public void setPack(ZcEbPack pack) {
@@ -3203,7 +3226,11 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
     zcEbEvalReport.setPackName(pack.getPackName());
 
     zcEbEvalReport.setPurType(pack.getPurType());
-    isCancel = "5".equals(pack.getStatus());
+    isCancel = ZcEbPack.PACK_STATUS_CRAP.equals(pack.getStatus());
+    
+    zcEbEvalReport.setPackStatus(pack.getStatus());
+    
+    zcEbEvalReport.setFailReason(pack.getFailedReason());
 
     if (zcEbEvalReport.getZcEbPack() == null) {
       zcEbEvalReport.setZcEbPack(new ZcEbPack());
@@ -3213,10 +3240,12 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
     //设置采购人编号
 
     ZcEbEntrust zcEbEntrust = zcEbEntrustServiceDelegate.getZcEbtrustBySn(pack.getEntrustCode(), requestMeta);
+    //协议采购可以是多人中标
     isManyWinner = "Z02".equals(zcEbEntrust.getZcFukuanType());
     zcEbEvalReport.setCoCode(zcEbEntrust.getCoCode());
 
     if (!"".equals(zcEbEvalReport.getCoCode()) && zcEbEvalReport.getCoCode() != null) {
+
       Company company = baseDataServiceDelegate.getCompanyByCoCode(requestMeta.getSvNd(), zcEbEvalReport.getCoCode(), requestMeta);
       if (company != null) {
         zcEbEvalReport.setCoName(company.getName());
@@ -3227,6 +3256,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
     Map<String, String> map = new HashMap<String, String>();
     map.put("proj_code", zcEbEvalReport.getProjCode());
     map.put("pack_code", pack.getPackCode());
+    map.put("off_line", "off_line");
     List<ZcEbPackEvalResult> list = zcEbEvalServiceDelegate.getZcEbPackEvalResult(map, requestMeta);
     for (int i = 0; i < list.size(); i++) {
       ZcEbPackEvalResult zcEbEvalReportResult = list.get(i);
@@ -3271,6 +3301,8 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
         return false;
 
       }
+      zcEbEvalReport.setPackEvalResultList(new ArrayList<ZcEbPackEvalResult>());
+      refreshSubData();
 
       return true;
 
