@@ -8,6 +8,7 @@ import java.util.List;
 import com.ufgov.zc.common.system.Publishable;
 import com.ufgov.zc.common.system.RequestMeta;
 import com.ufgov.zc.common.system.dto.ElementConditionDto;
+import com.ufgov.zc.common.system.exception.BusinessException;
 import com.ufgov.zc.common.zc.model.HuiyuanUnitcominfo;
 import com.ufgov.zc.common.zc.model.HuiyuanUser;
 
@@ -22,7 +23,7 @@ public interface IHuiyuanUserDelegate extends Publishable {
 
   HuiyuanUser selectByPrimaryKey(String danweiguid, RequestMeta requestMeta);
 
-  HuiyuanUser saveFN(HuiyuanUser record, RequestMeta requestMeta);
+  HuiyuanUser saveFN(HuiyuanUser record, RequestMeta requestMeta)  throws BusinessException;
 
   HuiyuanUser updateAuditStatusFN(HuiyuanUser record, RequestMeta requestMeta);
 

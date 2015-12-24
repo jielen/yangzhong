@@ -89,6 +89,12 @@
 	    <isNotNull prepend="AND" property="zcText1">
 	    	DANWEIGUID=#zcText1#
 	    </isNotNull>
+	    <isNotNull   prepend="AND" property="zcText0"><!-- 根据ca检索用户 -->
+	    	DOGNUM=#zcText0#
+	    </isNotNull>
+	    <isNotNull   prepend="AND" property="zcText2"><!-- 根据loginId检索用户 -->
+	    	LOGINID=#zcText2#
+	    </isNotNull>
 	</dynamic>
   </select>
   <delete id="deleteByPrimaryKey" parameterClass="java.lang.String" >

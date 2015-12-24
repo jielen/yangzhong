@@ -997,7 +997,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
 
       HuiyuanUnitcominfo qx = huiyuanUnitcominfoServiceDelegate.saveFN(inData, this.requestMeta);
 
-      System.out.println("after=" + qx.getCoCode() + qx.getCoName());
+//      System.out.println("after=" + qx.getCoCode() + qx.getCoName());
 
       listCursor.setCurrentObject(qx);
 

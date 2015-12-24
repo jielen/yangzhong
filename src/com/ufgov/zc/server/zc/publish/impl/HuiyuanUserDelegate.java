@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ufgov.zc.common.system.RequestMeta;
 import com.ufgov.zc.common.system.dto.ElementConditionDto;
+import com.ufgov.zc.common.system.exception.BusinessException;
 import com.ufgov.zc.common.zc.model.HuiyuanUser;
 import com.ufgov.zc.common.zc.publish.IHuiyuanUserDelegate;
 import com.ufgov.zc.server.zc.service.IHuiyuanUserService;
@@ -34,7 +35,7 @@ public class HuiyuanUserDelegate implements IHuiyuanUserDelegate {
    * @see com.ufgov.zc.common.zc.publish.IHuiyuanUserDelegate#saveFN(com.ufgov.zc.common.zc.model.HuiyuanUser, com.ufgov.zc.common.system.RequestMeta)
    */
   
-  public HuiyuanUser saveFN(HuiyuanUser record, RequestMeta requestMeta) {
+  public HuiyuanUser saveFN(HuiyuanUser record, RequestMeta requestMeta)  throws BusinessException{
     // TODO Auto-generated method stub
     return huiyuanUserService.saveFN(record, requestMeta);
   }

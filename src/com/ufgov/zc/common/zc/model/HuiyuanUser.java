@@ -339,7 +339,7 @@ public class HuiyuanUser extends ZcBaseBill {
      * @mbggenerated Fri Nov 13 02:53:27 CST 2015
      */
     public void setLoginid(String loginid) {
-        this.loginid = loginid;
+        this.loginid = loginid==null?null:loginid.trim();
     }
 
     /**

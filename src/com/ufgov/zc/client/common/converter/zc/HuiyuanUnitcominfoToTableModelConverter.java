@@ -74,6 +74,7 @@ public class HuiyuanUnitcominfoToTableModelConverter {
     Vector names = new Vector();
     Vector values = new Vector();
     names.add(LangTransMeta.translate(HuiyuanUser.COL_DISPLAYNAME));
+    names.add(LangTransMeta.translate(HuiyuanUser.COL_LOGINID));
     names.add(LangTransMeta.translate(HuiyuanUser.COL_DOGNUM));
     names.add(LangTransMeta.translate(HuiyuanUser.COL_COMPANYPHONE));
     names.add(LangTransMeta.translate(HuiyuanUser.COL_MOBILEPHONE));
@@ -86,6 +87,7 @@ public class HuiyuanUnitcominfoToTableModelConverter {
         Vector rowData = new Vector();
         HuiyuanUser qx = (HuiyuanUser) userLst.get(i);
         rowData.add(qx.getDisplayname());
+        rowData.add(qx.getLoginid());
         rowData.add(qx.getDognum());
         rowData.add(qx.getCompanyphone());
         rowData.add(qx.getMobilephone());

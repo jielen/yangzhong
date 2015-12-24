@@ -12,6 +12,7 @@ import com.ufgov.zc.common.system.RequestMeta;
 import com.ufgov.zc.common.system.constants.ZcElementConstants;
 import com.ufgov.zc.common.system.constants.ZcSettingConstants;
 import com.ufgov.zc.common.system.dto.ElementConditionDto;
+import com.ufgov.zc.common.system.exception.BusinessException;
 import com.ufgov.zc.common.system.model.AsWfDraft;
 import com.ufgov.zc.common.system.model.User;
 import com.ufgov.zc.common.system.util.UUID;
@@ -90,24 +91,32 @@ public class HuiyuanUserService implements IHuiyuanUserService {
   }
 
   
-  public HuiyuanUser saveFN(HuiyuanUser record, RequestMeta requestMeta) {
+  public HuiyuanUser saveFN(HuiyuanUser record, RequestMeta requestMeta) throws BusinessException {
     // TODO Auto-generated method stub
-    HuiyuanUser user=getUserByCa(record,requestMeta);   
-    AsEmp emp=getEmpByCa(record,requestMeta);
+    boolean isNewUser=false;
     if(record.getUserguid()==null || record.getUserguid().trim().length()==0){
-      if(user!=null){        
-        throw new RuntimeException("CA证书号"+record.getDognum()+"已经被使用，不能使用!");
+      //新增用户
+      isNewUser=true;
+      //1.ca非空时，ca是否被用,根据新的ca从表huiyuan_user和as_emp获取数据进行判断
+      if(existCa(record,requestMeta,isNewUser,null)){
+        throw new BusinessException("CA证书号"+record.getDognum()+"已经被使用!"); 
       }
-      if(emp!=null){
-        throw new RuntimeException("CA证书号"+record.getDognum()+"已经被使用，不能使用!");
+      //2.loginId是否已经被使用
+      if(existLoginId(record,requestMeta,isNewUser,null)){
+        throw new BusinessException("登陆账号名"+record.getLoginid()+"已经被使用!"); 
       }
       record=insert(record,requestMeta);
     }else{
-      if(user!=null && !user.getUserguid().equals(record.getUserguid())){
-        throw new RuntimeException("CA证书号"+record.getDognum()+"已经被使用，不能使用!");
+      //更新用户
+      isNewUser=false;
+      HuiyuanUser existUser=selectByPrimaryKey(record.getUserguid(), requestMeta);
+      //1.ca非空时，ca是否被用,根据新的ca从表huiyuan_user和as_emp获取数据进行判断
+      if(existCa(record,requestMeta,isNewUser,existUser.getLoginid())){
+        throw new BusinessException("CA证书号"+record.getDognum()+"已经被使用!"); 
       }
-      if(emp!=null && !emp.getEmpCode().equals(record.getUserguid())){
-        throw new RuntimeException("CA证书号"+record.getDognum()+"已经被使用，不能使用!");
+      //2.loginId是否已经被使用
+      if(existLoginId(record,requestMeta,isNewUser,existUser.getLoginid())){
+        throw new BusinessException("登陆账号名"+record.getLoginid()+"已经被使用!"); 
       }
       record=update(record,requestMeta);
     }
@@ -116,57 +125,147 @@ public class HuiyuanUserService implements IHuiyuanUserService {
     return record;
   } 
   
-  private AsEmp getEmpByCa(HuiyuanUser record, RequestMeta requestMeta) {
+  /**
+   * 根据登陆用户名检查是否已经存在使用这个用户名的用户了.
+   * @param record
+   * @param requestMeta
+   * @param isNewUser
+   * @param oldLoginId
+   * @return
+   */
+  private boolean existLoginId(HuiyuanUser record, RequestMeta requestMeta, boolean isNewUser,String oldLoginId) {
     // TODO Auto-generated method stub
-    if(record==null || record.getDognum()==null)return null;
-    AsEmp param=new AsEmp();
-    param.setCaSerial(record.getDognum());
-    return (AsEmp) zcEbBaseServiceDao.queryObject("User.getEmpByCaSerial", param);     
+    if(record==null || record.getLoginid()==null || record.getLoginid().trim().length()==0){
+      return false;
+    }
+    
+    ElementConditionDto eto=new ElementConditionDto();
+    eto.setZcText2(record.getLoginid());
+    List userLst=getMainDataLst(eto, requestMeta);
+    
+    if(userLst==null)return false;
+    
+    //新增用户
+    if(userLst.size()>0 && isNewUser)return true;
+
+    //更新用户
+    for(int i=0;i<userLst.size();i++){
+      HuiyuanUser existUser=(HuiyuanUser)userLst.get(i); 
+      if(!existUser.getUserguid().equals(record.getUserguid())){
+        return true;
+      } 
+    }
+    
+    User user=userService.getUserById(record.getLoginid());
+    
+    if(user==null){
+      return false;
+    }else{
+      if(isNewUser){//新增用户
+        return true;
+      }else{//更新用户
+        if(!user.getUserId().equals(oldLoginId)){
+          return true;
+        }
+      }      
+    }
+    return false;
   }
 
 
-  private HuiyuanUser getUserByCa(HuiyuanUser record, RequestMeta requestMeta) {
+  /**
+   * 判断当前的ca是否已经被使用
+   * @param record 当前需要操作的用户
+   * @param requestMeta
+   * @param isNewUser 是否新增用户
+   * @param oldLoginId 老的用户登陆id
+   * @return
+   */
+  private boolean existCa(HuiyuanUser record, RequestMeta requestMeta,boolean isNewUser,String oldLoginId) {
     // TODO Auto-generated method stub
-    ElementConditionDto dto=new ElementConditionDto(); 
-    HashMap map=new HashMap();
-    map.put("ca", record.getDognum());  
-    return (HuiyuanUser) zcEbBaseServiceDao.queryObject("com.ufgov.zc.server.zc.dao.HuiyuanUserMapper.getUserByCa", map);
+    if(record==null || record.getDognum()==null || record.getDognum().trim().length()==0){
+      return false;
+    }
+    
+    ElementConditionDto eto=new ElementConditionDto();
+    eto.setZcText0(record.getDognum());
+    List userLst=getMainDataLst(eto, requestMeta);
+    
+    if(userLst==null)return false;
+    
+    //新增用户
+    if(userLst.size()>0 && isNewUser)return true;
+    
+    //更新用户
+    for(int i=0;i<userLst.size();i++){
+      HuiyuanUser existUser=(HuiyuanUser)userLst.get(i); 
+      if(!existUser.getUserguid().equals(record.getUserguid()) && existUser.getDognum().equals(record.getDognum())){
+        return true;
+      }  
+    }
+    
+    AsEmp emp=new AsEmp();
+    emp.setCaSerial(record.getDognum());
+    userLst=userService.getEmpByCaSerial(emp);
+    
+    if(userLst==null)return false; 
+
+    //新增用户
+    if(userLst.size()>0 && isNewUser){
+      return true;
+    }
+    
+    //更新用户
+    for(int i=0;i<userLst.size();i++){
+      AsEmp p=(AsEmp)userLst.get(i); 
+      if(!p.getUserId().equals(oldLoginId)){//
+        return true;
+      }   
+    }
+    return false;
   }
 
   private HuiyuanUser update(HuiyuanUser record, RequestMeta requestMeta) {
     // TODO Auto-generated method stub
-    record.setPasswd(GeneralFunc._encodePwd(record.getPasswd()));
+    User existUser=userService.getUserById(record.getLoginid());
+    if(existUser!=null){
+      record.setPasswd(existUser.getPassword());
+    }else{
+      record.setPasswd(GeneralFunc._encodePwd(record.getPasswd()));
+    } 
     huiyuanUserMapper.updateByPrimaryKey(record);
-    HashMap map=new HashMap();
-    map.put("userGuid", record.getUserguid());
-    map.put("passwd", record.getPasswd()); 
-    map.put("userName", record.getDisplayname()); 
-    List lst=new ArrayList();
-    lst.add(map);
-    zcEbBaseServiceDao.updateObjectList("com.ufgov.zc.server.zc.dao.HuiyuanUserMapper.updateSysUser", lst);
     
-    map.clear();
-    lst.clear();
+    userService.deleteUser(record.getLoginid(), requestMeta);
+    
+    //增加系统用户s
+    User user = new User();
+    user.setUserId(record.getLoginid());
+    user.setUserName(record.getDisplayname());
+    user.setPassword(record.getPasswd());
 
-    map.put("userGuid", record.getUserguid());
-    map.put("caSerial", record.getDognum()); 
-    map.put("userName", record.getDisplayname()); 
-    lst.add(map);
-    zcEbBaseServiceDao.updateObjectList("com.ufgov.zc.server.zc.dao.HuiyuanUserMapper.updateSysEmp", lst);
+    GregorianCalendar g = new GregorianCalendar();
+    int nd = g.get(Calendar.YEAR);
+
+    String groupId = AsOptionUtil.getInstance().getOptionVal(ZcElementConstants.OPT_ZC_SUPPLIER_GROUP_ID);
+    String orgId = AsOptionUtil.getInstance().getOptionVal(ZcElementConstants.OPT_ZC_SUPPLIER_ORG_ID);
+    String coCode = AsOptionUtil.getInstance().getOptionVal(ZcElementConstants.OPT_ZC_SUPPLIER_CO_CODE);
+    String posiCode = AsOptionUtil.getInstance().getOptionVal(ZcElementConstants.OPT_ZC_SUPPLIER_POSI_ID);
+    
+    userService.addUser(user, coCode, orgId, posiCode, groupId, "" + nd,record.getDognum(),record.getStatuscode().equals(ZcSettingConstants.HUI_YUAN_ACCOUNT_STATUS_QI_YONG));  
     
     return selectByPrimaryKey(record.getUserguid(), requestMeta);
   }
 
 
   private HuiyuanUser insert(HuiyuanUser record, RequestMeta requestMeta) {
-    // TODO Auto-generated method stub
-    record.setUserguid(UUID.randomUUID().toString());
+    // TODO Auto-generated method stub 
+    record.setUserguid(UUID.randomUUID().toString());    
     record.setPasswd(GeneralFunc._encodePwd(record.getPasswd()));
     huiyuanUserMapper.insert(record);  
     
     //增加系统用户s
     User user = new User();
-    user.setUserId(record.getUserguid());//组织机构代码作为唯一吗
+    user.setUserId(record.getLoginid());
     user.setUserName(record.getDisplayname());
     user.setPassword(record.getPasswd());
 
@@ -263,15 +362,15 @@ public class HuiyuanUserService implements IHuiyuanUserService {
     if("fqiyong".equals(func)){
       //启用人员信息
       unit.setStatuscode(ZcSettingConstants.HUI_YUAN_ACCOUNT_STATUS_QI_YONG);
-      userService.updateAsEmpLogin(unit.getUserguid(), true);
+      userService.updateAsEmpLogin(unit.getLoginid(), true);
     }else if("fzanting".equals(func)){
       //暂停人员信息
       unit.setStatuscode(ZcSettingConstants.HUI_YUAN_ACCOUNT_STATUS_ZAN_TING);
-      userService.updateAsEmpLogin(unit.getUserguid(), false); 
+      userService.updateAsEmpLogin(unit.getLoginid(), false); 
     }else if("fzhuxiao".equals(func)){
       //注销人员
       unit.setStatuscode(ZcSettingConstants.HUI_YUAN_ACCOUNT_STATUS_ZHU_XIAO);
-      userService.updateAsEmpLogin(unit.getUserguid(), false);
+      userService.updateAsEmpLogin(unit.getLoginid(), false);
     }else{
       return unit;
     }

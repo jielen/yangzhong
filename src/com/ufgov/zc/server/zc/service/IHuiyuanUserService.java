@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ufgov.zc.common.system.RequestMeta;
 import com.ufgov.zc.common.system.dto.ElementConditionDto;
+import com.ufgov.zc.common.system.exception.BusinessException;
 import com.ufgov.zc.common.zc.model.HuiyuanUser;
 
 public interface IHuiyuanUserService {
@@ -12,7 +13,7 @@ public interface IHuiyuanUserService {
 
   HuiyuanUser selectByPrimaryKey(String danweiguid, RequestMeta requestMeta);
 
-  HuiyuanUser saveFN(HuiyuanUser record, RequestMeta requestMeta); 
+  HuiyuanUser saveFN(HuiyuanUser record, RequestMeta requestMeta)  throws BusinessException; 
 
   void deleteByPrimaryKeyFN(String danweiguid, RequestMeta requestMeta);
 
