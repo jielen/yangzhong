@@ -27,6 +27,8 @@ import com.ufgov.zc.server.zc.dao.HuiyuanUserMapper;
 import com.ufgov.zc.server.zc.dao.HuiyuanZfcgGongyinginfoMapper;
 import com.ufgov.zc.server.zc.dao.IZcEbBaseServiceDao;
 import com.ufgov.zc.server.zc.service.IHuiyuanUnitcominfoService;
+import com.ufgov.zc.server.zc.service.IHuiyuanUserService;
+import com.ufgov.zc.server.zc.util.GeneralFunc;
 
 /**
  * @author Administrator
@@ -43,6 +45,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
   private HuiyuanPeopleblackMapper huiyuanPeopleblackMapper;
   private IUserService userService;
   private IZcEbBaseServiceDao zcEbBaseServiceDao;
+  private IHuiyuanUserService huiyuanUserService;
   
   
   /* (non-Javadoc)
@@ -115,9 +118,9 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
       if(duplicateUnit(record,existUnitLst,false)){
         throw new BusinessException("已有同名、同组织机构代码的供应商存在，不能重复录入!");
       }
+      record=insert(record);
       //默认增加一个登陆账号为其组织机构代码的用户，状态是不可登陆的
       addDefaultUser(record,requestMeta);
-      record=insert(record);
     }else{
       if(duplicateUnit(record,existUnitLst,true)){
         throw new BusinessException("已有同名、同组织机构代码的供应商存在，不能重复录入!");
@@ -133,20 +136,38 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
   }
 
   private void updateDefaultUser(HuiyuanUnitcominfo record, RequestMeta requestMeta,String oldUnitOrgNum) {
-    // TODO Auto-generated method stub
-    if(record.getUnitorgnum().equals(oldUnitOrgNum)){
-      //update用户，
-      
-    }else{
-      //停用老用户
-      
-      //启用一个新用户
-    }
+    // TODO Auto-generated method stub 
+    ElementConditionDto eto=new ElementConditionDto();
+    eto.setZcText2(oldUnitOrgNum);
+    List userLst=huiyuanUserService.getMainDataLst(eto, requestMeta);    
+    if(userLst!=null && userLst.size()>0){
+      HuiyuanUser user=(HuiyuanUser)userLst.get(0);
+      if(!user.getLoginid().equals(record.getUnitorgnum())){
+        huiyuanUserService.deleteByPrimaryKeyFN(user.getUserguid(), requestMeta);
+        user=new HuiyuanUser();
+        user.setPasswd(GeneralFunc.recodePwd(record.getUnitorgnum()));
+      }
+      buildUserInfo(record, user);
+      huiyuanUserService.saveFN(user, requestMeta);
+    } 
   }
 
-  private void addDefaultUser(HuiyuanUnitcominfo record, RequestMeta requestMeta) {
+  private void addDefaultUser(HuiyuanUnitcominfo record, RequestMeta requestMeta)  throws BusinessException {
     // TODO Auto-generated method stub
-    
+    HuiyuanUser user=new HuiyuanUser();
+    user.setPasswd(GeneralFunc.recodePwd(record.getUnitorgnum()));
+    buildUserInfo(record,user);
+    huiyuanUserService.saveFN(user, requestMeta);
+  }
+
+  private void buildUserInfo(HuiyuanUnitcominfo unitInfo, HuiyuanUser user) {
+    // TODO Auto-generated method stub
+    user.setDanweiguid(unitInfo.getDanweiguid());
+    user.setDanweiname(unitInfo.getDanweiname());
+    user.setLoginid(unitInfo.getUnitorgnum());
+    user.setDisplayname(unitInfo.getDanweiname());
+    user.setAuditstatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS);
+    user.setStatuscode(ZcSettingConstants.HUI_YUAN_ACCOUNT_STATUS_ZAN_TING);
   }
 
   private List getUnitByNameOrOrgNUm(HuiyuanUnitcominfo record, RequestMeta requestMeta){
@@ -375,6 +396,14 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
 
   public void setUserService(IUserService userService) {
     this.userService = userService;
+  }
+
+  public IHuiyuanUserService getHuiyuanUserService() {
+    return huiyuanUserService;
+  }
+
+  public void setHuiyuanUserService(IHuiyuanUserService huiyuanUserService) {
+    this.huiyuanUserService = huiyuanUserService;
   }
 
 }

@@ -2095,6 +2095,7 @@
 		<property name="huiyuanPeopleblackMapper" ref="huiyuanPeopleblackMapper"></property>
 		<property name="userService" ref="userService" />
 		<property name="zcEbBaseServiceDao" ref="zcEbBaseServiceDao" />
+		<property name="huiyuanUserService" ref="huiyuanUserService" />
 	</bean>		
 	<bean id="huiyuanZfcgGongyinginfoMapper" class="com.ufgov.zc.server.zc.dao.ibatis.HuiyuanZfcgGongyinginfoMapperImp"
 		scope="singleton">
