@@ -137,6 +137,7 @@
 		<result property="tech" column="tech" />
 		<result column="baojia_file_id" property="baojiaFileId" jdbcType="VARCHAR" />
 		<result column="baojia_file_name" property="baojiaFileName" jdbcType="VARCHAR" />
+		<result property="remark" column="remark" />
 	</resultMap>
 
 	<resultMap id="ZcEbPtResult" class="ZcEbPtPack">
@@ -800,8 +801,7 @@
 			C.PACK_CODE=#packCode#
 		</isNotNull>
 	</select>
-	<select id="getXunjiaDetaiList" resultMap="ZcXunJiaDetailResult"
-		parameterClass="elementCondition">
+	<select id="getXunjiaDetaiList" resultMap="ZcXunJiaDetailResult"	parameterClass="elementCondition">
 		SELECT
 		*
 		FROM

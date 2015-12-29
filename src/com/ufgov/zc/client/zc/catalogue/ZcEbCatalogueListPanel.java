@@ -40,6 +40,7 @@ import com.ufgov.zc.client.component.GkBaseDialog;
 import com.ufgov.zc.client.component.JFuncToolBar;
 import com.ufgov.zc.client.component.button.AddButton;
 import com.ufgov.zc.client.component.button.HelpButton;
+import com.ufgov.zc.client.component.button.zc.CommonButton;
 import com.ufgov.zc.client.component.ui.AbstractDataDisplay;
 import com.ufgov.zc.client.component.ui.AbstractEditListBill;
 import com.ufgov.zc.client.component.ui.AbstractSearchConditionArea;
@@ -54,7 +55,6 @@ import com.ufgov.zc.client.print.PrintSettingDialog;
 import com.ufgov.zc.client.util.ListUtil;
 import com.ufgov.zc.client.zc.agency.ZcEbAgencyListPanel;
 import com.ufgov.zc.common.commonbiz.model.SearchCondition;
-import com.ufgov.zc.common.commonbiz.publish.IBaseDataServiceDelegate;
 import com.ufgov.zc.common.system.RequestMeta;
 import com.ufgov.zc.common.system.constants.ZcSettingConstants;
 import com.ufgov.zc.common.system.dto.ElementConditionDto;
@@ -62,7 +62,9 @@ import com.ufgov.zc.common.system.util.ObjectUtil;
 import com.ufgov.zc.common.zc.checkrule.BaseRule;
 import com.ufgov.zc.common.zc.checkrule.ZcMakeCheckRuleBySX;
 import com.ufgov.zc.common.zc.model.ZcBCatalogue;
+import com.ufgov.zc.common.zc.model.ZcYearPlan;
 import com.ufgov.zc.common.zc.publish.IZcEBCatalogueServiceDelegate;
+import com.ufgov.zc.common.zc.publish.IZcEbBaseServiceDelegate;
 
 @SuppressWarnings("unchecked")
 public class ZcEbCatalogueListPanel extends AbstractEditListBill implements ParentWindowAware {
@@ -79,11 +81,13 @@ public class ZcEbCatalogueListPanel extends AbstractEditListBill implements Pare
 
   public ElementConditionDto elementConditionDto = new ElementConditionDto();
 
-  public IZcEBCatalogueServiceDelegate catalogueServiceDelegate = (IZcEBCatalogueServiceDelegate) ServiceFactory.create(
-    IZcEBCatalogueServiceDelegate.class, "catalogueServiceDelegate");
+  public IZcEBCatalogueServiceDelegate catalogueServiceDelegate = (IZcEBCatalogueServiceDelegate) ServiceFactory.create(IZcEBCatalogueServiceDelegate.class, "catalogueServiceDelegate");
 
-  public IBaseDataServiceDelegate baseDataServiceDelegate = (IBaseDataServiceDelegate) ServiceFactory.create(IBaseDataServiceDelegate.class,
-    "baseDataServiceDelegate");
+  protected IZcEbBaseServiceDelegate zcEbBaseServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class,
+
+  "zcEbBaseServiceDelegate");
+
+  private CommonButton fjieZhuanBaseData = new CommonButton("fjieZhuanBaseData", "结转基础资料", "", true);
 
   public String getCompoId() {
     return "ZC_B_CATALOGUE";
@@ -111,11 +115,9 @@ public class ZcEbCatalogueListPanel extends AbstractEditListBill implements Pare
 
   public final class DataDisplay extends MultiDataDisplay {
 
-    public DataDisplay(List<TableDisplay> displays, List<TableDisplay> showingDisplays, AbstractSearchConditionArea conditionArea,
-      boolean showConditionArea) {
+    public DataDisplay(List<TableDisplay> displays, List<TableDisplay> showingDisplays, AbstractSearchConditionArea conditionArea, boolean showConditionArea) {
       super(displays, showingDisplays, conditionArea, showConditionArea, getTabId());
-      setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), getTitle(), TitledBorder.CENTER, TitledBorder.TOP, new Font(
-        "宋体", Font.BOLD, 15), Color.BLUE));
+      setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), getTitle(), TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体", Font.BOLD, 15), Color.BLUE));
     }
 
     @Override
@@ -169,8 +171,7 @@ public class ZcEbCatalogueListPanel extends AbstractEditListBill implements Pare
 
         @Override
         public TableModel execute() throws Exception {
-          return ZcEbCatalogueToTableModelConverter.convertToTableModel(self.catalogueServiceDelegate.getZcCatalogueList(elementConditionDto,
-            requestMeta));
+          return ZcEbCatalogueToTableModelConverter.convertToTableModel(self.catalogueServiceDelegate.getZcCatalogueList(elementConditionDto, requestMeta));
         }
 
         @Override
@@ -194,8 +195,7 @@ public class ZcEbCatalogueListPanel extends AbstractEditListBill implements Pare
     UIUtilities.asyncInvoke(new DefaultInvokeHandler<List<SearchCondition>>() {
       @Override
       public List<SearchCondition> execute() throws Exception {
-        List<SearchCondition> needDisplaySearchConditonList = SearchConditionUtil.getNeedDisplaySearchConditonListJoinRole(WorkEnv.getInstance()
-          .getCurrUserId(), getTabId());
+        List<SearchCondition> needDisplaySearchConditonList = SearchConditionUtil.getNeedDisplaySearchConditonListJoinRole(WorkEnv.getInstance().getCurrUserId(), getTabId());
         return needDisplaySearchConditonList;
 
       }
@@ -225,8 +225,7 @@ public class ZcEbCatalogueListPanel extends AbstractEditListBill implements Pare
   }
 
   public AbstractDataDisplay createDataDisplay(List<TableDisplay> showingDisplays) {
-    return new DataDisplay(SearchConditionUtil.getAllTableDisplayJoinRole(WorkEnv.getInstance().getCurrUserId(), getTabId()), showingDisplays,
-      createTopConditionArea(), false);//true:显示收索条件区 false：不显示收索条件区
+    return new DataDisplay(SearchConditionUtil.getAllTableDisplayJoinRole(WorkEnv.getInstance().getCurrUserId(), getTabId()), showingDisplays, createTopConditionArea(), false);//true:显示收索条件区 false：不显示收索条件区
   }
 
   public AddButton addButton = new AddButton();
@@ -240,7 +239,14 @@ public class ZcEbCatalogueListPanel extends AbstractEditListBill implements Pare
     toolBar.add(addButton);
     toolBar.add(deleteButton);
     toolBar.add(helpButton);
+    toolBar.add(fjieZhuanBaseData);
+    ;
 
+    fjieZhuanBaseData.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        doJieZhuanBaseData();
+      }
+    });
     // 初始化按钮的action事件
     addButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -355,4 +361,14 @@ public class ZcEbCatalogueListPanel extends AbstractEditListBill implements Pare
     }
   }
 
+  protected void doJieZhuanBaseData() {
+    // TCJLODO Auto-generated method stub
+    int num = JOptionPane.showConfirmDialog(this, "确认要结转" + requestMeta.getSvNd() + "年基础资料到" + (requestMeta.getSvNd() + 1) + "年吗", "结转确认", 0);
+    if (num == JOptionPane.YES_OPTION) {
+      ZcYearPlan p = new ZcYearPlan();
+      p.setNd(requestMeta.getSvNd());
+      zcEbBaseServiceDelegate.queryObject("ZC_YEAR_END.jiChuZiLiaoJieZhuan", p, requestMeta);
+      JOptionPane.showMessageDialog(this, "结转基础资料成功！请将服务器年度调整为" + (requestMeta.getSvNd() + 1) + "，并重启系统服务后，进行登陆测试。", "提示", JOptionPane.INFORMATION_MESSAGE);
+    }
+  }
 }

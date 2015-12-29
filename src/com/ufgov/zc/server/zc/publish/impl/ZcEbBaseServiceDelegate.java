@@ -14,9 +14,7 @@ public class ZcEbBaseServiceDelegate implements IZcEbBaseServiceDelegate {
   private IZcEbBaseService zcEbBaseService;
 
   /**
-
    * @return the zcEbBaseService
-
    */
 
   public IZcEbBaseService getZcEbBaseService() {
@@ -26,9 +24,7 @@ public class ZcEbBaseServiceDelegate implements IZcEbBaseServiceDelegate {
   }
 
   /**
-
    * @param zcEbBaseService the zcEbBaseService to set
-
    */
 
   public void setZcEbBaseService(IZcEbBaseService zcEbBaseService) {
@@ -143,5 +139,8 @@ public class ZcEbBaseServiceDelegate implements IZcEbBaseServiceDelegate {
     }
   }
 
+  public String getCompoNo(String compoId, String noField, Object bill, RequestMeta meta) {
+    return zcEbBaseService.getCompoNo(compoId, noField, bill, meta);
+  }
 
 }

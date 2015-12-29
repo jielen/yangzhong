@@ -62,6 +62,7 @@ import com.ufgov.zc.client.component.zc.AbstractMainSubEditPanel;
 import com.ufgov.zc.client.component.zc.fieldeditor.AsValFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.DateFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.MoneyFieldEditor;
+import com.ufgov.zc.client.component.zc.fieldeditor.NewLineFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.TextAreaFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.TextFieldEditor;
 import com.ufgov.zc.client.util.ListUtil;
@@ -1504,11 +1505,11 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
 
     unitEditorList.add(unitzhuceziben);
     unitEditorList.add(unitZhuCeType);
-    unitEditorList.add(unitGuoShuiNo);
-    unitEditorList.add(unitDiShuiNO);
+    //    unitEditorList.add(unitGuoShuiNo);
+    //    unitEditorList.add(unitDiShuiNO);
 
-    unitEditorList.add(unitLicenceNum);
-    unitEditorList.add(unitFaRenLicenceNum);
+    //    unitEditorList.add(unitLicenceNum);
+    //    unitEditorList.add(unitFaRenLicenceNum);
     unitEditorList.add(unitYingYeQiXianFrom);
     unitEditorList.add(unitYingYeQiXianTo);
 
@@ -1568,34 +1569,35 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
     TextFieldEditor gysLianXiRen1Zip = new TextFieldEditor(LangTransMeta.translate(HuiyuanZfcgGongyinginfo.COL_LIANXIREN1ZIP), "zfcgGysInfo.lianxiren1zip");
     TextFieldEditor gysLianXiRen2Zip = new TextFieldEditor(LangTransMeta.translate(HuiyuanZfcgGongyinginfo.COL_LIANXIREN2ZIP), "zfcgGysInfo.lianxiren2zip");
 
-    zfcgEditorList.add(gysJinchukouqypino);
-    zfcgEditorList.add(gysJingYeType);
     zfcgEditorList.add(gysGongYingShangType);
-
     zfcgEditorList.add(gysZhuCeJiBie);
     zfcgEditorList.add(gysLocalLianXiRen);
     zfcgEditorList.add(gysLocalMobile);
-    zfcgEditorList.add(gysAccount);
 
     zfcgEditorList.add(gysBank);
+    zfcgEditorList.add(gysAccount);
+    zfcgEditorList.add(gysJinchukouqypino);
+    zfcgEditorList.add(new NewLineFieldEditor());
+
     zfcgEditorList.add(gysLianXiRen1);
-    zfcgEditorList.add(gysLianXiRen2);
-
-    zfcgEditorList.add(gysLianXiRen1Email);
-    zfcgEditorList.add(gysLianXiRen2Email);
     zfcgEditorList.add(gysLianXiRen1Mobile);
-
-    zfcgEditorList.add(gysLianXiRen2Moblie);
     zfcgEditorList.add(gysLianXiRen1Tel);
-    zfcgEditorList.add(gysLianXiRen2Tel);
+    zfcgEditorList.add(gysLianXiRen1Email);
 
     zfcgEditorList.add(gysLianXiRen1Fax);
-    zfcgEditorList.add(gysLianXiRen2Fax);
-    zfcgEditorList.add(gysLianXiRen1Address);
-
-    zfcgEditorList.add(gysLianXiRen2Address);
     zfcgEditorList.add(gysLianXiRen1Zip);
+    zfcgEditorList.add(gysLianXiRen1Address);
+    zfcgEditorList.add(new NewLineFieldEditor());
+
+    zfcgEditorList.add(gysLianXiRen2);
+    zfcgEditorList.add(gysLianXiRen2Moblie);
+    zfcgEditorList.add(gysLianXiRen2Tel);
+    zfcgEditorList.add(gysLianXiRen2Email);
+
+    zfcgEditorList.add(gysLianXiRen2Fax);
     zfcgEditorList.add(gysLianXiRen2Zip);
+    zfcgEditorList.add(gysLianXiRen2Address);
+    zfcgEditorList.add(new NewLineFieldEditor());
 
     zfcgEditorList.add(gysRemarkAreaField);
 

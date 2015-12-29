@@ -267,7 +267,6 @@
     <sqlMap resource="sqlmap/zc/ZC_EB_REQUIREMENT_CONFIRM.xml"/>
     <sqlMap resource="sqlmap/zc/ZC_WCMS_CONTENT.xml"/>
     <sqlMap resource="sqlmap/zc/ZC_YEAR_END.xml"/>
-    <sqlMap resource="sqlmap/zc/ZC_XMCG_HT_CHG.xml"/>
     <sqlMap resource="sqlmap/zc/ZC_NOTEPAD_SqlMap.xml"/>
     
     <sqlMap resource="sqlmap/zc/ZcEbEntrustBull.xml" />

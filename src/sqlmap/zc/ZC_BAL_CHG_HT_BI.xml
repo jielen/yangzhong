@@ -3,8 +3,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="ZC_BAL_CHG_HT_BI">
 
-	<resultMap class="com.ufgov.zc.common.zc.model.ZcBalChgHtBi"
-		id="ibatorgenerated_AllResultMap">
+	<resultMap class="com.ufgov.zc.common.zc.model.ZcBalChgHtBi"		id="ibatorgenerated_AllResultMap">
 		<result column="ZC_HT_CODE" jdbcType="VARCHAR" property="zcHtCode" />
 		<result column="ZC_BI_NO" jdbcType="VARCHAR" property="zcBiNo" />
 		<result column="ZC_BI_BCSY_SUM" jdbcType="DECIMAL" property="zcBiBcsySum" />

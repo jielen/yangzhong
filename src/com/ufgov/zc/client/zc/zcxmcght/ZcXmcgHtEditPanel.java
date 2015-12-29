@@ -1,8 +1,5 @@
 package com.ufgov.zc.client.zc.zcxmcght;
 
-import static com.ufgov.zc.common.system.constants.ZcElementConstants.FIELD_TRANS_FUND_CODE;
-import static com.ufgov.zc.common.system.constants.ZcElementConstants.FIELD_TRANS_ORIGIN_CODE;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.DefaultKeyboardFocusManager;
@@ -108,7 +105,6 @@ import com.ufgov.zc.client.util.SwingUtil;
 import com.ufgov.zc.client.zc.ButtonStatus;
 import com.ufgov.zc.client.zc.WordFileUtil;
 import com.ufgov.zc.client.zc.ZcUtil;
-import com.ufgov.zc.client.zc.expertEval.AsLangTrans;
 import com.ufgov.zc.client.zc.zcppromake.ZcBudgetHandler;
 import com.ufgov.zc.client.zc.ztb.ChangeRMB;
 import com.ufgov.zc.client.zc.ztb.activex.WordPane;
@@ -131,7 +127,6 @@ import com.ufgov.zc.common.zc.model.ZcEbBulletinWordMold;
 import com.ufgov.zc.common.zc.model.ZcEbPack;
 import com.ufgov.zc.common.zc.model.ZcEbPackReq;
 import com.ufgov.zc.common.zc.model.ZcEbProj;
-import com.ufgov.zc.common.zc.model.ZcEbSupplier;
 import com.ufgov.zc.common.zc.model.ZcHtPrePayBillItem;
 import com.ufgov.zc.common.zc.model.ZcPProMake;
 import com.ufgov.zc.common.zc.model.ZcPProMitem;
@@ -148,13 +143,7 @@ import com.ufgov.zc.common.zc.publish.IZcXmcgHtChgServiceDelegate;
 import com.ufgov.zc.common.zc.publish.IZcXmcgHtServiceDelegate;
 
 /**
-
- * 
-
  * @author Administrator
-
- *
-
  */
 
 public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
@@ -277,10 +266,9 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
   "zcXmcgHtServiceDelegate");
 
-  protected IZcXmcgHtChgServiceDelegate zcXmcgHtChgServiceDelegate = (IZcXmcgHtChgServiceDelegate) ServiceFactory.create(
-    IZcXmcgHtChgServiceDelegate.class,
+  protected IZcXmcgHtChgServiceDelegate zcXmcgHtChgServiceDelegate = (IZcXmcgHtChgServiceDelegate) ServiceFactory.create(IZcXmcgHtChgServiceDelegate.class,
 
-    "zcXmcgHtChgServiceDelegate");
+  "zcXmcgHtChgServiceDelegate");
 
   private ForeignEntityFieldEditor fieldMoldName = new ForeignEntityFieldEditor("ZcEbBulletinWordMold.getZcGongHuoHtWordMold", 20, handlera,
 
@@ -289,8 +277,8 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
   private IZcPProMakeServiceDelegate ZcPProMakeServiceDelegate = (IZcPProMakeServiceDelegate) ServiceFactory.create(IZcPProMakeServiceDelegate.class,
 
   "zcPProMakeServiceDelegate");
-  
-  private IZcEbProjServiceDelegate projService=(IZcEbProjServiceDelegate)ServiceFactory.create(IZcEbProjServiceDelegate.class, "zcEbProjServiceDelegate");
+
+  private IZcEbProjServiceDelegate projService = (IZcEbProjServiceDelegate) ServiceFactory.create(IZcEbProjServiceDelegate.class, "zcEbProjServiceDelegate");
 
   protected WordPane wordPane = new WordPane();
 
@@ -405,7 +393,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
     TextFieldEditor zcMakeName = new TextFieldEditor(LangTransMeta.translate(ZcElementConstants.FIELD_TRANS_ZC_MAKE_NAME), "zcPProMake.zcMakeName");
 
     MoneyFieldEditor zcMoneyBiSum = new MoneyFieldEditor(LangTransMeta.translate(ZcElementConstants.FIELD_TRANS_ZC_MONEY_BI_SUM), "zcPProMake.zcMoneyBiSum");
-    
+
     String columNames[];
     /*if (isGys()) {
       columNames = new String[] { "项目代码", "采购项目", "分包名称", "供应商名称", "采购方式" };
@@ -413,9 +401,9 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
       columNames = new String[] { "项目代码", "采购项目", "供应商名称", "采购方式" };
     }*/
     columNames = new String[] { "项目代码", "采购项目", "分包名称", "供应商名称", "采购方式" };
-    
+
     ZcEbProjFnHandler projHandler = new ZcEbProjFnHandler(columNames, self);
-    
+
     ZcPProMakeForHtFnHandler makeHandler = new ZcPProMakeForHtFnHandler(columNames, self);
 
     ElementConditionDto elementCondtiontDto = new ElementConditionDto();
@@ -434,16 +422,16 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     gysProjDto.setBillStatus("exec");
 
-    HuiyuanUnitcominfo unit=ZcUtil.getHuiYuan();
-    if(unit!=null){
+    HuiyuanUnitcominfo unit = ZcUtil.getHuiYuan();
+    if (unit != null) {
       gysProjDto.setUserId(unit.getDanweiguid());
-    }else{
+      gysProjDto.setZcText4("gys");
+    } else {
       gysProjDto.setUserId(requestMeta.getSvUserID());
+      gysProjDto.setZcText4("cgzx");
     }
 
-    ForeignEntityFieldEditor packCode = new ForeignEntityFieldEditor(getProjectSqlId(), gysProjDto, 20, projHandler,
-
-    columNames, "分包编号", "zcZbCode");
+    ForeignEntityFieldEditor packCode = new ForeignEntityFieldEditor(getProjectSqlId(), gysProjDto, 20, projHandler, columNames, "分包编号", "zcZbCode");
 
     packCode.setEditable(false);
 
@@ -534,11 +522,11 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     TextFieldEditor zcPackCodeText = new TextFieldEditor("分包编号", "zcZbCode");
 
-   /* if (isGys()) {
-      editorList.add(packCode);
-    } else {
-      editorList.add(zcMakeCode);
-    }*/
+    /* if (isGys()) {
+       editorList.add(packCode);
+     } else {
+       editorList.add(zcMakeCode);
+     }*/
     editorList.add(packCode);
     editorList.add(zcHtName);
     editorList.add(zcProjType);
@@ -561,9 +549,9 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
     editorList.add(zcDeliveryType);
     editorList.add(zcMemo);
 
-   /* if (!isGys()) {
-      editorList.add(zcPackCodeText);
-    }*/
+    /* if (!isGys()) {
+       editorList.add(zcPackCodeText);
+     }*/
     editorList.add(zcHtStatus);
     editorList.add(zcInputDate);
 
@@ -742,25 +730,23 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
   public void zcMakeCodeChange() {
 
-
     ZcXmcgHt zcXmcgHt = (ZcXmcgHt) this.listCursor.getCurrentObject();
 
     String zcMakeCode = zcXmcgHt.getZcMakeCode();
 
-//    dtoForBidWinner.setProjectCode(zcMakeCode);
-//    ZcPProMake zcPProMake = getZcPProMakeByZcMakeCode(zcMakeCode);
-//    zcXmcgHt.setZcPProMake(zcPProMake);
+    //    dtoForBidWinner.setProjectCode(zcMakeCode);
+    //    ZcPProMake zcPProMake = getZcPProMakeByZcMakeCode(zcMakeCode);
+    //    zcXmcgHt.setZcPProMake(zcPProMake);
     zcXmcgHt.setZcMakeCode(zcMakeCode);
-//    zcXmcgHt.setZcCoCode(zcPProMake.getCoCode());
+    //    zcXmcgHt.setZcCoCode(zcPProMake.getCoCode());
     //    zcXmcgHt.setNd(zcPProMake.getNd());
-//    zcXmcgHt.setZcFukuanType(zcPProMake.getZcFukuanType());
+    //    zcXmcgHt.setZcFukuanType(zcPProMake.getZcFukuanType());
     List<ZcTBchtItem> itemHtList = new ArrayList<ZcTBchtItem>();
-
 
     List<ZcHtPrePayBillItem> payBiList = new ArrayList<ZcHtPrePayBillItem>();
 
     //带出商品内容
-    if(ZcUtil.isYsdw()){
+    if (ZcUtil.isYsdw()) {
       List<ZcPProMitem> itemMakeList = ZcPProMakeServiceDelegate.getZcPProMitem(zcMakeCode, requestMeta);
       if (itemMakeList != null) {
         buildZcTBchtItems(itemMakeList, itemHtList);
@@ -770,40 +756,40 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
         }
         zcXmcgHt.setItemList(itemHtList);
       }
-    }else if(ZcUtil.isGys() || ZcUtil.isCgzx()){
+    } else if (ZcUtil.isGys() || ZcUtil.isCgzx()) {
       buildHtItems(zcXmcgHt);
     }
 
     if (zcXmcgHt.getZcSuCode() != null) {
 
-      HuiyuanUnitcominfo unit=ZcUtil.getHuiYuan();
-      if(unit!=null){
+      HuiyuanUnitcominfo unit = ZcUtil.getHuiYuan();
+      if (unit != null) {
         zcXmcgHt.setZcSuLinkman(unit.getZfcgGysInfo().getLocallianxiren());
         zcXmcgHt.setZcSuTel(unit.getZfcgGysInfo().getLocalmobile());
       }
     }
-  //start of change --20141223 chenjl
-//原来是直接获取资金信息，后来因有结转项目到来年，再签订合同的情况，因此这里隐藏，换成下面预算单位才获取指标情况
-//也就是说，供应商填报合同时，选择也该分包，不会带入资金信息
-/*    List<ZcXmcgHtBi> biHtList = this.getBiList(zcXmcgHt);
-    zcXmcgHt.setBiList(biHtList);
-    //采购计划如果已经做了补充资金了，再次获取一次
-    zcXmcgHt.setBiList(getBuChongBiList(zcXmcgHt));*/
-    List<ZcXmcgHtBi> biHtList=new ArrayList<ZcXmcgHtBi>();
-    if(ZcUtil.isYsdw()){
+    //start of change --20141223 chenjl
+    //原来是直接获取资金信息，后来因有结转项目到来年，再签订合同的情况，因此这里隐藏，换成下面预算单位才获取指标情况
+    //也就是说，供应商填报合同时，选择也该分包，不会带入资金信息
+    /*    List<ZcXmcgHtBi> biHtList = this.getBiList(zcXmcgHt);
+        zcXmcgHt.setBiList(biHtList);
+        //采购计划如果已经做了补充资金了，再次获取一次
+        zcXmcgHt.setBiList(getBuChongBiList(zcXmcgHt));*/
+    List<ZcXmcgHtBi> biHtList = new ArrayList<ZcXmcgHtBi>();
+    if (ZcUtil.isYsdw()) {
       biHtList = this.getBiList(zcXmcgHt);
       zcXmcgHt.setBiList(biHtList);
       //采购计划如果已经做了补充资金了，再次获取一次
       zcXmcgHt.setBiList(getBuChongBiList(zcXmcgHt));
     }
-//end of change --20141223 chenjl
+    //end of change --20141223 chenjl
     zcXmcgHt.setPayBiList(payBiList);
     setEditingObject(zcXmcgHt);
 
     self.refreshSubData(biHtList, zcXmcgHt.getItemList(), payBiList);
 
     listCursor.setCurrentObject(zcXmcgHt);
-    
+
     updateFieldEditorsEditable();
 
   }
@@ -811,51 +797,51 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
   private void buildHtItems(ZcXmcgHt zcXmcgHt) {
     // TCJLODO Auto-generated method stub
     // get the project
-    if(zcXmcgHt.getProjCode()==null)return;
-    ZcEbProj proj=projService.getZcEbProjByProjCode(zcXmcgHt.getProjCode(), requestMeta);
-    if(proj==null||proj.getPackList()==null)return;
-    ArrayList detailIdLst=new ArrayList();
-    for(int i=0;i<proj.getPackList().size();i++){
-      ZcEbPack pack=(ZcEbPack) proj.getPackList().get(i);
+    if (zcXmcgHt.getProjCode() == null) return;
+    ZcEbProj proj = projService.getZcEbProjByProjCode(zcXmcgHt.getProjCode(), requestMeta);
+    if (proj == null || proj.getPackList() == null) return;
+    ArrayList detailIdLst = new ArrayList();
+    for (int i = 0; i < proj.getPackList().size(); i++) {
+      ZcEbPack pack = (ZcEbPack) proj.getPackList().get(i);
       proj.setPurType(pack.getPurType());
-      if(pack.getPackCode().equals(zcXmcgHt.getZcBidCode())){
-        if(pack.getRequirementDetailList()==null)continue;
-        for(int j=0;j<pack.getRequirementDetailList().size();j++){
-          ZcEbPackReq req=(ZcEbPackReq)pack.getRequirementDetailList().get(j);
+      if (pack.getPackCode().equals(zcXmcgHt.getZcBidCode())) {
+        if (pack.getRequirementDetailList() == null) continue;
+        for (int j = 0; j < pack.getRequirementDetailList().size(); j++) {
+          ZcEbPackReq req = (ZcEbPackReq) pack.getRequirementDetailList().get(j);
           detailIdLst.add(req.getDetailCode());
         }
       }
     }
     //获取分包对应的需求明细
-    ElementConditionDto dto=new ElementConditionDto();
+    ElementConditionDto dto = new ElementConditionDto();
     dto.setPmAdjustCodeList(detailIdLst);
-    List reqDetailLst=zcEbBaseServiceDelegate.queryDataForList("ZcEbProj.getReqDetailByDetailCodes", dto, requestMeta);
+    List reqDetailLst = zcEbBaseServiceDelegate.queryDataForList("ZcEbProj.getReqDetailByDetailCodes", dto, requestMeta);
     dto.setZcText0(zcXmcgHt.getZcSuCode());
-    List xjbjLst=zcEbBaseServiceDelegate.queryDataForList("ZC_EB_XUNJIA_BAOJIA.getBaojiaDetailByDetailCodes", dto, requestMeta);
+    List xjbjLst = zcEbBaseServiceDelegate.queryDataForList("ZC_EB_XUNJIA_BAOJIA.getBaojiaDetailByDetailCodes", dto, requestMeta);
     zcXmcgHt.setItemList(new ArrayList());
-    for (int i=0;i<reqDetailLst.size();i++) {
-      HashMap map=(HashMap) reqDetailLst.get(i);
+    for (int i = 0; i < reqDetailLst.size(); i++) {
+      HashMap map = (HashMap) reqDetailLst.get(i);
       ZcTBchtItem htItem = new ZcTBchtItem();
       htItem.setZcSpName((String) map.get("NAME"));//商品名称
       htItem.setZcCatalogueCode((String) map.get("ZC_CATALOGUE_CODE"));//品目代码
       htItem.setZcCatalogueName((String) map.get("ZC_CATALOGUE_NAME"));//品目名称NUM
 
       //如果是询价的话，获取供应商的询价报价单
-      if(ZcSettingConstants.PITEM_OPIWAY_XJ.equalsIgnoreCase(proj.getPurType())){
-        setBjDetail(htItem,(BigDecimal)map.get("DETAIL_CODE"),xjbjLst);
-      }else{
-        BigDecimal t1=getBigDecimal(map.get("NUM"));
+      if (ZcSettingConstants.PITEM_OPIWAY_XJ.equalsIgnoreCase(proj.getPurType())) {
+        setBjDetail(htItem, (BigDecimal) map.get("DETAIL_CODE"), xjbjLst);
+      } else {
+        BigDecimal t1 = getBigDecimal(map.get("NUM"));
         htItem.setZcCaigShl(t1);
-//        BigDecimal t2=getBigDecimal(map.get("MER_PRICE"));
-//        htItem.setZcCaigPrice(t2);
-//        BigDecimal t3=t1.multiply(t2);
-//        htItem.setZcCaigMoney(t3);
+        //        BigDecimal t2=getBigDecimal(map.get("MER_PRICE"));
+        //        htItem.setZcCaigPrice(t2);
+        //        BigDecimal t3=t1.multiply(t2);
+        //        htItem.setZcCaigMoney(t3);
       }
       htItem.setZcMerSpec((String) map.get("BASE_REQ"));
       htItem.setZcItemVal(BigDecimal.ZERO);
       htItem.setZcHtBiMoney(new BigDecimal(0.00));
       htItem.setZcHtOtherMoney(new BigDecimal(0.00));
-      htItem.setZcHtGkMoney(new BigDecimal(0.00));     
+      htItem.setZcHtGkMoney(new BigDecimal(0.00));
       //节能、节水、绿色环保默认设置为否
       htItem.setZcMerIsLshb("N");
       htItem.setZcMerIsZzcx("N");
@@ -866,13 +852,13 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
   private void setBjDetail(ZcTBchtItem htItem, BigDecimal detailCode, List xjbjLst) {
     // TCJLODO Auto-generated method stub
-    for (int i=0;i<xjbjLst.size();i++) {
-      HashMap map=(HashMap) xjbjLst.get(i);
-      String xjCode=(String) map.get("XJ_CODE");      
-      if(detailCode.compareTo(new BigDecimal(xjCode))==0){
-        BigDecimal t1=getBigDecimal(map.get("SP_NUM"));
-        BigDecimal t2=getBigDecimal(map.get("SP_PRICE"));
-        BigDecimal t3=t1.multiply(t2);
+    for (int i = 0; i < xjbjLst.size(); i++) {
+      HashMap map = (HashMap) xjbjLst.get(i);
+      String xjCode = (String) map.get("XJ_CODE");
+      if (detailCode.compareTo(new BigDecimal(xjCode)) == 0) {
+        BigDecimal t1 = getBigDecimal(map.get("SP_NUM"));
+        BigDecimal t2 = getBigDecimal(map.get("SP_PRICE"));
+        BigDecimal t3 = t1.multiply(t2);
         htItem.setZcCaigMoney(t3);
         htItem.setZcCaigShl(t1);
         htItem.setZcCaigPrice(t2);
@@ -880,36 +866,36 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
       }
     }
   }
+
   private BigDecimal getBigDecimal(Object object) {
     // TCJLODO Auto-generated method stub
-    BigDecimal t=new BigDecimal(0);
-    if(object==null) return null;
+    BigDecimal t = new BigDecimal(0);
+    if (object == null) return null;
     try {
-      if(object instanceof String){
-        t=new BigDecimal((String)object);
-      }else if(object instanceof Integer){
-        t=new BigDecimal((Integer)object);
-      }else if(object instanceof Long){
-        t=new BigDecimal((Long)object);
-      }else if(object instanceof Double){
-        t=new BigDecimal((Double)object);
-      }else if(object instanceof BigDecimal){
-        return (BigDecimal)object;
-      }else{
+      if (object instanceof String) {
+        t = new BigDecimal((String) object);
+      } else if (object instanceof Integer) {
+        t = new BigDecimal((Integer) object);
+      } else if (object instanceof Long) {
+        t = new BigDecimal((Long) object);
+      } else if (object instanceof Double) {
+        t = new BigDecimal((Double) object);
+      } else if (object instanceof BigDecimal) {
+        return (BigDecimal) object;
+      } else {
         return null;
       }
     } catch (Exception e) {
       // TCJLODO: handle exception
-      logger.error(e.getMessage(),e);
+      logger.error(e.getMessage(), e);
       return null;
     }
     return t;
   }
 
-
   /**
-   * 获取采购计划相关的补充资金，因为合同的资金是在建立合同，选择中标或者采购计划时就带过来了，并保存了，因此如果一个合同供应商建立了，并送到了内网，此时才批准补充资金时，需要在打开合同时，将该计划的补充资金加进来
-   * 
+   * 获取采购计划相关的补充资金，因为合同的资金是在建立合同，选择中标或者采购计划时就带过来了，并保存了，因此如果一个合同供应商建立了，并送到了内网，
+   * 此时才批准补充资金时，需要在打开合同时，将该计划的补充资金加进来
    * @param zcXmcgHt
    * @return
    */
@@ -923,23 +909,23 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
       param.put("ZC_HT_CODE", zcXmcgHt.getZcHtCode());
       for (int i = 0; i < biMakeList.size(); i++) {
         param.put("ZC_PRO_BI_SEQ", biMakeList.get(i).getZcProBiSeq());
-        
+
         //获取当前资金的可用金额，合同占用资金的金额不能超过他
         BigDecimal sum = (BigDecimal) this.zcEbBaseServiceDelegate.queryObject("ZC_XMCG_HT_BI.getCanUseMoney", param, this.requestMeta);
         biMakeList.get(i).setZcBiDoSum(sum);
       }
       List<ZcXmcgHtBi> biHtList = new ArrayList<ZcXmcgHtBi>();
-      List buChongLst=new ArrayList();
+      List buChongLst = new ArrayList();
       for (ZcPProMitemBi bi : biMakeList) {
-        boolean find=false;
-        for(int i=0;i<zcXmcgHt.getBiList().size();i++){
-          ZcXmcgHtBi htBi=(ZcXmcgHtBi) zcXmcgHt.getBiList().get(i);
-          if(bi.getZcProBiSeq().equals(htBi.getZcProBiSeq())){
-            find=true;
+        boolean find = false;
+        for (int i = 0; i < zcXmcgHt.getBiList().size(); i++) {
+          ZcXmcgHtBi htBi = (ZcXmcgHtBi) zcXmcgHt.getBiList().get(i);
+          if (bi.getZcProBiSeq().equals(htBi.getZcProBiSeq())) {
+            find = true;
             break;
           }
         }
-        if(find){
+        if (find) {
           continue;
         }
         //如果没有找到，说明是补充资金，因此加入到合同资金列表中
@@ -959,12 +945,14 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
       return zcXmcgHt.getBiList();
     }
   }
+
   /**
    * 是否补充合同,主合同不需要操作指标，补充合同需要操作指标,补充合同的edit界面，这个方法要重写，返回true
    */
   protected boolean isSubHt() {
     return false;
   }
+
   private List<ZcXmcgHtBi> getBiList(ZcXmcgHt zcXmcgHt) {
 
     if (!budgetFlag) {
@@ -987,13 +975,9 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
   }
 
   /**
-
    * 根据计划编号查找对应的计划
-
    * @param makeCode
-
    * @return
-
    */
 
   private ZcPProMake getZcPProMakeByZcMakeCode(String makeCode) {
@@ -1005,15 +989,10 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
   }
 
   /**
-
    * 根据项目编号，分包编号，查找对应的需求确认明细，做为合同明细使用
-
    * @param projCode
-
    * @param packCode
-
    * @return
-
    */
 
   private List<ZcPProMitem> getRequirementDetail(String projCode, String packCode) {
@@ -1031,15 +1010,10 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
   }
 
   /**
-
    * 根据项目编号，分包编号，查找对应的批办单数据
-
    * @param projCode
-
    * @param packCode
-
    * @return
-
    */
 
   private ZcEbAuditSheet getZcEbAuditSheetByProjCodePackCode(String projCode, String packCode) {
@@ -1054,7 +1028,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     if (wwLis != null && wwLis.size() > 0) {
 
-      return (ZcEbAuditSheet) wwLis.get(0);
+    return (ZcEbAuditSheet) wwLis.get(0);
 
     }
 
@@ -1153,27 +1127,27 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
       ZcXmcgHtBi htBi = new ZcXmcgHtBi();
       htBi.setZcPProMitemBi(bi);
 
-//      htBi.getZcPProMitemBi().setZcBiJhuaSum(bi.getZcBiJhuaSum());
-//
-//      htBi.getZcPProMitemBi().setZcBiUsedSum(bi.getZcBiUsedSum());
-//
-//      htBi.getZcPProMitemBi().setZcBiDoSum(bi.getZcBiDoSum());
-//
-//      //      htBi.getZcPProMitemBi().setFundCode(bi.getFundCode());  
-//
-//      htBi.getZcPProMitemBi().setOriginCode(bi.getOriginCode());
-//
-//      htBi.getZcPProMitemBi().setPaytypeCode(bi.getPaytypeCode());
-//
-//      htBi.getZcPProMitemBi().setPaytypeName(bi.getPaytypeName());
-//
-//      htBi.getZcPProMitemBi().setSenddocCode(bi.getSenddocCode());
-//
-//      htBi.getZcPProMitemBi().setSenddocName(bi.getSenddocName());
-//
-//      htBi.getZcPProMitemBi().setZcProBiSeq(bi.getZcProBiSeq());
-//      htBi.getZcPProMitemBi().setZcBiNo(bi.getZcBiNo());
-//      htBi.getZcPProMitemBi().setZcUseBiId(bi.getZcUseBiId());
+      //      htBi.getZcPProMitemBi().setZcBiJhuaSum(bi.getZcBiJhuaSum());
+      //
+      //      htBi.getZcPProMitemBi().setZcBiUsedSum(bi.getZcBiUsedSum());
+      //
+      //      htBi.getZcPProMitemBi().setZcBiDoSum(bi.getZcBiDoSum());
+      //
+      //      //      htBi.getZcPProMitemBi().setFundCode(bi.getFundCode());  
+      //
+      //      htBi.getZcPProMitemBi().setOriginCode(bi.getOriginCode());
+      //
+      //      htBi.getZcPProMitemBi().setPaytypeCode(bi.getPaytypeCode());
+      //
+      //      htBi.getZcPProMitemBi().setPaytypeName(bi.getPaytypeName());
+      //
+      //      htBi.getZcPProMitemBi().setSenddocCode(bi.getSenddocCode());
+      //
+      //      htBi.getZcPProMitemBi().setSenddocName(bi.getSenddocName());
+      //
+      //      htBi.getZcPProMitemBi().setZcProBiSeq(bi.getZcProBiSeq());
+      //      htBi.getZcPProMitemBi().setZcBiNo(bi.getZcBiNo());
+      //      htBi.getZcPProMitemBi().setZcUseBiId(bi.getZcUseBiId());
 
       htBi.setZcProBiSeq(bi.getZcProBiSeq());
 
@@ -1182,28 +1156,28 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
       htBi.setZcCanUseSum(bi.getZcBiDoSum());
       htBi.setZcBiSum(bi.getZcBiSum());
 
-//      // 预算单位
-//      htBi.getZcPProMitemBi().setCoCode(bi.getCoCode());
-//      htBi.getZcPProMitemBi().setCoName(bi.getCoName());
-//      // 资金性质
-//      htBi.getZcPProMitemBi().setFundCode(bi.getFundCode());
-//      htBi.getZcPProMitemBi().setFundName(bi.getFundName());
-//      // 功能分类
-//      htBi.getZcPProMitemBi().setbAccCode(bi.getbAccCode());
-//      htBi.getZcPProMitemBi().setbAccName(bi.getbAccName());
-//      // 项目类别
-//      htBi.getZcPProMitemBi().setProjectTypeCode(bi.getProjectTypeCode());
-//      htBi.getZcPProMitemBi().setProjectTypeName(bi.getProjectTypeName());
-//
-//      // 指标来源
-//      htBi.getZcPProMitemBi().setOriginCode(bi.getOriginCode());
-//      htBi.getZcPProMitemBi().setOriginName(bi.getOriginName());
-//      // 年度
-//      htBi.getZcPProMitemBi().setNd(bi.getNd());
-//
-//      // 业务处室
-//      htBi.getZcPProMitemBi().setOrgCode(bi.getOrgCode());
-//      htBi.getZcPProMitemBi().setOrgName(bi.getOrgName());
+      //      // 预算单位
+      //      htBi.getZcPProMitemBi().setCoCode(bi.getCoCode());
+      //      htBi.getZcPProMitemBi().setCoName(bi.getCoName());
+      //      // 资金性质
+      //      htBi.getZcPProMitemBi().setFundCode(bi.getFundCode());
+      //      htBi.getZcPProMitemBi().setFundName(bi.getFundName());
+      //      // 功能分类
+      //      htBi.getZcPProMitemBi().setbAccCode(bi.getbAccCode());
+      //      htBi.getZcPProMitemBi().setbAccName(bi.getbAccName());
+      //      // 项目类别
+      //      htBi.getZcPProMitemBi().setProjectTypeCode(bi.getProjectTypeCode());
+      //      htBi.getZcPProMitemBi().setProjectTypeName(bi.getProjectTypeName());
+      //
+      //      // 指标来源
+      //      htBi.getZcPProMitemBi().setOriginCode(bi.getOriginCode());
+      //      htBi.getZcPProMitemBi().setOriginName(bi.getOriginName());
+      //      // 年度
+      //      htBi.getZcPProMitemBi().setNd(bi.getNd());
+      //
+      //      // 业务处室
+      //      htBi.getZcPProMitemBi().setOrgCode(bi.getOrgCode());
+      //      htBi.getZcPProMitemBi().setOrgName(bi.getOrgName());
 
       biHtList.add(htBi);
 
@@ -1410,18 +1384,18 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
     splitPane.setDividerDefaultLocation(this.getClass().getName() + "_splitPane_dividerLocation", 150);
 
     splitPane.setContinuousLayout(true);
-/*
-    if (isGys()) {
+    /*
+        if (isGys()) {
 
-      biTabPane.setVisible(false);
+          biTabPane.setVisible(false);
 
-      splitPane.setOneTouchExpandable(false);
+          splitPane.setOneTouchExpandable(false);
 
-    } else {
+        } else {
 
-      splitPane.setOneTouchExpandable(true);
+          splitPane.setOneTouchExpandable(true);
 
-    }*/
+        }*/
 
     biTabPane.setVisible(false);
 
@@ -1467,10 +1441,8 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
     //    topTabPane.addTab("付款明细", detailTablePanel);
 
     //    topTabPane.addTab("合同文本", wordPane);
-    if (isGys()) {
-      return itemTabPane;
-    }
-//    return topTabPane;
+    if (isGys()) { return itemTabPane; }
+    //    return topTabPane;
     return itemTabPane;
 
   }
@@ -1637,7 +1609,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
     //
     //    toolBar.add(saveAndSendButton);
     //
-        toolBar.add(suggestPassButton);
+    toolBar.add(suggestPassButton);
     //
     //    toolBar.add(auditPassButton);
     //
@@ -1665,7 +1637,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
     //
     //    toolBar.add(loadMoldButton);
 
-//    toolBar.add(printButton);
+    //    toolBar.add(printButton);
 
     toolBar.add(traceButton);
 
@@ -1924,9 +1896,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
   }
 
   /**
-
    * 送协办人
-
    */
 
   private void doSendToXieBan() {
@@ -1940,9 +1910,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
   }
 
   /**
-
    * 同意
-
    */
 
   private void doAgree() {
@@ -1966,9 +1934,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
   }
 
   /**
-
    * 不同意
-
    */
 
   private void doDisagree() {
@@ -1992,9 +1958,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
   }
 
   /**
-
    * 送采购处备案
-
    */
 
   private void doSendRecord() {
@@ -2008,9 +1972,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
   }
 
   /**
-
    * 送采购单位确认
-
    */
 
   private void doSendToProcurementUnit() {
@@ -2025,7 +1987,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     if (!calcBeforeSave()) {
 
-      return;
+    return;
 
     }
 
@@ -2035,7 +1997,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     if (commentDialog.cancel) {
 
-      return;
+    return;
 
     }
 
@@ -2115,7 +2077,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     if (commentDialog.cancel) {
 
-      return;
+    return;
 
     }
 
@@ -2231,11 +2193,10 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
           if ("zcZbCode".equals(editor.getFieldName())
             || "zcMakeCode".equals(editor.getFieldName())
             //||"zcSuName".equals(editor.getFieldName())
-            || "zcProLimitStartDate".equals(editor.getFieldName()) || "zcProLimitEndDate".equals(editor.getFieldName())
-            || "zcImpFile".equals(editor.getFieldName()) || "zcSgnDate".equals(editor.getFieldName())
-            || "zcDeliveryDate".equals(editor.getFieldName()) || "zcDeliveryType".equals(editor.getFieldName())
-            || "zcDeliveryAddr".equals(editor.getFieldName()) || "zcMemo".equals(editor.getFieldName()) || "zcHtName".equals(editor.getFieldName())) {
-            editor.setEnabled(true);
+            || "zcProLimitStartDate".equals(editor.getFieldName()) || "zcProLimitEndDate".equals(editor.getFieldName()) || "zcImpFile".equals(editor.getFieldName())
+            || "zcSgnDate".equals(editor.getFieldName()) || "zcDeliveryDate".equals(editor.getFieldName()) || "zcDeliveryType".equals(editor.getFieldName())
+            || "zcDeliveryAddr".equals(editor.getFieldName()) || "zcMemo".equals(editor.getFieldName()) || "zcHtName".equals(editor.getFieldName()) || "zcHtNum".equals(editor.getFieldName())) {
+            editor.setEnabled(true);//
           } else {
             editor.setEnabled(false);
           }
@@ -2311,11 +2272,11 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
   protected void doSuggestPass() {
 
-   /* if (ZcUtil.isYsdw() && !calcBeforeSave()) {
+    /* if (ZcUtil.isYsdw() && !calcBeforeSave()) {
 
-      return;
+       return;
 
-    }*/
+     }*/
 
     ZcXmcgHt ht = (ZcXmcgHt) ObjectUtil.deepCopy(this.listCursor.getCurrentObject());
 
@@ -2357,7 +2318,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     if (checkBeforeSave()) {
 
-      return;
+    return;
 
     }
 
@@ -2412,7 +2373,6 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
   protected void doUnAudit() {
     /**
      * 合同备案，销审添加校验,做了支付申请确认单和验收单的，不让销审。
-     * 
      */
     ZcXmcgHt ht = (ZcXmcgHt) ObjectUtil.deepCopy(this.listCursor.getCurrentObject());
     List billlist = zcEbBaseServiceDelegate.queryDataForList("ZC_HT_PRE_PAY_BILL.abatorgenerated_selectByHtCode", ht.getZcHtCode(), requestMeta);
@@ -2438,7 +2398,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     if (i != 0) {
 
-      return;
+    return;
 
     }
 
@@ -2498,7 +2458,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     if (commentDialog.cancel) {
 
-      return;
+    return;
 
     }
 
@@ -2562,7 +2522,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     if (bean == null) {
 
-      return;
+    return;
 
     }
 
@@ -2634,7 +2594,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
         if (!doSave()) {
 
-          return;
+        return;
 
         }
 
@@ -2662,7 +2622,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
         if (!doSave()) {
 
-          return;
+        return;
 
         }
 
@@ -2682,7 +2642,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
   public void doExit() {
 
-    if (isDataChanged()) {
+    /*if (isDataChanged()) {
 
       int num = JOptionPane.showConfirmDialog(this, "当前页面数据已修改，是否要保存", "保存确认", 0);
 
@@ -2690,7 +2650,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
         if (!doSave()) {
 
-          return;
+        return;
 
         }
 
@@ -2699,7 +2659,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
     }
     if (this.wordPane != null && wordPane.isDocOpened()) {
       wordPane.closeNotSave();
-    }
+    }*/
 
     this.parent.dispose();
 
@@ -2715,7 +2675,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     if (checkBeforeSave()) {
 
-      return;
+    return;
 
     }
 
@@ -2974,13 +2934,9 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
   }
 
   /**
-
    * 保存前校验
-
    * @param cpApply
-
    * @return
-
    */
 
   protected boolean checkBeforeSave() {
@@ -2997,7 +2953,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     String mainValidateInfo = ZcUtil.validateBillElementNull(zcXmcgHt, mainNotNullList);
 
-//    String biValidateInfo = ZcUtil.validateDetailBillElementNull(zcXmcgHt.getBiList(), biNotNullList, false);
+    //    String biValidateInfo = ZcUtil.validateDetailBillElementNull(zcXmcgHt.getBiList(), biNotNullList, false);
 
     String itemValidateInfo = ZcUtil.validateDetailBillElementNull(zcXmcgHt.getItemList(), itemNotNullList, false);
 
@@ -3019,35 +2975,31 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     }
 
-   
+    List<ZcTBchtItem> item = zcXmcgHt.getItemList();
 
-      List<ZcTBchtItem> item = zcXmcgHt.getItemList();
+    BigDecimal itemsum = BigDecimal.ZERO;
 
-      BigDecimal itemsum = BigDecimal.ZERO;
+    for (Iterator iterator = item.iterator(); iterator.hasNext();) {
 
-      for (Iterator iterator = item.iterator(); iterator.hasNext();) {
+      ZcTBchtItem zcTBchtItem = (ZcTBchtItem) iterator.next();
 
-        ZcTBchtItem zcTBchtItem = (ZcTBchtItem) iterator.next();
+      BigDecimal mxMoney = zcTBchtItem.getZcCaigMoney();
 
-        BigDecimal mxMoney = zcTBchtItem.getZcCaigMoney();
+      mxMoney = mxMoney == null ? BigDecimal.ZERO : mxMoney;
 
-        mxMoney = mxMoney == null ? BigDecimal.ZERO : mxMoney;
+      itemsum = itemsum.add(mxMoney);
 
-        itemsum = itemsum.add(mxMoney);
+    }
 
-      }
+    BigDecimal htmoney = zcXmcgHt.getZcHtNum();
 
-      BigDecimal htmoney = zcXmcgHt.getZcHtNum();
+    htmoney = htmoney == null ? BigDecimal.ZERO : htmoney;
 
-      htmoney = htmoney == null ? BigDecimal.ZERO : htmoney;
+    if (itemsum.doubleValue() != htmoney.doubleValue() && ZcUtil.isGys()) {
 
-      if (itemsum.doubleValue() != htmoney.doubleValue()) {
+      errorInfo.append("商品构成中【金额】之和必须等于【" + getHtNumLabel() + "】！");
 
-        errorInfo.append("商品构成中【金额】之和必须等于【" + getHtNumLabel() + "】！");
-
-      }
-
-    
+    }
 
     StringBuffer payErr = new StringBuffer();
     /* if (!"1".equals(zcXmcgHt.getZcFukuanType())) {
@@ -3117,15 +3069,15 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     if (checkBeforeSave()) {
 
-      return false;
+    return false;
 
     }
 
-   /* if (ZcUtil.isYsdw() && !calcBeforeSave()) {
+    /* if (ZcUtil.isYsdw() && !calcBeforeSave()) {
 
-      return false;
+       return false;
 
-    }*/
+     }*/
 
     boolean success = true;
 
@@ -3193,13 +3145,13 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     if (file == null)
 
-      return null;
+    return null;
 
     String fileName = file.getFileName();
 
     if (fileName != null && fileName.length() != 0)
 
-      fileID = WordFileUtil.uploadBulletinWordConstent(fileName);
+    fileID = WordFileUtil.uploadBulletinWordConstent(fileName);
 
     return fileID;
 
@@ -3257,9 +3209,11 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
         JOptionPane.showMessageDialog(this, "删除成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
 
-        this.refreshData();
+        //        this.refreshData();
 
         this.listPanel.refreshCurrentTabData();
+
+        doExit();
 
       } else {
 
@@ -3294,9 +3248,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
   public boolean isDataChanged() {
 
     stopTableEditing();
-    if (!this.saveButton.isVisible() || !saveButton.isEnabled()) {
-      return false;
-    }
+    if (!this.saveButton.isVisible() || !saveButton.isEnabled()) { return false; }
 
     return !DigestUtil.digest(getOldZcXmcgHt()).equals(DigestUtil.digest(listCursor.getCurrentObject()));
 
@@ -3333,7 +3285,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
         ZcXmcgHtBi bi = (ZcXmcgHtBi) zcXmcgHt.getBiList().get(i);
 
         ZcPProMitemBi zcPProMitemBi = bi.getZcPProMitemBi();
-        
+
         bi.setZcUseBiId(zcPProMitemBi.getZcUseBiId());
 
         bi.setZcProBiSeq(zcPProMitemBi.getZcProBiSeq());
@@ -3354,8 +3306,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
       }
       if (budgetFlag) {
-        tempList = this.zcEbBaseServiceDelegate.queryDataForList("ZC_XMCG_HT_BI.ibatorgenerated_selectBiByHtCode", zcXmcgHt.getZcHtCode(),
-          this.requestMeta);
+        tempList = this.zcEbBaseServiceDelegate.queryDataForList("ZC_XMCG_HT_BI.ibatorgenerated_selectBiByHtCode", zcXmcgHt.getZcHtCode(), this.requestMeta);
 
         String sumId = "";
         for (int i = 0; i < tempList.size(); i++) {
@@ -3465,26 +3416,26 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
     }
 
     setWordButtonStataus(zcXmcgHt);
-/*
-    if (isGys()) {
+    /*
+        if (isGys()) {
 
-      JPageableFixedTable ta = itemTablePanel.getTable();
+          JPageableFixedTable ta = itemTablePanel.getTable();
 
-      hideCol(ta, "ZC_ITEM_SUM");
+          hideCol(ta, "ZC_ITEM_SUM");
 
-      hideCol(ta, "BUDGET_BI_MONEY");
+          hideCol(ta, "BUDGET_BI_MONEY");
 
-      hideCol(ta, "BUDGET_OTHER_MONEY");
+          hideCol(ta, "BUDGET_OTHER_MONEY");
 
-      hideCol(ta, "ZC_ITEM_VAL");
+          hideCol(ta, "ZC_ITEM_VAL");
 
-      hideCol(ta, "ZC_HT_BI_MONEY");
+          hideCol(ta, "ZC_HT_BI_MONEY");
 
-      hideCol(ta, "ZC_HT_OTHER_MONEY");
+          hideCol(ta, "ZC_HT_OTHER_MONEY");
 
-      //      hideCol(ta, "ZC_HT_GK_MONEY");
+          //      hideCol(ta, "ZC_HT_GK_MONEY");
 
-    }*/
+        }*/
     JPageableFixedTable ta = itemTablePanel.getTable();
 
     hideCol(ta, "ZC_ITEM_SUM");
@@ -3497,8 +3448,8 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     hideCol(ta, "ZC_HT_BI_MONEY");
 
-    hideCol(ta, "ZC_HT_OTHER_MONEY"); 
-    
+    hideCol(ta, "ZC_HT_OTHER_MONEY");
+
     setSumLabelText();
 
     setOldObject();
@@ -3780,7 +3731,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
             if (k < 0)
 
-              return;
+            return;
 
             ZcTBchtItem item = (ZcTBchtItem) (model.getBean(table.convertRowIndexToModel(k)));
 
@@ -3808,7 +3759,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
             if (k < 0)
 
-              return;
+            return;
 
             ZcTBchtItem item = (ZcTBchtItem) (model.getBean(table.convertRowIndexToModel(k)));
 
@@ -3847,7 +3798,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
             if (k < 0)
 
-              return;
+            return;
 
             ZcHtPrePayBillItem item = (ZcHtPrePayBillItem) model.getBean(table.convertRowIndexToModel(k));
             BigDecimal payMoeny = item.getPayMoney();
@@ -3924,26 +3875,25 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     refreshItemData(itemList);
 
-   /* if (isGys()) {
+    /* if (isGys()) {
 
-      JPageableFixedTable ta = itemTablePanel.getTable();
+       JPageableFixedTable ta = itemTablePanel.getTable();
 
-      hideCol(ta, "ZC_ITEM_SUM");
+       hideCol(ta, "ZC_ITEM_SUM");
 
-      hideCol(ta, "BUDGET_BI_MONEY");
+       hideCol(ta, "BUDGET_BI_MONEY");
 
-      hideCol(ta, "BUDGET_OTHER_MONEY");
+       hideCol(ta, "BUDGET_OTHER_MONEY");
 
-      hideCol(ta, "ZC_ITEM_VAL");
+       hideCol(ta, "ZC_ITEM_VAL");
 
-      hideCol(ta, "ZC_HT_BI_MONEY");
+       hideCol(ta, "ZC_HT_BI_MONEY");
 
-      hideCol(ta, "ZC_HT_OTHER_MONEY");//
+       hideCol(ta, "ZC_HT_OTHER_MONEY");//
 
-      hideCol(ta, "ZC_HT_GK_MONEY");
+       hideCol(ta, "ZC_HT_GK_MONEY");
 
-    }*/
-
+     }*/
 
     JPageableFixedTable ta = itemTablePanel.getTable();
 
@@ -3970,8 +3920,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
       String colNames[] = { "指标余额表ID", "可用金额", "资金性质", "指标类型", "指标来源", "业务处室", "用途", "文号标题", "功能分类" };
       ZcBudgetHandler budgetHandler = new ZcBudgetHandler(colNames, biTablePanel, this, listCursor, getDto);
 
-      ForeignEntityFieldCellEditor suEditor = new ForeignEntityFieldCellEditor("VwBudgetGp.getVwBudgetGp", getDto, 20, budgetHandler, colNames,
-        "资金构成", "sumId");
+      ForeignEntityFieldCellEditor suEditor = new ForeignEntityFieldCellEditor("VwBudgetGp.getVwBudgetGp", getDto, 20, budgetHandler, colNames, "资金构成", "sumId");
 
       SwingUtil.setTableCellEditor(table, "ZC_BI_NO", suEditor);
 
@@ -3991,17 +3940,17 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
       SwingUtil.setTableCellRenderer(table, "ZC_BI_YJBA_SUM", new NumberCellRenderer());
 
-//      SwingUtil.setTableCellEditor(table, FIELD_TRANS_FUND_CODE, new AsValComboBoxCellEditor("ZC_VS_FUND_NAME"));
+      //      SwingUtil.setTableCellEditor(table, FIELD_TRANS_FUND_CODE, new AsValComboBoxCellEditor("ZC_VS_FUND_NAME"));
 
-//      SwingUtil.setTableCellRenderer(table, ZcElementConstants.FIELD_TRANS_FUND_CODE, new AsValCellRenderer("ZC_VS_FUND_NAME"));
+      //      SwingUtil.setTableCellRenderer(table, ZcElementConstants.FIELD_TRANS_FUND_CODE, new AsValCellRenderer("ZC_VS_FUND_NAME"));
 
-//      SwingUtil.setTableCellEditor(table, FIELD_TRANS_ORIGIN_CODE, new AsValComboBoxCellEditor("ZC_VS_ORIGIN_NAME"));
+      //      SwingUtil.setTableCellEditor(table, FIELD_TRANS_ORIGIN_CODE, new AsValComboBoxCellEditor("ZC_VS_ORIGIN_NAME"));
 
-//      SwingUtil.setTableCellRenderer(table, ZcElementConstants.FIELD_TRANS_ORIGIN_CODE, new AsValCellRenderer("ZC_VS_ORIGIN_NAME"));
+      //      SwingUtil.setTableCellRenderer(table, ZcElementConstants.FIELD_TRANS_ORIGIN_CODE, new AsValCellRenderer("ZC_VS_ORIGIN_NAME"));
 
-//      SwingUtil.setTableCellEditor(table, ZcElementConstants.FIELD_TRANS_PAYTYPE_CODE, new AsValComboBoxCellEditor("ZC_VS_PAYTYPE_NAME"));
+      //      SwingUtil.setTableCellEditor(table, ZcElementConstants.FIELD_TRANS_PAYTYPE_CODE, new AsValComboBoxCellEditor("ZC_VS_PAYTYPE_NAME"));
 
-//      SwingUtil.setTableCellRenderer(table, ZcElementConstants.FIELD_TRANS_PAYTYPE_CODE, new AsValCellRenderer("ZC_VS_PAYTYPE_NAME"));
+      //      SwingUtil.setTableCellRenderer(table, ZcElementConstants.FIELD_TRANS_PAYTYPE_CODE, new AsValCellRenderer("ZC_VS_PAYTYPE_NAME"));
 
       SwingUtil.setTableCellEditor(table, "ZC_FUND_FILE", new FileCellEditor("zcFundFileBlobid", (BeanTableModel) table.getModel()));
 
@@ -4106,7 +4055,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
       if (wordPane != null)
 
-        wordPane.close();
+      wordPane.close();
 
       return "";
 
@@ -4156,22 +4105,20 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
   }
 
-  void loadSubCommonEditors(List<AbstractFieldEditor> editorList) {
-  }
+  void loadSubCommonEditors(List<AbstractFieldEditor> editorList) {}
 
-  protected void findMainHt(ZcXmcgHt zcXmcgHt) {
-  }
+  protected void findMainHt(ZcXmcgHt zcXmcgHt) {}
 
   protected String getCompoId() {
     return compoId;
   }
 
   protected String getProjectSqlId() {
-   /* if (isGys()) {
-      return "selectPage.selectProjectForZxCaiGouHt";
-    }
-    return "selectPage.selectProjectForCaiGouHt";*/
-    
+    /* if (isGys()) {
+       return "selectPage.selectProjectForZxCaiGouHt";
+     }
+     return "selectPage.selectProjectForCaiGouHt";*/
+
     return "selectPage.selectProjectForZxCaiGouHt";
   }
 
@@ -4189,7 +4136,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     if (k < 0)
 
-      return false;
+    return false;
 
     int k2 = table.convertRowIndexToModel(k);
 
@@ -4249,8 +4196,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
         bi.setSenddocName(gp.getFileName());
       }
       if (getDto.getZcText3() != null && !"".equals(getDto.getZcText3())) {
-        getDto
-          .setZcText3(getDto.getZcText3().replaceAll(",'" + sumId + "'", "").replaceAll("'" + sumId + "',", "").replaceAll("'" + sumId + "'", ""));
+        getDto.setZcText3(getDto.getZcText3().replaceAll(",'" + sumId + "'", "").replaceAll("'" + sumId + "',", "").replaceAll("'" + sumId + "'", ""));
       }
       if (getDto.getZcText3() == null || "".equals(getDto.getZcText3())) {
         getDto.setZcText3("'" + gp.getSumId() + "'");
@@ -4273,15 +4219,14 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     if (k < 0)
 
-      return false;
+    return false;
 
     int k2 = table.convertRowIndexToModel(k);
 
     ZcXmcgHt ht = (ZcXmcgHt) listCursor.getCurrentObject();
     ZcXmcgHtBi bi = (ZcXmcgHtBi) ht.getBiList().get(k2);
     if (bi.getZcBiNo() != null && !"".equals(bi.getZcBiNo())) {
-      getDto.setZcText3(getDto.getZcText3().replaceAll(",'" + bi.getZcBiNo() + "'", "").replaceAll("'" + bi.getZcBiNo() + "',", "")
-        .replaceAll("'" + bi.getZcBiNo() + "'", ""));
+      getDto.setZcText3(getDto.getZcText3().replaceAll(",'" + bi.getZcBiNo() + "'", "").replaceAll("'" + bi.getZcBiNo() + "',", "").replaceAll("'" + bi.getZcBiNo() + "'", ""));
     }
     bi.setZcBiNo("");
     bi.setZcBiDoSum(null);
@@ -4413,8 +4358,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
         if (budgetFlag) {
           ZcXmcgHtBi bi = (ZcXmcgHtBi) ((ZcXmcgHt) listCursor.getCurrentObject()).getBiList().get(selRows[i]);
           if (bi.getZcBiNo() != null && !"".equals(bi.getZcBiNo())) {
-            getDto.setZcText3(getDto.getZcText3().replaceAll(",'" + bi.getZcBiNo() + "'", "").replaceAll("'" + bi.getZcBiNo() + "',", "")
-              .replaceAll("'" + bi.getZcBiNo() + "'", ""));
+            getDto.setZcText3(getDto.getZcText3().replaceAll(",'" + bi.getZcBiNo() + "'", "").replaceAll("'" + bi.getZcBiNo() + "',", "").replaceAll("'" + bi.getZcBiNo() + "'", ""));
           }
         }
 

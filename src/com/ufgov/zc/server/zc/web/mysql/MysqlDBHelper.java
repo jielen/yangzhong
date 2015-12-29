@@ -129,9 +129,10 @@ public class MysqlDBHelper {
         Connection con = (Connection) conCache.get(i);
         con.close();
       }
-      conCache.clear();
     } catch (SQLException e) {
       e.printStackTrace();
+    } finally {
+      conCache.clear();
     }
   }
 

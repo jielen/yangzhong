@@ -1,13 +1,6 @@
 /**
-
- * IZcEbBaseServiceDelegate.java
-
- * com.ufgov.gk.common.zc.publish
-
- * Administrator
-
+ * IZcEbBaseServiceDelegate.java com.ufgov.gk.common.zc.publish Administrator
  * 2010-4-30
-
  */
 
 package com.ufgov.zc.common.zc.publish;
@@ -21,11 +14,7 @@ import com.ufgov.zc.common.system.dto.ElementConditionDto;
 import com.ufgov.zc.common.zc.model.ZcBaseBill;
 
 /**
-
  * @author Administrator
-
- *
-
  */
 
 public interface IZcEbBaseServiceDelegate extends Publishable {
@@ -40,8 +29,7 @@ public interface IZcEbBaseServiceDelegate extends Publishable {
 
   public Object queryObject(String sqlMapSelectId, Object param, RequestMeta meta);
 
-  public void updateObjectList(String sqlMapUpdateId, List list, RequestMeta meta);  
-
+  public void updateObjectList(String sqlMapUpdateId, List list, RequestMeta meta);
 
   /*
    * 工作流相关
@@ -69,4 +57,5 @@ public interface IZcEbBaseServiceDelegate extends Publishable {
 
   public void untreadFN(List billList, RequestMeta meta);
 
+  public String getCompoNo(String compoId, String noField, Object bill, RequestMeta meta);
 }

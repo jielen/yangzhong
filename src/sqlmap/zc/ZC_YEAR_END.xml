@@ -15,6 +15,10 @@
 	<parameterMap class="zcYearPlan" id="sdProcedureParam">
 		<parameter property="zcMakeCode" jdbcType="varchar2" mode="IN" />
 	</parameterMap>
+	
+	<parameterMap class="zcYearPlan" id="jiChuZiLiaoJieZhuanParam">
+		<parameter property="nd" jdbcType="CHAR" mode="IN" />
+	</parameterMap>
 
 	<resultMap id="proEndResult" class="zcYearPlan">
 		<result column="zc_make_code" property="zcMakeCode" jdbcType="VARCHAR" />
@@ -236,4 +240,12 @@
 		ZC_JZ_Ht_TEMP (zc_make_code,zc_bi_no,zc_jhua_sum)
 		values(#zcMakeCode#,#zcBiNo#,#zcBiJhuaSum#)
 	</insert>
+	
+	<procedure id="jiChuZiLiaoJieZhuan" parameterMap="jiChuZiLiaoJieZhuanParam">
+	<!-- 采购基础资料结转，参数为结转后的年度 -->
+	   <![CDATA[
+	    { call sp_zc_jiChuZiLiaoJieZhuan (?) }
+	   ]]>
+	</procedure>
+	
 </sqlMap>

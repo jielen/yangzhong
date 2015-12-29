@@ -102,7 +102,7 @@ public class ZcEbBulletinPublishUtil {
             e1.printStackTrace();
           }
         }
-        throw new WorkflowException("执行工作流审批监听报错:\n" + e.getMessage(), e);
+        throw new WorkflowException("公告发布时异常:\n" + e.getMessage(), e);
       } finally {
         try {
           if (st != null) {
@@ -134,13 +134,15 @@ public class ZcEbBulletinPublishUtil {
   }
 
   /**
-   * 106 招标公告 135 采购预告 108 网上竞价 109 更正补充 136 单一来源 110 中标公告 107 征求意见
+   * 108 询价招标公告 136 单一来源招标公告 106 招标公告 采购预告 108 网上竞价 109 更正补充 110 中标公告 107 征求意见
    * @return
    */
   public String getCHannelId(ZcEbBulletin bul) throws BusinessException {
 
     if (ZcEbBulletin.ZHAOBIAO_XJ.equals(bul.getBulletinType())) {
       return "108";
+    } else if (ZcEbBulletin.ZHAOBIAO_DYLY.equals(bul.getBulletinType())) {
+      return "136";
     } else if (ZcEbBulletin.ZHAOBIAO_GKZB.equals(bul.getBulletinType()) || ZcEbBulletin.ZHAOBIAO_DYLY.equals(bul.getBulletinType()) || ZcEbBulletin.ZHAOBIAO_JZXTP.equals(bul.getBulletinType())
       || ZcEbBulletin.ZHAOBIAO_YQZB.equals(bul.getBulletinType()) || ZcEbBulletin.ZHAOBIAO_QT.equals(bul.getBulletinType()) || ZcEbBulletin.ZHAOBIAO_ZXJJ.equals(bul.getBulletinType())) {
       return "106";
@@ -204,6 +206,6 @@ public class ZcEbBulletinPublishUtil {
   }
 
   private void log(String str) {
-    System.out.println(str);
+    //    System.out.println(str);
   }
 }

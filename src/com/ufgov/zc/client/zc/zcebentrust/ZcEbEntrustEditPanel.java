@@ -816,9 +816,9 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     this.pageStatus = ZcSettingConstants.PAGE_STATUS_EDIT;
 
-    setButtonStatus();
+    setEdit();
 
-    updateFieldEditorsEditable();
+    addTableLisenter(this.contentTablePanel.getTable());
 
   }
 
@@ -845,12 +845,8 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
     setEditingObject(trust);
 
     refreshData();
-
-    updateFieldEditorsEditable();
-
     setDefualtValue(trust, this.pageStatus);
-
-    setButtonStatus();
+    setEdit();
 
   }
 
@@ -967,26 +963,19 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
   private void setSubTableButton() {
     ZcEbEntrust o = (ZcEbEntrust) this.listCursor.getCurrentObject();
 
+    boolean editable = false;
+
     if ((this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_EDIT)) || this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW)) {
-      if (this.subPackTableToolbar != null) {
-        this.subPackTableToolbar.setEnabled(true);
-      }
-      if (this.subTableToolbar != null) {
-        this.subTableToolbar.setEnabled(true);
-      }
+      editable = true;
 
     } else {
-
-      if (this.subPackTableToolbar != null) {
-        this.subPackTableToolbar.setEnabled(false);
-
+      if (this.saveButton.isEnabled()) {
+        editable = true;
       }
-      if (this.subTableToolbar != null) {
-        this.subTableToolbar.setEnabled(false);
-
-      }
-
     }
+
+    setWFSubTableEditable(contentTablePanel, editable);
+    setWFSubTableEditable(biTablePanel, editable);
 
   }
 
@@ -1642,10 +1631,13 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     addTableLisenter(this.contentTablePanel.getTable());
 
-    updateFieldEditorsEditable();
+    setEdit();
 
+  }
+
+  private void setEdit() {
     setButtonStatus();
-
+    updateFieldEditorsEditable();
   }
 
   @SuppressWarnings("unchecked")
@@ -1837,7 +1829,8 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
     this.refreshSubTableData(entrust);
 
     //    System.out.println("refreshAll 3" + entrust.getCoCode());
-    setButtonStatus();
+    //    setButtonStatus();
+    setEdit();
 
     //      this.refreshData();
 

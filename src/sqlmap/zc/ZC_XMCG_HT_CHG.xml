@@ -7,7 +7,7 @@
 	<typeAlias alias="ContractFile" type="com.ufgov.zc.common.system.model.AsFile" />
 	<resultMap class="com.ufgov.zc.common.zc.model.ZcXmcgHtChg" id="HtChgResultMap">
 
-		<result column="ZC_HT_CHG_ID" jdbcType="VARCHAR" property="zcHtChgId" />
+		<result column="CHG_ID" jdbcType="VARCHAR" property="chgId" />
 		<result column="ZC_HT_CODE" jdbcType="VARCHAR" property="zcHtCode" />
 		<result column="ZC_DIYU_DAIMA" jdbcType="VARCHAR" property="zcDiyuDaima" />
 		<result column="ZC_HT_NAME" jdbcType="VARCHAR" property="zcHtName" />
@@ -86,7 +86,7 @@
 
 	<resultMap class="com.ufgov.zc.common.zc.model.ZcXmcgHtChg" id="HtChgResultMap">
 
-		<result column="ZC_HT_CHG_ID" jdbcType="VARCHAR" property="zcHtChgId" />
+		<result column="CHG_ID" jdbcType="VARCHAR" property="chgId" />
 		<result column="ZC_HT_CODE" jdbcType="VARCHAR" property="zcHtCode" />
 		<result column="ZC_DIYU_DAIMA" jdbcType="VARCHAR" property="zcDiyuDaima" />
 		<result column="ZC_HT_NAME" jdbcType="VARCHAR" property="zcHtName" />
@@ -161,7 +161,7 @@
 
 	<resultMap class="com.ufgov.zc.common.zc.model.ZcXmcgHtBiChg"
 		id="htBiChgResultMap">
-		<result column="ZC_HT_CHG_ID" jdbcType="VARCHAR" property="zcHtChgId" />
+		<result column="CHG_ID" jdbcType="VARCHAR" property="chgId" />
 		<result column="ZC_HT_CODE" jdbcType="VARCHAR" property="zcHtCode" />
 		<result column="ZC_BI_NO" jdbcType="VARCHAR" property="zcBiNo" />
 		<result column="ZC_BI_BCSY_SUM" jdbcType="DECIMAL" property="zcBiBcsySum" />
@@ -176,7 +176,7 @@
 	</resultMap>
 
   <resultMap class="com.ufgov.zc.common.zc.model.ZcTBchtItemChg" id="itemChgResultMap">
-	<result column="ZC_HT_CHG_ID" jdbcType="VARCHAR" property="zcHtChgId" />
+	<result column="CHG_ID" jdbcType="VARCHAR" property="chgId" />
     <result column="ZC_CTGRY_ID" jdbcType="DECIMAL" property="zcCtgryId" />
     <result column="ZC_HT_CODE" jdbcType="VARCHAR" property="zcHtCode" />
     <result column="ZC_YEAR" jdbcType="CHAR" property="zcYear" />
@@ -202,7 +202,7 @@
 	<result column="ZC_CAIG_MONEY" jdbcType="DECIMAL" property="zcCaigMoney" />
   </resultMap>
   <resultMap id="payBillItemResult" class="com.ufgov.zc.common.zc.model.ZcHtPrePayBillItemChg" >
-	<result column="ZC_HT_CHG_ID" jdbcType="VARCHAR" property="zcHtChgId" />
+	<result column="CHG_ID" jdbcType="VARCHAR" property="chgId" />
     <result column="BILL_CODE" property="billCode" jdbcType="VARCHAR" />
     <result column="PAY_ORDER" property="payOrder" jdbcType="VARCHAR" />
     <result column="PAY_MONEY" property="payMoney" jdbcType="DECIMAL" />
@@ -215,7 +215,7 @@
 
 	<select id="selectHtChgListByExample" parameterClass="elementCondition"
 		resultMap="HtChgResultMap">
-		select ZC_HT_CHG_ID,ZC_HT_CODE, ZC_DIYU_DAIMA, ZC_HT_NAME, ZC_HT_TYPE, ZC_REQ_CODE,
+		select CHG_ID,ZC_HT_CODE, ZC_DIYU_DAIMA, ZC_HT_NAME, ZC_HT_TYPE, ZC_REQ_CODE,
 		ZC_MAKE_CODE,
 		ZC_BID_CODE, CO_CODE, ND, ZC_SGN_DATE, ZC_SU_NAME, ZC_JCKDL_MC, ZC_HT_NUM,
 		ZC_CZ_LEVEL, ZC_FUKUAN_TYPE, ZC_FUKUAN_YUED, ZC_CHECK_TYPE,
@@ -291,7 +291,7 @@
 	</select>
 	<select id="selectHtChgByPrimaryKey" parameterClass="String"
 		resultMap="HtChgResultMap">
-		select ZC_HT_CHG_ID,ZC_HT_CODE, ZC_DIYU_DAIMA, ZC_HT_NAME, ZC_HT_TYPE, ZC_REQ_CODE,
+		select CHG_ID,ZC_HT_CODE, ZC_DIYU_DAIMA, ZC_HT_NAME, ZC_HT_TYPE, ZC_REQ_CODE,
 		ZC_MAKE_CODE,
 		ZC_BID_CODE, CO_CODE, ND, ZC_SGN_DATE, ZC_SU_NAME, ZC_JCKDL_MC, ZC_HT_NUM,
 		ZC_CZ_LEVEL, ZC_FUKUAN_TYPE, ZC_FUKUAN_YUED, ZC_CHECK_TYPE,
@@ -314,15 +314,15 @@
 		ZC_DELIVERY_DATE,ZC_DELIVERY_ADDR,ZC_DELIVERY_TYPE
 		, ZC_PRO_LIMIT_START_DATE, ZC_PRO_LIMIT_END_DATE, ZC_IMP_FILE, ZC_IMP_FILE_BLOBID
 		from ZC_XMCG_HT_CHG MASTER
-		where MASTER.ZC_HT_CHG_ID = #zcHtChgId:VARCHAR#
+		where MASTER.CHG_ID = #chgId:VARCHAR#
 	</select>
 	<delete id="deleteHtChgByPrimaryKey" parameterClass="String">
 		delete from ZC_XMCG_HT_CHG
-		where ZC_HT_CHG_ID = #value:VARCHAR#
+		where CHG_ID = #value:VARCHAR#
 	</delete>
 
 	<insert id="insertHtChg" parameterClass="com.ufgov.zc.common.zc.model.ZcXmcgHtChg">
-		insert into ZC_XMCG_HT_CHG (ZC_HT_CHG_ID,ZC_HT_CODE, ZC_DIYU_DAIMA, ZC_HT_NAME,
+		insert into ZC_XMCG_HT_CHG (CHG_ID,ZC_HT_CODE, ZC_DIYU_DAIMA, ZC_HT_NAME,
 		ZC_HT_TYPE, ZC_REQ_CODE,
 		ZC_MAKE_CODE, ZC_BID_CODE, CO_CODE, ND, ZC_SGN_DATE, ZC_SU_NAME, ZC_JCKDL_MC,
 		ZC_HT_NUM, ZC_CZ_LEVEL, ZC_FUKUAN_TYPE, ZC_FUKUAN_YUED, ZC_CHECK_TYPE,
@@ -337,7 +337,7 @@
 		ZC_ZG_CS_NAME,
 		ZC_BGSP_BH,ZC_DELIVERY_EVL,ZC_PRICE_EVL,ZC_QUANTITY_EVL,ZC_SERVICE_EVL,ZC_MEMO,ZC_BID_CONTENT,ZC_DELIVERY_DATE,ZC_DELIVERY_ADDR,ZC_DELIVERY_TYPE
 		, ZC_PRO_LIMIT_START_DATE, ZC_PRO_LIMIT_END_DATE, ZC_IMP_FILE, ZC_IMP_FILE_BLOBID)
-		values (#zcHtChgId:VARCHAR#, #zcHtCode:VARCHAR#, #zcDiyuDaima:VARCHAR#, #zcHtName:VARCHAR#,
+		values (#chgId:VARCHAR#, #zcHtCode:VARCHAR#, #zcDiyuDaima:VARCHAR#, #zcHtName:VARCHAR#,
 		#zcHtType:VARCHAR#,
 		#zcReqCode:VARCHAR#, #zcMakeCode:VARCHAR#, #zcBidCode:VARCHAR#, #coCode:VARCHAR#,
 		#nd:CHAR#, #zcSgnDate:TIMESTAMP#, #zcSuName:VARCHAR#,
@@ -364,7 +364,7 @@
 
 	<update id="updateHtChgByPrimaryKey" parameterClass="com.ufgov.zc.common.zc.model.ZcXmcgHtChg">
 		update ZC_XMCG_HT_CHG
-		set ZC_HT_CHG_ID = #zcHtChgId:VARCHAR#,
+		set CHG_ID = #chgId:VARCHAR#,
 		ZC_DIYU_DAIMA = #zcDiyuDaima:VARCHAR#,
 		ZC_HT_NAME = #zcHtName:VARCHAR#,
 		ZC_HT_TYPE = #zcHtType:VARCHAR#,
@@ -435,7 +435,7 @@
 
 	<select id="selectBiChgByChgId" parameterClass="java.lang.String"
 		resultMap="htBiChgResultMap">
-		SELECT MASTER.ZC_HT_CHG_ID,MASTER.ZC_HT_CODE, MASTER.ZC_BI_NO, MASTER.ZC_BI_BCSY_SUM,
+		SELECT MASTER.CHG_ID,MASTER.ZC_HT_CODE, MASTER.ZC_BI_NO, MASTER.ZC_BI_BCSY_SUM,
 		MASTER.ZC_MAKE_CODE, ( SELECT sum(ZC_P_PRO_BAL_BI.ZC_BI_BCJS_SUM) FROM
 		ZC_P_PRO_BAL_BI where ZC_P_PRO_BAL_BI.Zc_Ht_Bi_No =
 		MASTER.ZC_PRO_BI_SEQ AND ZC_P_PRO_BAL_BI.Zc_Ht_Code =
@@ -444,16 +444,16 @@
 		, (select nvl(zc_bi_jhua_sum,0) from zc_p_pro_mitem_bi where ZC_PRO_BI_SEQ=MASTER.ZC_PRO_BI_SEQ) - (select nvl(sum(ZC_BI_BCSY_SUM), 0) from zc_xmcg_ht_bi ht where ht.ZC_PRO_BI_SEQ = MASTER.ZC_PRO_BI_SEQ and ht.ZC_HT_CODE != MASTER.ZC_HT_CODE)
 		zc_Can_Use_Sum,zc_bi_sum
 		FROM ZC_XMCG_HT_BI_chg MASTER
-		where ZC_HT_CHG_ID=#value:VARCHAR# order by zc_pro_bi_seq
+		where CHG_ID=#value:VARCHAR# order by zc_pro_bi_seq
 	</select>
 	<delete id="deletebiChgByChgId" parameterClass="string">		
 		delete
 		from ZC_XMCG_HT_BI_CHG BI
 		where
-		BI.ZC_HT_CHG_ID=#value:VARCHAR#
+		BI.CHG_ID=#value:VARCHAR#
 	</delete>
 	<insert id="insertbiChg" parameterClass="com.ufgov.zc.common.zc.model.ZcXmcgHtBiChg">
-		insert into ZC_XMCG_HT_BI_CHG (ZC_HT_CHG_ID,ZC_HT_CODE, ZC_BI_NO, ZC_BI_BCSY_SUM,
+		insert into ZC_XMCG_HT_BI_CHG (CHG_ID,ZC_HT_CODE, ZC_BI_NO, ZC_BI_BCSY_SUM,
 		ZC_MAKE_CODE, ZC_BI_YJJS_SUM,
 		ZC_BI_HTBA_SUM, ZC_BI_YJCH_SUM, ZC_BI_NZJZ_SUM,ZC_PRO_BI_SEQ,
 		ZC_BI_SUM,ZC_BI_DO_SUM,ZC_BI_YJBA_SUM,BI_TARGET_CODE,B_ACC_CODE,
@@ -466,7 +466,7 @@
 		ZC_PLAN_TYPE,ZC_SAVE_NUM,ZC_CATALOGUE_CODE,ZC_CATALOGUE_NAME,
 		ZC_YEAR,ZC_YEP_SUM,ZC_BI_APD_FLAG,ZC_FUND_REMARK,ZC_FUND_FILE,
 		ZC_FUND_FILE_BLOBID,ZC_USE_BI_ID)
-		values (#zcHtChgId:VARCHAR#,#zcHtCode:VARCHAR#, #zcBiNo:VARCHAR#, #zcBiBcsySum:DECIMAL#,
+		values (#chgId:VARCHAR#,#zcHtCode:VARCHAR#, #zcBiNo:VARCHAR#, #zcBiBcsySum:DECIMAL#,
 		#zcMakeCode:VARCHAR#,
 		#zcBiYjjsSum:DECIMAL#, #zcBiHtbaSum:DECIMAL#, #zcBiYjchSum:DECIMAL#,
 		#zcBiNzjzSum:DECIMAL#,
@@ -497,7 +497,7 @@
 
   <select id="selectItemChgByExample" parameterClass="String" resultMap="itemChgResultMap">
 
-      SELECT ZC_HT_CHG_ID,
+      SELECT CHG_ID,
       		ZC_HT_CODE,
              ZC_CTGRY_ID,
              ZC_YEAR,
@@ -522,18 +522,18 @@
 			NVL(ZC_CAIG_PRICE,0.00) ZC_CAIG_PRICE,
 			 ZC_CAIG_JLDW
       FROM ZC_T_BCHT_ITEM_CHG
-      where ZC_HT_CHG_ID=#value:VARCHAR#
+      where CHG_ID=#value:VARCHAR#
   </select>
   
   <delete id="deleteItemChgByPrimaryKey" parameterClass="String">
     delete from ZC_T_BCHT_ITEM_CHG
 
-    where ZC_HT_CHG_ID = #value:VARCHAR#
+    where CHG_ID = #value:VARCHAR#
 
   </delete>
   
   <insert id="insertItemChg" parameterClass="com.ufgov.zc.common.zc.model.ZcTBchtItemChg">
-    insert into ZC_T_BCHT_ITEM_CHG (ZC_HT_CHG_ID,ZC_CTGRY_ID, ZC_HT_CODE, ZC_YEAR, ZC_CATALOGUE_CODE,
+    insert into ZC_T_BCHT_ITEM_CHG (CHG_ID,ZC_CTGRY_ID, ZC_HT_CODE, ZC_YEAR, ZC_CATALOGUE_CODE,
 
       ZC_CATALOGUE_NAME, ZC_IS_JNJS, ZC_BRA_NAME, ZC_MER_SPEC, ZC_ITEM_VAL, ZC_CAIG_SHL, ZC_SP_NAME,
 
@@ -541,7 +541,7 @@
 
       ZC_HT_GK_MONEY,ZC_ITEM_SUM,BUDGET_BI_MONEY,BUDGET_OTHER_MONEY,ZC_CAIG_JLDW,ZC_CAIG_PRICE,ZC_CAIG_MONEY)
 
-    values (#zcHtChgId:VARCHAR#,#zcCtgryId:DECIMAL#, #zcHtCode:VARCHAR#, #zcYear:CHAR#, #zcCatalogueCode:VARCHAR#,
+    values (#chgId:VARCHAR#,#zcCtgryId:DECIMAL#, #zcHtCode:VARCHAR#, #zcYear:CHAR#, #zcCatalogueCode:VARCHAR#,
 
       #zcCatalogueName:VARCHAR#, #zcIsJnjs:VARCHAR#, #zcBraName:VARCHAR#, #zcMerSpec:VARCHAR#,
 
@@ -554,22 +554,22 @@
   </insert>
   
   <select id="selectBillChgByChgId" resultMap="payBillItemResult" parameterClass="java.lang.String" >
-    select ZC_HT_CHG_ID, BILL_CODE, PAY_ORDER, PAY_MONEY, REMARK,PERCENT,PAY_DATE,to_char(PAY_DATE,'YYYY') PAY_YEAR, to_char(PAY_DATE,'MM') PAY_MONTH
+    select CHG_ID, BILL_CODE, PAY_ORDER, PAY_MONEY, REMARK,PERCENT,PAY_DATE,to_char(PAY_DATE,'YYYY') PAY_YEAR, to_char(PAY_DATE,'MM') PAY_MONTH
     from ZC_HT_PRE_PAY_BILL_ITEM_CHG
-    where ZC_HT_CHG_ID=#value#
+    where CHG_ID=#value#
     order by PAY_ORDER
   </select>
   <delete id="deleteBillChgByChgId" parameterClass="java.lang.String" >
     delete from ZC_HT_PRE_PAY_BILL_ITEM_CHG
-      where ZC_HT_CHG_ID=#value#
+      where CHG_ID=#value#
   </delete>
   <insert id="insertBillChg" parameterClass="com.ufgov.zc.common.zc.model.ZcHtPrePayBillItemChg" >
-    insert into ZC_HT_PRE_PAY_BILL_ITEM_CHG (ZC_HT_CHG_ID,BILL_CODE, PAY_ORDER, PAY_MONEY, REMARK,PERCENT,PAY_DATE)
-    values (#zcHtChgId:VARCHAR#,#billCode:VARCHAR#, #payOrder:VARCHAR#, #payMoney:DECIMAL#, #remark:VARCHAR#,#percent:VARCHAR#,#payDate:DATE#)
+    insert into ZC_HT_PRE_PAY_BILL_ITEM_CHG (CHG_ID,BILL_CODE, PAY_ORDER, PAY_MONEY, REMARK,PERCENT,PAY_DATE)
+    values (#chgId:VARCHAR#,#billCode:VARCHAR#, #payOrder:VARCHAR#, #payMoney:DECIMAL#, #remark:VARCHAR#,#percent:VARCHAR#,#payDate:DATE#)
   </insert>
 	<select id="selectHtHistoryByPrimaryKey" parameterClass="String"
 		resultMap="HtChgResultMap">
-		select ZC_HT_CHG_ID,ZC_HT_CODE, ZC_DIYU_DAIMA, ZC_HT_NAME, ZC_HT_TYPE, ZC_REQ_CODE,
+		select CHG_ID,ZC_HT_CODE, ZC_DIYU_DAIMA, ZC_HT_NAME, ZC_HT_TYPE, ZC_REQ_CODE,
 		ZC_MAKE_CODE,
 		ZC_BID_CODE, CO_CODE, ND, ZC_SGN_DATE, ZC_SU_NAME, ZC_JCKDL_MC, ZC_HT_NUM,
 		ZC_CZ_LEVEL, ZC_FUKUAN_TYPE, ZC_FUKUAN_YUED, ZC_CHECK_TYPE,
@@ -592,15 +592,15 @@
 		ZC_DELIVERY_DATE,ZC_DELIVERY_ADDR,ZC_DELIVERY_TYPE
 		, ZC_PRO_LIMIT_START_DATE, ZC_PRO_LIMIT_END_DATE, ZC_IMP_FILE, ZC_IMP_FILE_BLOBID
 		from ZC_XMCG_HT_HISTORY MASTER
-		where MASTER.ZC_HT_CHG_ID = #zcHtChgId:VARCHAR#
+		where MASTER.CHG_ID = #chgId:VARCHAR#
 	</select>
 	<delete id="deleteHtHistoryByPrimaryKey" parameterClass="String">
 		delete from ZC_XMCG_HT_HISTORY
-		where ZC_HT_CHG_ID = #value:VARCHAR#
+		where CHG_ID = #value:VARCHAR#
 	</delete>
 
 	<insert id="insertHtHistory" parameterClass="java.util.Map">
-		insert into ZC_XMCG_HT_HISTORY (ZC_HT_CHG_ID,ZC_HT_CODE, ZC_DIYU_DAIMA, ZC_HT_NAME,
+		insert into ZC_XMCG_HT_HISTORY (CHG_ID,ZC_HT_CODE, ZC_DIYU_DAIMA, ZC_HT_NAME,
     ZC_HT_TYPE, ZC_REQ_CODE,
     ZC_MAKE_CODE, ZC_BID_CODE, CO_CODE, ND, ZC_SGN_DATE, ZC_SU_NAME, ZC_JCKDL_MC,
     ZC_HT_NUM, ZC_CZ_LEVEL, ZC_FUKUAN_TYPE, ZC_FUKUAN_YUED, ZC_CHECK_TYPE,
@@ -615,7 +615,7 @@
     ZC_ZG_CS_NAME,
     ZC_BGSP_BH,ZC_DELIVERY_EVL,ZC_PRICE_EVL,ZC_QUANTITY_EVL,ZC_SERVICE_EVL,ZC_MEMO,ZC_BID_CONTENT,ZC_DELIVERY_DATE,ZC_DELIVERY_ADDR,ZC_DELIVERY_TYPE
     , ZC_PRO_LIMIT_START_DATE, ZC_PRO_LIMIT_END_DATE, ZC_IMP_FILE, ZC_IMP_FILE_BLOBID)
-     select #zcHtChgId:VARCHAR#, ZC_HT_CODE, ZC_DIYU_DAIMA, ZC_HT_NAME,
+     select #chgId:VARCHAR#, ZC_HT_CODE, ZC_DIYU_DAIMA, ZC_HT_NAME,
     ZC_HT_TYPE, ZC_REQ_CODE,
     ZC_MAKE_CODE, ZC_BID_CODE, CO_CODE, ND, ZC_SGN_DATE, ZC_SU_NAME, ZC_JCKDL_MC,
     ZC_HT_NUM, ZC_CZ_LEVEL, ZC_FUKUAN_TYPE, ZC_FUKUAN_YUED, ZC_CHECK_TYPE,
@@ -635,7 +635,7 @@
 
 	<select id="selectBiHistoryByChgId" parameterClass="java.lang.String"
 		resultMap="htBiChgResultMap">
-		SELECT MASTER.ZC_HT_CHG_ID,MASTER.ZC_HT_CODE, MASTER.ZC_BI_NO, MASTER.ZC_BI_BCSY_SUM,
+		SELECT MASTER.CHG_ID,MASTER.ZC_HT_CODE, MASTER.ZC_BI_NO, MASTER.ZC_BI_BCSY_SUM,
 		MASTER.ZC_MAKE_CODE, ( SELECT sum(ZC_P_PRO_BAL_BI.ZC_BI_BCJS_SUM) FROM
 		ZC_P_PRO_BAL_BI where ZC_P_PRO_BAL_BI.Zc_Ht_Bi_No =
 		MASTER.ZC_PRO_BI_SEQ AND ZC_P_PRO_BAL_BI.Zc_Ht_Code =
@@ -644,16 +644,16 @@
 		, (select nvl(zc_bi_jhua_sum,0) from zc_p_pro_mitem_bi where ZC_PRO_BI_SEQ=MASTER.ZC_PRO_BI_SEQ) - (select nvl(sum(ZC_BI_BCSY_SUM), 0) from zc_xmcg_ht_bi ht where ht.ZC_PRO_BI_SEQ = MASTER.ZC_PRO_BI_SEQ and ht.ZC_HT_CODE != MASTER.ZC_HT_CODE)
 		zc_Can_Use_Sum,zc_bi_sum
 		FROM ZC_XMCG_HT_BI_HISTORY MASTER
-		where ZC_HT_CHG_ID=#value:VARCHAR# order by zc_pro_bi_seq
+		where CHG_ID=#value:VARCHAR# order by zc_pro_bi_seq
 	</select>
 	<delete id="deletebiHistoryByChgId" parameterClass="string">		
 		delete
 		from ZC_XMCG_HT_BI_HISTORY BI
 		where
-		BI.ZC_HT_CHG_ID=#value:VARCHAR#
+		BI.CHG_ID=#value:VARCHAR#
 	</delete>
 	<insert id="insertbiHistory" parameterClass="java.util.Map">
-    insert into ZC_XMCG_HT_BI_History (ZC_HT_CHG_ID,ZC_HT_CODE, ZC_BI_NO, ZC_BI_BCSY_SUM,
+    insert into ZC_XMCG_HT_BI_History (CHG_ID,ZC_HT_CODE, ZC_BI_NO, ZC_BI_BCSY_SUM,
     ZC_MAKE_CODE, ZC_BI_YJJS_SUM,
     ZC_BI_HTBA_SUM, ZC_BI_YJCH_SUM, ZC_BI_NZJZ_SUM,ZC_PRO_BI_SEQ,
     ZC_BI_SUM,ZC_BI_DO_SUM,ZC_BI_YJBA_SUM,BI_TARGET_CODE,B_ACC_CODE,
@@ -666,7 +666,7 @@
     ZC_PLAN_TYPE,ZC_SAVE_NUM,ZC_CATALOGUE_CODE,ZC_CATALOGUE_NAME,
     ZC_YEAR,ZC_YEP_SUM,ZC_BI_APD_FLAG,ZC_FUND_REMARK,ZC_FUND_FILE,
     ZC_FUND_FILE_BLOBID,ZC_USE_BI_ID)
-    select #zcHtChgId:VARCHAR#,ZC_HT_CODE, ZC_BI_NO, ZC_BI_BCSY_SUM,
+    select #chgId:VARCHAR#,ZC_HT_CODE, ZC_BI_NO, ZC_BI_BCSY_SUM,
     ZC_MAKE_CODE, ZC_BI_YJJS_SUM,
     ZC_BI_HTBA_SUM, ZC_BI_YJCH_SUM, ZC_BI_NZJZ_SUM,ZC_PRO_BI_SEQ,
     ZC_BI_SUM,ZC_BI_DO_SUM,ZC_BI_YJBA_SUM,BI_TARGET_CODE,B_ACC_CODE,
@@ -683,7 +683,7 @@
 
   <select id="selectItemHistoryByExample" parameterClass="String" resultMap="itemChgResultMap">
 
-      SELECT ZC_HT_CHG_ID,
+      SELECT CHG_ID,
       		ZC_HT_CODE,
              ZC_CTGRY_ID,
              ZC_YEAR,
@@ -708,22 +708,22 @@
 			NVL(ZC_CAIG_PRICE,0.00) ZC_CAIG_PRICE,
 			 ZC_CAIG_JLDW
       FROM ZC_T_BCHT_ITEM_History
-      where ZC_HT_CHG_ID=#value:VARCHAR#
+      where CHG_ID=#value:VARCHAR#
   </select>
   
   <delete id="deleteItemHistoryByPrimaryKey" parameterClass="String">
     delete from ZC_T_BCHT_ITEM_History
 
-    where ZC_HT_CHG_ID = #value:VARCHAR#
+    where CHG_ID = #value:VARCHAR#
 
   </delete>
   
   <insert id="insertItemHistory" parameterClass="java.util.Map">
-    insert into ZC_T_BCHT_ITEM_HISTORY (ZC_HT_CHG_ID,ZC_CTGRY_ID, ZC_HT_CODE, ZC_YEAR, ZC_CATALOGUE_CODE,
+    insert into ZC_T_BCHT_ITEM_HISTORY (CHG_ID,ZC_CTGRY_ID, ZC_HT_CODE, ZC_YEAR, ZC_CATALOGUE_CODE,
       ZC_CATALOGUE_NAME, ZC_IS_JNJS, ZC_BRA_NAME, ZC_MER_SPEC, ZC_ITEM_VAL, ZC_CAIG_SHL, ZC_SP_NAME,
       ZC_MER_IS_ZZCX, ZC_MER_IS_LSHB, ZC_MER_M_PRICE, ZC_HT_BI_MONEY, ZC_HT_OTHER_MONEY,
       ZC_HT_GK_MONEY,ZC_ITEM_SUM,BUDGET_BI_MONEY,BUDGET_OTHER_MONEY,ZC_CAIG_JLDW,ZC_CAIG_PRICE,ZC_CAIG_MONEY)
-    select #zcHtChgId:VARCHAR#,ZC_CTGRY_ID, ZC_HT_CODE, ZC_YEAR, ZC_CATALOGUE_CODE,
+    select #chgId:VARCHAR#,ZC_CTGRY_ID, ZC_HT_CODE, ZC_YEAR, ZC_CATALOGUE_CODE,
       ZC_CATALOGUE_NAME, ZC_IS_JNJS, ZC_BRA_NAME, ZC_MER_SPEC, ZC_ITEM_VAL, ZC_CAIG_SHL, ZC_SP_NAME,
       ZC_MER_IS_ZZCX, ZC_MER_IS_LSHB, ZC_MER_M_PRICE, ZC_HT_BI_MONEY, ZC_HT_OTHER_MONEY,
       ZC_HT_GK_MONEY,ZC_ITEM_SUM,BUDGET_BI_MONEY,BUDGET_OTHER_MONEY,ZC_CAIG_JLDW,ZC_CAIG_PRICE,ZC_CAIG_MONEY
@@ -731,18 +731,18 @@
   </insert>
   
   <select id="selectBillHistoryByChgId" resultMap="payBillItemResult" parameterClass="java.lang.String" >
-    select ZC_HT_CHG_ID, BILL_CODE, PAY_ORDER, PAY_MONEY, REMARK,PERCENT,PAY_DATE,to_char(PAY_DATE,'YYYY') PAY_YEAR, to_char(PAY_DATE,'MM') PAY_MONTH
+    select CHG_ID, BILL_CODE, PAY_ORDER, PAY_MONEY, REMARK,PERCENT,PAY_DATE,to_char(PAY_DATE,'YYYY') PAY_YEAR, to_char(PAY_DATE,'MM') PAY_MONTH
     from ZC_HT_PAY_BILL_ITEM_HISTORY
-    where ZC_HT_CHG_ID=#value#
+    where CHG_ID=#value#
     order by PAY_ORDER
   </select>
   <delete id="deleteBillHistoryByChgId" parameterClass="java.lang.String" >
     delete from ZC_HT_PAY_BILL_ITEM_HISTORY
-      where ZC_HT_CHG_ID=#value#
+      where CHG_ID=#value#
   </delete>
   <insert id="insertBillHistory" parameterClass="java.util.Map" >
-        insert into ZC_HT_PAY_BILL_ITEM_HISTORY (ZC_HT_CHG_ID,BILL_CODE, PAY_ORDER, PAY_MONEY, REMARK,PERCENT,PAY_DATE)
-    select #zcHtChgId:VARCHAR#,BILL_CODE, PAY_ORDER, PAY_MONEY, REMARK,PERCENT,PAY_DATE
+        insert into ZC_HT_PAY_BILL_ITEM_HISTORY (CHG_ID,BILL_CODE, PAY_ORDER, PAY_MONEY, REMARK,PERCENT,PAY_DATE)
+    select #chgId:VARCHAR#,BILL_CODE, PAY_ORDER, PAY_MONEY, REMARK,PERCENT,PAY_DATE
       from ZC_HT_PRE_PAY_BILL_ITEM where bill_code=#zcHtCode:VARCHAR#
   </insert>
 
@@ -798,7 +798,7 @@
     ZC_ZG_CS_NAME,
     ZC_BGSP_BH,ZC_DELIVERY_EVL,ZC_PRICE_EVL,ZC_QUANTITY_EVL,ZC_SERVICE_EVL,ZC_MEMO,ZC_BID_CONTENT,ZC_DELIVERY_DATE,ZC_DELIVERY_ADDR,ZC_DELIVERY_TYPE
     , ZC_PRO_LIMIT_START_DATE, ZC_PRO_LIMIT_END_DATE, ZC_IMP_FILE, ZC_IMP_FILE_BLOBID
-    from ZC_XMCG_HT_CHG where ZC_HT_CHG_ID=#value:VARCHAR#
+    from ZC_XMCG_HT_CHG where CHG_ID=#value:VARCHAR#
   </insert>
   
 	<insert id="insertBi" parameterClass="String">
@@ -827,7 +827,7 @@
     SENDDOC_NAME,SENDDOC_TYPE_CODE,SENDDOC_TYPE_NAME,ZC_CG_TYPE,
     ZC_PLAN_TYPE,ZC_SAVE_NUM,ZC_CATALOGUE_CODE,ZC_CATALOGUE_NAME,
     ZC_YEAR,ZC_YEP_SUM,ZC_BI_APD_FLAG,ZC_FUND_REMARK,ZC_FUND_FILE,
-    ZC_FUND_FILE_BLOBID,ZC_USE_BI_ID from Zc_Xmcg_Ht_Bi_Chg where ZC_HT_CHG_ID=#value:VARCHAR#
+    ZC_FUND_FILE_BLOBID,ZC_USE_BI_ID from Zc_Xmcg_Ht_Bi_Chg where CHG_ID=#value:VARCHAR#
 	</insert>
 	
   <insert id="insertItem" parameterClass="String">
@@ -839,11 +839,11 @@
       ZC_CATALOGUE_NAME, ZC_IS_JNJS, ZC_BRA_NAME, ZC_MER_SPEC, ZC_ITEM_VAL, ZC_CAIG_SHL, ZC_SP_NAME,
       ZC_MER_IS_ZZCX, ZC_MER_IS_LSHB, ZC_MER_M_PRICE, ZC_HT_BI_MONEY, ZC_HT_OTHER_MONEY,
       ZC_HT_GK_MONEY,ZC_ITEM_SUM,BUDGET_BI_MONEY,BUDGET_OTHER_MONEY,ZC_CAIG_JLDW,ZC_CAIG_PRICE,ZC_CAIG_MONEY
-      from Zc_t_Bcht_Item_Chg where ZC_HT_CHG_ID=#value:VARCHAR#
+      from Zc_t_Bcht_Item_Chg where CHG_ID=#value:VARCHAR#
   </insert>
   <insert id="insertBill" parameterClass="String" >
         insert into ZC_HT_PRE_PAY_BILL_ITEM (BILL_CODE, PAY_ORDER, PAY_MONEY, REMARK,PERCENT,PAY_DATE)
     select BILL_CODE, PAY_ORDER, PAY_MONEY, REMARK,PERCENT,PAY_DATE
-      from ZC_HT_PRE_PAY_BILL_ITEM_CHG where ZC_HT_CHG_ID=#value:VARCHAR#
+      from ZC_HT_PRE_PAY_BILL_ITEM_CHG where CHG_ID=#value:VARCHAR#
   </insert>
 </sqlMap>

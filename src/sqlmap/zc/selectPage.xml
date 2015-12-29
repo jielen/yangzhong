@@ -477,17 +477,29 @@
       p.pack_code = ht.zc_bid_code(+)
       and ht.zc_ht_code is null
       and
-      (p.pur_type = '4' or
-      (p.pur_type != '4' and n.notice_status is not
+      ((p.pur_type = '5' and r.status='1') or
+      (p.pur_type != '5' and n.notice_status is not
       null))
       and (v.proj_code is not null or r.open_bid_status='1')
       and p.pur_type = av.val_id(+)
-			<isNotNull prepend="and" property="userId">
+			<!-- <isNotNull prepend="and" property="userId">
 				(
 				r.win_bid_provider_code=#userId#
 				or
 				v.PROVIDER_CODE=#userId#
 				)
+			</isNotNull> -->
+			<isNotNull prepend="and" property="zcText4">
+				<isEqual property="zcText4" compareValue="gys">
+				(
+				r.win_bid_provider_code=#userId#
+				or
+				v.PROVIDER_CODE=#userId#
+				)
+				</isEqual>
+				<isEqual property="zcText4" compareValue="cgzx">
+					e.jbr=#userId#
+				</isEqual>
 			</isNotNull>
 	</select>
 

@@ -61,6 +61,7 @@
 	    <result column="ZC_INPUT_DATE" jdbcType="TIMESTAMP" property="zcInputDate" />
 	    <result column="AGENCY" jdbcType="VARCHAR" property="agency" />
 	    <result column="AGENCY_NAME" jdbcType="TIMESTAMP" property="agencyName" />
+	    <result column="ZC_PIFU_CGFS" jdbcType="VARCHAR" property="zcPifuCgfs" />
 	</resultMap>
 	
 	<resultMap id="packMapping" class="ZcEbPack">
@@ -271,9 +272,9 @@
 		SELECT * FROM V_ZC_PRO_MAKE_EXPERT ORDER BY ZC_INPUT_DATE DESC
 	</select>	
 
-	<select id="packListByProjCode" resultMap="packMapping" parameterClass="map">
+	<select id="packListByProjCode" resultMap="packMapping" parameterClass="java.lang.String">
 		SELECT * FROM ZC_V_PRO_PACK 
-		WHERE ZC_MAKE_CODE = #PROJ_CODE#
+		WHERE PROJ_CODE = #PROJ_CODE#
 		ORDER BY PACK_CODE
 	</select>
 	<select id="getPakcNamesByExpertCodes" resultClass="hashmap" parameterClass="String">

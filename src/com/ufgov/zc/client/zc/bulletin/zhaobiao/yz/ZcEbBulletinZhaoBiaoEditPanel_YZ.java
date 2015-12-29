@@ -583,7 +583,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
     //    toolBar.add(loadMoldButton);
 
     toolBar.add(buildBulletinBtn);
-    toolBar.add(updateZbFileBtn);
+    //    toolBar.add(updateZbFileBtn);
 
     toolBar.add(saveButton);
 
@@ -1065,6 +1065,13 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
     changdiUsed.setProjcode(sheet.getZcEbProj().getProjCode());
     changdiUsed.setProjname(sheet.getZcEbProj().getProjName());
     changdiUsed.setUsedcontent(sheet.getZcEbProj().getProjCode() + sheet.getZcEbProj().getProjName() + "项目评标");
+    changdiUsed.setNd(requestMeta.getSvNd());
+
+    changdiUsed.setRequestunit(requestMeta.getSvCoName());
+    changdiUsed.setRequestunitguid(requestMeta.getSvCoCode());
+    changdiUsed.setRequestpeople(requestMeta.getSvUserName());
+    changdiUsed.setRequestpeopleguid(requestMeta.getSvUserID());
+
     List lst = new ArrayList();
     lst.add(changdiUsed);
     ZcEbChangdiUsedDialog changdiDialog = new ZcEbChangdiUsedDialog(parent, lst, 0, null, null);
