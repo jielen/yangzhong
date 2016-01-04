@@ -2803,14 +2803,14 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
    */
   private void setZbFileEnabled() {
 
-    ZcEbSignup obj = (ZcEbSignup) this.listCursor.getCurrentObject();
-    if (obj.getSignupPacks() == null || obj.getSignupPacks().size() == 0)
+    ZcEbSignup cur = (ZcEbSignup) this.listCursor.getCurrentObject();
+    if (cur.getSignupPacks() == null || cur.getSignupPacks().size() == 0)
       return;
     boolean isPassed = false;
     boolean isZizhiCheck = false;
     boolean isSignup=false;
-    for (int i = 0; i < obj.getSignupPacks().size(); i++) {
-      ZcEbSignupPackDetail d = (ZcEbSignupPackDetail) obj.getSignupPacks().get(i);
+    for (int i = 0; i < cur.getSignupPacks().size(); i++) {
+      ZcEbSignupPackDetail d = (ZcEbSignupPackDetail) cur.getSignupPacks().get(i);
       if ("Y".equals(d.getIsCheckQualification()) ) {//要求资质检查
         isZizhiCheck = true;
         if (ZcEbSignupPackDetail.BAOMING_YES.equals(d.getSpStatus())) {//报名了
@@ -2823,7 +2823,7 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
       }
     }
 
-    if (!"1".equals(obj.getStatus())) {
+    if (!"1".equals(cur.getStatus())) {
       zbwjEditor.setEnabled(false);
       zbwjEditor.setDownButtonEnabled(false);
       zbwjWordEditor.setEnabled(false);

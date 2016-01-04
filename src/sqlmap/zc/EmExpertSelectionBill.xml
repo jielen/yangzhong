@@ -274,7 +274,7 @@
 
 	<select id="packListByProjCode" resultMap="packMapping" parameterClass="java.lang.String">
 		SELECT * FROM ZC_V_PRO_PACK 
-		WHERE PROJ_CODE = #PROJ_CODE#
+		WHERE sn = #PROJ_CODE#
 		ORDER BY PACK_CODE
 	</select>
 	<select id="getPakcNamesByExpertCodes" resultClass="hashmap" parameterClass="String">
