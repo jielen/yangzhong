@@ -147,4 +147,13 @@ public class ZcEbBaseServiceDelegate implements IZcEbBaseServiceDelegate {
     return zcEbBaseService.initWorkEnv(dto, meta);
   }
 
+  public void insertDataForObject(String sqlMapInsertId, Object obj, RequestMeta meta) {
+    zcEbBaseService.insertDataForObject(sqlMapInsertId, obj, meta);
+  }
+
+  public void deleteObject(String sqlDeleteId, Object obj, RequestMeta meta) {
+    zcEbBaseService.deleteObject(sqlDeleteId, obj, meta);
+
+  }
+
 }

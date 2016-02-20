@@ -2093,6 +2093,8 @@
 		<property name="huiyuanUserMapper" ref="huiyuanUserMapper"></property>
 		<property name="huiyuanUnitblackMapper" ref="huiyuanUnitblackMapper"></property>
 		<property name="huiyuanPeopleblackMapper" ref="huiyuanPeopleblackMapper"></property>
+		<property name="huiyuanAttachinfoMapper" ref="huiyuanAttachinfoMapper"></property>
+		<property name="huiyuanAttachinfoStrorageMapper" ref="huiyuanAttachinfoStrorageMapper"></property>
 		<property name="userService" ref="userService" />
 		<property name="zcEbBaseServiceDao" ref="zcEbBaseServiceDao" />
 		<property name="huiyuanUserService" ref="huiyuanUserService" />
@@ -2150,6 +2152,12 @@
 		<property name="zcEbChangdiUsedMapper" ref="zcEbChangdiUsedMapper"></property>
 	</bean>		
 	<bean id="zcEbChangdiUsedMapper" class="com.ufgov.zc.server.zc.dao.ibatis.ZcEbChangdiUsedMapperImp" scope="singleton">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>		
+	<bean id="huiyuanAttachinfoMapper" class="com.ufgov.zc.server.zc.dao.ibatis.HuiyuanAttachinfoMapperImp" scope="singleton">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>		
+	<bean id="huiyuanAttachinfoStrorageMapper" class="com.ufgov.zc.server.zc.dao.ibatis.HuiyuanAttachinfoStrorageMapperImp" scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>	
 </beans>

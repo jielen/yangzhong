@@ -18,7 +18,13 @@ public class StringTest {
     StringTest t = new StringTest();
     //    t.showStr();
     //    t.encode();
-    t.longToInt();
+    //    t.longToInt();
+    t.strIndx();
+  }
+
+  void strIndx() {
+    String str = "asdc.jpg";
+    System.out.println(str.substring(str.lastIndexOf('.') + 1));
   }
 
   void showStr() {

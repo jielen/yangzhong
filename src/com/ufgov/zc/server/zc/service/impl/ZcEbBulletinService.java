@@ -149,6 +149,9 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
     wfEngineAdapter.unAudit(zcEbBulletin.getComment(), zcEbBulletin, requestMeta);
   }
 
+  /**
+   * 第一次时，保存公告
+   */
   public ZcEbBulletin insert(ZcEbBulletin zcEbBulletin, RequestMeta meta) throws BusinessException {
     Long processId = createWfDraft(zcEbBulletin.getTitleField(), meta);
     zcEbBulletin.setProcessInstId(processId);
@@ -192,6 +195,9 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
     }
   }
 
+  /**
+   * 更新后的保存操作
+   */
   public int update(ZcEbBulletin zcEbBulletin, RequestMeta meta) throws BusinessException {
     int rows = zcEbBulletinDao.updateSelectBulletin(zcEbBulletin);
     baseDao.delete("ZcEbBulletin.deleteBulletinPackByPrimaryKey", zcEbBulletin.getBulletinID());
@@ -208,6 +214,8 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
       savePlan(zcEbBulletin, meta);
       saveZbFile(zcEbBulletin, meta);
     }
+    //保存招标文件
+    //    updateZbFileInfo(zcEbBulletin, meta);
     // if
     // (ZcEbBulletinConstants.TYPE_BULLETIN_JING_JIA_BID.equals(zcEbBulletin.getBulletinType()))
     // {//电子竞价招标公告
@@ -239,6 +247,14 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
     // }
     // createExchangeData(zcEbBulletin, meta);
     return rows;
+  }
+
+  private void updateZbFileInfo(ZcEbBulletin bul, RequestMeta meta) {
+    if (bul != null && bul.getZcEbProj() != null && bul.getZcEbProj().getProjFileList() != null && bul.getZcEbProj().getProjFileList().size() > 0) {
+      ZcEbProjZbFile f = (ZcEbProjZbFile) bul.getZcEbProj().getProjFileList().get(0);
+      baseDao.update("ZcEbProjZbFile.updateZcebZbFileId", f);
+    }
+
   }
 
   private void createExchangeDataForJingjia(ZcEbBulletin zcEbBulletin, RequestMeta meta) {
@@ -897,8 +913,10 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
         tin.setPackPlan(zcEbPackPlan);
       }
       ZcEbProj zcEbProj = (ZcEbProj) baseDao.read("ZcEbProj.getOriginalZcEbProjByProjCode", tin.getProjectCode());
-
-      zcEbProj.setProjFileList(baseDao.query("ZcEbProjZbFile.getZcEbProjZbFileByProjCode", tin.getProjectCode()));
+      ElementConditionDto dto = new ElementConditionDto();
+      dto.setZcText0(tin.getProjectCode());
+      dto.setZcText1(ZcEbProjZbFile.FILE_TYPE_ZHAOBIAO);//文件类别：0 招标书，1:变更文件  2:暂停文件
+      zcEbProj.setProjFileList(baseDao.query("ZcEbProjZbFile.getZcEbProjZbFile", dto));
 
       Date publishDate = (Date) baseDao.read("ZcEbBulletin.selectGgPubListDate", tin.getProjectCode());
 

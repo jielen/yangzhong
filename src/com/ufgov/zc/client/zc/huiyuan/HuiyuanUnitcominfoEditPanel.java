@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -29,6 +30,7 @@ import org.apache.log4j.Logger;
 
 import com.ufgov.smartclient.common.UIUtilities;
 import com.ufgov.smartclient.component.table.JGroupableTable;
+import com.ufgov.smartclient.component.table.fixedtable.JPageableFixedTable;
 import com.ufgov.zc.client.common.BillElementMeta;
 import com.ufgov.zc.client.common.LangTransMeta;
 import com.ufgov.zc.client.common.ListCursor;
@@ -57,6 +59,8 @@ import com.ufgov.zc.client.component.button.TraceButton;
 import com.ufgov.zc.client.component.button.UnauditButton;
 import com.ufgov.zc.client.component.button.UntreadButton;
 import com.ufgov.zc.client.component.button.zc.CommonButton;
+import com.ufgov.zc.client.component.table.celleditor.HuiYuanAttachFileCellEditor;
+import com.ufgov.zc.client.component.table.celleditor.TextCellEditor;
 import com.ufgov.zc.client.component.ui.fieldeditor.AbstractFieldEditor;
 import com.ufgov.zc.client.component.zc.AbstractMainSubEditPanel;
 import com.ufgov.zc.client.component.zc.fieldeditor.AsValFieldEditor;
@@ -66,6 +70,7 @@ import com.ufgov.zc.client.component.zc.fieldeditor.NewLineFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.TextAreaFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.TextFieldEditor;
 import com.ufgov.zc.client.util.ListUtil;
+import com.ufgov.zc.client.util.SwingUtil;
 import com.ufgov.zc.client.zc.ButtonStatus;
 import com.ufgov.zc.client.zc.ZcUtil;
 import com.ufgov.zc.common.commonbiz.model.BillElement;
@@ -76,6 +81,7 @@ import com.ufgov.zc.common.system.dto.ElementConditionDto;
 import com.ufgov.zc.common.system.util.DigestUtil;
 import com.ufgov.zc.common.system.util.ObjectUtil;
 import com.ufgov.zc.common.system.util.Utils;
+import com.ufgov.zc.common.zc.model.HuiyuanAttachinfo;
 import com.ufgov.zc.common.zc.model.HuiyuanPeopleblack;
 import com.ufgov.zc.common.zc.model.HuiyuanUnitblack;
 import com.ufgov.zc.common.zc.model.HuiyuanUnitcominfo;
@@ -197,6 +203,8 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
 
   JTablePanel peopleBlackTablePanel = new JTablePanel();
 
+  JTablePanel attchInfoTablePanel = new JTablePanel();
+
   public HuiyuanUnitcominfoEditPanel(HuiyuanUnitcominfoDialog parent, ListCursor listCursor, String tabStatus, HuiyuanUnitcominfoListPanel listPanel) {
     // TCJLODO Auto-generated constructor stub
     super(HuiyuanUnitcominfoEditPanel.class, BillElementMeta.getBillElementMetaWithoutNd(compoId));
@@ -317,7 +325,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
       }
     }
 
-    //    setWFSubTableEditable(biTablePanel, isEdit);
+    setWFSubTableEditable(attchInfoTablePanel, isEdit);
     //
     //    setWFSubTableEditable(itemTablePanel, isEdit);
 
@@ -514,6 +522,20 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
     userTablePanel.setTableModel(convert.convertUserTableData(qx.getUserLst()));
     unitBlackTablePanel.setTableModel(convert.convertUnitBlackTableData(qx.getUnitBlackLst()));
     peopleBlackTablePanel.setTableModel(convert.convertPeopleBlackTableData(qx.getPeopleBlackLst()));
+    attchInfoTablePanel.setTableModel(convert.convertAttachInfoTableData(qx.getAttachInfoLst()));
+    ZcUtil.translateColName(attchInfoTablePanel.getTable(), convert.getAtachInfo());
+    // 设置分包需求明细列类型
+    setAttachTableProperty(attchInfoTablePanel.getTable());
+  }
+
+  private void setAttachTableProperty(JPageableFixedTable table) {
+
+    table.setDefaultEditor(String.class, new TextCellEditor());
+
+    HuiYuanAttachFileCellEditor fileCellEditor = new HuiYuanAttachFileCellEditor("attachguid", true);//itemAttachBlobid
+    //    fileCellEditor.setDeleteFileEnable(false);
+    //    fileCellEditor.setUploadFileEnable(false);
+    SwingUtil.setTableCellEditor(table, HuiyuanAttachinfo.COL_ATTACHFILENAME, fileCellEditor);
   }
 
   protected void hideCol(JTable table, String colName) {
@@ -1634,13 +1656,104 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
     initUserPanel();
     initUnitBlackPanel();
     initPeopleBlackPanel();
+    initAttachInfoPanel();
 
     tb.addTab("其他信息", js);
+    tb.addTab("相关资质文件", attchInfoTablePanel);
     tb.addTab("用户信息", userTablePanel);
     tb.addTab("单位不良行为记录", unitBlackTablePanel);
     tb.addTab("个人不良行为记录", peopleBlackTablePanel);
 
     return tb;
+  }
+
+  private void initAttachInfoPanel() {
+
+    // TCJLODO Auto-generated method stub
+    attchInfoTablePanel.init();
+    attchInfoTablePanel.setPanelId("attchInfoTablePanel");
+    attchInfoTablePanel.getSearchBar().setVisible(true);
+
+    attchInfoTablePanel.setTablePreferencesKey(this.getClass().getName() + "_attchInfoTable");
+
+    attchInfoTablePanel.getTable().setShowCheckedColumn(true);
+
+    attchInfoTablePanel.getTable().getTableRowHeader().setPreferredSize(new Dimension(60, 0));
+
+    JFuncToolBar bottomToolBar1 = new JFuncToolBar();
+
+    //    FuncButton addBtn = new CommonButton("fadd", "新增", null);
+    JButton addBtn1 = new JButton("添加");
+    JButton insertBtn1 = new JButton("插入");
+    JButton delBtn1 = new JButton("删除");
+    bottomToolBar1.add(addBtn1);
+    bottomToolBar1.add(insertBtn1);
+    bottomToolBar1.add(delBtn1);
+
+    attchInfoTablePanel.add(bottomToolBar1, BorderLayout.SOUTH);
+
+    /* addBtn.addActionListener(new ActionListener() {
+
+       public void actionPerformed(ActionEvent e) {
+         HuiyuanUnitcominfo unit = (HuiyuanUnitcominfo) listCursor.getCurrentObject();
+         if (unit.getDanweiguid() == null || unit.getDanweiguid().trim().length() == 0) {
+           JOptionPane.showMessageDialog(self, "请先保存供应商的单位信息后，再添加附件信息.", "提示", JOptionPane.INFORMATION_MESSAGE);
+           return;
+         }
+         if (!unit.getZfcgGysInfo().getAuditstatus().equals(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS)) {
+           JOptionPane.showMessageDialog(self, "只有审核通过供应商信息后，才可以添加附件信息.", "提示", JOptionPane.INFORMATION_MESSAGE);
+           return;
+         }
+         HuiyuanAttachinfo peopleBlack = new HuiyuanAttachinfo();
+         peopleBlack.setDanweiguid(unit.getDanweiguid());
+         peopleBlack.setClientguid(unit.getDanweiguid());
+         List beanList = new ArrayList();
+         beanList.add(peopleBlack);
+         new HuiyuanPeopleblackDialog(self, beanList, 0);
+       }
+
+     });*/
+
+    addBtn1.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        HuiyuanUnitcominfo bill = (HuiyuanUnitcominfo) listCursor.getCurrentObject();
+        HuiyuanAttachinfo detail = new HuiyuanAttachinfo();
+        detail.setDanweiguid(bill.getDanweiguid());
+        detail.setClientguid(bill.getDanweiguid());
+        addSub(attchInfoTablePanel, detail);
+      }
+    });
+
+    insertBtn1.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        HuiyuanUnitcominfo bill = (HuiyuanUnitcominfo) listCursor.getCurrentObject();
+        HuiyuanAttachinfo detail = new HuiyuanAttachinfo();
+        detail.setDanweiguid(bill.getDanweiguid());
+        detail.setClientguid(bill.getDanweiguid());
+        insertSub(attchInfoTablePanel, detail);
+      }
+    });
+
+    delBtn1.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        deleteSub(attchInfoTablePanel);
+      }
+    });
+    /*
+    attchInfoTablePanel.getTable().addMouseListener(new MouseAdapter() {
+
+      public void mouseClicked(MouseEvent e) {
+
+        if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
+          JGroupableTable table = attchInfoTablePanel.getTable();
+          MyTableModel model = (MyTableModel) table.getModel();
+          int row = table.getSelectedRow();
+          List viewList = (List) ObjectUtil.deepCopy(ListUtil.convertToTableViewOrderList(model.getList(), table));
+          new HuiyuanPeopleblackDialog(self, viewList, 0);
+        }
+      }
+    });*/
+    attchInfoTablePanel.setMinimumSize(new Dimension(240, 150));
   }
 
   private void initPeopleBlackPanel() {

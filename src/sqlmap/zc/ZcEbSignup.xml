@@ -499,7 +499,7 @@ group by ZC_EB_PROJ.Proj_Code,ZC_EB_PROJ.Proj_Name,plan.open_bid_time,sh.attn_na
 		</dynamic>
 	</select>
 
-	<select id="getZcEbSignupPackDetail" resultMap="ZcEbSignupPackDetailResultAddColums" parameterClass="elementCondition">
+	<select id="getZcEbSignupPackDetail" resultMap="ZcEbSignupPackDetailResultAddColums" parameterClass="elementCondition">	
 		SELECT SP.SIGNUP_PACK_ID,
 		S.SIGNUP_ID,
 		PK.PACK_CODE,

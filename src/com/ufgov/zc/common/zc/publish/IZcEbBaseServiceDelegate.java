@@ -31,6 +31,10 @@ public interface IZcEbBaseServiceDelegate extends Publishable {
 
   public void updateObjectList(String sqlMapUpdateId, List list, RequestMeta meta);
 
+  public void insertDataForObject(String sqlMapInsertId, Object obj, RequestMeta meta);
+
+  public void deleteObject(String sqlDeleteId, Object obj, RequestMeta meta);
+
   /*
    * 工作流相关
    */

@@ -222,6 +222,8 @@
      <sqlMap resource="sqlmap/zc/HuiyuanUserMapper.xml"/>
      <sqlMap resource="sqlmap/zc/HuiyuanUnitblackMapper.xml"/>
      <sqlMap resource="sqlmap/zc/HuiyuanPeopleblackMapper.xml"/>
+     <sqlMap resource="sqlmap/zc/HuiyuanAttachinfoMapper.xml"/>
+     <sqlMap resource="sqlmap/zc/HuiyuanAttachinfoStrorageMapper.xml"/>
      <sqlMap resource="sqlmap/zc/ZcEbChangdiMapper.xml"/>
      <sqlMap resource="sqlmap/zc/ZcEbChangdiUsedMapper.xml"/>
      

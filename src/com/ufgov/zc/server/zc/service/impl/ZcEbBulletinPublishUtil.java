@@ -3,6 +3,9 @@
  */
 package com.ufgov.zc.server.zc.service.impl;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,6 +26,7 @@ import com.kingdrive.workflow.exception.WorkflowException;
 import com.ufgov.zc.common.system.constants.ZcSettingConstants;
 import com.ufgov.zc.common.system.exception.BusinessException;
 import com.ufgov.zc.common.zc.model.ZcEbBulletin;
+import com.ufgov.zc.server.zc.ZcSUtil;
 import com.ufgov.zc.server.zc.web.mysql.MysqlDBHelper;
 
 /**
@@ -40,7 +44,7 @@ public class ZcEbBulletinPublishUtil {
    * @param bul
    * @throws BusinessException
    */
-  public void publishBulletin2(ZcEbBulletin bul) throws BusinessException {
+  public void publishBulletin2(ZcEbBulletin bul) {
     JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
     Client client = dcf.createClient("http://www.yzggzy.cn/webservice/cmsContent?wsdl");
     QName content = new QName("http://webservice.cms.jeecms.com/", "addContent");
@@ -48,14 +52,41 @@ public class ZcEbBulletinPublishUtil {
       Date d = Calendar.getInstance().getTime();
       SimpleDateFormat sdf = new SimpleDateFormat(ZcSettingConstants.SIMPLE_DATE_FORMAT_FULL);
       String txt = new String(bul.getFile().toString());
-      System.out.println(txt);
+      //      System.out.println(txt);
+      //保存html文件，用于webservice接口的出错调试，手工发布
+      saveLocalFile(bul);
       Object[] objects = client.invoke(content, bul.getBulletinID(), getCHannelId(bul), bul.getProjName(), txt, sdf.format(d));
       log.info("发布公告(id:" + bul.getBulletinID() + "),发布结果: " + objects[0]);
+      //      throw new Exception("发布公告 test over");
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
       log.error("通过webservie接口发布公告到网站出错:" + e.getMessage(), e);
-      throw new BusinessException("通过webservie接口发布公告到网站出错:" + e.getMessage(), e);
+      //      throw new BusinessException("通过webservie接口发布公告到网站出错:" + e.getMessage(), e);
+    }
+  }
+
+  private void saveLocalFile(ZcEbBulletin bul) throws BusinessException {
+
+    String create = ZcSUtil.getAsOptionVal("OPT_ZC_SAVE_BULLETIN_PUBLISH_FILE");
+
+    if (create != null && create.equalsIgnoreCase("Y")) {
+      String path = "C:\\bulletin";
+      try {
+        File file = new File(path);
+        if (!file.isDirectory()) {
+          file.mkdir();
+        }
+        String fileName = path + "\\" + bul.getBulletinID() + "_" + getCHannelId(bul) + ".htm";
+        file = new File(fileName);
+        if (!file.exists()) file.createNewFile();
+        FileOutputStream out = new FileOutputStream(file, false); //如果追加方式用true   
+        out.write(bul.getFile().toString().getBytes("GBK"));//注意需要转换对应的字符集
+        out.close();
+      } catch (IOException ex) {
+        System.out.println(ex.getStackTrace());
+        throw new BusinessException("通过webservie接口发布公告到网站出错:" + ex.getMessage(), ex);
+      }
     }
   }
 

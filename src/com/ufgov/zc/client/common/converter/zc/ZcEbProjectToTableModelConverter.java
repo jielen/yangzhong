@@ -342,6 +342,42 @@ public class ZcEbProjectToTableModelConverter {
 
   }
 
+  private static List<ColumnBeanPropertyPair> packReqTableColumnSimpleInfo = new ArrayList<ColumnBeanPropertyPair>();
+
+  static {
+
+    //    packReqTableColumnInfo.add(new ColumnBeanPropertyPair("NAME1", "requirementDetail.name", "选择明细需求"));
+
+    packReqTableColumnSimpleInfo.add(new ColumnBeanPropertyPair("PACK_NAME", "packName", "分包编号"));
+
+    packReqTableColumnSimpleInfo.add(new ColumnBeanPropertyPair("NAME", "requirementDetail.name", "采购内容"));
+
+    //    packReqTableColumnSimpleInfo.add(new ColumnBeanPropertyPair("ZC_CATALOGUE_CODE", "requirementDetail.zcCatalogueCode", "品目代码"));
+
+    //    packReqTableColumnSimpleInfo.add(new ColumnBeanPropertyPair("ZC_CATALOGUE_NAME", "requirementDetail.zcCatalogueName", "品目名称"));
+
+    //    packReqTableColumnSimpleInfo.add(new ColumnBeanPropertyPair("ARR_DATE", "requirementDetail.arrDate", "要求到货日期"));
+
+    packReqTableColumnSimpleInfo.add(new ColumnBeanPropertyPair("BASE_REQ", "requirementDetail.baseReq", "基本规格要求"));
+
+    //    packReqTableColumnSimpleInfo.add(new ColumnBeanPropertyPair("NUM", "requirementDetail.num", "数量"));
+
+    //    packReqTableColumnSimpleInfo.add(new ColumnBeanPropertyPair("ITEM_SUM", "requirementDetail.itemSum", "预算金额"));
+
+    packReqTableColumnSimpleInfo.add(new ColumnBeanPropertyPair("ITEM_ATTACH", "requirementDetail.itemAttach", "采购明细附件"));
+
+    //    packReqTableColumnSimpleInfo.add(new ColumnBeanPropertyPair("DESCRIPTION", "requirementDetail.description", "描述"));
+
+  }
+
+  public static List<ColumnBeanPropertyPair> getPackReqTableColumnSimpleInfo() {
+    return packReqTableColumnSimpleInfo;
+  }
+
+  public static void setPackReqTableColumnSimpleInfo(List<ColumnBeanPropertyPair> packReqTableColumnSimpleInfo) {
+    ZcEbProjectToTableModelConverter.packReqTableColumnSimpleInfo = packReqTableColumnSimpleInfo;
+  }
+
   private static List<ColumnBeanPropertyPair> inviteConTableColumnInfo = new ArrayList<ColumnBeanPropertyPair>();
 
   static {
@@ -1003,4 +1039,66 @@ public class ZcEbProjectToTableModelConverter {
 
   }
 
+  public static TableModel convertPackReqSimple(List<ZcEbPackReq> packReqList) {
+
+    BeanTableModel<ZcEbPackReq> tm = new BeanTableModel<ZcEbPackReq>() {
+
+      private static final long serialVersionUID = 6888363838628062064L;
+
+      @Override
+      public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        if ("ITEM_ATTACH".equals(this.getColumnIdentifier(columnIndex))) {
+
+          if (aValue == null) {
+
+            this.getBean(rowIndex).getRequirementDetail().setItemAttach(null);
+
+            this.getBean(rowIndex).getRequirementDetail().setItemAttachBlobid(null);
+
+          } else {
+
+            this.getBean(rowIndex).getRequirementDetail().setItemAttach(((AsFile) aValue).getFileName());
+
+            this.getBean(rowIndex).getRequirementDetail().setItemAttachBlobid(((AsFile) aValue).getFileId());
+
+          }
+
+          fireTableCellUpdated(rowIndex, columnIndex);
+
+          putEditedData(dataBeanList.get(rowIndex));
+
+        } else {
+
+          super.setValueAt(aValue, rowIndex, columnIndex);
+
+        }
+      }
+
+      @Override
+      public boolean isCellEditable(int row, int column) {
+        //ITEM_ATTACH
+        String columnId = this.getColumnIdentifier(column);
+        if ("ITEM_ATTACH".equals(columnId)) { return true; }
+        if (!this.isEditable()) { return false;
+
+        }
+        return false;
+
+      }
+
+    };
+
+    tm.setOidFieldName("tempId");
+
+    for (ZcEbPackReq data : packReqList) {
+
+      data.setTempId(Guid.genID());
+
+    }
+
+    tm.setDataBean(packReqList, packReqTableColumnSimpleInfo);
+
+    return tm;
+
+  }
 }

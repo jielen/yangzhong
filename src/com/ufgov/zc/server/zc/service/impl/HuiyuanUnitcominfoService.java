@@ -4,6 +4,7 @@
 package com.ufgov.zc.server.zc.service.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,6 +19,8 @@ import com.ufgov.zc.common.zc.model.HuiyuanUser;
 import com.ufgov.zc.server.system.dao.IWorkflowDao;
 import com.ufgov.zc.server.system.service.IUserService;
 import com.ufgov.zc.server.system.workflow.WFEngineAdapter;
+import com.ufgov.zc.server.zc.dao.HuiyuanAttachinfoMapper;
+import com.ufgov.zc.server.zc.dao.HuiyuanAttachinfoStrorageMapper;
 import com.ufgov.zc.server.zc.dao.HuiyuanPeopleblackMapper;
 import com.ufgov.zc.server.zc.dao.HuiyuanUnitblackMapper;
 import com.ufgov.zc.server.zc.dao.HuiyuanUnitcominfoMapper;
@@ -52,9 +55,29 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
 
   private IHuiyuanUserService huiyuanUserService;
 
+  private HuiyuanAttachinfoMapper huiyuanAttachinfoMapper;
+
+  private HuiyuanAttachinfoStrorageMapper huiyuanAttachinfoStrorageMapper;
+
   /* (non-Javadoc)
    * @see com.ufgov.zc.server.zc.service.IHuiyuanUnitcominfoService#getMainDataLst(com.ufgov.zc.common.system.dto.ElementConditionDto, com.ufgov.zc.common.system.RequestMeta)
    */
+
+  public HuiyuanAttachinfoMapper getHuiyuanAttachinfoMapper() {
+    return huiyuanAttachinfoMapper;
+  }
+
+  public void setHuiyuanAttachinfoMapper(HuiyuanAttachinfoMapper huiyuanAttachinfoMapper) {
+    this.huiyuanAttachinfoMapper = huiyuanAttachinfoMapper;
+  }
+
+  public HuiyuanAttachinfoStrorageMapper getHuiyuanAttachinfoStrorageMapper() {
+    return huiyuanAttachinfoStrorageMapper;
+  }
+
+  public void setHuiyuanAttachinfoStrorageMapper(HuiyuanAttachinfoStrorageMapper huiyuanAttachinfoStrorageMapper) {
+    this.huiyuanAttachinfoStrorageMapper = huiyuanAttachinfoStrorageMapper;
+  }
 
   public IZcEbBaseServiceDao getZcEbBaseServiceDao() {
     return zcEbBaseServiceDao;
@@ -107,6 +130,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
     unit.setUserLst(huiyuanUserMapper.getMainDataLst(dto));
     unit.setUnitBlackLst(huiyuanUnitblackMapper.getMainDataLst(dto));
     unit.setPeopleBlackLst(huiyuanPeopleblackMapper.getMainDataLst(dto));
+    unit.setAttachInfoLst(getAttachInfoLst(danweiguid, requestMeta));
     unit.setDbDigest(unit.digest());
     return unit;
   }
@@ -114,6 +138,25 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
   /* (non-Javadoc)
    * @see com.ufgov.zc.server.zc.service.IHuiyuanUnitcominfoService#saveFN(com.ufgov.zc.common.zc.model.HuiyuanUnitcominfo, com.ufgov.zc.common.system.RequestMeta)
    */
+
+  private List getAttachInfoLst(String danweiguid, RequestMeta requestMeta) {
+    List attchLst = huiyuanAttachinfoMapper.getAttachInfoByClientId(danweiguid);
+    //    List storageLst = huiyuanAttachinfoStrorageMapper.getByClientId(danweiguid);
+
+    attchLst = attchLst == null ? new ArrayList() : attchLst;
+    /*storageLst = storageLst == null ? new ArrayList() : storageLst;
+    for (int i = 0; i < attchLst.size(); i++) {
+      HuiyuanAttachinfo info = (HuiyuanAttachinfo) attchLst.get(i);
+      for (int j = 0; j < storageLst.size(); j++) {
+        HuiyuanAttachinfoStrorage storage = (HuiyuanAttachinfoStrorage) storageLst.get(j);
+        if (info.getAttachguid().equals(storage.getAttachguid())) {
+          info.setStorage(storage);
+          break;
+        }
+      }
+    }*/
+    return attchLst;
+  }
 
   public HuiyuanUnitcominfo saveFN(HuiyuanUnitcominfo record, RequestMeta requestMeta) throws BusinessException {
     // TCJLODO Auto-generated method stub

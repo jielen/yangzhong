@@ -5,10 +5,8 @@
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="ZcEbProjZbFile">
-	<typeAlias alias="ZcEbProjZbFile"
-		type="com.ufgov.zc.common.zc.model.ZcEbProjZbFile" />
-	<typeAlias alias="ZcZBFileTemplate"
-		type="com.ufgov.zc.common.zc.model.ZcZBFileTemplate" />
+	<typeAlias alias="ZcEbProjZbFile"		type="com.ufgov.zc.common.zc.model.ZcEbProjZbFile" />
+	<typeAlias alias="ZcZBFileTemplate"		type="com.ufgov.zc.common.zc.model.ZcZBFileTemplate" />	<typeAlias alias="elementCondition"		type="com.ufgov.zc.common.system.dto.ElementConditionDto" />
 
 	<resultMap id="ZcEbProjZbFileResult" class="ZcEbProjZbFile">
 		<result property="projCode" column="PROJ_CODE" />
@@ -141,14 +139,13 @@
 			T.PROJ_CODE = #projCode:VARCHAR#
 		</isNotNull>
 	</select>
-	<select id="getZcEbProjZbFileByProjCode" resultMap="ZcEbProjZbFileResult"
-		parameterClass="string">
+	<select id="getZcEbProjZbFileByProjCode" resultMap="ZcEbProjZbFileResult"		parameterClass="string">
 		select *
 		from
 		ZC_EB_PROJ_ZBFILE
 		WHERE
 		PROJ_CODE=#projCode:VARCHAR#
-	</select>
+	</select>	<select id="getZcEbProjZbFile" resultMap="ZcEbProjZbFileResult"		parameterClass="elementCondition">		select *		from		ZC_EB_PROJ_ZBFILE		WHERE 	1=1		<isNotNull prepend="AND" property="zcText0">			 PROJ_CODE = #zcText0#		</isNotNull>		<isNotNull prepend="AND" property="zcText1">			 TYPE = #zcText1#		</isNotNull>	</select>	<update id="updateZcebZbFileId" parameterClass="ZcEbProjZbFile">		update		ZC_EB_PROJ_ZBFILE		set		FILE_ID=#fileId:VARCHAR# 		WHERE		PROJ_CODE=#projCode#		and type=#type:VARCHAR#	</update>
 	<update id="updateZcebZbFile" parameterClass="ZcEbProjZbFile">
 		update
 		ZC_EB_PROJ_ZBFILE

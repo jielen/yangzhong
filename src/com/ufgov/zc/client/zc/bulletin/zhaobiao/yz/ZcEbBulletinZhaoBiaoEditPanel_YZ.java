@@ -47,6 +47,7 @@ import com.ufgov.zc.client.common.ListCursor;
 import com.ufgov.zc.client.common.MyTableModel;
 import com.ufgov.zc.client.common.ServiceFactory;
 import com.ufgov.zc.client.common.WorkEnv;
+import com.ufgov.zc.client.component.FileUploader;
 import com.ufgov.zc.client.component.GkBaseDialog;
 import com.ufgov.zc.client.component.GkCommentDialog;
 import com.ufgov.zc.client.component.GkCommentUntreadDialog;
@@ -1536,7 +1537,15 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
               }
             }*/
     }
-
+    if (bulletin.getZcEbPlan() != null) {
+      if (bulletin.getZcEbPlan().getSellStartTime() != null && bulletin.getZcEbPlan().getBidEndTime() != null
+        && bulletin.getZcEbPlan().getSellStartTime().after(bulletin.getZcEbPlan().getBidEndTime())) {
+        errorInfo.append(LangTransMeta.translate(ZcEbPlan.COL_SELL_START_TIME)).append("不能晚于").append(LangTransMeta.translate(ZcEbPlan.COL_BID_END_TIME)).append("\n");
+      }
+      if (bulletin.getZcEbPlan().getBidEndTime() != null && bulletin.getZcEbPlan().getOpenBidTime() != null && bulletin.getZcEbPlan().getBidEndTime().after(bulletin.getZcEbPlan().getOpenBidTime())) {
+        errorInfo.append(LangTransMeta.translate(ZcEbPlan.COL_BID_END_TIME)).append("不能晚于").append(LangTransMeta.translate(ZcEbPlan.COL_OPEN_BID_TIME)).append("\n");
+      }
+    }
     if (errorInfo.length() != 0) {
       JOptionPane.showMessageDialog(this.parent, errorInfo.toString(), "提示", JOptionPane.WARNING_MESSAGE);
       return false;
@@ -1642,9 +1651,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
       String fileID = saveBulletinContent();
       bulletin.setFileID(fileID);
 
-      String fileID2 = saveZbWordFile();
       ZcEbProjZbFile zbfile = (ZcEbProjZbFile) bulletin.getZcEbProj().getProjFileList().get(0);
-      zbfile.setWordFileId(fileID2);
       bulletin.getZcEbProj().getProjFileList().clear();
       bulletin.getZcEbProj().getProjFileList().add(zbfile);
 
@@ -2438,7 +2445,10 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
 
     DateFieldEditor fieldInputDate = new DateFieldEditor(LangTransMeta.translate(ZcElementConstants.FIELD_TRANS_INPUT_DATE), "executeDate");
 
-    FileFieldEditor zcImpFile = new FileFieldEditor("招标文件", "wordZbFileName", "wordZbFileId");
+    FileFieldEditor zcImpFile = new FileFieldEditor("招标文件", "wordZbFileName", "wordZbFileId", true, false);
+
+    FileUploader ful = (FileUploader) zcImpFile.getEditorComponent();
+    ful.setDelFileButton(false);
 
     editorList.add(projCodeEditor);
     editorList.add(projNameEditor);
