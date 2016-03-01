@@ -95,6 +95,21 @@ public class ZcEbEntrust extends ZcBaseBill implements Serializable {
 
   public static final String COL_ZC_WEITO_DATE = "ZC_EB_ENTRUST_ZC_WEITO_DATE"; // 项目下达时间
 
+  /**
+   * 货物类
+   */
+  public static final String CAIGOU_TYPE_HUOWU = "A";
+
+  /**
+   * 服务类
+   */
+  public static final String CAIGOU_TYPE_FUWU = "C";
+
+  /**
+   * 工程类
+   */
+  public static final String CAIGOU_TYPE_GONGCHENG = "B";
+
   //------------字段-----------------------
 
   private List detailList = new ArrayList();

@@ -571,6 +571,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
 
       if (bulletin.getZcEbPlan() == null) {
         bulletin.setZcEbPlan(new ZcEbPlan());
+        bulletin.getZcEbPlan().setSellStartTime(requestMeta.getSysDate());
       }
       bulletin.getZcEbPlan().setNd(requestMeta.getSvNd());
     }
@@ -2428,6 +2429,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
     Integer[] allowMinutes = { 0, 10, 20, 30, 40, 50 };
 
     DateFieldEditor sellStartTimeField = new DateFieldEditor(LangTransMeta.translate(ZcEbPlan.COL_SELL_START_TIME), "zcEbPlan.sellStartTime", DateFieldEditor.TimeTypeH24, allowMinutes, true);
+    DateFieldEditor sellEndTimeField = new DateFieldEditor("报名截止时间", "zcEbPlan.sellEndTime", DateFieldEditor.TimeTypeH24, allowMinutes, true);
 
     bidEndTime = new DateFieldEditor(LangTransMeta.translate(ZcEbPlan.COL_BID_END_TIME), "zcEbPlan.bidEndTime", DateFieldEditor.TimeTypeH24, allowMinutes, true);
 
@@ -2455,7 +2457,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
     editorList.add(fieldBulletinStatus);
 
     editorList.add(purTypeEditor);
-    editorList.add(sellStartTimeField);
+    editorList.add(sellEndTimeField);
     editorList.add(bidEndTime);
 
     editorList.add(openBidTime);

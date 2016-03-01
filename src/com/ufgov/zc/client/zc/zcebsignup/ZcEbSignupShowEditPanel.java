@@ -1,8 +1,6 @@
 /**
- * ZcEbSignupEditPanel.java com.ufgov.gk.client.zc.zcebsignup Administrator
- * 2010-4-29
+ * 
  */
-
 package com.ufgov.zc.client.zc.zcebsignup;
 
 import java.awt.BorderLayout;
@@ -17,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -32,6 +31,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 import org.apache.log4j.Logger;
@@ -113,10 +113,10 @@ import com.ufgov.zc.common.zc.publish.IZcEbBaseServiceDelegate;
 import com.ufgov.zc.common.zc.publish.IZcEbSignupServiceDelegate;
 
 /**
+ * 报名信息显示面板,用于报名截止之后，查看各供应商报名信息
  * @author Administrator
  */
-
-public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
+public class ZcEbSignupShowEditPanel extends AbstractMainSubEditPanel {
 
   private static final Logger logger = Logger.getLogger(ZcEbSignupEditPanel.class);
 
@@ -160,7 +160,7 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
 
   private ZcEbSignup oldSignup;
 
-  private final String tabStatus;
+  //  private final String tabStatus;
 
   private final ZcEbSignupListPanel listPanel;
 
@@ -168,13 +168,15 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
 
   private JTablePanel packReqtablePanel = new JTablePanel("packReqtablePanel", true);
 
+  private JTablePanel packSignuptablePanel = new JTablePanel("packSignuptablePanel", false);
+
   JTabbedPane ziZhiTabPanel = new JTabbedPane();
 
   JTabbedPane subTabPane = new JTabbedPane();
 
   JTabbedPane tabPaneReq = new JTabbedPane();
 
-  private final ZcEbSignupEditPanel self = this;
+  private final ZcEbSignupShowEditPanel self = this;
 
   private final GkBaseDialog parent;
 
@@ -208,15 +210,17 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
 
   private FileFieldEditor signupFileEditor;
 
-  public ZcEbSignupEditPanel(ZcEbSignupDialog parent, ListCursor listCursor, String tabStatus, ZcEbSignupListPanel listPanel) {
+  List packs = null;
+
+  Hashtable<String, List<ZcEbSignup>> packSupplierMap = null;
+
+  public ZcEbSignupShowEditPanel(ZcEbSignupDialog parent, ListCursor listCursor, ZcEbSignupListPanel listPanel) {
 
     // TCJLODO Auto-generated constructor stub
 
     super(ZcEbSignup.class, BillElementMeta.getBillElementMetaWithoutNd("ZC_EB_SIGNUP"));
 
     this.listCursor = listCursor;
-
-    this.tabStatus = tabStatus;
 
     this.listPanel = listPanel;
 
@@ -255,12 +259,21 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
       unBidButton.setEnabled(true);
     }
     if (ZcUtil.isCgzx()) {
-      saveButton.setEnabled(true);
-      editButton.setEnabled(true);
-      exitButton.setEnabled(true);
-      helpButton.setEnabled(true);
-      bidButton.setEnabled(false);
-      unBidButton.setEnabled(false);
+      if (isOverSignupTime()) {
+        saveButton.setEnabled(false);
+        editButton.setEnabled(false);
+        exitButton.setEnabled(true);
+        helpButton.setEnabled(false);
+        bidButton.setEnabled(false);
+        unBidButton.setEnabled(false);
+      } else {
+        saveButton.setEnabled(true);
+        editButton.setEnabled(true);
+        exitButton.setEnabled(true);
+        helpButton.setEnabled(true);
+        bidButton.setEnabled(false);
+        unBidButton.setEnabled(false);
+      }
     }
 
     /*if (this.btnStatusList.size() == 0) {
@@ -488,21 +501,49 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
 
     List detailList = new ArrayList();
 
-    if (signup != null && (signup.getSignupPacks() == null || signup.getSignupPacks().size() == 0)) {
-      ElementConditionDto dto = new ElementConditionDto();
-      if (signup.getStatus().equals("0")) {//获取当前的所有项目分包
-        dto.setZcText0(signup.getProjCode());
-      } else {//获取已经报名的分包
-        dto.setZcText1(signup.getSignupId());
-      }
-      detailList = zcEbSignupServiceDelegate.getZcEbSignupPackDetail(dto, requestMeta);
-      signup.setSignupPacks(detailList);
+    ElementConditionDto dto = new ElementConditionDto();
 
+    //获取当前的所有项目分包
+    dto.setZcText0(signup.getProjCode());
+    detailList = zcEbSignupServiceDelegate.getZcEbSignupPackDetail(dto, requestMeta);
+    signup.setSignupPacks(detailList == null ? new ArrayList() : detailList);
+
+    dto = new ElementConditionDto();
+    dto.setProjCode(signup.getProjCode());
+    //ZcEbPack
+    packs = this.zcEbBaseServiceDelegate.queryDataForList("ZcEbProj.getZcEbPackByProjCode", dto, requestMeta);
+    //获取的改项目的全部供应商报名情况 ZcEbSignup
+    List signedSupplierLst = zcEbBaseServiceDelegate.queryDataForList("ZcEbSignup.getZcEbSignupList", dto, requestMeta);
+    if (signedSupplierLst != null && signedSupplierLst.size() > 0) {//取一个报名对象，用于获取招标文件
+      listCursor.setCurrentObject(signedSupplierLst.get(0));
     }
-    /*  if (WFConstants.AUDIT_TAB_STATUS_CANCEL.equals(signup.getStatus())) {
-        setCancelStatus(listCursor);
-      }*/
-
+    packSupplierMap = new Hashtable<String, List<ZcEbSignup>>();
+    for (int j = 0; j < signup.getSignupPacks().size(); j++) {
+      ZcEbSignupPackDetail pk = (ZcEbSignupPackDetail) signup.getSignupPacks().get(j);
+      for (int k = 0; k < signedSupplierLst.size(); k++) {
+        ZcEbSignup s = (ZcEbSignup) signedSupplierLst.get(k);
+        if (pk.getSignupId().equals(s.getSignupId())) {
+          if (packSupplierMap.containsKey(pk.getPackCode())) {
+            List<ZcEbSignup> l = packSupplierMap.get(pk.getPackCode());
+            boolean find = false;
+            for (int n = 0; n < l.size(); n++) {
+              ZcEbSignup sg = l.get(n);
+              if (s.getSignupId().equals(sg.getSignupId())) {
+                find = true;
+                break;
+              }
+            }
+            if (!find) {
+              packSupplierMap.get(pk.getPackCode()).add(s);
+            }
+          } else {
+            List<ZcEbSignup> l = new ArrayList<ZcEbSignup>();
+            l.add(s);
+            packSupplierMap.put(pk.getPackCode(), l);
+          }
+        }
+      }
+    }
     refreshSubTableData();
 
     setOldObject();
@@ -511,6 +552,9 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
       supplierEditor.setEnabled(true);
     }
     setButtonStatus();
+
+    zbwjEditor.setDownButtonEnabled(true);
+    zbwjWordEditor.setDownButtonEnabled(true);
   }
 
   private void setDefualtValue(ZcEbSignup signup, String pageStatus) {
@@ -555,25 +599,9 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
 
   private void refreshSubTableData() {
 
-    ZcEbSignup signup = (ZcEbSignup) this.listCursor.getCurrentObject();
-    List deList = signup.getSignupPacks();
+    ZcEbSignup signup = (ZcEbSignup) listCursor.getCurrentObject();
 
-    if (ZcSettingConstants.PAGE_STATUS_NEW.equals(this.pageStatus)) {
-
-      ElementConditionDto dto = new ElementConditionDto();
-
-      if (signup.getProjCode() != null && !"".equals(signup.getProjCode())) {
-
-        dto.setProjCode(signup.getProjCode());
-        dto.setZcText0("A");
-
-        List packs = this.zcEbBaseServiceDelegate.queryDataForList("ZcEbProj.getZcEbPackByProjCode", dto, requestMeta);
-
-        deList = convertZcEbPackToSignupPack(packs);
-
-      }
-
-    }
+    List deList = convertZcEbPackToSignupPack(packs);
 
     deList = getPackRequirements(deList, signup.getProjCode());
     signup.setSignupPacks(deList);
@@ -584,6 +612,8 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
     if (deList != null && deList.size() > 0) {
       ZcEbSignupPackDetail detail = (ZcEbSignupPackDetail) deList.get(0);
       refreshSubPackReqTable(detail);
+
+      refreshSubPackSupplierTable(detail);
     }
 
     setTableProperty(packTablePanel.getTable());
@@ -591,6 +621,18 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
     addPackTableLisenter(packTablePanel.getTable());
 
     refreshZiZhiPanel(deList);
+
+    hideCol(packTablePanel.getTable(), "SP_STATUS");
+    hideCol(packTablePanel.getTable(), "CHECK_RESULT");
+
+  }
+
+  protected void hideCol(JTable table, String colName) {
+
+    TableColumn tc = table.getColumn(colName);
+
+    table.getColumnModel().removeColumn(tc);
+
   }
 
   private List getPackRequirements(List sigupPackLst, String projCode) {
@@ -630,6 +672,7 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
           if (table.getSelectedRows() != null && table.getSelectedRows().length > 0) {
             pack = (ZcEbSignupPackDetail) tableModel.getBean(table.convertRowIndexToModel(table.getSelectedRows()[0]));
             refreshSubPackReqTable(pack);
+            refreshSubPackSupplierTable(pack);
           }
         }
       }
@@ -643,6 +686,7 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
             if (k < 0) return;
             ZcEbSignupPackDetail pack = (ZcEbSignupPackDetail) model.getBean(table.convertRowIndexToModel(k));
             refreshSubPackReqTable(pack);
+            refreshSubPackSupplierTable(pack);
           }
         }
       }
@@ -655,6 +699,15 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
     ZcUtil.translateColName(packReqtablePanel.getTable(), ZcEbProjectToTableModelConverter.getPackReqTableColumnSimpleInfo());
     // 设置分包需求明细列类型
     setPackReqTableProperty(packReqtablePanel.getTable());
+  }
+
+  private void refreshSubPackSupplierTable(ZcEbSignupPackDetail pack) {
+    ZcEbSignupToTableModelConverter c = new ZcEbSignupToTableModelConverter();
+    packSignuptablePanel.setTableModel(c.convertSignupSupplierToTableModel(packSupplierMap.get(pack.getPackCode())));
+    // 翻译分包需求明细表头列
+    //    ZcUtil.translateColName(packReqtablePanel.getTable(), ZcEbProjectToTableModelConverter.getPackReqTableColumnSimpleInfo());
+    // 设置分包需求明细列类型
+    //    setPackReqTableProperty(packReqtablePanel.getTable());
   }
 
   private void refreshZiZhiPanel(List deList) {
@@ -1201,7 +1254,7 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
     editorList.add(kbdd);
     editorList.add(zbwjEditor);
     editorList.add(zbwjWordEditor);
-    editorList.add(supplierEditor);
+    /*editorList.add(supplierEditor);
     editorList.add(gysdizhi);
     editorList.add(lxr);
     editorList.add(dianhua);
@@ -1209,7 +1262,7 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
     editorList.add(beizhu);
     editorList.add(signupDateEditor);
     editorList.add(zhuangtai);
-    editorList.add(signupFileEditor);
+    editorList.add(signupFileEditor);*/
 
     return editorList;
 
@@ -1502,13 +1555,13 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
   @Override
   public JComponent createSubBillPanel() {
 
-    packTablePanel = new JTablePanel("zc_eb_signup_pack_table_panel", AsOptionMeta.getOptVal(ZcSettingConstants.ZC_OPTON_SIGNUP_PACK_HELP_MSG), false);
+    packTablePanel = new JTablePanel("zc_eb_signup_pack_table_panel", false);
     packTablePanel.init();
     //    packTablePanel.getTable().setPreferredScrollableViewportSize(new Dimension(300, 100));
     //    packTablePanel.setSize(300, 100);
     packTablePanel.setTablePreferencesKey(this.getClass().getName() + "_table");
-    packTablePanel.setPreferredSize(new Dimension(750, 300));
-    packTablePanel.setMinimumSize(new Dimension(750, 300));
+    packTablePanel.setPreferredSize(new Dimension(750, 100));
+    packTablePanel.setMinimumSize(new Dimension(750, 100));
 
     packTablePanel.getTable().setShowCheckedColumn(false);
 
@@ -1576,11 +1629,23 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
 
     //    subTabPane.addTab("报名分包", packTablePanel);
     //    tabPaneReq.addTab("分包的相关文件", tablePanelPackReq); 
+
+    packSignuptablePanel.init();
+    //    packReqtablePanel.getTable().setPreferredScrollableViewportSize(new Dimension(Double.valueOf(ZcUtil.getScreenWidth() * 0.3).intValue(), 150));
+    //    packReqtablePanel.getTable().setPreferredScrollableViewportSize(new Dimension(150, 100));
+    packSignuptablePanel.setTablePreferencesKey(this.getClass().getName() + "_packSignuptable");
+    packSignuptablePanel.setPreferredSize(new Dimension(550, 300));
+    packSignuptablePanel.getTable().setShowCheckedColumn(false);
+    packSignuptablePanel.getTable().getTableRowHeader().setPreferredSize(new Dimension(50, 0));
+
     JPanel p1 = new JPanel();
     p1.setLayout(new BorderLayout());
     p1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "报名分包", TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体", Font.BOLD, 13), Color.BLUE));
 
     p1.add(packTablePanel, BorderLayout.CENTER);
+    if (ZcUtil.isCgzx() && isOverSignupTime()) {
+      p1.add(packSignuptablePanel, BorderLayout.SOUTH);
+    }
 
     JPanel p2 = new JPanel();
     p2.setLayout(new BorderLayout());

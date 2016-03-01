@@ -564,6 +564,13 @@
 		from zc_xmcg_ht ht
 		where ht.zc_bid_code =
 		n.pack_code)
+	</select> 
+	
+	<select id="selectMaxCoCode" parameterClass="elementCondition" 	resultClass="java.util.HashMap">
+		select max(t.co_code) as COCODE from MA_COMPANY t where t.nd=#nd# and t.co_code like '99%'
 	</select>
 	
+	<select id="getSameCompany" parameterClass="elementCondition" 	resultClass="java.util.HashMap">
+		select count(*) as MT from ma_company m where m.nd=#nd# and m.co_name=#zcText0#
+	</select>
 </sqlMap>

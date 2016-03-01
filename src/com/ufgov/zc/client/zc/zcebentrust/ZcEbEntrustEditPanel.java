@@ -394,6 +394,8 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     AsValFieldEditor isShouli = new AsValFieldEditor(LangTransMeta.translate(zcEbEntrust.COL_IS_SHOULI), "isShouli", "ZC_VS_YN");
 
+    AsValFieldEditor cglx = new AsValFieldEditor("采购类型", "zcIsNotary", "ZC_VS_CG_TYPE");
+
     //    editorList.add(sn);
     //    editorList.add(snCode);
     editorList.add(sn);
@@ -419,6 +421,7 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
     //    editorList.add(isPub);
     //    editorList.add(isCar);
     editorList.add(superintendentName);
+    editorList.add(cglx);
 
     return editorList;
 
@@ -1809,6 +1812,8 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
     entrust.setIsPub("Y");
 
     entrust.setIsShouli("Y");
+
+    entrust.setZcIsNotary(ZcEbEntrust.CAIGOU_TYPE_HUOWU);
 
   }
 
