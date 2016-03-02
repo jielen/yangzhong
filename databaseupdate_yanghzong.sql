@@ -1,3 +1,1233 @@
+
+----------------20160303---------------
+--1
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_MOBILE_MSG', 'CODE', 0, '编号', '编号', 'VARCHAR2', 60, null, null, null, 'Y', null, null, 'Y', null, null, 'N', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_MOBILE_MSG', 'CONTENT', 0, '短信内容', '短信内容', 'VARCHAR2', 500, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_MOBILE_MSG', 'INPUTOR', 0, '录入人', '录入人', 'VARCHAR2', 60, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_MOBILE_MSG', 'INPUTOR_NAME', 0, '录入人名称', '录入人名称', 'VARCHAR2', 60, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_MOBILE_MSG', 'INPUT_DATE', 0, '录入时间', '录入时间', 'DATE', 7, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_MOBILE_MSG', 'IS_SENDED', 0, '是否发送', '是否发送', 'VARCHAR2', 60, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_MOBILE_MSG', 'MOBILES', 0, '电话号码，用,分割多个号码', '电话号码，用,分割多个号码', 'VARCHAR2', 500, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_MOBILE_MSG', 'ND', 0, '年度', '年度', 'NUMBER', 22, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_MOBILE_MSG', 'SEND_TIME', 0, '发送时间', '发送时间', 'DATE', 7, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+--2
+
+create table ZC_MOBILE_MSG
+(
+  code         VARCHAR2(60) not null,
+  mobiles      VARCHAR2(500),
+  inputor      VARCHAR2(60),
+  input_date   DATE,
+  inputor_name VARCHAR2(60),
+  send_time    DATE,
+  is_sended    VARCHAR2(60),
+  content      VARCHAR2(500),
+  nd           NUMBER
+)
+tablespace UFGOV
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table ZC_MOBILE_MSG
+  is '短信发送表';
+-- Add comments to the columns 
+comment on column ZC_MOBILE_MSG.code
+  is '编号';
+comment on column ZC_MOBILE_MSG.mobiles
+  is '电话号码，用,分割多个号码';
+comment on column ZC_MOBILE_MSG.inputor
+  is '录入人';
+comment on column ZC_MOBILE_MSG.input_date
+  is '录入时间';
+comment on column ZC_MOBILE_MSG.inputor_name
+  is '录入人名称';
+comment on column ZC_MOBILE_MSG.send_time
+  is '发送时间';
+comment on column ZC_MOBILE_MSG.is_sended
+  is '是否发送';
+comment on column ZC_MOBILE_MSG.content
+  is '短信内容';
+comment on column ZC_MOBILE_MSG.nd
+  is '年度';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table ZC_MOBILE_MSG
+  add constraint ZC_MOBILE_MSG_PK primary key (CODE)
+  using index 
+  tablespace UFGOV
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    minextents 1
+    maxextents unlimited
+  );
+
+--3
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_MOBILE_MSG_CODE', 'C', '编号');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_MOBILE_MSG_CONTENT', 'C', '短信内容');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_MOBILE_MSG_INPUTOR', 'C', '录入人');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_MOBILE_MSG_INPUTOR_NAME', 'C', '录入人名称');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_MOBILE_MSG_INPUT_DATE', 'C', '录入时间');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_MOBILE_MSG_IS_SENDED', 'C', '是否发送');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_MOBILE_MSG_MOBILES', 'C', '手机号码');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_MOBILE_MSG_ND', 'C', '年度');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_MOBILE_MSG_SEND_TIME', 'C', '发送时间');
+
+--4
+
+insert into as_table (TAB_ID, MASTER_TAB_ID, TAB_NA, TAB_DESC, DB_VER_NO, TRAD_VER_NO, LSTDATE, PRE_VALSET, IS_TABLE)
+values ('ZC_MOBILE_MSG', null, '短信发送表', '短信发送表', null, null, null, null, 'Y');
+
+--5
+
+insert into as_compo (COMPO_ID, COMPO_NAME, MASTER_TAB_ID, TRAD_ID, COMPO_TYPE, ICON_NAME, CONDITION, NO_FIELD, TYPE_FIELD, TYPE_TABLE, PARENT_COMPO, PAGE_FIELD, DATE_FIELD, VALSET_FIELD, WF_FLOW_TYPE, WF_LIST_TYPE, DEFAULT_WF_TEMPLATE, TEMPLATE_IS_USED, IS_AUTO_LIST, ORDER_BY, IS_GRANT_TO_ALL, PRINT_TYPE, TITLE_FIELD, TITLE_DATE, WF_BRIEF_FIELDS, IS_FUNC_CONTROL)
+values ('ZC_MOBILE_MSG', '短信发送', 'ZC_MOBILE_MSG', null, 'M', null, null, null, null, null, null, null, null, null, null, null, null, 'N', 'Y', null, null, '0', null, null, null, 'ZC');
+
+--6
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_MOBILE_MSG', 'fdelete', 'Y', null, to_date('06-01-2015 10:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_MOBILE_MSG', 'fedit', 'Y', null, to_date('06-01-2015 10:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_MOBILE_MSG', 'fexit', null, null, to_date('06-01-2015 10:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_MOBILE_MSG', 'fnew', null, null, to_date('06-01-2015 10:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_MOBILE_MSG', 'fprint', 'Y', null, to_date('06-01-2015 10:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_MOBILE_MSG', 'fprint_preview', null, null, to_date('06-01-2015 10:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_MOBILE_MSG', 'fprn_tpl_set', null, null, to_date('06-01-2015 10:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_MOBILE_MSG', 'fsave', 'Y', null, to_date('06-01-2015 10:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_MOBILE_MSG', 'fwatch', null, null, to_date('06-01-2015 10:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_MOBILE_MSG', 'fsend', 'Y', null, to_date('06-01-2015 10:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+--7
+
+insert into ZC_SEARCH_CONDITION (CONDITION_ID, CONDITION_FIELD_CODE, CONDITION_FIELD_NAME, CONDITION_FIELD_ORDER, COMPO_ID, COMPO_NAME, CONDITION_NAME, CONDITION_TYPE, CONDITION_NAME_ORDER)
+values ('ZcMobileMsg_Tab', 'my', '我的消息', 1, 'ZC_MOBILE_MSG', null, '采购任务页签', 'tab', '301');
+
+insert into ZC_SEARCH_CONDITION (CONDITION_ID, CONDITION_FIELD_CODE, CONDITION_FIELD_NAME, CONDITION_FIELD_ORDER, COMPO_ID, COMPO_NAME, CONDITION_NAME, CONDITION_TYPE, CONDITION_NAME_ORDER)
+values ('ZcMobileMsg_Tab', 'other', '其它消息', 2, 'ZC_MOBILE_MSG', null, '采购任务页签', 'tab', '301');
+
+--8
+
+insert into ZC_SYS_BILL_ELEMENT (ELEMENT_ID, ND, BILL_TYPE_CODE, ELEMENT_CODE, ELEMENT_NAME, IS_INCLUDE, IS_INHERIT, INHERIT_ELEMENT_CODE, INHERIT_ELEMENT_NAME, IS_EDIT, IS_RANDOM_EDIT, DEC_FLAG, LEVEL_CTRL, IS_EDIT_PUTIN, IS_EDIT_AUDIT, IS_CONFIG, DEFAULT_VAL_CODE, DEFAULT_VAL_NAME, IS_NULL, PARENT_LEVEL_CTRL, EXTEND_ELEMENT_TYPE, LEVEL_STR, DISPLAY_ORDER_INDEX, GENBALANCE_LEVEL_CTRL)
+values ('ZC_MOBILE_MSG_CONTENT', 9999, 'ZC_MOBILE_MSG', 'CONTENT', '短信内容', '1', '0', null, null, '1', '1', '0', 0, '0', '0', '1', null, null, '0', 0, '1', '1', 1, 0);
+
+insert into ZC_SYS_BILL_ELEMENT (ELEMENT_ID, ND, BILL_TYPE_CODE, ELEMENT_CODE, ELEMENT_NAME, IS_INCLUDE, IS_INHERIT, INHERIT_ELEMENT_CODE, INHERIT_ELEMENT_NAME, IS_EDIT, IS_RANDOM_EDIT, DEC_FLAG, LEVEL_CTRL, IS_EDIT_PUTIN, IS_EDIT_AUDIT, IS_CONFIG, DEFAULT_VAL_CODE, DEFAULT_VAL_NAME, IS_NULL, PARENT_LEVEL_CTRL, EXTEND_ELEMENT_TYPE, LEVEL_STR, DISPLAY_ORDER_INDEX, GENBALANCE_LEVEL_CTRL)
+values ('ZC_MOBILE_MSG_MOBILES', 9999, 'ZC_MOBILE_MSG', 'MOBILES', '手机号码', '1', '0', null, null, '1', '1', '0', 0, '0', '0', '1', null, null, '0', 0, '1', '1', 1, 0);
+
+--9
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_IS_SENDED', '0', '草稿', 1, null, 'Y', to_date('01-03-2016 23:35:40', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_IS_SENDED', 'Y', '已发送', 2, null, 'Y', to_date('01-03-2016 23:35:40', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_IS_SENDED', 'N', '未发送', 3, null, 'Y', to_date('01-03-2016 23:35:40', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_IS_SENDED', 'fail', '发送失败', 4, null, 'Y', to_date('01-03-2016 23:35:40', 'dd-mm-yyyy hh24:mi:ss'));
+
+--10
+
+insert into AS_MENU_COMPO (MENU_ID, COMPO_ID, ORD_INDEX, IS_GOTO_EDIT, IS_IN_MENU, IS_ALWAYS_NEW, URL)
+values ('ZC_B_XM', 'ZC_MOBILE_MSG', 35, 'N', 'Y', 'N', '/GB/jsp/ZC/CommonPage.jsp?className=com.ufgov.zc.client.zc.moblieMsg.ZcMobileMsgListPanel');
+
+--11
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_MOBILE_MSG', 'C', '短信发送');
+
+--12
+-- Create sequence 
+create sequence ZC_SEQ_MOBILE_MSG_CODE
+minvalue 1
+maxvalue 999999999999
+start with 1
+increment by 1
+cache 2;
+
+--13
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KY_ZH', 'ZC_MOBILE_MSG', 'fsend', to_date('02-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KY_ZH', 'ZC_MOBILE_MSG', 'fexit', to_date('03-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KY_ZH', 'ZC_MOBILE_MSG', 'fnew', to_date('04-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KY_ZH', 'ZC_MOBILE_MSG', 'fwatch', to_date('05-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KY_CG', 'ZC_MOBILE_MSG', 'fsend', to_date('06-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KY_CG', 'ZC_MOBILE_MSG', 'fexit', to_date('07-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KY_CG', 'ZC_MOBILE_MSG', 'fnew', to_date('08-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KY_CG', 'ZC_MOBILE_MSG', 'fwatch', to_date('09-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KZ_CG', 'ZC_MOBILE_MSG', 'fsend', to_date('10-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KZ_CG', 'ZC_MOBILE_MSG', 'fexit', to_date('11-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KZ_CG', 'ZC_MOBILE_MSG', 'fnew', to_date('12-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KZ_CG', 'ZC_MOBILE_MSG', 'fwatch', to_date('13-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KZ_ZH', 'ZC_MOBILE_MSG', 'fsend', to_date('14-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KZ_ZH', 'ZC_MOBILE_MSG', 'fexit', to_date('15-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KZ_ZH', 'ZC_MOBILE_MSG', 'fnew', to_date('16-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KZ_ZH', 'ZC_MOBILE_MSG', 'fwatch', to_date('17-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CG_CGZXLD', 'ZC_MOBILE_MSG', 'fsend', to_date('18-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CG_CGZXLD', 'ZC_MOBILE_MSG', 'fexit', to_date('19-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CG_CGZXLD', 'ZC_MOBILE_MSG', 'fnew', to_date('20-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CG_CGZXLD', 'ZC_MOBILE_MSG', 'fwatch', to_date('21-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CG_CGZXLD', 'ZC_MOBILE_MSG', 'fdelete', to_date('22-07-2010 15:30:00', 'dd-mm-yyyy hh24:mi:ss'));
+
+--14
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KY_ZH', 'ZcMobileMsg_Tab', 'my');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KY_CG', 'ZcMobileMsg_Tab', 'my');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KZ_CG', 'ZcMobileMsg_Tab', 'my');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KZ_ZH', 'ZcMobileMsg_Tab', 'my');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CG_CGZXLD', 'ZcMobileMsg_Tab', 'my');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CG_CGZXLD', 'ZcMobileMsg_Tab', 'other');
+
+--15
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'ATTACHFILENAME', 0, '附件名称', '附件名称', 'VARCHAR2', 500, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'ATTACHGUID', 0, '附件Guid', '附件Guid', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'N', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'ATTACHLENGTH', 0, '文件大小', '文件大小', 'NUMBER', 22, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'ATTACH_CONNECTIONSTRINGNAME', 0, '附件连接名称', '附件连接名称', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'AUDITSTATUS', 0, '审核状态正式', '审核状态正式', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'AUDITSTATUS_TEMP', 0, '审核状态临时', '审核状态临时', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'BEIZHU', 0, '说明', '说明', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'BIANGENGDATE', 0, '变更日期', '变更日期', 'DATE', 7, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'CLIENTGUID', 0, '拥有者ID', '拥有者ID', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'N', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'CLIENTTYPE', 0, '拥有者类型', '拥有者类型', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'CONTENTTYPE', 0, '文件类型', '文件类型', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'DANWEIGUID', 0, '单位唯一标识', '单位唯一标识', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'ISBIANGENG', 0, '是否变更', '是否变更', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'ISREALZUOFEI', 0, '是否已作废', '是否已作废', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'MODULETYPE', 0, '附件类型', '附件类型', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'SORT', 0, '排序', '排序', 'NUMBER', 22, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'UPLOADDATETIME', 0, '上传时间', '上传时间', 'DATE', 7, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'UPLOADUSERDISPLAYNAME', 0, '上传人的名称', '上传人的名称', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'UPLOADUSERGUID', 0, '上传人Guid', '上传人Guid', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'ZUOFEIREASON', 0, '作废原因', '作废原因', 'VARCHAR2', 500, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+--16
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_ATTACHFILENAME', 'C', '附件名称');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_ATTACHGUID', 'C', '附件Guid');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_ATTACHLENGTH', 'C', '文件大小');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_ATTACH_CONNECTIONSTRINGNAME', 'C', '附件连接名称');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_AUDITSTATUS', 'C', '审核状态正式');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_AUDITSTATUS_TEMP', 'C', '审核状态临时');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_BEIZHU', 'C', '说明');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_BIANGENGDATE', 'C', '变更日期');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_CLIENTGUID', 'C', '拥有者ID');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_CLIENTTYPE', 'C', '拥有者类型');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_CONTENTTYPE', 'C', '文件类型');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_DANWEIGUID', 'C', '单位唯一标识');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_ISBIANGENG', 'C', '是否变更');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_ISREALZUOFEI', 'C', '是否已作废');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_MODULETYPE', 'C', '附件类型');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_SORT', 'C', '排序');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_UPLOADDATETIME', 'C', '上传时间');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_UPLOADUSERDISPLAYNAME', 'C', '上传人的名称');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_UPLOADUSERGUID', 'C', '上传人Guid');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_ZUOFEIREASON', 'C', '作废原因');
+
+--17
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A001', '企业法人营业执照', 1, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A002', '企业资质等级证书(工程类)', 2, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A003', '安全生产许可证', 3, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A004', '组织机构代码证', 4, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A006', '国家税务登记证', 5, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A007', '地方税务登记证', 6, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A050', '企业资质等级证书(监理类)', 7, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A051', '企业资质等级证书(服务货物类)', 8, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A060', '企业资质等级证书(工程建设招标代理类)', 9, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A062', '企业资质等级证书(项目管理类)', 10, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A063', '企业资质等级证书(勘察类)', 11, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A064', '企业资质等级证书(设计类)', 12, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A089', '法人授权委托书', 13, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A090', '诚信承诺书', 14, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A091', '企业基本账户开户许可证', 15, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A092', '法人个人照片', 16, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1001', '安全、质量、环保等管理体系认证证书', 17, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A101', '建造师证书', 18, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A102', '项目经理身份证', 19, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A104', '项目经理学历证书', 20, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A105', '项目经理社保', 21, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A107', '项目经理个人照片', 22, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A108', '项目经理职称证', 23, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A111', '项目经理劳动合同', 24, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A191', '项目经理毕业证', 25, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1101', '注册监理工程师证书', 26, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1102', '总监身份证', 27, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1103', '总监职称证书', 28, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1104', '总监学历证书', 29, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1105', '总监社会保险证明', 30, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1106', '总监个人照片', 31, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1109', '总监劳动合同', 32, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1199', '总监其他材料', 33, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1501', '勘察工程师执业人员注册证书', 34, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1506', '勘察工程师个人照片', 35, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1507', '勘察工程师身份证', 36, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1508', '勘察工程师职称证', 37, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1509', '勘察工程师学历证明', 38, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1601', '设计工程师执业人员注册证书', 39, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1602', '设计工程师个人照片', 40, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1603', '设计工程师身份证', 41, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1604', '设计工程师职称证', 42, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1605', '设计工程师学历证明', 43, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1701', '代理人员照片', 44, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1702', '代理人员身份证', 45, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1703', '代理人员职称证', 46, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1704', '工程建设类执业人员注册证书', 47, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1708', '代理人员劳动合同', 48, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1709', '代理人员学历证明', 49, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1710', '代理人员其他', 50, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1711', '代理人员社会保险', 51, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A1712', '代理人员人事档案关系', 52, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A201', '企业主要负责人安全生产考核合格证', 53, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A202', '项目经理安全生产考核合格证书(B证)', 54, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A203', '专职安全生产管理人员的安全生产考核合格证', 55, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A2301', '勘察工程师劳动合同', 56, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A2302', '勘察工程师养老保险证明', 57, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A2399', '勘察工程师其他材料', 58, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A2401', '设计工程师劳动合同', 59, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A2402', '设计工程师养老保险证明', 60, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A2499', '设计工程师其他材料', 61, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A301', '五大员职称证（执业证或上岗证书）', 62, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A302', '五大员社保证明', 63, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A393', '五大员劳动合同', 64, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A394', '五大员个人照片', 65, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A399', '五大员其他', 66, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A4201', '咨询人员个人照片', 67, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A4202', '咨询人员身份证', 68, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A4203', '咨询人员职称证明', 69, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A4204', '咨询人员学历证明', 70, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A4205', '咨询人员执业资格', 71, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A5101', '咨询人员社会保险', 72, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A5102', '咨询人员劳动合同', 73, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A5001', '企业资质等级证书(咨询企业)', 74, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A501', '业绩中标通知书', 75, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A502', '业绩合同协议书', 76, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A503', '工程竣工验收证明', 77, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A601', '财务会计报表', 78, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A6601', '母公司营业执照', 79, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A6602', '母公司资质证书', 80, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A6603', '分支机构负责人和技术负责人简历', 81, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A6605', '办理分支机构备案的授权委托书', 82, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A6606', '人均不少于10平方米的分支机构办公场所证明文件或租赁合同', 83, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A701', '工程获奖证书或颁奖部门的相关文件', 84, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A702', '重合同守信用企业', 85, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A703', '银行资信等级等信誉证书', 86, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_ATTACH_TYPE', 'A799', '其他信誉相关类证书', 87, null, 'N', to_date('03-03-2016 05:04:11', 'dd-mm-yyyy hh24:mi:ss'));
+
+--18
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_AUDIT_STATUS', '1', '编辑中', 1, null, 'N', to_date('03-03-2016 05:14:17', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_AUDIT_STATUS', '2', '待审核', 2, null, 'N', to_date('03-03-2016 05:14:17', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_AUDIT_STATUS', '3', '审核通过', 3, null, 'N', to_date('03-03-2016 05:14:17', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_AUDIT_STATUS', '4', '审核不通过', 4, null, 'N', to_date('03-03-2016 05:14:17', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_AUDIT_STATUS', '6', '作废', 5, null, 'N', to_date('03-03-2016 05:14:17', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_AUDIT_STATUS', '5', '删除', 6, null, 'N', to_date('03-03-2016 05:14:17', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_AUDIT_STATUS', '7', '退回', 7, null, 'N', to_date('03-03-2016 05:14:17', 'dd-mm-yyyy hh24:mi:ss'));
+
+--19
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_SHI_FOU_ZUO_FEI', '0', '否', 1, null, 'N', to_date('03-03-2016 05:23:09', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_HUIYUAN_SHI_FOU_ZUO_FEI', '1', '是', 2, null, 'N', to_date('03-03-2016 05:23:09', 'dd-mm-yyyy hh24:mi:ss'));
+
+----------------20160229---------------
+--1
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_ESTIMATE_TIME_STR', 0, '估计工时', '估计工时', 'VARCHAR2', 22, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', 'N', 'Y', 'Y', null, null, null, 'N', null, null, null, null, null, null, null, 'N', 'N', null, null);
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_ESTIMATE_TIME_STR', 'C', '估计工时');
+
+--2
+delete from as_option O WHERE O.OPT_ID LIKE 'OPT_ZC_EVAL_BID_ADDRESS';
+
+insert into as_option (OPT_ID, CO_CODE, COMPO_ID, TRANS_TYPE, OPT_VAL, IS_SYST_OPT)
+values ('OPT_ZC_EVAL_BID_ADDRESS', '*', '*', '*', '五楼评标室', 'Y');
+
+--3
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_EVALUATION', 'EM_MOBILE_XIUZHENG', 2.99, '手机', '手机', 'TEXT', 30, null, 'F_EM_B_EXPERT', 'EM_MOBILE', 'N', null, null, 'Y', null, 'N', 'Y', 'N', 'Y', 'Y', null, null, null, 'N', null, null, null, null, null, null, null, 'N', 'N', null, null);
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_MOBILE_XIUZHENG', 'C', '手机');
+
+--4
+
+insert into ZC_SYS_BILL_ELEMENT (ELEMENT_ID, ND, BILL_TYPE_CODE, ELEMENT_CODE, ELEMENT_NAME, IS_INCLUDE, IS_INHERIT, INHERIT_ELEMENT_CODE, INHERIT_ELEMENT_NAME, IS_EDIT, IS_RANDOM_EDIT, DEC_FLAG, LEVEL_CTRL, IS_EDIT_PUTIN, IS_EDIT_AUDIT, IS_CONFIG, DEFAULT_VAL_CODE, DEFAULT_VAL_NAME, IS_NULL, PARENT_LEVEL_CTRL, EXTEND_ELEMENT_TYPE, LEVEL_STR, DISPLAY_ORDER_INDEX, GENBALANCE_LEVEL_CTRL)
+values ('ZC_EB_PROJ_PROJ_CODE', 9999, 'ZC_EB_PROJ', 'PROJ_CODE', '项目编号', '1', '0', null, null, '1', '1', '0', 0, '0', '0', '1', null, null, '0', 0, '1', '1', 0, 0);
+
+--5
+create or replace trigger TRIGGER_ZC_MA_COMPANY
+   after insert ON MA_COMPANY
+  FOR EACH ROW
+
+DECLARE 
+  V_DRAFT_ID    VARCHAR(100);
+BEGIN
+
+  IF (:NEW.CO_CODE LIKE '990%' ) THEN
+    INSERT INTO as_org(Co_Code,Org_Code,Org_Name,Parent_Org_Code,Is_Lowest,Quic_CodE,Prin_Code,Linkman,Tele,Org_Id,Org_Type_Code,Nd,Is_Need_Send_Bank,Trans_Date,Guid,Trigger_Enable)
+    VALUES(:NEW.CO_CODE,'cwk','财务科','','Y','','','','','12700114553236148780','',:NEW.ND,'',SYSDATE,SYS_GUID(),'1');
+    
+    INSERT INTO AS_ORG_POSITION(CO_CODE,POSI_CODE,ORG_CODE,LEADER_POSI_ID,ORG_POSI_ID,ND,TRANS_DATE)
+    VALUES(:NEW.CO_CODE,'ysdwcg','cwk',:NEW.CO_CODE||'cwkysdwfz',:NEW.CO_CODE||'cwkysdwcg',:NEW.ND,SYSDATE);
+    
+    INSERT INTO AS_ORG_POSITION(CO_CODE,POSI_CODE,ORG_CODE,LEADER_POSI_ID,ORG_POSI_ID,ND,TRANS_DATE)
+    VALUES(:NEW.CO_CODE,'ysdwfz','cwk','',:NEW.CO_CODE||'cwkysdwfz',:NEW.ND,SYSDATE);
+    
+    INSERT INTO as_emp(Emp_Code,Emp_Name,Sex,Title_Tech,Phone,Email,Identity_Card,Rtxuin,Emp_Index,Is_Login,User_Id,Photo,photo_blobid,ca_serial,Co_Name,Trans_Date,User_Birth,Mobile)
+    VALUES(:NEW.CO_CODE||'01',:NEW.CO_NAME||'经办人','1','','','','','','','Y',:NEW.CO_CODE||'01','','','','',SYSDATE,'','');
+    
+    INSERT INTO as_emp(Emp_Code,Emp_Name,Sex,Title_Tech,Phone,Email,Identity_Card,Rtxuin,Emp_Index,Is_Login,User_Id,Photo,photo_blobid,ca_serial,Co_Name,Trans_Date,User_Birth,Mobile)
+    VALUES(:NEW.CO_CODE||'02',:NEW.CO_NAME||'负责人','1','','','','','','','Y',:NEW.CO_CODE||'02','','','','',SYSDATE,'','');
+    
+    insert into as_emp_position
+  (emp_code, posi_code, org_code, co_code, emp_posi_id, nd, trans_date)
+values
+  (:NEW.CO_CODE||'01','ysdwcg','cwk',:NEW.CO_CODE,:NEW.CO_CODE||'cwkysdwcg'||:NEW.CO_CODE||'01',:NEW.ND,SYSDATE); 
+    insert into as_emp_position
+  (emp_code, posi_code, org_code, co_code, emp_posi_id, nd, trans_date)
+values
+  (:NEW.CO_CODE||'02','ysdwfz','cwk',:NEW.CO_CODE,:NEW.CO_CODE||'cwkysdwfz'||:NEW.CO_CODE||'02',:NEW.ND,SYSDATE);
+  
+  insert into as_user
+   (user_id, user_name, passwd, is_wr_log, cookie, rtxuin, modi_time, trans_date)
+ values
+   (:NEW.CO_CODE||'01',:NEW.CO_NAME||'经办人','','','','','',SYSDATE);
+   
+  insert into as_user
+   (user_id, user_name, passwd, is_wr_log, cookie, rtxuin, modi_time, trans_date)
+ values
+   (:NEW.CO_CODE||'02',:NEW.CO_NAME||'负责人','','','','','',SYSDATE);
+   
+   insert into as_user_group
+   (user_id, group_id)
+ values
+   (:NEW.CO_CODE||'01','yusuandanwei');
+   
+   insert into as_user_group
+   (user_id, group_id)
+ values
+   (:NEW.CO_CODE||'02','yusuandanwei');
+  
+  END IF;
+
+END TRIGGER_ZC_MA_COMPANY;
+
+
+
+----------------20160222---------------
+--1
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'ATTACHFILENAME', 0, '附件名称', '附件名称', 'VARCHAR2', 500, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'ATTACHGUID', 0, '附件Guid', '附件Guid', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'N', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'ATTACHLENGTH', 0, '文件大小', '文件大小', 'NUMBER', 22, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'ATTACH_CONNECTIONSTRINGNAME', 0, '附件连接名称', '附件连接名称', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'AUDITSTATUS', 0, '审核状态正式', '审核状态正式', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'AUDITSTATUS_TEMP', 0, '审核状态临时', '审核状态临时', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'BEIZHU', 0, '说明', '说明', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'BIANGENGDATE', 0, '变更日期', '变更日期', 'DATE', 7, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'CLIENTGUID', 0, '拥有者ID', '拥有者ID', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'N', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'CLIENTTYPE', 0, '拥有者类型', '拥有者类型', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'CONTENTTYPE', 0, '文件类型', '文件类型', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'DANWEIGUID', 0, '单位唯一标识', '单位唯一标识', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'ISBIANGENG', 0, '是否变更', '是否变更', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'ISREALZUOFEI', 0, '是否已作废', '是否已作废', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'MODULETYPE', 0, '附件类型', '附件类型', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'SORT', 0, '排序', '排序', 'NUMBER', 22, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'UPLOADDATETIME', 0, '上传时间', '上传时间', 'DATE', 7, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'UPLOADUSERDISPLAYNAME', 0, '上传人的名称', '上传人的名称', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'UPLOADUSERGUID', 0, '上传人Guid', '上传人Guid', 'VARCHAR2', 50, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('HUIYUAN_ATTACHINFO', 'ZUOFEIREASON', 0, '作废原因', '作废原因', 'VARCHAR2', 500, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+--2
+
+insert into as_table (TAB_ID, MASTER_TAB_ID, TAB_NA, TAB_DESC, DB_VER_NO, TRAD_VER_NO, LSTDATE, PRE_VALSET, IS_TABLE)
+values ('HUIYUAN_ATTACHINFO', 'HUIYUAN_ZFCG_GONGYINGZIZHI', '附件信息', '附件信息', null, null, null, null, 'Y');
+
+--3
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_ATTACHFILENAME', 'C', '附件名称');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_ATTACHGUID', 'C', '附件Guid');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_ATTACHLENGTH', 'C', '文件大小');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_ATTACH_CONNECTIONSTRINGNAME', 'C', '附件连接名称');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_AUDITSTATUS', 'C', '审核状态正式');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_AUDITSTATUS_TEMP', 'C', '审核状态临时');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_BEIZHU', 'C', '说明');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_BIANGENGDATE', 'C', '变更日期');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_CLIENTGUID', 'C', '拥有者ID');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_CLIENTTYPE', 'C', '拥有者类型');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_CONTENTTYPE', 'C', '文件类型');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_DANWEIGUID', 'C', '单位唯一标识');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_ISBIANGENG', 'C', '是否变更');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_ISREALZUOFEI', 'C', '是否已作废');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_MODULETYPE', 'C', '附件类型');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_SORT', 'C', '排序');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_UPLOADDATETIME', 'C', '上传时间');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_UPLOADUSERDISPLAYNAME', 'C', '上传人的名称');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_UPLOADUSERGUID', 'C', '上传人Guid');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('HUIYUAN_ATTACHINFO_ZUOFEIREASON', 'C', '作废原因');
+
+--4
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A001', '企业法人营业执照', 1, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A002', '企业资质等级证书(工程类)', 2, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A003', '安全生产许可证', 3, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A004', '组织机构代码证', 4, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A006', '国家税务登记证', 5, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A007', '地方税务登记证', 6, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A050', '企业资质等级证书(监理类)', 7, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A051', '企业资质等级证书(服务货物类)', 8, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A060', '企业资质等级证书(工程建设招标代理类)', 9, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A062', '企业资质等级证书(项目管理类)', 10, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A063', '企业资质等级证书(勘察类)', 11, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A064', '企业资质等级证书(设计类)', 12, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A089', '法人授权委托书', 13, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A090', '诚信承诺书', 14, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A091', '企业基本账户开户许可证', 15, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A092', '法人个人照片', 16, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1001', '安全、质量、环保等管理体系认证证书', 17, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A101', '建造师证书', 18, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A102', '项目经理身份证', 19, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A104', '项目经理学历证书', 20, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A105', '项目经理社保', 21, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A107', '项目经理个人照片', 22, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A108', '项目经理职称证', 23, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A111', '项目经理劳动合同', 24, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A191', '项目经理毕业证', 25, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1101', '注册监理工程师证书', 26, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1102', '总监身份证', 27, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1103', '总监职称证书', 28, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1104', '总监学历证书', 29, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1105', '总监社会保险证明', 30, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1106', '总监个人照片', 31, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1109', '总监劳动合同', 32, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1199', '总监其他材料', 33, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1501', '勘察工程师执业人员注册证书', 34, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1506', '勘察工程师个人照片', 35, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1507', '勘察工程师身份证', 36, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1508', '勘察工程师职称证', 37, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1509', '勘察工程师学历证明', 38, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1601', '设计工程师执业人员注册证书', 39, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1602', '设计工程师个人照片', 40, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1603', '设计工程师身份证', 41, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1604', '设计工程师职称证', 42, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1605', '设计工程师学历证明', 43, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1701', '代理人员照片', 44, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1702', '代理人员身份证', 45, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1703', '代理人员职称证', 46, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1704', '工程建设类执业人员注册证书', 47, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1708', '代理人员劳动合同', 48, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1709', '代理人员学历证明', 49, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1710', '代理人员其他', 50, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1711', '代理人员社会保险', 51, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A1712', '代理人员人事档案关系', 52, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A201', '企业主要负责人安全生产考核合格证', 53, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A202', '项目经理安全生产考核合格证书(B证)', 54, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A203', '专职安全生产管理人员的安全生产考核合格证', 55, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A2301', '勘察工程师劳动合同', 56, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A2302', '勘察工程师养老保险证明', 57, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A2399', '勘察工程师其他材料', 58, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A2401', '设计工程师劳动合同', 59, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A2402', '设计工程师养老保险证明', 60, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A2499', '设计工程师其他材料', 61, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A301', '五大员职称证（执业证或上岗证书）', 62, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A302', '五大员社保证明', 63, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A393', '五大员劳动合同', 64, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A394', '五大员个人照片', 65, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A399', '五大员其他', 66, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A4201', '咨询人员个人照片', 67, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A4202', '咨询人员身份证', 68, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A4203', '咨询人员职称证明', 69, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A4204', '咨询人员学历证明', 70, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A4205', '咨询人员执业资格', 71, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A5101', '咨询人员社会保险', 72, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A5102', '咨询人员劳动合同', 73, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A5001', '企业资质等级证书(咨询企业)', 74, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A501', '业绩中标通知书', 75, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A502', '业绩合同协议书', 76, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A503', '工程竣工验收证明', 77, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A601', '财务会计报表', 78, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A6601', '母公司营业执照', 79, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A6602', '母公司资质证书', 80, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A6603', '分支机构负责人和技术负责人简历', 81, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A6605', '办理分支机构备案的授权委托书', 82, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A6606', '人均不少于10平方米的分支机构办公场所证明文件或租赁合同', 83, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A701', '工程获奖证书或颁奖部门的相关文件', 84, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A702', '重合同守信用企业', 85, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A703', '银行资信等级等信誉证书', 86, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_HUIYUAN_ATTACH_TYPE', 'A799', '其他信誉相关类证书', 87, null, 'N', to_date('02-02-2016 00:01:46', 'dd-mm-yyyy hh24:mi:ss'));
+
+--5
+
+----------20160201-----------------------
+--1
+ -- Drop primary, unique and foreign key constraints 
+alter table ZC_EB_PROJ_ZBFILE
+  drop constraint PK_ZC_EB_PROJ_ZBFILE cascade;
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table ZC_EB_PROJ_ZBFILE
+  add constraint PKK_ZC_EB_PROJ_ZBFILE primary key (PROJ_CODE)
+  using index 
+  tablespace UFGOV
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    minextents 1
+    maxextents unlimited
+  );
+  --2
+  
+alter table ZC_EB_PROJ_ZBFILE modify file_id null;
+
+
+
+
+----------20160128-----------------------
+--1
+
+insert into as_option (OPT_ID, CO_CODE, COMPO_ID, TRANS_TYPE, OPT_VAL, IS_SYST_OPT)
+values ('OPT_ZC_SAVE_BULLETIN_PUBLISH_FILE', '*', '*', '*', 'Y', 'Y');
+
 ----------20160115-----------------------
 --1
 

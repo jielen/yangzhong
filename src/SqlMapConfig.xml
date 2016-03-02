@@ -226,5 +226,6 @@
      <sqlMap resource="sqlmap/zc/HuiyuanAttachinfoStrorageMapper.xml"/>
      <sqlMap resource="sqlmap/zc/ZcEbChangdiMapper.xml"/>
      <sqlMap resource="sqlmap/zc/ZcEbChangdiUsedMapper.xml"/>
+     <sqlMap resource="sqlmap/zc/ZcMobileMsgMapper.xml"/>
      
 </sqlMapConfig>

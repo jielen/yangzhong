@@ -47,7 +47,11 @@ public class HuiyuanAttachinfo extends ZcBaseBill {
 
   public static final String ZC_HUIYUAN_ATTACH_MODULE_TYPE = "ZC_HUIYUAN_ATTACH_MODULE_TYPE";//附件类型
 
-  public static final String ZC_VS_HUIYUAN_ATTACH_TYPE = "ZC_VS_HUIYUAN_ATTACH_TYPE";//附件类型
+  public static final String VS_HUIYUAN_ATTACH_TYPE = "VS_HUIYUAN_ATTACH_TYPE";//附件类型
+
+  public static final String VS_HUIYUAN_AUDIT_STATUS = "VS_HUIYUAN_AUDIT_STATUS";//审核状态
+
+  public static final String VS_HUIYUAN_SHI_FOU_ZUO_FEI = "VS_HUIYUAN_SHI_FOU_ZUO_FEI";//是否已作废
 
   /**
    * 

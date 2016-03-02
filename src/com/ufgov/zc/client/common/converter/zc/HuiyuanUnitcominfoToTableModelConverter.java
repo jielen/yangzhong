@@ -324,6 +324,63 @@ public class HuiyuanUnitcominfoToTableModelConverter {
     return tm;
   }
 
+  //浏览模式，只有文件可以下载
+  public TableModel convertAttachInfoTableData2(List attachInfoLst) {
+    // TCJLODO Auto-generated method stub
+
+    BeanTableModel<HuiyuanAttachinfo> tm = new BeanTableModel<HuiyuanAttachinfo>() {
+      /**
+       * 
+       */
+      private static final long serialVersionUID = 1614780332598039135L;
+
+      @Override
+      public boolean isCellEditable(int row, int column) {
+
+        String columnId = this.getColumnIdentifier(column);
+        if (HuiyuanAttachinfo.COL_ATTACHFILENAME.equals(columnId)) { return true; }
+        return false;
+      }
+
+      @Override
+      public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+
+        HuiyuanAttachinfo bean = dataBeanList.get(rowIndex);
+
+        String currentColName = this.getColumnIdentifier(columnIndex);
+
+        if (aValue instanceof BaseElement) {
+
+          BeanUtil.set(columnBeanPropertyPairList.get(columnIndex).getBeanPropertyName(), ((BaseElement) aValue).getName(), bean);
+
+          fireTableCellUpdated(rowIndex, columnIndex);
+
+          putEditedData(dataBeanList.get(rowIndex));
+
+        } else if (HuiyuanAttachinfo.COL_ATTACHFILENAME.equals(this.getColumnIdentifier(columnIndex))) {
+
+          if (aValue == null) {
+            this.getBean(rowIndex).setStorage(null);
+            this.getBean(rowIndex).setAttachfilename(null);
+            this.getBean(rowIndex).setAttachguid(null);
+          } else {
+            HuiyuanAttachinfoStrorage st = (HuiyuanAttachinfoStrorage) aValue;
+            this.getBean(rowIndex).setStorage(st);
+            this.getBean(rowIndex).setAttachfilename(st.getAttachfilename());
+            this.getBean(rowIndex).setAttachguid(st.getAttachguid());
+          }
+          fireTableCellUpdated(rowIndex, columnIndex);
+          putEditedData(dataBeanList.get(rowIndex));
+        } else {
+          super.setValueAt(aValue, rowIndex, columnIndex);
+        }
+      }
+    };
+    tm.setOidFieldName("attachguid");
+    tm.setDataBean(attachInfoLst, attchInfo);
+    return tm;
+  }
+
   private static List<ColumnBeanPropertyPair> attchInfo = new ArrayList<ColumnBeanPropertyPair>();
 
   static {

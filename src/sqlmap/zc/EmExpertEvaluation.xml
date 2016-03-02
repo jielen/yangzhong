@@ -157,6 +157,56 @@
       and e.em_bill_code = s.em_bill_code
 		
 	</select>
+	
+	<select id="listByEntrustCode" resultMap="rltMapping" 	parameterClass="map">
+		<!-- SELECT * FROM ZC_EM_EXPERT_EVALUATION E, ZC_EM_B_EXPERT T,	ZC_B_EXPERT_TYPE V
+		WHERE E.EM_EXPERT_CODE = T.EM_EXPERT_CODE
+		AND
+		E.EM_expert_TYPE_CODE = V.EM_TYPE_CODE
+		AND E.EM_RESPONSE_STATUS = '9'
+		AND E.EM_BILL_CODE = #EM_BILL_CODE# -->
+		SELECT s.em_make_code,
+          s.em_make_name,
+          e.em_bill_code,
+          e.em_expert_code,
+          e.em_notice_status,
+          e.em_response_status,
+          e.em_expert_index1,
+          e.em_expert_index2,
+          e.em_expert_index3,
+          e.em_expert_index4,
+          e.em_expert_index5,
+          e.em_expert_index6,
+          e.em_evaluation_status,
+          e.em_note_code,
+          e.em_expert_index7,
+          e.em_expert_index8,
+          e.em_expert_index9,
+          e.em_expert_index10,
+          e.em_expert_index11,
+          e.em_expert_index12,
+          e.em_expert_index13,
+          e.em_bz,
+          e.em_chouq_num,
+          e.em_expert_type_code,
+          e.em_exp_code,         
+          t.em_expert_name,
+          t.em_unit_name,
+          t.em_mobile,
+          v.em_type_code,
+          v.em_type_name,
+          v.em_parent_type_code   
+     FROM ZC_EM_EXPERT_EVALUATION E,
+          ZC_EM_B_EXPERT          T,
+          ZC_B_EXPERT_TYPE        V,
+          ZC_EM_EXPERT_PRO_BILL   s
+    WHERE E.EM_EXPERT_CODE = T.EM_EXPERT_CODE
+      AND E.EM_EXPERT_TYPE_CODE = V.EM_TYPE_CODE
+      AND E.EM_RESPONSE_STATUS = '9'
+      AND S.EM_MAKE_CODE = #ENTRUST_CODE#
+      and e.em_bill_code = s.em_bill_code
+		
+	</select>
 	<select id="listByProjCode" resultMap="evaluationMap"
 		parameterClass="map">
 		SELECT *

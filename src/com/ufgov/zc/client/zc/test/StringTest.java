@@ -19,7 +19,8 @@ public class StringTest {
     //    t.showStr();
     //    t.encode();
     //    t.longToInt();
-    t.strIndx();
+    //    t.strIndx();
+    t.subStr();
   }
 
   void strIndx() {
@@ -92,5 +93,11 @@ public class StringTest {
     System.out.println("currentTimeMillis=" + System.currentTimeMillis());
     System.out.println("currentTimeMillis int=" + ll.intValue());
 
+  }
+
+  void subStr() {
+    String emMobile = "9ttt13611387417";
+    emMobile = emMobile.substring(emMobile.length() - 11, emMobile.length());
+    System.out.println(emMobile);
   }
 }

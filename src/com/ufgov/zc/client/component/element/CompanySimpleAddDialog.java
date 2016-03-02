@@ -5,6 +5,7 @@ package com.ufgov.zc.client.component.element;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,7 +57,7 @@ public class CompanySimpleAddDialog extends GkBaseDialog {
 
   public CompanySimpleAddDialog(CompanyTreeSelectDialog companyTreeSelectDialog) {
 
-    super(companyTreeSelectDialog);
+    super(companyTreeSelectDialog, Dialog.ModalityType.APPLICATION_MODAL);
     this.companyeTreeDialog = companyTreeSelectDialog;
 
     CompanyInfoPanel editPanel = new CompanyInfoPanel(this);

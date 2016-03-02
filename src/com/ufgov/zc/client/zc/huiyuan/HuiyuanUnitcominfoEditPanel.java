@@ -59,8 +59,12 @@ import com.ufgov.zc.client.component.button.TraceButton;
 import com.ufgov.zc.client.component.button.UnauditButton;
 import com.ufgov.zc.client.component.button.UntreadButton;
 import com.ufgov.zc.client.component.button.zc.CommonButton;
+import com.ufgov.zc.client.component.table.celleditor.DateCellEditor;
 import com.ufgov.zc.client.component.table.celleditor.HuiYuanAttachFileCellEditor;
 import com.ufgov.zc.client.component.table.celleditor.TextCellEditor;
+import com.ufgov.zc.client.component.table.cellrenderer.DateCellRenderer;
+import com.ufgov.zc.client.component.table.codecelleditor.AsValComboBoxCellEditor;
+import com.ufgov.zc.client.component.table.codecellrenderer.AsValCellRenderer;
 import com.ufgov.zc.client.component.ui.fieldeditor.AbstractFieldEditor;
 import com.ufgov.zc.client.component.zc.AbstractMainSubEditPanel;
 import com.ufgov.zc.client.component.zc.fieldeditor.AsValFieldEditor;
@@ -522,10 +526,22 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
     userTablePanel.setTableModel(convert.convertUserTableData(qx.getUserLst()));
     unitBlackTablePanel.setTableModel(convert.convertUnitBlackTableData(qx.getUnitBlackLst()));
     peopleBlackTablePanel.setTableModel(convert.convertPeopleBlackTableData(qx.getPeopleBlackLst()));
-    attchInfoTablePanel.setTableModel(convert.convertAttachInfoTableData(qx.getAttachInfoLst()));
+    refreshAttachFileTable(qx);
+  }
+
+  private void refreshAttachFileTable(HuiyuanUnitcominfo qx) {
+
+    HuiyuanUnitcominfoToTableModelConverter convert = new HuiyuanUnitcominfoToTableModelConverter();
+    if (ZcSettingConstants.PAGE_STATUS_BROWSE.equals(pageStatus)) {
+      attchInfoTablePanel.setTableModel(convert.convertAttachInfoTableData2(qx.getAttachInfoLst()));
+      // 设置分包需求明细列类型
+      setAttachTableProperty2(attchInfoTablePanel.getTable());
+    } else {
+      attchInfoTablePanel.setTableModel(convert.convertAttachInfoTableData(qx.getAttachInfoLst()));
+      // 设置分包需求明细列类型
+      setAttachTableProperty(attchInfoTablePanel.getTable());
+    }
     ZcUtil.translateColName(attchInfoTablePanel.getTable(), convert.getAtachInfo());
-    // 设置分包需求明细列类型
-    setAttachTableProperty(attchInfoTablePanel.getTable());
   }
 
   private void setAttachTableProperty(JPageableFixedTable table) {
@@ -536,6 +552,40 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
     //    fileCellEditor.setDeleteFileEnable(false);
     //    fileCellEditor.setUploadFileEnable(false);
     SwingUtil.setTableCellEditor(table, HuiyuanAttachinfo.COL_ATTACHFILENAME, fileCellEditor);
+
+    SwingUtil.setTableCellEditor(table, HuiyuanAttachinfo.COL_MODULETYPE, new AsValComboBoxCellEditor(HuiyuanAttachinfo.VS_HUIYUAN_ATTACH_TYPE));
+    SwingUtil.setTableCellRenderer(table, HuiyuanAttachinfo.COL_MODULETYPE, new AsValCellRenderer(HuiyuanAttachinfo.VS_HUIYUAN_ATTACH_TYPE));
+
+    SwingUtil.setTableCellEditor(table, HuiyuanAttachinfo.COL_ISREALZUOFEI, new AsValComboBoxCellEditor(HuiyuanAttachinfo.VS_HUIYUAN_SHI_FOU_ZUO_FEI));
+    SwingUtil.setTableCellRenderer(table, HuiyuanAttachinfo.COL_ISREALZUOFEI, new AsValCellRenderer(HuiyuanAttachinfo.VS_HUIYUAN_SHI_FOU_ZUO_FEI));
+
+    SwingUtil.setTableCellEditor(table, HuiyuanAttachinfo.COL_AUDITSTATUS, new AsValComboBoxCellEditor(HuiyuanAttachinfo.VS_HUIYUAN_AUDIT_STATUS));
+    SwingUtil.setTableCellRenderer(table, HuiyuanAttachinfo.COL_AUDITSTATUS, new AsValCellRenderer(HuiyuanAttachinfo.VS_HUIYUAN_AUDIT_STATUS));
+
+    SwingUtil.setTableCellEditor(table, HuiyuanAttachinfo.COL_UPLOADDATETIME, new DateCellEditor());
+    SwingUtil.setTableCellRenderer(table, HuiyuanAttachinfo.COL_UPLOADDATETIME, new DateCellRenderer());
+  }
+
+  private void setAttachTableProperty2(JPageableFixedTable table) {
+
+    table.setDefaultEditor(String.class, new TextCellEditor());
+
+    HuiYuanAttachFileCellEditor fileCellEditor = new HuiYuanAttachFileCellEditor("attachguid", true);//itemAttachBlobid
+    fileCellEditor.setDeleteFileEnable(false);
+    fileCellEditor.setUploadFileEnable(false);
+    SwingUtil.setTableCellEditor(table, HuiyuanAttachinfo.COL_ATTACHFILENAME, fileCellEditor);
+
+    SwingUtil.setTableCellEditor(table, HuiyuanAttachinfo.COL_MODULETYPE, new AsValComboBoxCellEditor(HuiyuanAttachinfo.VS_HUIYUAN_ATTACH_TYPE));
+    SwingUtil.setTableCellRenderer(table, HuiyuanAttachinfo.COL_MODULETYPE, new AsValCellRenderer(HuiyuanAttachinfo.VS_HUIYUAN_ATTACH_TYPE));
+
+    SwingUtil.setTableCellEditor(table, HuiyuanAttachinfo.COL_AUDITSTATUS, new AsValComboBoxCellEditor(HuiyuanAttachinfo.VS_HUIYUAN_AUDIT_STATUS));
+    SwingUtil.setTableCellRenderer(table, HuiyuanAttachinfo.COL_AUDITSTATUS, new AsValCellRenderer(HuiyuanAttachinfo.VS_HUIYUAN_AUDIT_STATUS));
+
+    SwingUtil.setTableCellEditor(table, HuiyuanAttachinfo.COL_ISREALZUOFEI, new AsValComboBoxCellEditor(HuiyuanAttachinfo.VS_HUIYUAN_SHI_FOU_ZUO_FEI));
+    SwingUtil.setTableCellRenderer(table, HuiyuanAttachinfo.COL_ISREALZUOFEI, new AsValCellRenderer(HuiyuanAttachinfo.VS_HUIYUAN_SHI_FOU_ZUO_FEI));
+
+    SwingUtil.setTableCellEditor(table, HuiyuanAttachinfo.COL_UPLOADDATETIME, new DateCellEditor());
+    SwingUtil.setTableCellRenderer(table, HuiyuanAttachinfo.COL_UPLOADDATETIME, new DateCellRenderer());
   }
 
   protected void hideCol(JTable table, String colName) {
@@ -1454,6 +1504,10 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
 
     this.pageStatus = ZcSettingConstants.PAGE_STATUS_EDIT;
 
+    HuiyuanUnitcominfo inData = (HuiyuanUnitcominfo) this.listCursor.getCurrentObject();
+
+    refreshAttachFileTable(inData);
+
     updateFieldEditorsEditable();
 
     setButtonStatus();
@@ -1993,21 +2047,21 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
   public void doExit() {
     // TCJLODO Auto-generated method stub
 
-    if (isDataChanged()) {
+    /* if (isDataChanged()) {
 
-      int num = JOptionPane.showConfirmDialog(this, "当前页面数据已修改，是否要保存", "保存确认", 0);
+       int num = JOptionPane.showConfirmDialog(this, "当前页面数据已修改，是否要保存", "保存确认", 0);
 
-      if (num == JOptionPane.YES_OPTION) {
+       if (num == JOptionPane.YES_OPTION) {
 
-        if (!doSave()) {
+         if (!doSave()) {
 
-        return;
+         return;
 
-        }
+         }
 
-      }
+       }
 
-    }
+     }*/
 
     this.parent.dispose();
 
