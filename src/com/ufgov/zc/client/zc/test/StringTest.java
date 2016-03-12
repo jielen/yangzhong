@@ -3,6 +3,9 @@
  */
 package com.ufgov.zc.client.zc.test;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import com.anyi.gp.pub.GeneralFunc;
 import com.ufgov.zc.client.zc.ZcUtil;
 
@@ -20,7 +23,8 @@ public class StringTest {
     //    t.encode();
     //    t.longToInt();
     //    t.strIndx();
-    t.subStr();
+    //    t.subStr();
+    t.sort2();
   }
 
   void strIndx() {
@@ -99,5 +103,22 @@ public class StringTest {
     String emMobile = "9ttt13611387417";
     emMobile = emMobile.substring(emMobile.length() - 11, emMobile.length());
     System.out.println(emMobile);
+  }
+
+  void sort() {
+    String[] a = new String[] { "23", "1", "44", "25", "6", "100", "56" };
+    Arrays.sort(a, Collections.reverseOrder());
+    for (int i = 0; i < a.length; i++) {
+      System.out.println(a[i]);
+    }
+  }
+
+  void sort2() {
+    Integer[] a = new Integer[] { Integer.parseInt("23"), Integer.parseInt("1"), Integer.parseInt("44"), Integer.parseInt("25"), Integer.parseInt("6"), Integer.parseInt("100"), Integer.parseInt("56") };
+    //    Arrays.sort(a, Collections.reverseOrder());
+    Arrays.sort(a);
+    for (int i = 0; i < a.length; i++) {
+      System.out.println(a[i]);
+    }
   }
 }

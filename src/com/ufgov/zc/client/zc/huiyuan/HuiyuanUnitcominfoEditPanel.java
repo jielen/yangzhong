@@ -875,6 +875,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
     boolean success = true;
     String errorInfo = "";
     HuiyuanUnitcominfo inData = (HuiyuanUnitcominfo) this.listCursor.getCurrentObject();
+    inData.setExecuteDate(requestMeta.getSysDate());
     try {
       requestMeta.setFuncId(btn.getFuncId());
       HuiyuanUnitcominfo qx = huiyuanUnitcominfoServiceDelegate.upateAccountStatusFN(inData, this.requestMeta);
@@ -1061,7 +1062,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
       requestMeta.setFuncId(saveButton.getFuncId());
 
       HuiyuanUnitcominfo inData = (HuiyuanUnitcominfo) this.listCursor.getCurrentObject();
-
+      inData.setExecuteDate(requestMeta.getSysDate());
       //      System.out.println("before=" + inData.getCoCode() + inData.getCoName());
 
       HuiyuanUnitcominfo qx = huiyuanUnitcominfoServiceDelegate.saveFN(inData, this.requestMeta);
@@ -1109,7 +1110,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
       requestMeta.setFuncId(saveButton.getFuncId());
 
       HuiyuanUnitcominfo inData = (HuiyuanUnitcominfo) this.listCursor.getCurrentObject();
-
+      inData.setExecuteDate(requestMeta.getSysDate());
       inData.getZfcgGysInfo().setAuditstatus(auditStatus);
 
       HuiyuanUnitcominfo qx = huiyuanUnitcominfoServiceDelegate.updateAuditStatusFN(inData, this.requestMeta);

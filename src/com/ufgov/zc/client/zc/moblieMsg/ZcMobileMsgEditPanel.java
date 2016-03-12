@@ -58,6 +58,8 @@ import com.ufgov.zc.common.zc.model.EmExpert;
 import com.ufgov.zc.common.zc.model.EmExpertEvaluation;
 import com.ufgov.zc.common.zc.model.EmExpertSelectionBill;
 import com.ufgov.zc.common.zc.model.SmsBoxsending;
+import com.ufgov.zc.common.zc.model.ZcEbProj;
+import com.ufgov.zc.common.zc.model.ZcEbSignup;
 import com.ufgov.zc.common.zc.model.ZcMobileMsg;
 import com.ufgov.zc.common.zc.publish.IZcEbBaseServiceDelegate;
 
@@ -161,7 +163,8 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
     ZcMobileMsg qx = (ZcMobileMsg) listCursor.getCurrentObject();
     for (AbstractFieldEditor editor : fieldEditors) {
       if (pageStatus.equals(ZcSettingConstants.PAGE_STATUS_EDIT) || pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW) || pageStatus.equals(ZcSettingConstants.PAGE_STATUS_BROWSE)) {
-        if ("mobiles".equals(editor.getFieldName()) || "content".equals(editor.getFieldName()) || "id".equals(editor.getFieldName()) || "titleField".equals(editor.getFieldName())) {
+        if ("mobiles".equals(editor.getFieldName()) || "content".equals(editor.getFieldName()) || "id".equals(editor.getFieldName()) || "titleField".equals(editor.getFieldName())
+          || "comment".equals(editor.getFieldName())) {
           editor.setEnabled(true);
         } else {
           editor.setEnabled(false);
@@ -571,6 +574,11 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
     dto = new ElementConditionDto();
     ForeignEntityFieldEditor expertSelectField = new ForeignEntityFieldEditor("EmExpert.getEmExpertInfoList", dto, 20, expertHandler, expertColumNames, "从专家库引入专家", "titleField");
 
+    String projColumNames[] = { "招标编号", "招标名称" };
+    SupplierSelectBillHandler projHandler = new SupplierSelectBillHandler(projColumNames);
+    dto = new ElementConditionDto();
+    ForeignEntityFieldEditor projSelectField = new ForeignEntityFieldEditor("ZcEbProj.getZcEbProjForMobiles", dto, 20, projHandler, projColumNames, "报名的供应商", "comment");
+
     TextAreaFieldEditor mobiles = new TextAreaFieldEditor("手机(多个用,隔开)", "mobiles", -1, 2, 5);
     TextAreaFieldEditor content = new TextAreaFieldEditor(LangTransMeta.translate(ZcMobileMsg.COL_CONTENT), "content", 240, 10, 5);
 
@@ -580,6 +588,7 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
 
     editorList.add(expertSelectBillField);
     editorList.add(expertSelectField);
+    editorList.add(projSelectField);
 
     editorList.add(mobiles);
     editorList.add(content);
@@ -604,6 +613,61 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
     // TCJLODO Auto-generated method stub
 
     this.parent.dispose();
+
+  }
+
+  private class SupplierSelectBillHandler implements IForeignEntityHandler {
+
+    private final String columNames[];
+
+    public SupplierSelectBillHandler(String columNames[]) {
+      this.columNames = columNames;
+    }
+
+    public void excute(List selectedDatas) {
+      for (Object object : selectedDatas) {
+        ZcEbProj proj = (ZcEbProj) object;
+        setSignupProj(proj);
+      }
+    }
+
+    public void afterClear() {}
+
+    public TableModel createTableModel(List showDatas) {
+
+      Object data[][] = new Object[showDatas.size()][columNames.length];
+
+      for (int i = 0; i < showDatas.size(); i++) {
+
+        ZcEbProj rowData = (ZcEbProj) showDatas.get(i);
+
+        int col = 0;
+
+        data[i][col++] = rowData.getProjCode();
+        data[i][col++] = rowData.getProjName();
+
+      }
+
+      MyTableModel model = new MyTableModel(data, columNames) {
+
+        @Override
+        public boolean isCellEditable(int row, int colum) {
+
+          return false;
+
+        }
+
+      };
+
+      return model;
+
+    }
+
+    public boolean isMultipleSelect() {
+
+      return false;
+
+    }
 
   }
 
@@ -683,6 +747,26 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
       }
       addMobiles(sb.toString());
     }
+  }
+
+  public void setSignupProj(ZcEbProj proj) {
+    if (proj == null) return;
+    ElementConditionDto dto = new ElementConditionDto();
+    dto.getPmAdjustCodeList().add(proj.getProjCode());
+    List signupLst = zcEbBaseServiceDelegate.queryDataForList("ZcEbSignup.getZcEbSignupByProjCode", dto, requestMeta);
+    if (signupLst == null || signupLst.size() == 0) { return; }
+    StringBuffer sb = new StringBuffer();
+    for (int i = 0; i < signupLst.size(); i++) {
+      ZcEbSignup signup = (ZcEbSignup) signupLst.get(i);
+      String mobile = signup.getMobilePhone() == null ? signup.getPhone() : signup.getMobilePhone();
+      if (i == 0) {
+        sb.append(mobile);
+        i++;
+      } else {
+        sb.append(",").append(mobile);
+      }
+    }
+    addMobiles(sb.toString());
   }
 
   private class ExpertSelectHandler implements IForeignEntityHandler {

@@ -39,13 +39,14 @@
     <result column="DANWEITYPE" property="danweitype" jdbcType="VARCHAR" />
     <result column="AUDITSTATUS" property="zfcgGysInfo.auditstatus" jdbcType="VARCHAR" />
     <result column="STATUSCODE" property="zfcgGysInfo.statuscode" jdbcType="VARCHAR" />
+    <result column="EXECUTE_DATE" property="executeDate" jdbcType="DATE" />
   </resultMap>
   <sql id="Base_Column_List" > 
     DANWEIGUID, DANWEINAME, AREACODE, AREANAME, UNITORGNUM, COMPANYTYPE, CHENLITIME, 
     FAREN, FARENZHIWU, FARENZHICHENG, WEBADDRESS, FARENTEL, LICENCENUM, ZHUCEZIBEN, ZHUCETYPE, 
     ZHUCEADDRESS, JINYINGFANWEI, YINGYEQIXIANFROM, YINGYEQIXIANTO, COMPANYDES, BUILDDATE, 
     MAINITEM, MIANPRODUCT, ASSISTANTITEM, ASSISTANTPRODUCT, GUOSHUINO, DISHUINO, FARENLICENCENUM, 
-    ENGLISHNAME, UNITJIANCHENG, DENGJIJIGUAN, QIYESHEBAOHAO, NIANJIANJIEGUO, DANWEITYPE
+    ENGLISHNAME, UNITJIANCHENG, DENGJIJIGUAN, QIYESHEBAOHAO, NIANJIANJIEGUO, DANWEITYPE,EXECUTE_DATE
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterClass="java.lang.String" > 
     select 
@@ -100,7 +101,7 @@
 		<isNotNull prepend="AND" property="zcText1">
 			STATUSCODE=#zcText1#
 		</isNotNull>
-   order by HUIYUAN_UNITCOMINFO.DANWEINAME desc
+   order by HUIYUAN_UNITCOMINFO.EXECUTE_DATE
   </select>
   
   <delete id="deleteByPrimaryKey" parameterClass="java.lang.String" > 
@@ -119,7 +120,7 @@
       ASSISTANTPRODUCT, GUOSHUINO, DISHUINO, 
       FARENLICENCENUM, ENGLISHNAME, UNITJIANCHENG, 
       DENGJIJIGUAN, QIYESHEBAOHAO, NIANJIANJIEGUO, 
-      DANWEITYPE)
+      DANWEITYPE,EXECUTE_DATE)
     values (#danweiguid:VARCHAR#, #danweiname:VARCHAR#, #areacode:VARCHAR#, 
       #areaname:VARCHAR#, #unitorgnum:VARCHAR#, #companytype:VARCHAR#, 
       #chenlitime:DATE#, #faren:VARCHAR#, #farenzhiwu:VARCHAR#, 
@@ -131,7 +132,7 @@
       #assistantproduct:VARCHAR#, #guoshuino:VARCHAR#, #dishuino:VARCHAR#, 
       #farenlicencenum:VARCHAR#, #englishname:VARCHAR#, #unitjiancheng:VARCHAR#, 
       #dengjijiguan:VARCHAR#, #qiyeshebaohao:VARCHAR#, #nianjianjieguo:VARCHAR#, 
-      #danweitype:VARCHAR#)
+      #danweitype:VARCHAR#,#executeDate:DATE#)
   </insert> 
   <update id="updateByPrimaryKey" parameterClass="com.ufgov.zc.common.zc.model.HuiyuanUnitcominfo" > 
     update HUIYUAN_UNITCOMINFO
@@ -167,7 +168,8 @@
       DENGJIJIGUAN = #dengjijiguan:VARCHAR#,
       QIYESHEBAOHAO = #qiyeshebaohao:VARCHAR#,
       NIANJIANJIEGUO = #nianjianjieguo:VARCHAR#,
-      DANWEITYPE = #danweitype:VARCHAR#
+      DANWEITYPE = #danweitype:VARCHAR#,
+      EXECUTE_DATE = #executeDate:DATE#
     where DANWEIGUID = #danweiguid:VARCHAR#
   </update>
   

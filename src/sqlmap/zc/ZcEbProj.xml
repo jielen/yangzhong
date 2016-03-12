@@ -3988,5 +3988,12 @@
                 #pmAdjustCodeList[]#
             </iterate>
 	</select>
+	
+	<select id="getZcEbProjForMobiles" resultMap="ZcEbProjResult"	parameterClass="elementCondition">
+		select * from zc_eb_proj p 
+		where  p.pur_type!='5'
+		and exists(select * from zc_eb_signup s
+		where s.proj_code=p.proj_code)
+	</select>
 </sqlMap>
 

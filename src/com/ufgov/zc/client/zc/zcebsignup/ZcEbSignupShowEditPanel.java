@@ -58,6 +58,9 @@ import com.ufgov.zc.client.component.button.FuncButton;
 import com.ufgov.zc.client.component.button.HelpButton;
 import com.ufgov.zc.client.component.button.NextButton;
 import com.ufgov.zc.client.component.button.PreviousButton;
+import com.ufgov.zc.client.component.button.PrintButton;
+import com.ufgov.zc.client.component.button.PrintPreviewButton;
+import com.ufgov.zc.client.component.button.PrintSettingButton;
 import com.ufgov.zc.client.component.button.SaveButton;
 import com.ufgov.zc.client.component.button.SubaddButton;
 import com.ufgov.zc.client.component.button.SubdelButton;
@@ -88,6 +91,9 @@ import com.ufgov.zc.client.component.zc.fieldeditor.SupplierFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.TextAreaFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.TextFieldEditor;
 import com.ufgov.zc.client.datacache.AsValDataCache;
+import com.ufgov.zc.client.print.PrintPreviewer;
+import com.ufgov.zc.client.print.PrintSettingDialog;
+import com.ufgov.zc.client.print.Printer;
 import com.ufgov.zc.client.util.SwingUtil;
 import com.ufgov.zc.client.zc.ButtonStatus;
 import com.ufgov.zc.client.zc.ZcUtil;
@@ -97,6 +103,7 @@ import com.ufgov.zc.common.system.constants.ZcElementConstants;
 import com.ufgov.zc.common.system.constants.ZcSettingConstants;
 import com.ufgov.zc.common.system.constants.ZcValSetConstants;
 import com.ufgov.zc.common.system.dto.ElementConditionDto;
+import com.ufgov.zc.common.system.dto.PrintObject;
 import com.ufgov.zc.common.system.util.DigestUtil;
 import com.ufgov.zc.common.system.util.ObjectUtil;
 import com.ufgov.zc.common.zc.ZcEbBulletinConstants;
@@ -155,6 +162,12 @@ public class ZcEbSignupShowEditPanel extends AbstractMainSubEditPanel {
   private final FuncButton bidButton = new CommonButton("zc_fsignup", "报名", "audit.jpg");
 
   private final FuncButton unBidButton = new CommonButton("zc_funsignup", "撤销报名", "callback.jpg");
+
+  private PrintButton printButton = new PrintButton();
+
+  private PrintPreviewButton printPreviewButton = new PrintPreviewButton();
+
+  private PrintSettingButton printSettingButton = new PrintSettingButton();
 
   private final ListCursor listCursor;
 
@@ -266,6 +279,9 @@ public class ZcEbSignupShowEditPanel extends AbstractMainSubEditPanel {
         helpButton.setEnabled(false);
         bidButton.setEnabled(false);
         unBidButton.setEnabled(false);
+        printButton.setEnabled(true);
+        printPreviewButton.setEnabled(true);
+        printSettingButton.setEnabled(true);
       } else {
         saveButton.setEnabled(true);
         editButton.setEnabled(true);
@@ -273,6 +289,9 @@ public class ZcEbSignupShowEditPanel extends AbstractMainSubEditPanel {
         helpButton.setEnabled(true);
         bidButton.setEnabled(false);
         unBidButton.setEnabled(false);
+        printButton.setEnabled(false);
+        printPreviewButton.setEnabled(false);
+        printSettingButton.setEnabled(false);
       }
     }
 
@@ -545,6 +564,8 @@ public class ZcEbSignupShowEditPanel extends AbstractMainSubEditPanel {
       }
     }
     refreshSubTableData();
+
+    listCursor.setCurrentObject(signup);
 
     setOldObject();
     //具有采购中心供应商报名角色的人，并且是新增状态，可用选择供应商
@@ -1908,6 +1929,12 @@ public class ZcEbSignupShowEditPanel extends AbstractMainSubEditPanel {
 
     toolBar.add(helpButton);
 
+    toolBar.add(printButton);
+
+    toolBar.add(printPreviewButton);
+
+    toolBar.add(printSettingButton);
+
     addButton.addActionListener(new ActionListener() {
 
       public void actionPerformed(ActionEvent e) {
@@ -2039,6 +2066,113 @@ public class ZcEbSignupShowEditPanel extends AbstractMainSubEditPanel {
       }
 
     });
+
+    printButton.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+
+        doPrint();
+
+      }
+
+    });
+
+    printPreviewButton.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+
+        doPrintPreview();
+
+      }
+
+    });
+
+    printSettingButton.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+
+        doPrintSetting();
+
+      }
+
+    });
+
+  }
+
+  private void doPrint() {
+    this.requestMeta.setFuncId(this.printButton.getFuncId());
+
+    this.requestMeta.setPageType(this.compoId + "_L");
+
+    boolean success = true;
+
+    boolean printed = false;
+
+    try {
+      ZcEbSignup signup = (ZcEbSignup) this.listCursor.getCurrentObject();
+      PrintObject printObject = this.zcEbSignupServiceDelegate.getSignupSuppliersPrintObject(signup, this.requestMeta);
+      if (Printer.print(printObject))
+
+      printed = true;
+
+    } catch (Exception e) {
+
+      success = false;
+
+      logger.error(e.getMessage(), e);
+
+      JOptionPane.showMessageDialog(this, "打印出错！\n" + e.getMessage(), "错误", 0);
+
+    }
+
+    if (!success) {
+
+    return;
+
+    }
+
+  }
+
+  private void doPrintPreview() {
+
+    requestMeta.setFuncId(printPreviewButton.getFuncId());
+
+    this.requestMeta.setPageType(this.compoId + "_L");
+
+    try {
+      ZcEbSignup signup = (ZcEbSignup) this.listCursor.getCurrentObject();
+
+      PrintObject printObject = this.zcEbSignupServiceDelegate.getSignupSuppliersPrintObject(signup, this.requestMeta);
+
+      PrintPreviewer previewer = new PrintPreviewer(printObject) {
+
+        private static final long serialVersionUID = -2062795877986561088L;
+
+        protected void afterSuccessPrint() {
+
+        }
+
+      };
+
+      previewer.preview();
+
+    } catch (Exception e) {
+
+      logger.error(e.getMessage(), e);
+
+      JOptionPane.showMessageDialog(this, "打印预览出错！\n" + e.getMessage(), "错误", 0);
+
+    }
+
+  }
+
+  private void doPrintSetting() {
+
+    this.requestMeta.setFuncId(this.printSettingButton.getFuncId());
+
+    this.requestMeta.setPageType(this.compoId + "_L");
+
+    new PrintSettingDialog(this.requestMeta);
 
   }
 

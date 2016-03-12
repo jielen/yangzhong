@@ -8,6 +8,7 @@
 	<typeAlias alias="asEmp" type="com.ufgov.zc.common.console.model.AsEmp"/>
 	<typeAlias alias="asUserGroup" type="com.ufgov.zc.common.console.model.AsUserGroup"/>
 	<typeAlias alias="asEmpPosition" type="com.ufgov.zc.common.commonbiz.model.Position"/>
+	<typeAlias alias="elementCondition"		type="com.ufgov.zc.common.system.dto.ElementConditionDto" />
 	
 	<resultMap id="userResult" class="com.ufgov.zc.common.system.model.User">
 		<result property="userId" column="user_id" />
@@ -162,4 +163,31 @@
 		  (#cocode:VARCHAR#,#posicode:VARCHAR#,#orgcode:VARCHAR#,#leaderposiid:VARCHAR#,#nd:VARCHAR#)
 	</insert>
 	
+    <select id="getCoUser" resultMap="userResult" parameterClass="elementCondition">
+        Select u.user_id,u.user_name,u.passwd  from as_user u,ma_company m
+		where substr(u.user_id,0,6)=m.co_code
+		and m.nd=#nd#
+		order by u.user_id
+    </select>
+    
+    <select id="getGysUser" resultMap="userResult" parameterClass="elementCondition">
+        Select u.user_id,u.user_name,u.passwd  from huiyuan_user h,as_user u
+		where h.loginid=u.user_id
+		order by h.displayname desc
+    </select>
+    
+    <select id="getJyzxUser" resultMap="userResult" parameterClass="elementCondition">
+        Select u.user_id,u.user_name,u.passwd  from as_user u,ma_company m,as_emp_position ep
+		where u.user_id=ep.emp_code
+		and m.co_code=ep.co_code
+		and ep.nd=#nd#
+		and m.nd=#nd#
+		and m.co_code='040009'
+		order by u.user_id
+    </select>
+    <update id="updateUserPwd" parameterClass="com.ufgov.zc.common.system.model.User">
+		UPDATE as_user
+		  SET passwd=#password:VARCHAR#
+		WHERE user_id=#userId:VARCHAR# 	
+	</update>
 </sqlMap>

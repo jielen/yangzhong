@@ -311,6 +311,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
       addDefaultUser(record, requestMeta);
     }
     huiyuanZfcgGongyinginfoMapper.updateAuditStatusFN(record.getZfcgGysInfo());
+    huiyuanUnitcominfoMapper.updateByPrimaryKey(record);
     record.setDbDigest(record.digest());
     return record;
   }
@@ -429,6 +430,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
     } else {
       return inData;
     }
+    huiyuanUnitcominfoMapper.updateByPrimaryKey(inData);
     huiyuanZfcgGongyinginfoMapper.updateByPrimaryKey(inData.getZfcgGysInfo());
     return selectByPrimaryKey(inData.getDanweiguid(), requestMeta);
   }
