@@ -101,7 +101,7 @@
 		<isNotNull prepend="AND" property="zcText1">
 			STATUSCODE=#zcText1#
 		</isNotNull>
-   order by HUIYUAN_UNITCOMINFO.EXECUTE_DATE
+   order by HUIYUAN_UNITCOMINFO.EXECUTE_DATE desc
   </select>
   
   <delete id="deleteByPrimaryKey" parameterClass="java.lang.String" > 

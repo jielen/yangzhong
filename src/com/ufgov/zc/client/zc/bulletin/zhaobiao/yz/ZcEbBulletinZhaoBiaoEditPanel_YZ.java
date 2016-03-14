@@ -963,7 +963,6 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
     if (!checkBeforeSave()) { return; }
 
     ZcEbBulletin bulletin = (ZcEbBulletin) this.listCursor.getCurrentObject();
-
     Hashtable userData = new Hashtable();
     userData.put("bulletin", bulletin);
     ITemplateToDocumentHandler handler = TemplateToDocumentFactory.getInstance().getHandler(bulletin.getBulletinType());
@@ -1045,6 +1044,13 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
       error.append(LangTransMeta.translate(ZcEbPlan.COL_BID_END_TIME)).append("\n");
     }
     if (!curObj.getZcEbProj().getPurType().equals(ZcSettingConstants.PITEM_OPIWAY_XJ)) {
+
+      if (curObj.getZcEbPlan().getSellStartTime() == null) {
+        error.append(LangTransMeta.translate(ZcEbPlan.COL_SELL_START_TIME)).append("\n");
+      }
+      if (curObj.getZcEbPlan().getSellEndTime() == null) {
+        error.append(LangTransMeta.translate(ZcEbPlan.COL_SELL_END_TIME)).append("\n");
+      }
       if (curObj.getZcEbPlan().getOpenBidTime() == null) {
         error.append(LangTransMeta.translate(ZcEbPlan.COL_OPEN_BID_TIME)).append("\n");
       }
@@ -1538,12 +1544,15 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
               }
             }*/
     }
+    if (!completePlan()) { return false; }
     if (bulletin.getZcEbPlan() != null) {
-      if (bulletin.getZcEbPlan().getSellStartTime() != null && bulletin.getZcEbPlan().getBidEndTime() != null
-        && bulletin.getZcEbPlan().getSellStartTime().after(bulletin.getZcEbPlan().getBidEndTime())) {
-        errorInfo.append(LangTransMeta.translate(ZcEbPlan.COL_SELL_START_TIME)).append("不能晚于").append(LangTransMeta.translate(ZcEbPlan.COL_BID_END_TIME)).append("\n");
+      if (bulletin.getZcEbPlan().getSellStartTime().after(bulletin.getZcEbPlan().getSellEndTime())) {
+        errorInfo.append(LangTransMeta.translate(ZcEbPlan.COL_SELL_START_TIME)).append("不能晚于").append(LangTransMeta.translate(ZcEbPlan.COL_SELL_END_TIME)).append("\n");
       }
-      if (bulletin.getZcEbPlan().getBidEndTime() != null && bulletin.getZcEbPlan().getOpenBidTime() != null && bulletin.getZcEbPlan().getBidEndTime().after(bulletin.getZcEbPlan().getOpenBidTime())) {
+      if (bulletin.getZcEbPlan().getSellEndTime().after(bulletin.getZcEbPlan().getBidEndTime())) {
+        errorInfo.append(LangTransMeta.translate(ZcEbPlan.COL_SELL_END_TIME)).append("不能晚于").append(LangTransMeta.translate(ZcEbPlan.COL_BID_END_TIME)).append("\n");
+      }
+      if (bulletin.getZcEbPlan().getBidEndTime().after(bulletin.getZcEbPlan().getOpenBidTime())) {
         errorInfo.append(LangTransMeta.translate(ZcEbPlan.COL_BID_END_TIME)).append("不能晚于").append(LangTransMeta.translate(ZcEbPlan.COL_OPEN_BID_TIME)).append("\n");
       }
     }
@@ -1552,7 +1561,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
       return false;
     }
 
-    return completePlan();
+    return true;
 
   }
 
@@ -2429,7 +2438,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
     Integer[] allowMinutes = { 0, 10, 20, 30, 40, 50 };
 
     DateFieldEditor sellStartTimeField = new DateFieldEditor(LangTransMeta.translate(ZcEbPlan.COL_SELL_START_TIME), "zcEbPlan.sellStartTime", DateFieldEditor.TimeTypeH24, allowMinutes, true);
-    DateFieldEditor sellEndTimeField = new DateFieldEditor("报名截止时间", "zcEbPlan.sellEndTime", DateFieldEditor.TimeTypeH24, allowMinutes, true);
+    DateFieldEditor sellEndTimeField = new DateFieldEditor(LangTransMeta.translate(ZcEbPlan.COL_SELL_END_TIME), "zcEbPlan.sellEndTime", DateFieldEditor.TimeTypeH24, allowMinutes, true);
 
     bidEndTime = new DateFieldEditor(LangTransMeta.translate(ZcEbPlan.COL_BID_END_TIME), "zcEbPlan.bidEndTime", DateFieldEditor.TimeTypeH24, allowMinutes, true);
 
@@ -2457,13 +2466,14 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
     editorList.add(fieldBulletinStatus);
 
     editorList.add(purTypeEditor);
+    editorList.add(sellStartTimeField);
     editorList.add(sellEndTimeField);
-    editorList.add(bidEndTime);
 
+    editorList.add(bidEndTime);
     editorList.add(openBidTime);
     editorList.add(openBidAddress);
-    editorList.add(fieldInputDate);
 
+    editorList.add(fieldInputDate);
     editorList.add(zcImpFile);
 
     return editorList;
@@ -2476,7 +2486,8 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
     if (bidEndTime.getField().getDate() != null && openBidTime.getField().getDate() == null) {
       //      openBidTime.getField().setDate(bidEndTime.getField().getDate());
       bulletin.getZcEbPlan().setOpenBidTime(bidEndTime.getField().getDate());
-      bulletin.getZcEbPlan().setSellEndTime(bidEndTime.getField().getDate());
+
+      //      bulletin.getZcEbPlan().setSellEndTime(bidEndTime.getField().getDate());
       openBidTime.setValue(bulletin);
     }
   }

@@ -42,13 +42,20 @@ public class HuiyuanUnitcominfoToTableModelConverter {
     names.add(LangTransMeta.translate(HuiyuanUnitcominfo.COL_DANWEINAME));
     names.add(LangTransMeta.translate(HuiyuanZfcgGongyinginfo.COL_AUDITSTATUS));
     names.add(LangTransMeta.translate(HuiyuanZfcgGongyinginfo.COL_STATUSCODE));
+    names.add("操作时间");
     if (mainDataLst != null && mainDataLst.size() > 0) {
+      SimpleDateFormat df = new SimpleDateFormat(ZcSettingConstants.SIMPLE_DATE_FORMAT_DATE_ONLY);
       for (int i = 0; i < mainDataLst.size(); i++) {
         Vector rowData = new Vector();
         HuiyuanUnitcominfo qx = (HuiyuanUnitcominfo) mainDataLst.get(i);
         rowData.add(qx.getDanweiname());
         rowData.add(AsValDataCache.getName(ZcSettingConstants.V_HUI_YUAN_AUDIT_STATUS, qx.getZfcgGysInfo().getAuditstatus()));
         rowData.add(AsValDataCache.getName(ZcSettingConstants.V_HUI_YUAN_ACCOUNT_STATUS, qx.getZfcgGysInfo().getStatuscode()));
+        if (qx.getExecuteDate() != null) {
+          rowData.add(df.format(qx.getExecuteDate()));
+        } else {
+          rowData.add("");
+        }
         values.add(rowData);
       }
     }
