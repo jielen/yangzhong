@@ -2427,19 +2427,19 @@ public class ZcEbBulletinZhaoBiaoEditPanel extends AbstractMainSubEditPanel {
   private String getBulletinType(String purType) {
     // TCJLODO Auto-generated method stub
     String rtn = null;
-    if (ZcSettingConstants.PITEM_OPIWAY_GKZB.equals(purType)) {
+    if (ZcSettingConstants.ZC_CGFS_GKZB.equals(purType)) {
       rtn = ZcEbBulletin.ZHAOBIAO_GKZB;
-    } else if (ZcSettingConstants.PITEM_OPIWAY_JZXTP.equals(purType)) {
+    } else if (ZcSettingConstants.ZC_CGFS_JZXTP.equals(purType)) {
       rtn = ZcEbBulletin.ZHAOBIAO_JZXTP;
-    } else if (ZcSettingConstants.PITEM_OPIWAY_YQZB.equals(purType)) {
+    } else if (ZcSettingConstants.ZC_CGFS_YQZB.equals(purType)) {
       rtn = ZcEbBulletin.ZHAOBIAO_YQZB;
-    } else if (ZcSettingConstants.PITEM_OPIWAY_DYLY.equals(purType)) {
+    } else if (ZcSettingConstants.ZC_CGFS_DYLY.equals(purType)) {
       rtn = ZcEbBulletin.ZHAOBIAO_DYLY;
-    } else if (ZcSettingConstants.PITEM_OPIWAY_XJ.equals(purType)) {
+    } else if (ZcSettingConstants.ZC_CGFS_XJ.equals(purType)) {
       rtn = ZcEbBulletin.ZHAOBIAO_XJ;
-    } else if (ZcSettingConstants.PITEM_OPIWAY_QT.equals(purType)) {
+    } else if (ZcSettingConstants.ZC_CGFS_QT.equals(purType)) {
       rtn = ZcEbBulletin.ZHAOBIAO_QT;
-    } else if (ZcSettingConstants.PITEM_OPIWAY_ZXJJ.equals(purType)) {
+    } else if (ZcSettingConstants.ZC_CGFS_ZXJJ.equals(purType)) {
       rtn = ZcEbBulletin.ZHAOBIAO_ZXJJ;
     }
     return rtn;

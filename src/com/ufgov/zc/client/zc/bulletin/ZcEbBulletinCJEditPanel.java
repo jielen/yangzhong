@@ -45,7 +45,7 @@ public class ZcEbBulletinCJEditPanel extends AbstractZcEbBulletinEditPanel {
   public String getOpiWay() {
     StringBuffer sb = new StringBuffer();
 
-    sb.append("'").append(ZcSettingConstants.PITEM_OPIWAY_JZXTP).append("'");
+    sb.append("'").append(ZcSettingConstants.ZC_CGFS_JZXTP).append("'");
 
     return sb.toString();
   }

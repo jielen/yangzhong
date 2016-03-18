@@ -661,7 +661,13 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
     if ("y".equalsIgnoreCase(ZcSUtil.getAsOptionVal(ZcSettingConstants.OPT_ZC_SEND_TO_THIRD_WEB))) {
       ZcEbBulletinPublishUtil pu = new ZcEbBulletinPublishUtil();
       //      pu.publishBulletin(tin);
-      pu.publishBulletin2(tin);
+      pu.publishToWw(tin);
+    }
+    //发布到财政网站，目前扬中使用
+    if ("y".equalsIgnoreCase(ZcSUtil.getAsOptionVal(ZcSettingConstants.OPT_ZC_SEND_TO_CZ_WEB))) {
+      ZcEbBulletinPublishUtil pu = new ZcEbBulletinPublishUtil();
+      //      pu.publishBulletin(tin);
+      pu.publishToCzww(tin);
     }
     System.out.println("公告更新外网结束");
 

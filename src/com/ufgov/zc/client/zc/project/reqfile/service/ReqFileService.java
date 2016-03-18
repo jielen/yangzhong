@@ -120,11 +120,11 @@ public class ReqFileService {
     packNode.setNodeType(ReqFileConstants.NODE_TYPE_PACK);
     packNode.setNodeDirPath(zcEbPack.getPackName());
 
-    if (ZcSettingConstants.PITEM_OPIWAY_DYLY.equals(zcEbPack.getPurType())) {
+    if (ZcSettingConstants.ZC_CGFS_DYLY.equals(zcEbPack.getPurType())) {
       ReqTreeNode node1 = createReqFileLeafNode(ReqFileConstants.GONGYS_DYCG, ReqFileConstants.GONGYS_DYCG_NAME, ReqFileConstants.NODE_TYPE_DOC,
         ReqFileConstants.SUFFIX_DOC);
       packNode.add(node1);
-    } else if (ZcSettingConstants.PITEM_OPIWAY_XJ.equals(zcEbPack.getPurType())) {
+    } else if (ZcSettingConstants.ZC_CGFS_XJ.equals(zcEbPack.getPurType())) {
       ReqTreeNode node1 = createReqFileLeafNode(ReqFileConstants.GONGYS_CAR, ReqFileConstants.GONGYS_CAR_NAME, ReqFileConstants.NODE_TYPE_DOC,
         ReqFileConstants.SUFFIX_DOC);
       packNode.add(node1);

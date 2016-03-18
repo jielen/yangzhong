@@ -435,7 +435,7 @@ public class ZcEbProjectSimpleListPanel extends AbstractEditListBill implements 
    * @return
    */
   private boolean toCheckZbFileAndEvalElements(ZcEbProj zcEbProj) {
-    if (ZcSettingConstants.PITEM_OPIWAY_XJ.equals(zcEbProj.getPurType())) { return false; }
+    if (ZcSettingConstants.ZC_CGFS_XJ.equals(zcEbProj.getPurType())) { return false; }
     String projCode = zcEbProj.getProjCode();
     ZbBookOperatorsService bookService = new ZbBookOperatorsService(null);
     return bookService.toCheckZbFileAndEvalElements(projCode);

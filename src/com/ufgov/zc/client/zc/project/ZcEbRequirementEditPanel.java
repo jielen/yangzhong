@@ -389,7 +389,7 @@ public class ZcEbRequirementEditPanel extends AbstractMainSubEditPanel {
         reqConfimPanel.repaint();
 
         //创建评标方法的页签
-        if (tabPane.getComponentCount() == 2 && (!ZcSettingConstants.PITEM_OPIWAY_XJ.equals(zcEbRequirement.getZcEbEntrust().getZcPifuCgfs()))) {
+        if (tabPane.getComponentCount() == 2 && (!ZcSettingConstants.ZC_CGFS_XJ.equals(zcEbRequirement.getZcEbEntrust().getZcPifuCgfs()))) {
           boolean formulaCanDelete = false;
           System.out.println("requestMeta.getSvCoCode()" + requestMeta.getSvCoCode());
           System.out.println("requirement.getZcEbEntrust().getCoCode()" + zcEbRequirement.getZcEbEntrust().getCoCode());
@@ -402,7 +402,7 @@ public class ZcEbRequirementEditPanel extends AbstractMainSubEditPanel {
         }
 
         if (tabPane.getComponentCount() == 3
-          && (ZcSettingConstants.PITEM_OPIWAY_XJ.equals(zcEbRequirement.getZcEbEntrust().getZcPifuCgfs()))) {
+          && (ZcSettingConstants.ZC_CGFS_XJ.equals(zcEbRequirement.getZcEbEntrust().getZcPifuCgfs()))) {
           tabPane.remove(zcEbReqFormulasEditPanel);
 
         }
@@ -966,7 +966,7 @@ public class ZcEbRequirementEditPanel extends AbstractMainSubEditPanel {
 
     if (this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW) || this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_EDIT)) {
 
-      if (ZcSettingConstants.PITEM_OPIWAY_DYLY.equals(temp.getZcEbEntrust().getZcPifuCgfs())) {
+      if (ZcSettingConstants.ZC_CGFS_DYLY.equals(temp.getZcEbEntrust().getZcPifuCgfs())) {
 
         for (AbstractFieldEditor fd : this.fieldEditors) {
 
@@ -999,7 +999,7 @@ public class ZcEbRequirementEditPanel extends AbstractMainSubEditPanel {
 
     } else if (this.pageStatus.equals(ZcSettingConstants.PAGE_STATUS_BROWSE)) {
 
-      if (ZcSettingConstants.PITEM_OPIWAY_DYLY.equals(temp.getZcEbEntrust().getZcPifuCgfs())) {
+      if (ZcSettingConstants.ZC_CGFS_DYLY.equals(temp.getZcEbEntrust().getZcPifuCgfs())) {
 
         for (AbstractFieldEditor fd : this.fieldEditors) {
 
@@ -1260,7 +1260,7 @@ public class ZcEbRequirementEditPanel extends AbstractMainSubEditPanel {
     }
     //创建评标方法的页签
     if (tabPane.getComponentCount() == 2
-      && (!ZcSettingConstants.PITEM_OPIWAY_XJ.equals(requirement.getZcEbEntrust().getZcPifuCgfs())) && requirement.getReqCode() != null) {
+      && (!ZcSettingConstants.ZC_CGFS_XJ.equals(requirement.getZcEbEntrust().getZcPifuCgfs())) && requirement.getReqCode() != null) {
       boolean formulaCanDelete = false;
       System.out.println("requestMeta.getSvCoCode()" + requestMeta.getSvCoCode());
       System.out.println("requirement.getZcEbEntrust().getCoCode()" + requirement.getZcEbEntrust().getCoCode());
@@ -1282,7 +1282,7 @@ public class ZcEbRequirementEditPanel extends AbstractMainSubEditPanel {
     }
     setOldObject();
     tabPane.repaint();
-    if ( ZcSettingConstants.PITEM_OPIWAY_XJ.equals(requirement.getZcEbEntrust().getZcPifuCgfs())) {
+    if ( ZcSettingConstants.ZC_CGFS_XJ.equals(requirement.getZcEbEntrust().getZcPifuCgfs())) {
       printFormulaButton.setVisible(false);
     } else {
       printFormulaButton.setVisible(true);

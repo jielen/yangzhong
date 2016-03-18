@@ -62,7 +62,7 @@ public class ZcEbBulletinGSEditPanel extends AbstractZcEbBulletinEditPanel {
   }
 
   public String getOpiWay() {
-    return "'" + ZcSettingConstants.PITEM_OPIWAY_DYLY + "'";
+    return "'" + ZcSettingConstants.ZC_CGFS_DYLY + "'";
   }
 
   protected void setFieldMoldNameStatus() {

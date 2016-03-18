@@ -1,4 +1,414 @@
 
+----------------20160318---------------	
+--1
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_PITEM_OPIWAY', '10', '线下询价', 35, null, 'N', to_date('16-03-2016 22:03:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+----------------20160315---------------	
+--1
+
+insert into as_option (OPT_ID, CO_CODE, COMPO_ID, TRANS_TYPE, OPT_VAL, IS_SYST_OPT)
+values ('OPT_ZC_SEND_TO_CZ_WEB', '*', '*', '*', 'y', 'N');
+
+----------------20160313_2---------------	 
+--1
+
+insert into as_file (FILE_ID, FILE_CONTENT, FILE_NAME, FILE_DESC, FILE_CREATOR, CONTENT_TYPE, FILE_UPLOADTIME, SUFFIX_NAME, FULL_NAME, FILE_PATH)
+values ('bulletin_zhaobiao_jzxtp', '<BLOB>', '扬中竞争性谈判.xml', 'application/msword', null, null, null, null, null, null);
+ 
+
+----------------20160313---------------
+--1
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'ADDRESS', 0, '地址', '地址', 'VARCHAR2', 100, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'AGENCY', 0, '代理机构编号', '代理机构编号', 'VARCHAR2', 60, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'BID_DOC_ID', 0, '标书存放id', '标书存放id', 'VARCHAR2', 200, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'BID_DOC_NAME', 0, '标书名称', '标书名称', 'VARCHAR2', 200, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'EMAIL', 0, '邮件', '邮件', 'VARCHAR2', 40, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'GUARANTEE_DATE', 0, '保证金缴纳时间', '保证金缴纳时间', 'DATE', 7, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'GUARANTEE_OPERATOR', 0, '保证金受理人', '保证金受理人', 'VARCHAR2', 20, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'GUARANTEE_PAY_BILL', 0, '保证金支付凭证', '保证金支付凭证', 'VARCHAR2', 200, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'GUARANTEE_PAY_TYPE', 0, '保证金支付方式，1：现金
+ 2：支票
+ 3：汇票', '保证金支付方式，1：现金
+ 2：支票
+ 3：汇票', 'VARCHAR2', 2, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'GUARANTEE_SUM', 0, '保证金金额', '保证金金额', 'NUMBER', 22, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'IS_PAY_GUARANTEE', 0, '是否支付了投标保证金，
+ 投标保证金，
+ 0：未缴纳
+ 1：已缴纳 2：已退回
+ ', '是否支付了投标保证金，
+ 投标保证金，
+ 0：未缴纳
+ 1：已缴纳 2：已退回
+ ', 'VARCHAR2', 2, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'IS_SITE', 0, '是否到现场', '是否到现场', 'VARCHAR2', 2, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'IS_SUBMIT_BID_DOC', 0, '是否提交了投标书，Y：是，N：否', '是否提交了投标书，Y：是，N：否', 'VARCHAR2', 2, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'LINKMAN', 0, '联系人', '联系人', 'VARCHAR2', 20, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'MOBILE_PHONE', 0, '手机', '手机', 'VARCHAR2', 40, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'ND', 0, '年度', '年度', 'NUMBER', 22, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'OPERATOR', 0, '报名受理人', '报名受理人', 'VARCHAR2', 200, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'ORG_CODE', 0, '处室编号', '处室编号', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'PHONE', 0, '电话', '电话', 'VARCHAR2', 40, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'PROJ_CODE', 0, '项目编号', '项目编号', 'VARCHAR2', 60, null, null, null, 'Y', null, null, 'Y', null, null, 'N', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'PROVIDER_CODE', 0, '供应商代码', '供应商代码', 'VARCHAR2', 60, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'PROVIDER_NAME', 0, '供应商名称', '供应商名称', 'VARCHAR2', 200, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'PUR_DOC_BUY_DATE', 0, '采购文件购买日期', '采购文件购买日期', 'DATE', 7, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'PUR_DOC_FEE', 0, '采购文件购买费用', '采购文件购买费用', 'NUMBER', 22, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'PUR_DOC_FEE_BILL', 0, '采购文件费用支付凭证', '采购文件费用支付凭证', 'VARCHAR2', 200, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'PUR_DOC_FEE_TYPE', 0, '采购文件费用支付方式，1：现金
+ 2：支票
+ 3：汇票', '采购文件费用支付方式，1：现金
+ 2：支票
+ 3：汇票', 'VARCHAR2', 2, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'REMARK', 0, '备注', '备注', 'VARCHAR2', 100, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'SIGNUP_FILE_ID', 0, '供应商报名上传的附件id', '供应商报名上传的附件id', 'VARCHAR2', 200, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'SIGNUP_FILE_NAME', 0, '供应商报名上传的附件名称', '供应商报名上传的附件名称', 'VARCHAR2', 200, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'SIGNUP_ID', 0, '报名编号', '报名编号', 'VARCHAR2', 100, null, null, null, 'Y', null, null, 'Y', null, null, 'N', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'SIGNUP_MANNER', 0, '报名方式', '报名方式', 'VARCHAR2', 20, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'SINGNUP_DATE', 0, '报名日期', '报名日期', 'DATE', 7, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'STATUS', 0, '报名状态，ZC_VS_SIGNUP_STATUS,
+0	未报名
+1	已报名
+', '报名状态，ZC_VS_SIGNUP_STATUS,
+0	未报名
+1	已报名
+', 'VARCHAR2', 10, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'SUBMIT_BID_DOC_TYPE', 0, '提交标书方式，1：网络，2：现场', '提交标书方式，1：网络，2：现场', 'VARCHAR2', 2, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EB_SIGNUP', 'ZIPCODE', 0, '邮政编码', '邮政编码', 'VARCHAR2', 20, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+--2
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_ADDRESS', 'C', '地址');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_AGENCY', 'C', '代理机构编号');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_BID_DOC_ID', 'C', '标书存放id');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_BID_DOC_NAME', 'C', '标书名称');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_EMAIL', 'C', '邮件');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_GUARANTEE_DATE', 'C', '保证金缴纳时间');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_GUARANTEE_OPERATOR', 'C', '保证金受理人');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_GUARANTEE_PAY_BILL', 'C', '保证金支付凭证');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_GUARANTEE_PAY_TYPE', 'C', '保证金支付方式');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_GUARANTEE_SUM', 'C', '保证金金额');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_IS_PAY_GUARANTEE', 'C', '是否支付了投标保证金');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_IS_SITE', 'C', '是否到现场');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_IS_SUBMIT_BID_DOC', 'C', '是否提交了投标书');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_LINKMAN', 'C', '联系人');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_MOBILE_PHONE', 'C', '手机');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_ND', 'C', '年度');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_OPERATOR', 'C', '报名受理人');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_ORG_CODE', 'C', '处室编号');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_PHONE', 'C', '电话');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_PROJ_CODE', 'C', '项目编号');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_PROVIDER_CODE', 'C', '供应商代码');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_PROVIDER_NAME', 'C', '供应商名称');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_PUR_DOC_BUY_DATE', 'C', '采购文件购买日期');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_PUR_DOC_FEE', 'C', '采购文件购买费用');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_PUR_DOC_FEE_BILL', 'C', '采购文件费用支付凭证');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_PUR_DOC_FEE_TYPE', 'C', '采购文件费用支付方式');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_REMARK', 'C', '备注');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_SIGNUP_FILE_ID', 'C', '供应商报名上传的附件id');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_SIGNUP_FILE_NAME', 'C', '供应商报名上传的附件名称');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_SIGNUP_ID', 'C', '报名编号');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_SIGNUP_MANNER', 'C', '报名方式');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_SINGNUP_DATE', 'C', '报名日期');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_STATUS', 'C', '报名状态');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_SUBMIT_BID_DOC_TYPE', 'C', '提交标书方式');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_SIGNUP_ZIPCODE', 'C', '邮政编码');
+
+--3
+
+insert into as_table (TAB_ID, MASTER_TAB_ID, TAB_NA, TAB_DESC, DB_VER_NO, TRAD_VER_NO, LSTDATE, PRE_VALSET, IS_TABLE)
+values ('ZC_EB_SIGNUP', 'ZC_EB_SIGNUP', '投标报名', '投标报名', null, null, null, null, 'Y');
+
+insert into as_table (TAB_ID, MASTER_TAB_ID, TAB_NA, TAB_DESC, DB_VER_NO, TRAD_VER_NO, LSTDATE, PRE_VALSET, IS_TABLE)
+values ('ZC_EB_SIGNUP_PACK', 'ZC_EB_SIGNUP', '投标报名子表', '投标报名子表', null, null, null, null, 'Y');
+
+--4
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('AGENCY', 'C', '代理机构编号');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('BID_DOC_ID', 'C', '标书存放id');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('BID_DOC_NAME', 'C', '标书名称');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('GUARANTEE_DATE', 'C', '保证金缴纳时间');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('GUARANTEE_OPERATOR', 'C', '保证金受理人');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('GUARANTEE_PAY_BILL', 'C', '保证金支付凭证');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('GUARANTEE_PAY_TYPE', 'C', '"保证金支付方式，1：现金 2：支票 3：汇票"');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('GUARANTEE_SUM', 'C', '保证金金额');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('IS_PAY_GUARANTEE', 'C', '"是否支付了投标保证金， 投标保证金， 0：未缴纳 1：已缴纳 2：已退回 "');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('IS_SITE', 'C', '是否到现场');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('IS_SUBMIT_BID_DOC', 'C', '是否提交了投标书，Y：是，N：否');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('MOBILE_PHONE', 'C', '手机');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('PUR_DOC_BUY_DATE', 'C', '采购文件购买日期');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('PUR_DOC_FEE', 'C', '采购文件购买费用');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('PUR_DOC_FEE_BILL', 'C', '采购文件费用支付凭证');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('PUR_DOC_FEE_TYPE', 'C', '"采购文件费用支付方式，1：现金 2：支票 3：汇票"');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('SIGNUP_FILE_ID', 'C', '供应商报名上传的附件id');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('SIGNUP_FILE_NAME', 'C', '供应商报名上传的附件名称');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('SIGNUP_ID', 'C', '报名编号');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('SIGNUP_MANNER', 'C', '报名方式');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('SINGNUP_DATE', 'C', '报名日期');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('SUBMIT_BID_DOC_TYPE', 'C', '提交标书方式，1：网络，2：现场');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZIPCODE', 'C', '邮政编码');
+--5
+
+insert into AS_PRINT_JASPERTEMP (PRN_COMPO_ID, PRN_TPL_JPCODE, PRN_TPL_NAME, PRN_TPL_OUTTYPE, PRN_TPL_REPORTTYPE, PRN_TPL_FIXROWCOUNT, PRN_TPL_VERSION, PRN_TPL_HANDLER, PRN_TPL_HANDLETIME, CO_CODE, IS_REPORT_VIEW)
+values ('ZC_EB_SIGNUP', 'ZC_EB_SIGNUP_L', '投标报名信息打印模板', 0, 'subTable_L', 15, 1, 'sa', null, '*', null);
+
+insert into AS_PRINT_JASPERTEMP (PRN_COMPO_ID, PRN_TPL_JPCODE, PRN_TPL_NAME, PRN_TPL_OUTTYPE, PRN_TPL_REPORTTYPE, PRN_TPL_FIXROWCOUNT, PRN_TPL_VERSION, PRN_TPL_HANDLER, PRN_TPL_HANDLETIME, CO_CODE, IS_REPORT_VIEW)
+values ('ZC_EB_RFQ', 'ZC_EB_RFQ_L', '询价开标结果', 1, 'subTable_L', 15, 1, 'sa', null, '*', null);
+
+--6
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_EB_SIGNUP', 'fprint', null, null, to_date('20-06-2013 22:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_EB_SIGNUP', 'fprint_preview', null, null, to_date('20-06-2013 22:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_EB_SIGNUP', 'fprn_tpl_set', null, null, to_date('20-06-2013 22:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+--7
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_EB_RFQ', 'fprint', null, null, to_date('20-06-2013 22:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_EB_RFQ', 'fprint_preview', null, null, to_date('20-06-2013 22:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_EB_RFQ', 'fprn_tpl_set', null, null, to_date('20-06-2013 22:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_EB_RFQ', 'fexport', null, null, to_date('20-06-2013 22:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+--8
+-- Add/modify columns 
+alter table HUIYUAN_UNITCOMINFO add execute_date date;
+-- Add comments to the columns 
+comment on column HUIYUAN_UNITCOMINFO.execute_date
+  is '操作时间';
+
+--9
+
+insert into as_compo (COMPO_ID, COMPO_NAME, MASTER_TAB_ID, TRAD_ID, COMPO_TYPE, ICON_NAME, CONDITION, NO_FIELD, TYPE_FIELD, TYPE_TABLE, PARENT_COMPO, PAGE_FIELD, DATE_FIELD, VALSET_FIELD, WF_FLOW_TYPE, WF_LIST_TYPE, DEFAULT_WF_TEMPLATE, TEMPLATE_IS_USED, IS_AUTO_LIST, ORDER_BY, IS_GRANT_TO_ALL, PRINT_TYPE, TITLE_FIELD, TITLE_DATE, WF_BRIEF_FIELDS, IS_FUNC_CONTROL)
+values ('ZC_PASSWORD', '用户密码统一管理', 'ZC_TEMP', null, 'M', null, null, null, null, null, null, null, null, null, null, null, null, 'N', 'Y', null, null, '0', null, null, null, 'ZC');
+
+--10
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_PASSWORD', 'fexit', null, null, to_date('06-01-2015 10:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_PASSWORD', 'fsave', 'Y', null, to_date('06-01-2015 10:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_PASSWORD', 'fwatch', null, null, to_date('06-01-2015 10:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+--11
+
+insert into ZC_SEARCH_CONDITION (CONDITION_ID, CONDITION_FIELD_CODE, CONDITION_FIELD_NAME, CONDITION_FIELD_ORDER, COMPO_ID, COMPO_NAME, CONDITION_NAME, CONDITION_TYPE, CONDITION_NAME_ORDER)
+values ('ZC_PASSWORD_Tab', 'gys', '供应商', 0, 'ZC_PASSWORD', null, '密码管理页签', 'tab', '301');
+
+insert into ZC_SEARCH_CONDITION (CONDITION_ID, CONDITION_FIELD_CODE, CONDITION_FIELD_NAME, CONDITION_FIELD_ORDER, COMPO_ID, COMPO_NAME, CONDITION_NAME, CONDITION_TYPE, CONDITION_NAME_ORDER)
+values ('ZC_PASSWORD_Tab', 'ysdw', '采购人', 0, 'ZC_PASSWORD', null, '密码管理页签', 'tab', '301');
+
+insert into ZC_SEARCH_CONDITION (CONDITION_ID, CONDITION_FIELD_CODE, CONDITION_FIELD_NAME, CONDITION_FIELD_ORDER, COMPO_ID, COMPO_NAME, CONDITION_NAME, CONDITION_TYPE, CONDITION_NAME_ORDER)
+values ('ZC_PASSWORD_Tab', 'qt', '其他', 0, 'ZC_PASSWORD', null, '密码管理页签', 'tab', '301');
+
+--12
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_PASSWORD', 'C', '用户密码管理');
+
+--13
+
+insert into AS_MENU_COMPO (MENU_ID, COMPO_ID, ORD_INDEX, IS_GOTO_EDIT, IS_IN_MENU, IS_ALWAYS_NEW, URL)
+values ('ZC_B_XM', 'ZC_PASSWORD', 30, 'N', 'Y', 'N', '/GB/jsp/ZC/CommonPage.jsp?className=com.ufgov.zc.client.zc.password.ZcPasswordListPanel');
+
 ----------------20160303---------------
 --1
 

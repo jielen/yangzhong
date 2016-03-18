@@ -865,7 +865,7 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
     public boolean beforeSelect(ElementConditionDto dto) {
       ZcEbSignup signup = (ZcEbSignup) listCursor.getCurrentObject();
       dto.setDattr1(signup.getProjCode());
-      if (ZcSettingConstants.PITEM_OPIWAY_YQZB.equals(signup.getPurType()) || ZcSettingConstants.PITEM_OPIWAY_DYLY.equals(signup.getPurType())) {
+      if (ZcSettingConstants.ZC_CGFS_YQZB.equals(signup.getPurType()) || ZcSettingConstants.ZC_CGFS_DYLY.equals(signup.getPurType())) {
         dto.setPurType("2");
       } else {
         dto.setPurType(null);
@@ -2810,7 +2810,7 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
 
     StringBuilder sb = new StringBuilder();
 
-    if (obj.getPurType() != null && obj.getPurType().equals(ZcSettingConstants.PITEM_OPIWAY_YQZB)) {
+    if (obj.getPurType() != null && obj.getPurType().equals(ZcSettingConstants.ZC_CGFS_YQZB)) {
 
       String providerCode = requestMeta.getSvUserID();
 
@@ -2860,7 +2860,7 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
 
     ZcEbSignup obj = (ZcEbSignup) this.listCursor.getCurrentObject();
     //单一来源的采购方式不用校验公告是否发布
-    if (obj.getPurType() != null && obj.getPurType().equals(ZcSettingConstants.PITEM_OPIWAY_DYLY)) { return true; }
+    if (obj.getPurType() != null && obj.getPurType().equals(ZcSettingConstants.ZC_CGFS_DYLY)) { return true; }
     ElementConditionDto dto = new ElementConditionDto();
 
     dto.setProjCode(obj.getProjCode());

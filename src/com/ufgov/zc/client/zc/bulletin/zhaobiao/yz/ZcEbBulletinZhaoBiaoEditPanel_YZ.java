@@ -1043,7 +1043,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
     if (curObj.getZcEbPlan().getBidEndTime() == null) {
       error.append(LangTransMeta.translate(ZcEbPlan.COL_BID_END_TIME)).append("\n");
     }
-    if (!curObj.getZcEbProj().getPurType().equals(ZcSettingConstants.PITEM_OPIWAY_XJ)) {
+    if (!curObj.getZcEbProj().getPurType().equals(ZcSettingConstants.ZC_CGFS_XJ)) {
 
       if (curObj.getZcEbPlan().getSellStartTime() == null) {
         error.append(LangTransMeta.translate(ZcEbPlan.COL_SELL_START_TIME)).append("\n");
@@ -2690,7 +2690,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
 
       StringBuffer sb = new StringBuffer();
       ZcEbProjZbFile zbfile = null;
-      if (!proj.getPurType().equals(ZcSettingConstants.PITEM_OPIWAY_XJ)) {
+      if (!proj.getPurType().equals(ZcSettingConstants.ZC_CGFS_XJ)) {
         /*if (proj.getProjFileList() == null || proj.getProjFileList().size() == 0) {
           sb.append(proj.getProjCode()).append(proj.getProjName()).append("没有招标文件，请进入").append(LangTransMeta.translate("ZC_EB_PROJ")).append("功能点，制作招标文件。\n并点击上传到服务器,再来制定招标公告");
           JOptionPane.showMessageDialog(this.parent, sb.toString(), "提示", JOptionPane.WARNING_MESSAGE);
@@ -2752,20 +2752,22 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
   private String getBulletinType(String purType) {
     // TCJLODO Auto-generated method stub
     String rtn = null;
-    if (ZcSettingConstants.PITEM_OPIWAY_GKZB.equals(purType)) {
+    if (ZcSettingConstants.ZC_CGFS_GKZB.equals(purType)) {
       rtn = ZcEbBulletin.ZHAOBIAO_GKZB;
-    } else if (ZcSettingConstants.PITEM_OPIWAY_JZXTP.equals(purType)) {
+    } else if (ZcSettingConstants.ZC_CGFS_JZXTP.equals(purType)) {
       rtn = ZcEbBulletin.ZHAOBIAO_JZXTP;
-    } else if (ZcSettingConstants.PITEM_OPIWAY_YQZB.equals(purType)) {
+    } else if (ZcSettingConstants.ZC_CGFS_YQZB.equals(purType)) {
       rtn = ZcEbBulletin.ZHAOBIAO_YQZB;
-    } else if (ZcSettingConstants.PITEM_OPIWAY_DYLY.equals(purType)) {
+    } else if (ZcSettingConstants.ZC_CGFS_DYLY.equals(purType)) {
       rtn = ZcEbBulletin.ZHAOBIAO_DYLY;
-    } else if (ZcSettingConstants.PITEM_OPIWAY_XJ.equals(purType)) {
+    } else if (ZcSettingConstants.ZC_CGFS_XJ.equals(purType)) {
       rtn = ZcEbBulletin.ZHAOBIAO_XJ;
-    } else if (ZcSettingConstants.PITEM_OPIWAY_QT.equals(purType)) {
+    } else if (ZcSettingConstants.ZC_CGFS_QT.equals(purType)) {
       rtn = ZcEbBulletin.ZHAOBIAO_QT;
-    } else if (ZcSettingConstants.PITEM_OPIWAY_ZXJJ.equals(purType)) {
+    } else if (ZcSettingConstants.ZC_CGFS_ZXJJ.equals(purType)) {
       rtn = ZcEbBulletin.ZHAOBIAO_ZXJJ;
+    } else if (ZcSettingConstants.ZC_CGFS_XXXJ.equals(purType)) {
+      rtn = ZcEbBulletin.ZHAOBIAO_XXXJ;
     }
     return rtn;
   }

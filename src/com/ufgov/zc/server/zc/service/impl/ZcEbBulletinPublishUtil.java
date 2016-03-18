@@ -40,14 +40,14 @@ public class ZcEbBulletinPublishUtil {
   private static Logger log = Logger.getLogger(ZcEbBulletin.class);
 
   /**
-   * 调用webservice进行发布
+   * 调用webservice进行发布到外网
    * @param bul
    * @throws BusinessException
    */
-  public void publishBulletin2(ZcEbBulletin bul) {
+  public void publishToWw(ZcEbBulletin bul) {
     JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
     Client client = dcf.createClient("http://www.yzggzy.cn/webservice/cmsContent?wsdl");
-    QName content = new QName("http://webservice.cms.jeecms.com/", "addContent");
+    QName qname = new QName("http://webservice.cms.jeecms.com/", "addContent");
     try {
       Date d = Calendar.getInstance().getTime();
       SimpleDateFormat sdf = new SimpleDateFormat(ZcSettingConstants.SIMPLE_DATE_FORMAT_FULL);
@@ -55,13 +55,58 @@ public class ZcEbBulletinPublishUtil {
       //      System.out.println(txt);
       //保存html文件，用于webservice接口的出错调试，手工发布
       saveLocalFile(bul);
-      Object[] objects = client.invoke(content, bul.getBulletinID(), getCHannelId(bul), bul.getProjName(), txt, sdf.format(d));
+      Object[] objects = client.invoke(qname, bul.getBulletinID(), getWwChanelId(bul), bul.getProjName(), txt, sdf.format(d));
       log.info("发布公告(id:" + bul.getBulletinID() + "),发布结果: " + objects[0]);
+      System.out.println("发布公告(id:" + bul.getBulletinID() + "),发布结果: " + objects[0]);
       //      throw new Exception("发布公告 test over");
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
       log.error("通过webservie接口发布公告到网站出错:" + e.getMessage(), e);
+      System.out.println("通过webservie接口发布公告到网站出错:" + e.getMessage());
+      //      throw new BusinessException("通过webservie接口发布公告到网站出错:" + e.getMessage(), e);
+    }
+  }
+
+  /**
+   * 调用webservice进行发布到财政局的外网
+   * @param bul
+   * @throws BusinessException
+   */
+  public void publishToCzww(ZcEbBulletin bul) {
+    JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+    Client client = dcf.createClient("http://www.yangzhongzc.com/webservice/cmsContent?wsdl");
+    //    QName qname = new QName("http://webservice.cms.jeecms.com/", "addContent");
+    QName qname = new QName("http://service.server.cxf.webservice.com/", "addContent");
+    try {
+      Date d = Calendar.getInstance().getTime();
+      SimpleDateFormat sdf = new SimpleDateFormat(ZcSettingConstants.SIMPLE_DATE_FORMAT_FULL);
+      String txt = new String(bul.getFile().toString());
+      //      System.out.println(txt);
+      //保存html文件，用于webservice接口的出错调试，手工发布
+      //      saveLocalFile(bul);
+      //招标公告需要传递 报名截止日期
+      if (bul.getBulletinType() != null && bul.getBulletinType().startsWith("zhaobiao")) {
+        Date dd = Calendar.getInstance().getTime();
+        if (bul.getZcEbPlan() != null && bul.getZcEbPlan().getSellEndTime() != null) {
+          dd = bul.getZcEbPlan().getSellEndTime();
+        }
+        Object[] objects = client.invoke(qname, bul.getBulletinID(), getCzwwChanelId(bul), bul.getProjName(), txt, sdf.format(dd), sdf.format(d));
+
+        //        Object[] objects = client.invoke(qname, "1", "2", "3", "4", "5", "6");
+        log.info("发布公告到财政网站(id:" + bul.getBulletinID() + "),发布结果: " + objects[0]);
+        System.out.println("发布公告到财政网站(id:" + bul.getBulletinID() + "),发布结果: " + objects[0]);
+      } else {
+        Object[] objects = client.invoke(qname, bul.getBulletinID(), getCzwwChanelId(bul), bul.getProjName(), txt, "", sdf.format(d));
+        log.info("发布公告到财政网站(id:" + bul.getBulletinID() + "),发布结果: " + objects[0]);
+        System.out.println("发布公告到财政网站(id:" + bul.getBulletinID() + "),发布结果: " + objects[0]);
+      }
+      //      throw new Exception("发布公告 test over");
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      log.error("发布公告到财政网站，通过webservie接口发布公告到网站出错:" + e.getMessage(), e);
+      System.out.println("发布公告到财政网站，通过webservie接口发布公告到网站出错:" + e.getMessage());
       //      throw new BusinessException("通过webservie接口发布公告到网站出错:" + e.getMessage(), e);
     }
   }
@@ -77,7 +122,7 @@ public class ZcEbBulletinPublishUtil {
         if (!file.isDirectory()) {
           file.mkdir();
         }
-        String fileName = path + "\\" + bul.getBulletinID() + "_" + getCHannelId(bul) + ".htm";
+        String fileName = path + "\\" + bul.getBulletinID() + "_" + getWwChanelId(bul) + ".htm";
         file = new File(fileName);
         if (!file.exists()) file.createNewFile();
         FileOutputStream out = new FileOutputStream(file, false); //如果追加方式用true   
@@ -118,14 +163,14 @@ public class ZcEbBulletinPublishUtil {
         //插入内容表
         sql = "insert into jc_content(content_id,channel_id,user_id,type_id,model_id,site_id,status,sort_date) value(";
         sql += contentId;
-        sql += "," + getCHannelId(bul);
+        sql += "," + getWwChanelId(bul);
         sql += ",1,1,9,1,2,NOW())";
         log(sql);
         st.executeUpdate(sql);
 
         //插入内容栏目关联表
         sql = new String();
-        sql += "insert into jc_content_channel (content_id,channel_id) value (" + contentId + "," + getCHannelId(bul) + ")";
+        sql += "insert into jc_content_channel (content_id,channel_id) value (" + contentId + "," + getWwChanelId(bul) + ")";
         log(sql);
         st.executeUpdate(sql.toString());
 
@@ -208,27 +253,67 @@ public class ZcEbBulletinPublishUtil {
   }
 
   /**
-   * 108 询价招标公告 136 单一来源招标公告 106 招标公告 采购预告 108 网上竞价 109 更正补充 110 中标公告 107 征求意见
+   * 108 询价招标公告 136 单一来源招标公告 106 招标公告 采购预告 108 网上竞价 109 更正补充 110 中标公告 107 线下询价
    * @return
    */
-  public String getCHannelId(ZcEbBulletin bul) throws BusinessException {
+  public String getWwChanelId(ZcEbBulletin bul) throws BusinessException {
 
     if (ZcEbBulletin.ZHAOBIAO_XJ.equals(bul.getBulletinType())) {
       return "108";
     } else if (ZcEbBulletin.ZHAOBIAO_DYLY.equals(bul.getBulletinType())) {
       return "136";
+    } else if (ZcEbBulletin.ZHAOBIAO_XXXJ.equals(bul.getBulletinType())) {
+      return "107";
     } else if (ZcEbBulletin.ZHAOBIAO_GKZB.equals(bul.getBulletinType()) || ZcEbBulletin.ZHAOBIAO_DYLY.equals(bul.getBulletinType()) || ZcEbBulletin.ZHAOBIAO_JZXTP.equals(bul.getBulletinType())
       || ZcEbBulletin.ZHAOBIAO_YQZB.equals(bul.getBulletinType()) || ZcEbBulletin.ZHAOBIAO_QT.equals(bul.getBulletinType()) || ZcEbBulletin.ZHAOBIAO_ZXJJ.equals(bul.getBulletinType())) {
       return "106";
     } else if (ZcEbBulletin.ZHONGBIAO_XJ.equals(bul.getBulletinType())) {
       return "110";
     } else if (ZcEbBulletin.ZHONGBIAO_GKZB.equals(bul.getBulletinType()) || ZcEbBulletin.ZHONGBIAO_DYLY.equals(bul.getBulletinType()) || ZcEbBulletin.ZHONGBIAO_JZXTP.equals(bul.getBulletinType())
-      || ZcEbBulletin.ZHONGBIAO_YQZB.equals(bul.getBulletinType()) || ZcEbBulletin.ZHONGBIAO_QT.equals(bul.getBulletinType())) {
+      || ZcEbBulletin.ZHONGBIAO_YQZB.equals(bul.getBulletinType()) || ZcEbBulletin.ZHONGBIAO_QT.equals(bul.getBulletinType()) || ZcEbBulletin.ZHONGBIAO_XXXJ.equals(bul.getBulletinType())) {
       return "110";
     } else if (ZcEbBulletin.BIANGENG.equals(bul.getBulletinType())) {
       return "109";
     } else if (ZcEbBulletin.BIANGENG_XJ.equals(bul.getBulletinType())) {
       return "109";
+    } else {
+      throw new BusinessException("发布公告时，公告类型" + bul.getBulletinType() + "在外网没有对应类型");
+    }
+  }
+
+  /**
+   * 1、 招标公告栏目 [ 73 公开招标 74 询价招标/线下询价 75 邀请招标 76 竞争性谈判 77 竞争性磋商 86 单一来源 ] 2、
+   * 中标公告栏目 [92 公开招标 109 邀请招标 110 询价招标/线下询价 111 竞争性谈判 112 单一来源 90 废标公告]
+   * @return
+   */
+  private String getCzwwChanelId(ZcEbBulletin bul) throws BusinessException {
+
+    if (ZcEbBulletin.ZHAOBIAO_GKZB.equals(bul.getBulletinType())) {
+      return "73";
+    } else if (ZcEbBulletin.ZHAOBIAO_XJ.equals(bul.getBulletinType())) {
+      return "74";
+    } else if (ZcEbBulletin.ZHAOBIAO_XXXJ.equals(bul.getBulletinType())) {
+      return "74";
+    } else if (ZcEbBulletin.ZHAOBIAO_YQZB.equals(bul.getBulletinType())) {
+      return "75";
+    } else if (ZcEbBulletin.ZHAOBIAO_JZXTP.equals(bul.getBulletinType())) {
+      return "76";
+    } else if (ZcEbBulletin.ZHAOBIAO_DYLY.equals(bul.getBulletinType())) {
+      return "86";
+    } else if (ZcEbBulletin.ZHONGBIAO_GKZB.equals(bul.getBulletinType())) {
+      return "92";
+    } else if (ZcEbBulletin.ZHONGBIAO_YQZB.equals(bul.getBulletinType())) {
+      return "109";
+    } else if (ZcEbBulletin.ZHONGBIAO_XJ.equals(bul.getBulletinType())) {
+      return "110";
+    } else if (ZcEbBulletin.ZHONGBIAO_XXXJ.equals(bul.getBulletinType())) {
+      return "110";
+    } else if (ZcEbBulletin.ZHONGBIAO_JZXTP.equals(bul.getBulletinType())) {
+      return "111";
+    } else if (ZcEbBulletin.ZHONGBIAO_DYLY.equals(bul.getBulletinType())) {
+      return "112";
+    } else if (ZcEbBulletin.BIANGENG.equals(bul.getBulletinType())) {
+      return "90";
     } else {
       throw new BusinessException("发布公告时，公告类型" + bul.getBulletinType() + "在外网没有对应类型");
     }

@@ -1761,21 +1761,21 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
   private void changeWay(AsValComboBox field) {
 
-    if (field.getSelectedAsVal() == null || !ZcSettingConstants.PITEM_OPIWAY_YQZB.equals(field.getSelectedAsVal().getValId())) {
+    if (field.getSelectedAsVal() == null || !ZcSettingConstants.ZC_CGFS_YQZB.equals(field.getSelectedAsVal().getValId())) {
       isDesSup.setVisible(false);
 
     } else {
       isDesSup.setVisible(true);
     }
 
-    if (field.getSelectedAsVal() == null || !ZcSettingConstants.PITEM_OPIWAY_DYLY.equals(field.getSelectedAsVal().getValId())) {
+    if (field.getSelectedAsVal() == null || !ZcSettingConstants.ZC_CGFS_DYLY.equals(field.getSelectedAsVal().getValId())) {
       isPub.setVisible(false);
 
     } else {
       isPub.setVisible(true);
     }
 
-    if (field.getSelectedAsVal() == null || !ZcSettingConstants.PITEM_OPIWAY_XJ.equals(field.getSelectedAsVal().getValId())) {
+    if (field.getSelectedAsVal() == null || !ZcSettingConstants.ZC_CGFS_XJ.equals(field.getSelectedAsVal().getValId())) {
       isCar.setVisible(false);
 
     } else {

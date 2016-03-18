@@ -385,7 +385,7 @@ public class ZcEbProjectDividerPackPanel extends JPanel {
 
   private void reCrtSubPanel() {
 
-    if (zcEbProj != null && ZcSettingConstants.PITEM_OPIWAY_XJ.equals(zcEbProj.getPurType())) {
+    if (zcEbProj != null && ZcSettingConstants.ZC_CGFS_XJ.equals(zcEbProj.getPurType())) {
       if (tabPaneReq.indexOfTabComponent(tablePanelPackQua) < 0) {
         tabPaneReq.addTab("分包供应商资质", tablePanelPackQua);
       }
@@ -899,7 +899,7 @@ public class ZcEbProjectDividerPackPanel extends JPanel {
   private void refreshSubPackReqTable(ZcEbPack pack) {
     if (pack.getPurType() != null) {
       purType = pack.getPurType();
-      if (pack.getPurType().equals(ZcSettingConstants.PITEM_OPIWAY_XJ)) {
+      if (pack.getPurType().equals(ZcSettingConstants.ZC_CGFS_XJ)) {
         refreshSubPackReqXunJiaTable(pack);
       } else {
         refreshSubPackReqQiTaTable(pack);
@@ -1062,7 +1062,7 @@ public class ZcEbProjectDividerPackPanel extends JPanel {
     setXunJiaTableProperty(tablePanelItemInfo.getTable());
     if (pack.getPurType() != null) {
       purType = pack.getPurType();
-      if (pack.getPurType().equals(ZcSettingConstants.PITEM_OPIWAY_XJ)) {
+      if (pack.getPurType().equals(ZcSettingConstants.ZC_CGFS_XJ)) {
         if (tabPaneReq.getTabCount() == 1) {
           tabPaneReq.addTab("商品信息", itemInfoPanel);
         }
@@ -1364,12 +1364,12 @@ public class ZcEbProjectDividerPackPanel extends JPanel {
         zcEbProj.setZcMakeLinkman(selectPack.getEntrust().getZcMakeLinkman());
 
         if (parentJPanel.openDt != null) {
-          if (ZcSettingConstants.PITEM_OPIWAY_XJ.equals(pack.getPurType())) {
+          if (ZcSettingConstants.ZC_CGFS_XJ.equals(pack.getPurType())) {
             if (zcEbProj.getPlan() == null) {
               zcEbProj.setPlan(new ZcEbPlan());
             }
             parentJPanel.openDt.setEnabled(true);
-          } else if (!ZcSettingConstants.PITEM_OPIWAY_XJ.equals(pack.getPurType())) {
+          } else if (!ZcSettingConstants.ZC_CGFS_XJ.equals(pack.getPurType())) {
             parentJPanel.openDt.setEnabled(false);
           }
         }
@@ -1423,7 +1423,7 @@ public class ZcEbProjectDividerPackPanel extends JPanel {
   public void addPackSupplierPanel() {
 
     if (zcEbProj != null
-      && (ZcSettingConstants.PITEM_OPIWAY_YQZB.equals(zcEbProj.getPurType()) || ZcSettingConstants.PITEM_OPIWAY_DYLY.equals(zcEbProj.getPurType()))) {
+      && (ZcSettingConstants.ZC_CGFS_YQZB.equals(zcEbProj.getPurType()) || ZcSettingConstants.ZC_CGFS_DYLY.equals(zcEbProj.getPurType()))) {
       if (tabPaneReq.indexOfTabComponent(tablePanelSupplier) < 0) {
         tabPaneReq.addTab("供应商列表", tablePanelSupplier);
       }

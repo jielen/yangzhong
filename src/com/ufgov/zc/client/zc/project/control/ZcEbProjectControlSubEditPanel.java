@@ -591,7 +591,7 @@ public class ZcEbProjectControlSubEditPanel extends AbstractMainSubEditPanel {
       }
       this.currMenuItem = this.technicalBidMenuItem;
       this.sumComplMenuItem.setEnabled(true);
-      if (!ZcSettingConstants.PITEM_OPIWAY_GKZB.equals(pack.getPurType())) {
+      if (!ZcSettingConstants.ZC_CGFS_GKZB.equals(pack.getPurType())) {
         this.ecbjMenuItem.setEnabled(true);
       }
       this.finishBidMenuItem.setEnabled(true);
@@ -600,7 +600,7 @@ public class ZcEbProjectControlSubEditPanel extends AbstractMainSubEditPanel {
       this.finishBidMenuItem.setEnabled(true);
       this.sumScorelMenuItem.setEnabled(true);
       this.paramSetButton.setEnabled(true);
-      if (!ZcSettingConstants.PITEM_OPIWAY_GKZB.equals(pack.getPurType())) {
+      if (!ZcSettingConstants.ZC_CGFS_GKZB.equals(pack.getPurType())) {
         this.ecbjMenuItem.setEnabled(true);
       }
       this.currMenuItem = this.finishBidMenuItem;

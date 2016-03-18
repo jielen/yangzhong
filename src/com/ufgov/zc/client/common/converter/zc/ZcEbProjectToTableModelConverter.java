@@ -501,7 +501,7 @@ public class ZcEbProjectToTableModelConverter {
         }
         if ("PACK_MAX_PRICE".equals(columnId)) {
           ZcEbPack pk = this.getBean(row);
-          if (!ZcSettingConstants.PITEM_OPIWAY_XJ.equals(pk.getPurType()) || pk.getEntrust() == null || !"Y".equals(pk.getEntrust().getIsCar())) { return false; }
+          if (!ZcSettingConstants.ZC_CGFS_XJ.equals(pk.getPurType()) || pk.getEntrust() == null || !"Y".equals(pk.getEntrust().getIsCar())) { return false; }
         }
 
         return true;

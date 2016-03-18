@@ -497,7 +497,7 @@ public class ZcEbProjectEditPanel extends AbstractMainSubEditPanel {
     for (ZcEbPack pack : ((List<ZcEbPack>) (zcEbProj.getPackList()))) {
       validatePackReqInfo = ZcUtil.validateDetailBillElementNull(pack.getRequirementDetailList(), notNullPackReqBillElementList, false);
 
-      if (ZcSettingConstants.PITEM_OPIWAY_XJ.equals(pack.getPurType()) && "Y".equals(pack.getEntrust().getIsCar())) {
+      if (ZcSettingConstants.ZC_CGFS_XJ.equals(pack.getPurType()) && "Y".equals(pack.getEntrust().getIsCar())) {
         if (pack.getPackMaxPrice() == null || pack.getPackMaxPrice().compareTo(BigDecimal.ZERO) <= 0) {
           validatePackReqInfo = validatePackReqInfo + "车辆采购必须填写最高限价\n";
         } else if (pack.getPackMaxPrice().compareTo(pack.getPackBudget()) > 0) {
@@ -526,7 +526,7 @@ public class ZcEbProjectEditPanel extends AbstractMainSubEditPanel {
       }*/
     }
 
-    if (ZcSettingConstants.PITEM_OPIWAY_XJ.equals(zcEbProj.getPurType()) && zcEbProj.getPlan().getOpenBidTime() == null) {
+    if (ZcSettingConstants.ZC_CGFS_XJ.equals(zcEbProj.getPurType()) && zcEbProj.getPlan().getOpenBidTime() == null) {
       validateInfo = validateInfo + "询价项目开标时间不能为空\n";
     }
 
@@ -547,12 +547,12 @@ public class ZcEbProjectEditPanel extends AbstractMainSubEditPanel {
       JOptionPane.showMessageDialog(this, errorInfo.toString(), "提示", JOptionPane.WARNING_MESSAGE);
       return true;
     }
-    if (ZcSettingConstants.PITEM_OPIWAY_YQZB.equals(zcEbProj.getPurType()) || ZcSettingConstants.PITEM_OPIWAY_DYLY.equals(zcEbProj.getPurType())) {
+    if (ZcSettingConstants.ZC_CGFS_YQZB.equals(zcEbProj.getPurType()) || ZcSettingConstants.ZC_CGFS_DYLY.equals(zcEbProj.getPurType())) {
 
       for (ZcEbPack pack : ((List<ZcEbPack>) (zcEbProj.getPackList()))) {
         if (pack.getSupplierList() == null || pack.getSupplierList().size() == 0) {
           errorInfo.append("分包:").append(pack.getPackName()).append("需要指定供应商");
-        } else if (ZcSettingConstants.PITEM_OPIWAY_DYLY.equals(zcEbProj.getPurType()) && pack.getSupplierList().size() > 1) {
+        } else if (ZcSettingConstants.ZC_CGFS_DYLY.equals(zcEbProj.getPurType()) && pack.getSupplierList().size() > 1) {
           errorInfo.append("分包:").append(pack.getPackName()).append("只能指定唯一供应商");
         } else {
           for (int i = 0; i < pack.getSupplierList().size(); i++) {

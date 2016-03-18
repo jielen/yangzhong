@@ -79,15 +79,15 @@ public class ZcEbBulletinDlyEditPanel extends AbstractZcEbBulletinEditPanel {
   public String getOpiWay() {
     StringBuffer sb = new StringBuffer();
 
-    sb.append("'").append(ZcSettingConstants.PITEM_OPIWAY_GKZB).append("',");
+    sb.append("'").append(ZcSettingConstants.ZC_CGFS_GKZB).append("',");
 
-    sb.append("'").append(ZcSettingConstants.PITEM_OPIWAY_YQZB).append("',");
+    sb.append("'").append(ZcSettingConstants.ZC_CGFS_YQZB).append("',");
 
-    sb.append("'").append(ZcSettingConstants.PITEM_OPIWAY_XJ).append("',");
+    sb.append("'").append(ZcSettingConstants.ZC_CGFS_XJ).append("',");
 
 //    sb.append("'").append(ZcSettingConstants.PITEM_OPIWAY_XJ_JJ).append("',");
 
-    sb.append("'").append(ZcSettingConstants.PITEM_OPIWAY_JZXTP).append("'");
+    sb.append("'").append(ZcSettingConstants.ZC_CGFS_JZXTP).append("'");
 
     return sb.toString();
   }

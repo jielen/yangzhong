@@ -168,7 +168,7 @@ public class ZcEbReqFormulaJTabbedPane extends JTabbedPane implements MouseListe
      * 通过采购方式判断评标方法的类型:
      * 竞争性谈判、单一来源，询价最低报价法
      */
-       if (cglx.equals(ZcSettingConstants.PITEM_OPIWAY_JZXTP) || cglx.equals(ZcSettingConstants.PITEM_OPIWAY_DYLY)) {
+       if (cglx.equals(ZcSettingConstants.ZC_CGFS_JZXTP) || cglx.equals(ZcSettingConstants.ZC_CGFS_DYLY)) {
       zcEbFormula.setFactorType(ZcSettingConstants.FORMULA_FACTOR_LOWERPRICE_TYPE);
     }
 

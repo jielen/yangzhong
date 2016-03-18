@@ -425,7 +425,7 @@ public class ZcEbProjectListPanel_dt extends AbstractEditListBill implements Par
    * @return
    */
   private boolean toCheckZbFileAndEvalElements(ZcEbProj zcEbProj) {
-    if (ZcSettingConstants.PITEM_OPIWAY_XJ.equals(zcEbProj.getPurType())) {
+    if (ZcSettingConstants.ZC_CGFS_XJ.equals(zcEbProj.getPurType())) {
       return false;
     }
     String projCode = zcEbProj.getProjCode();
