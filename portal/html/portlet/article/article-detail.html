@@ -1,0 +1,149 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
+<title></title> 
+</head>
+<LINK href="../../../css/portal.css" rel=stylesheet type=text/css>
+<script type="text/javascript" src="/extjs/ext/ext/ext-base.js"></script>
+<script type="text/javascript" src="/extjs/ext/ext-all.js"></script>
+<script type="text/javascript" src="/extjs/ext/locale/ext-lang-zh_CN.js"></script>
+<script language="JavaScript">
+var aReinitIframe = window.setInterval("reinitIframe()", 400);
+function reinitIframe(){
+	//debugger;
+	var iframe = document.getElementById("articleContent");
+	try{
+		var bHeight = iframe.contentWindow.document.body.scrollHeight;
+		var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+		var height = Math.max(bHeight, dHeight);
+		if(height == iframe.height){
+			window.clearInterval(aReinitIframe);
+			return;
+		}
+		iframe.height =  height;
+	}catch (ex){
+		//debugger;
+		window.clearInterval(aReinitIframe);
+	}
+}
+
+function setDisplay(me){
+	//aReinitIframe = self.setInterval("reinitIframe()", 200);
+    //me.height=100;
+	document.getElementById('tdAdditionFile').style.display = (!opener  ||  opener.articleJSON && Boolean(opener.articleJSON.attatchBlobid) &&  opener.articleJSON.attatchBlobid!='0')?"block":"none";
+}
+
+function  writeValue() {
+	if(opener  &&  opener.articleJSON) {
+  	    document.title=opener.articleJSON.title;
+  	    document.attatch=opener.articleJSON.attatch;
+  	    document.articleId = opener.articleJSON.id;
+  	    document.visitCapacity = opener.articleJSON.visitCapacity
+  	    document.getElementById("articleTitle").innerText=document.title;
+  	    document.getElementById("visitCapacity").innerText=document.visitCapacity;
+  	    document.getElementById("tdAdditionFile").innerHTML='<a href="#" onclick="javascript:downAdditionFile();">附件' + document.attatch + '</a>';
+  	    document.getElementById("articlePubTime").innerText=opener.articleJSON.pubTime1;
+  	    document.getElementById("articleLogo").innerHTML=opener.articleJSON.logoHtml;
+  	  	
+		var href = opener.articleJSON.href;
+		if (href) {
+			var iframe = document.getElementById("articleContent");
+			iframe.height = screen.availHeight - 250;
+			iframe.scrolling = "auto";
+			//debugger;
+			document.body.style.overflow = "hidden";
+			iframe.src = href;
+			//var cw = window.frames['articleContent'];
+			//cw.location.href = href;
+		}
+		else {
+			var cw = window.frames['articleContent'];
+			cw.document.open();
+			cw.document.write(opener.articleJSON.content);
+			cw.document.close();
+		}
+    } else {
+        var cw = window.frames['articleContent'];  
+ 	    cw.document.open();  
+ 	    cw.document.write('文章内容');  
+ 	    cw.document.close(); 
+    }	  
+    increaseVisitCapacity(); 	
+}
+
+function  downAdditionFile(){
+	if(opener  &&  opener.articleJSON) {
+		var formObj = document.createElement("form");
+		var inputObj = document.createElement("input");
+		inputObj.name = 'fileid';
+		inputObj.type = 'text';
+		inputObj.value = opener.articleJSON.attatchBlobid;
+		formObj.action = opener.articleJSON.path + '/fileDownload.action';
+		formObj.target = '_blank';
+		document.documentElement.appendChild(formObj);
+		formObj.appendChild(inputObj)
+		formObj.submit();
+	}
+}
+
+function increaseVisitCapacity(){
+	Ext.Ajax.request({
+		url: 'articleVisitCapacityAction.action',
+		params: {
+			articleId : document.articleId
+		},
+		success : function(response){
+		}
+	})
+}
+
+</script>
+<body  style="overflow:auto;"    onload="javascript:writeValue();" >   
+        <table width="100%" border=0 cellspacing="3" cellpadding="2">
+           <tr>
+             <td>
+               <div align="center"   id=articleLogo> 
+              </div>     
+             
+               <div class="background" align="center" > 
+                  <h4 >
+                       <font>
+		                	<span id="articleTitle">文章标题</span>
+		                </font>
+                  </h4>
+				    <table width="90%" border=0 cellspacing="0" cellpadding="0">
+                  	<tr>
+                  		<td align="center" width="50%">发布日期：<span id="articlePubTime">2008-12-11</span></td>
+                  		<td align="center" width="50%">目前已有<span id="visitCapacity">0</span>人浏览过此文章</td>
+				    	</tr>
+				    </table>
+                 <hr>
+              </div>     
+              <iframe 
+                     width="100%" 
+                     height=0 
+                     name="articleContent" 
+                     id="articleContent" 
+                     scrolling="no"
+                     marginheight="0" 
+                     marginwidth="0" 
+                     frameborder="0" 
+                     style="border:#FFFFFF" 
+                     onload="javascript:setDisplay(this);"
+                     >
+              </iframe>   
+             
+                          
+               <table width="100%" bgColor=#FFFDD4 border=0 cellspacing="3" cellpadding="2">
+                      <tr >
+                          <td  align="center" id="tdAdditionFile" >【<a href="#" onclick="javascript:downAdditionFile();" >附件</a>】</td>
+                          <td  align="center">【<a href="#" onclick="javascript:window.print()" >打印本页</a>】</td>
+                          <td  align="center">【<a href="#" onclick="window.close()" >关闭本页</a>】</td>              
+                      </tr>
+                </table>
+                 
+            </td>
+          </tr>
+      </table>  
+</body>
+</html>

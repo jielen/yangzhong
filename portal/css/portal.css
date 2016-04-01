@@ -1,0 +1,165 @@
+@CHARSET "UTF-8";
+
+
+
+body {
+    font-family: Arial, Helvetica, Sans-serif;
+  	font-size:12px;
+    margin:0;
+    padding:0;
+    border:0 none;
+    overflow:hidden;
+    height:100%;
+	background:#ffffff;
+}
+th, td {
+  font-family: Arial, Helvetica, Sans-serif;
+  font-size:12px;
+}
+
+.settings {
+    background-image:url(../resources/folder_wrench.png);
+}
+.nav {
+    background-image:url(../resources/folder_go.png);
+}
+.add {
+	background-image:url(../resources/image_add.png) !important;
+}
+.grid {
+	background-image:url(../resources/grid.png) !important;
+}
+.delete {
+	background-image:url(../resources/feed_delete.png);
+}
+.file {
+	background-image:url(../resources/book.png) !important;
+}
+.tableBorder{
+	border:1px solid #99bbe8;
+	background-image:url(../resources/white-top-bottom.gif);
+}
+.thbody{
+	background: url(../resources/table_th.gif);
+}
+
+.x-tool-more {
+	background:transparent url(../resources/more.jpg) no-repeat;
+}
+.x-tool-more-over {
+	background:transparent url(../resources/more.jpg) no-repeat;
+}
+
+
+.x-portal .x-panel-dd-spacer {
+    margin-bottom:5px;
+}
+
+.x-portlet {
+    margin-bottom:5px;
+}
+
+/* Clean up the look of the portlets */
+.x-portlet .x-panel-ml {
+    padding-left:2px;
+}
+.x-portlet .x-panel-mr {
+    padding-right:2px;
+}
+.x-portlet .x-panel-bl {
+    padding-left:2px;
+}
+
+.x-portlet .x-panel-br {
+    padding-right:2px;
+}
+
+.x-portlet .x-panel-body {
+    background:white;
+}
+.x-portlet .x-panel-mc {
+    padding-top:2px;
+}
+
+.x-portlet .x-panel-bc .x-panel-footer {
+    padding-bottom:2px;
+}
+
+.x-portlet .x-panel-nofooter .x-panel-bc {
+    height:2px;
+}
+
+.download {
+	background:transparent url(../resources/download.gif) no-repeat top left;
+    height:46px;
+}
+
+.article-grid-body {
+	background-image:url(../resources/articleGridBg.gif);
+	background-repeat:repeat-x;
+	background-position:left top;
+}
+
+
+.article-grid-flag {
+	display:block;
+	width:55px;
+	background:url(../resources/articleFlag.gif)  left   no-repeat; 
+}
+
+.article-new-flag {
+	width:40px;
+	background:url(../resources/article-new-flag.gif)  left   no-repeat; 
+}
+
+
+a.article-grid-cell:link {color: #6699CC;text-decoration: none;} /*未访问的链接 */
+a.article-grid-cell:visited {color:#660099;text-decoration: none;} /*已访问的链接*/
+a.article-grid-cell:hover{color: #ff0000;text-decoration: underline;} /*鼠标在链接上 */
+a.article-grid-cell:active {color: #ff0000;text-decoration:none;} /*点击激活链接*/
+
+
+
+
+.work-grid-flag-normal {
+	display:block;
+	width:55px;
+	background:url(../resources/lamp-green.jpg)  left   no-repeat; 
+}
+
+.work-grid-flag-remind {
+	display:block;
+	width:55px;
+	background:url(../resources/lamp-yellow.jpg)  left   no-repeat; 
+}
+
+.work-grid-flag-expired {
+	display:block;
+	width:55px;
+	background:url(../resources/lamp-red.jpg)  left   no-repeat; 
+}
+
+.work-grid-flag-invalid {
+	display:block;
+	width:55px;
+	background:url(../resources/lamp-grey.jpg)  left   no-repeat; 
+}
+
+.work-grid-body {
+	background-image:url(../resources/workGridBg.gif);
+	background-repeat:repeat-x;
+	background-position:left top;
+}
+
+.down-grid-body {
+	background-image:url(../resources/downGridBg.gif);
+	background-repeat:repeat-x;
+	background-position:left top;
+}
+
+.down-grid-flag {
+	display:block;
+	width:55px;
+	background:url(../resources/downloadFlag.gif)  left   no-repeat; 
+}
+

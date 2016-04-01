@@ -1,0 +1,5 @@
+
+
+--1
+update as_option o set o.opt_val='N' where o.opt_id='OPT_ZC_EXPERT_SELECT_NEED_PASSWD';
+update as_option o set o.opt_val='' where o.opt_id='OPT_ZC_EXPERT_SELECT_PASSWD';

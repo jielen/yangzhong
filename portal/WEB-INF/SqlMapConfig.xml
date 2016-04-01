@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings                      
+    cacheModelsEnabled="false"      
+    enhancementEnabled="true"      
+    lazyLoadingEnabled="false"      
+    errorTracingEnabled="true"              
+    useStatementNamespaces="true"   
+  />
+  
+  <sqlMap resource="sqlmap/gmap-resource.xml"/>
+  <sqlMap resource="sqlmap/gmap-sso.xml"/>
+  <sqlMap resource="sqlmap/gmap-domain.xml"/>
+  <sqlMap resource="sqlmap/gmap-menu.xml"/>
+  <!-- 
+  <sqlMap resource="sqlmap/gmap-integrate.xml"/>
+  <sqlMap resource="sqlmap/gmap-message.xml"/>
+   -->
+   
+  <sqlMap resource="sqlmap/portal-common.xml"/>
+  <sqlMap resource="sqlmap/portlet-info.xml"/>
+  <sqlMap resource="sqlmap/portal-driver.xml"/>
+  <sqlMap resource="sqlmap/portal-publish.xml"/>
+</sqlMapConfig>

@@ -1,0 +1,42 @@
+<!DOCTYPE xwork PUBLIC
+    "-//OpenSymphony Group//XWork 1.0//EN"
+    "http://www.opensymphony.com/xwork/xwork-1.0.dtd"
+ >
+
+<xwork>
+	<package name="xwork-domain" extends="xwork-license">
+		<interceptors>
+			<interceptor name="logLogin" class="com.ufgov.gmap.domain.interceptor.LoggingLoginInfoInterceptor"/>
+			<interceptor name="session" class="com.ufgov.gmap.domain.interceptor.SessionInterceptor"/>
+			<interceptor name="sessionSync" class="com.ufgov.gmap.domain.interceptor.SessionSyncInterceptor"/>
+			<interceptor name="sessionInvalidate" class="com.ufgov.gmap.domain.interceptor.SessionInvalidateInterceptor"/>
+			<interceptor name="faspUserRelation" class="com.ufgov.gmap.domain.interceptor.FaspUserRelationInterceptor"/>
+			<interceptor-stack name="gmap-domainStack">
+				<interceptor-ref name="session"/>
+      	  		<interceptor-ref name="gmap-basicStack"/>
+      		</interceptor-stack>
+    	</interceptors>
+		
+		<default-interceptor-ref name="gmap-domainStack"/>
+								
+	    <action name="buildSession" class="buildSessionAction">
+			<result name="userNotExit" type="dispatcher">/error.jsp</result>
+	      	<result name="success" type="dispatcher">/mainFrame.jsp</result>
+	      	<result name="resource" type="dispatcher">/LocalResourceProcessor.jsp</result>
+	      	<interceptor-ref name="gmap-basicStack"/>
+	      	<!-- license检查 -->
+	      	<interceptor-ref name="license"/>
+	      	<interceptor-ref name="sessionInvalidate"/>
+	      	<interceptor-ref name="logLogin"/>
+	      	<interceptor-ref name="faspUserRelation"/>
+	    </action>
+	    <action name="destroySession" class="destroySessionAction">
+	      	<result name="success" type="dispatcher">/index.jsp</result>
+	    </action>
+	    <action name="saveSession" class="saveSessionAction">
+	      	<result name="success" type="stream"></result>
+	      	<interceptor-ref name="gmap-domainStack"/>
+	      	<interceptor-ref name="sessionSync"/>
+	    </action>									
+	</package>	
+</xwork>

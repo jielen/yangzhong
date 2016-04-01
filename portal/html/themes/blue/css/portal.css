@@ -1,0 +1,12 @@
+﻿@CHARSET "UTF-8";
+
+.nav-panel {
+	padding: 0px;
+}
+.nav-panel-tbar .x-toolbar {
+	background: url(../img/welcome.png) top left !important;
+	position:relative;
+	/*height: 30px;*/
+	padding: 2px;
+	border-top:2px;
+}

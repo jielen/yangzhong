@@ -1,0 +1,9 @@
+{data:[
+{funcId : 'mainpage' , funcName : '\u4E3B\u9875' , imgURL : 'img/homePage.png'},
+{funcId : 'global' , funcName : '\u5DE5\u4F5C\u73AF\u5883' , imgURL : 'img/global.png'},
+{funcId : 'relogin' , funcName : '\u91CD\u65B0\u767B\u5F55' , imgURL : 'img/relogin.png'},
+{funcId : 'myaccount' , funcName : '\u6211\u7684\u8D26\u6237' , imgURL : 'img/myaccount.png'},
+{funcId : 'modifypass' , funcName : '\u4FEE\u6539\u5BC6\u7801' , imgURL : 'img/modifypass.png'},
+{funcId : 'clientset' , funcName : '\u5BA2\u6237\u7AEF\u8BBE\u7F6E' , imgURL : 'img/clientset.png'},
+{funcId : 'system' , funcName : '\u7CFB\u7EDF\u7BA1\u7406' , imgURL : 'img/system.png'}
+]}

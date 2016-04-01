@@ -1,0 +1,1 @@
+ufgov.portal.system.PagePortlet=Ext.extend(Ext.Panel,{anchor:"100%",frame:true,collapsible:false,draggable:true,title:"待定频道",cls:"x-portlet",height:80});Ext.reg("portlet",ufgov.portal.system.PagePortlet);

@@ -1,0 +1,1 @@
+Ext.PanelUF=Ext.extend(Ext.Panel,{toolStyle:{border:"1px solid red",height:"100"},onRender:function(b,a){Ext.PanelUF.superclass.onRender.call(this,b,a);if(this.header){for(stItem in this.toolStyle){this.header.setStyle(stItem,this.toolStyle[stItem])}if(typeof this.headerdblClick=="function"){this.header.on("dblclick",this.headerdblClick)}}}});Ext.reg("panelUF",Ext.PanelUF);

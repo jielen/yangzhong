@@ -1,0 +1,1 @@
+ufgov.portal.system.TempColumn=Ext.extend(Ext.Container,{layout:"anchor",autoEl:"div",defaultType:"portlet",cls:"x-portal-column"});Ext.reg("tempcolumn",ufgov.portal.system.TempColumn);
