@@ -13,6 +13,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -86,6 +87,7 @@ import com.ufgov.zc.client.component.ui.fieldeditor.AbstractFieldEditor;
 import com.ufgov.zc.client.component.zc.AbstractMainSubEditPanel;
 import com.ufgov.zc.client.component.zc.fieldeditor.AsValFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.DateFieldEditor;
+import com.ufgov.zc.client.component.zc.fieldeditor.FileFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.ForeignEntityFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.TextFieldEditor;
 import com.ufgov.zc.client.datacache.AsValDataCache;
@@ -185,7 +187,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
 
   protected WordPane wordPaneBulletin = new WordPane();
 
-  protected WordPane wordPaneZbFile = new WordPane();
+  //  protected WordPane wordPaneZbFile = new WordPane();
 
   //  private String bulletinFileId = null;
 
@@ -362,26 +364,26 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
       }
 
     });
-    wordPaneZbFile.addPropertyChangeListener(WordPane.EVENT_NAME_OPEN_CALLBACK, new PropertyChangeListener() {
+    /* wordPaneZbFile.addPropertyChangeListener(WordPane.EVENT_NAME_OPEN_CALLBACK, new PropertyChangeListener() {
 
-      public void propertyChange(PropertyChangeEvent evt) {
+       public void propertyChange(PropertyChangeEvent evt) {
 
-        //打开文件完成之后的回调函数
-        boolean isSuccess = (Boolean) evt.getNewValue();
+         //打开文件完成之后的回调函数
+         boolean isSuccess = (Boolean) evt.getNewValue();
 
-        if (isSuccess) {
+         if (isSuccess) {
 
-          //下面一句是为了打开word后刷新窗口
-          parent.setSize(parent.getSize().width - 1, parent.getSize().height - 1);
+           //下面一句是为了打开word后刷新窗口
+           parent.setSize(parent.getSize().width - 1, parent.getSize().height - 1);
 
-        }
+         }
 
-      }
+       }
 
-    });
+     });*/
 
     tabPane.addTab("公告内容", wordPaneBulletin);
-    tabPane.addTab("招标文件", wordPaneZbFile);
+    //    tabPane.addTab("招标文件", wordPaneZbFile);
 
   }
 
@@ -655,7 +657,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
     });
     updateZbFileBtn.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        doUpdateZbFile();
+        //        doUpdateZbFile();
       }
     });
     buildBulletinBtn.addActionListener(new ActionListener() {
@@ -1017,8 +1019,8 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
         names[i] = key;
         values[i++] = (String) result.get(key);
       }
-      wordPaneZbFile.replaceBookMarks(names, values);
-      JOptionPane.showMessageDialog(this, "成功更新招标文件 ！", "缺失", JOptionPane.INFORMATION_MESSAGE);
+      /* wordPaneZbFile.replaceBookMarks(names, values);
+       JOptionPane.showMessageDialog(this, "成功更新招标文件 ！", "缺失", JOptionPane.INFORMATION_MESSAGE);*/
     } catch (Exception e) {
       // TCJLODO Auto-generated catch block
       e.printStackTrace();
@@ -1634,7 +1636,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
       // 支持直接修改word内容。
       wordPaneBulletin.save(this.bulletinWordFileName);
 
-      wordPaneZbFile.save(this.zbWordFileName);
+      //      wordPaneZbFile.save(this.zbWordFileName);
 
       //每次都保存一文件，产生新的文件id
       String fileID = saveBulletinContent();
@@ -1958,7 +1960,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
   public boolean publishToHtml(String htmlName) {
     String path = WordFileUtil.getHtmlFileName(htmlName);
     logger.debug("path=" + path);
-    boolean ifConvert = wordPaneBulletin.convertWordToHtml(path);
+    boolean ifConvert = wordPaneBulletin.convertWordToHtml(path + ".htm");
 
     if (!ifConvert) {
 
@@ -1973,7 +1975,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
     File[] fs = dir.listFiles();
     if (fs != null) {
       int t = 0;
-      while (t < 3 && (fs == null || fs.length == 0)) {
+      while (t < 5 && (fs == null || fs.length == 0)) {
         ++t;
         try {
           Thread.sleep(1000);
@@ -2051,13 +2053,13 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
 
         }*/
 
-    /*    if (tabPane.getComponentCount() > 1) {
-          refreshWordPaneForPub(bulletin);
-          try {
-            Thread.sleep(3000);
-          } catch (InterruptedException e) {
-          }
-        }*/
+    if (tabPane.getComponentCount() > 1) {
+      refreshWordPaneForPub(bulletin);
+      try {
+        Thread.sleep(3000);
+      } catch (InterruptedException e) {
+      }
+    }
 
     if (!publishToHtml(bulletin.getFileID())) {
 
@@ -2074,6 +2076,13 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
       //      this.oldBulletin = (ZcEbBulletin) ObjectUtil.deepCopy(bulletin);
       return false;
     }
+    /*if (bulletin.getFile() == null) {
+      StringBuffer sb = new StringBuffer();
+      sb.append("招标公告从word转换为网页时异常，请退出本系统，并关闭本地系统打开的全部word文件.\n通过任务管理器关闭全部word进程，再重新登录本系统继续审批.\n");
+
+      JOptionPane.showMessageDialog(self, sb.toString(), "提示", JOptionPane.INFORMATION_MESSAGE);
+      return false;
+    }*/
     Map<String, String> option = new HashMap<String, String>();
     /* option.put("OPT_ZC_MAIL_FROM_POP", AsOptionMeta.getOptVal("OPT_ZC_MAIL_FROM_POP"));
      option.put("OPT_ZC_MAIL_FROM_PORT", AsOptionMeta.getOptVal("OPT_ZC_MAIL_FROM_PORT"));
@@ -2107,6 +2116,8 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
          }
        }
      }*/
+    //保存一下这个文件
+    //    _saveFile(bulletin);
 
     try {
       bulletin = this.getIZcEbBulletinServiceDelegate().publishBulletinFN(bulletin, WorkEnv.getInstance().getWebRoot(), option, requestMeta);
@@ -2138,6 +2149,38 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
     refreshMainData();
 
     return true;
+  }
+
+  private void _saveFile(ZcEbBulletin bulletin) {
+
+    try {
+      String path = "D:\\workplace\\eclipseWorkplace\\CxfWebServiceTest\\src\\c.htm";
+      File file = new File(path);
+      if (file.exists()) {
+        file.delete();
+      }
+      file.createNewFile();
+
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+      FileOutputStream out = new FileOutputStream(file, false); //如果追加方式用true        
+      //      StringBuffer sb = new StringBuffer();
+      //      sb.append("-----------" + sdf.format(new Date()) + "------------\n");
+      //      sb.append(str + "\n");
+      out.write(bulletin.getFileContent().getBytes("gb2312"));//注意需要转换对应的字符集
+      out.close();
+    } catch (IOException ex) {
+      ex.printStackTrace();
+      System.out.println(ex.getStackTrace());
+    }
+
+  }
+
+  protected void refreshWordPaneForPub(ZcEbBulletin bulletin) {
+
+    closeWordPanel(wordPaneBulletin, false);
+
+    wordPaneBulletin.openAndReadOnly(this.bulletinWordFileName, ZcSettingConstants.WORD_PASSWORD);
+
   }
 
   private boolean readFileByChar(ZcEbBulletin bulletin) {
@@ -2184,16 +2227,26 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
             from--;
           }
         }
-
-        bulletin.setFile(sb);
-
-        String str = sb.toString();
+        String str = chuliStr(sb.toString());
+        bulletin.setFile(new StringBuffer(str));
 
         bulletin.setFileContent(str);
         return true;
       }
     }
     return true;
+  }
+
+  /**
+   * 处理掉html尾部的异常字符串
+   * @param str
+   * @return
+   */
+  String chuliStr(String str) {
+    String tag = "</html>";
+    int i = str.indexOf(tag);
+    str = str.substring(0, i + tag.length());
+    return str;
   }
 
   protected String checkBeforePublish() {
@@ -2385,6 +2438,8 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
 
     DateFieldEditor fieldInputDate = new DateFieldEditor(LangTransMeta.translate(ZcElementConstants.FIELD_TRANS_INPUT_DATE), "executeDate");
 
+    FileFieldEditor zcImpFile = new FileFieldEditor("招标文件", "wordZbFileName", "wordZbFileId");
+
     editorList.add(projCodeEditor);
     editorList.add(projNameEditor);
     editorList.add(fieldBulletinStatus);
@@ -2396,6 +2451,8 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
     editorList.add(openBidTime);
     editorList.add(openBidAddress);
     editorList.add(fieldInputDate);
+
+    editorList.add(zcImpFile);
 
     return editorList;
   }
@@ -2449,7 +2506,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
    */
   protected void refreshSubTableData() {
     refreshBulletinWord();
-    refreshZbFileWord();
+    //    refreshZbFileWord();
   }
 
   private void refreshBulletinWord() {
@@ -2470,14 +2527,14 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
       ZcEbProjZbFile zf = (ZcEbProjZbFile) zcEbBulletin.getZcEbProj().getProjFileList().get(0);
       fileId = zf.getWordFileId();
     }
-
-    closeWordPanel(wordPaneZbFile, false);
-    if (fileId == null || fileId.trim().length() == 0) {
-      zbWordFileName = WordFileUtil.loadMold(AsOptionMeta.getOptVal("OPT_ZC_kongbaiword_FILE_ID"));
-    } else {
-      zbWordFileName = WordFileUtil.loadMold(fileId);
-    }
-    wordPaneZbFile.openAndProtect(this.zbWordFileName, ZcSettingConstants.WORD_PASSWORD);
+    /*
+        closeWordPanel(wordPaneZbFile, false);
+        if (fileId == null || fileId.trim().length() == 0) {
+          zbWordFileName = WordFileUtil.loadMold(AsOptionMeta.getOptVal("OPT_ZC_kongbaiword_FILE_ID"));
+        } else {
+          zbWordFileName = WordFileUtil.loadMold(fileId);
+        }
+        wordPaneZbFile.openAndProtect(this.zbWordFileName, ZcSettingConstants.WORD_PASSWORD);*/
   }
 
   protected void projCodeChange() {
@@ -2611,7 +2668,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
       StringBuffer sb = new StringBuffer();
       ZcEbProjZbFile zbfile = null;
       if (!proj.getPurType().equals(ZcSettingConstants.PITEM_OPIWAY_XJ)) {
-        if (proj.getProjFileList() == null || proj.getProjFileList().size() == 0) {
+        /*if (proj.getProjFileList() == null || proj.getProjFileList().size() == 0) {
           sb.append(proj.getProjCode()).append(proj.getProjName()).append("没有招标文件，请进入").append(LangTransMeta.translate("ZC_EB_PROJ")).append("功能点，制作招标文件。\n并点击上传到服务器,再来制定招标公告");
           JOptionPane.showMessageDialog(this.parent, sb.toString(), "提示", JOptionPane.WARNING_MESSAGE);
           return;
@@ -2622,7 +2679,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
           sb.append(proj.getProjCode()).append(proj.getProjName()).append("没有招标文件，请进入").append(LangTransMeta.translate("ZC_EB_PROJ")).append("功能点，制作招标文件。\n并点击上传到服务器,再来制定招标公告");
           JOptionPane.showMessageDialog(this.parent, sb.toString(), "提示", JOptionPane.WARNING_MESSAGE);
           return;
-        }
+        }*/
       }
 
       proj.setPackList(getpackList(proj.getProjCode()));
@@ -2643,13 +2700,13 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
       //自动生成招标公告
 
       //加载招标文件
-      if (wordPaneZbFile != null) {
-        wordPaneZbFile.close(false);
-      }
-      if (zbfile != null) {
-        zbWordFileName = WordFileUtil.loadMold(zbfile.getWordFileId());
-        wordPaneZbFile.open(zbWordFileName);
-      }
+      /* if (wordPaneZbFile != null) {
+         wordPaneZbFile.close(false);
+       }
+       if (zbfile != null) {
+         zbWordFileName = WordFileUtil.loadMold(zbfile.getWordFileId());
+         wordPaneZbFile.open(zbWordFileName);
+       }*/
     }
   }
 

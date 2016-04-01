@@ -4,6 +4,7 @@ import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.io.File;
 import java.lang.reflect.Method;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,18 +15,13 @@ import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import com.ufgov.zc.client.common.AsOptionMeta;
 import com.ufgov.zc.client.common.ServiceFactory;
 import com.ufgov.zc.client.common.WorkEnv;
 import com.ufgov.zc.client.util.SwingUtil;
 import com.ufgov.zc.common.commonbiz.model.Company;
-import com.ufgov.zc.common.commonbiz.publish.IBaseDataServiceDelegate;
-import com.ufgov.zc.common.console.model.AsRole;
-import com.ufgov.zc.common.console.publish.IConsoleServiceDelegate;
 import com.ufgov.zc.common.system.RequestMeta;
-import com.ufgov.zc.common.system.constants.SystemOptionConstants;
+import com.ufgov.zc.common.system.dto.ElementConditionDto;
 import com.ufgov.zc.common.system.model.User;
-import com.ufgov.zc.common.util.EmpMeta;
 import com.ufgov.zc.common.zc.publish.IZcEbBaseServiceDelegate;
 
 public class LocalResouceAppletUtil {
@@ -38,7 +34,7 @@ public class LocalResouceAppletUtil {
 
   private static String oldTorken = "";
 
-  private static String lafClassName = "", preferredFontSize = "12";
+  private static String lafClassName = "com.ufgov.smartclient.plaf.BlueLookAndFeel", preferredFontSize = "12";
 
   private boolean isReLoad = true;
 
@@ -107,9 +103,11 @@ public class LocalResouceAppletUtil {
       workEnv.setApplet((Applet) f);
       //      ClassLoader oldLoader = Thread.currentThread().getContextClassLoader();
       //      Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
-      IBaseDataServiceDelegate baseDataServiceDelegate = (IBaseDataServiceDelegate) ServiceFactory.create(IBaseDataServiceDelegate.class, "baseDataServiceDelegate");
+
+      /*IBaseDataServiceDelegate baseDataServiceDelegate = (IBaseDataServiceDelegate) ServiceFactory.create(IBaseDataServiceDelegate.class, "baseDataServiceDelegate");
 
       RequestMeta meta = WorkEnv.getInstance().getRequestMeta();
+
       meta.setSvUserID((String) getValue(method, f, "userId"));
       User user = baseDataServiceDelegate.getUserById((String) getValue(method, f, "userId"), meta);
       workEnv.setCurrUser(user);
@@ -125,36 +123,55 @@ public class LocalResouceAppletUtil {
       List<AsRole> roles = consoleServiceDelegate.getAsRoleByPosi(workEnv.getPoCode(), meta);
       workEnv.setRoles(roles);
 
-      IZcEbBaseServiceDelegate zcbaseDataServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class, "zcEbBaseServiceDelegate");
-
-      List empLst = zcbaseDataServiceDelegate.queryDataForList("AsEmp.getAsEmp", null, meta);
-
-      EmpMeta.setEmpLst(empLst);
-
+      //      List empLst = zcbaseDataServiceDelegate.queryDataForList("AsEmp.getAsEmp", null, meta);
+      //
+      //      EmpMeta.setEmpLst(empLst);
+      
       if (workEnv.getOrgPoCode() == null || workEnv.getOrgPoCode().trim().equals("")) {
         workEnv.setOrgPoCode(getOrgPoCode(baseDataServiceDelegate, meta.getSvCoCode(), meta.getSvOrgCode(), meta.getSvPoCode(), workEnv.getTransNd(), meta));
-      }
-
-      //      Thread.currentThread().setContextClassLoader(oldLoader);
+      }*/
+      IZcEbBaseServiceDelegate zcbaseDataServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class, "zcEbBaseServiceDelegate");
+      RequestMeta meta = WorkEnv.getInstance().getRequestMeta();
+      meta.setSvUserID((String) getValue(method, f, "userId"));
+      ElementConditionDto dto = new ElementConditionDto();
+      dto.setUserId((String) getValue(method, f, "userId"));
+      dto.setCoCode((String) getValue(method, f, "coCode"));
+      dto.setNd(workEnv.getTransNd());
+      dto.setPosiCode(workEnv.getPoCode());
+      dto.setOrgCode((String) getValue(method, f, "orgCode"));
+      Map initMap = zcbaseDataServiceDelegate.initWorkEnv(dto, meta);
+      User user = (User) initMap.get("user");
+      workEnv.setCurrUser(user);
+      meta.setSvUserID(user.getUserId());
+      Company company = (Company) initMap.get("company");
+      workEnv.setCurrCompany(company);
+      meta.setSvCoCode(workEnv.getCurrCoCode());
+      meta.setSvCoName(workEnv.getCurrCompany() == null ? null : workEnv.getCurrCompany().getName());
+      Date sysDate = (Date) initMap.get("sysDate");
+      workEnv.setSysDate(sysDate);
+      List roles = (List) initMap.get("roles");
+      workEnv.setRoles(roles);
+      String orgPoCode = (String) initMap.get("orgPoCode");
+      workEnv.setOrgPoCode(orgPoCode);
     } catch (Exception ex) {
       ex.printStackTrace();
     }
 
   }
 
-  private String getOrgPoCode(IBaseDataServiceDelegate baseDataServiceDelegate, String coCode, String orgCode, String posiCode, int nd, RequestMeta requestMeta) {
-    String key = coCode + "-" + orgCode + "-" + posiCode;
-    String orgPoCode = orgPoCodeCache.get(key);
-    //    System.out.println("workEnv.setOrgPoCode2 key" + key);
-    //    System.out.println("workEnv.setOrgPoCode3 orgPoCode" + orgPoCode);
-    if (orgPoCode == null) {
-      orgPoCode = baseDataServiceDelegate.getOrgPosiId(coCode, orgCode, posiCode, nd, requestMeta);
-      //      System.out.println("workEnv.setOrgPoCode4 orgPoCode" + orgPoCode);
-      orgPoCodeCache.put(key, orgPoCode);
-    }
-    //    System.out.println("workEnv.setOrgPoCode4 orgPoCode5 " + orgPoCode);
-    return orgPoCode;
-  }
+  /* private String getOrgPoCode(IBaseDataServiceDelegate baseDataServiceDelegate, String coCode, String orgCode, String posiCode, int nd, RequestMeta requestMeta) {
+     String key = coCode + "-" + orgCode + "-" + posiCode;
+     String orgPoCode = orgPoCodeCache.get(key);
+     //    System.out.println("workEnv.setOrgPoCode2 key" + key);
+     //    System.out.println("workEnv.setOrgPoCode3 orgPoCode" + orgPoCode);
+     if (orgPoCode == null) {
+       orgPoCode = baseDataServiceDelegate.getOrgPosiId(coCode, orgCode, posiCode, nd, requestMeta);
+       //      System.out.println("workEnv.setOrgPoCode4 orgPoCode" + orgPoCode);
+       orgPoCodeCache.put(key, orgPoCode);
+     }
+     //    System.out.println("workEnv.setOrgPoCode4 orgPoCode5 " + orgPoCode);
+     return orgPoCode;
+   }*/
 
   private HashMap<String, String> changeStrToMap(String str) {
     HashMap map = new HashMap();
@@ -192,13 +209,14 @@ public class LocalResouceAppletUtil {
   private void installLaf(Object f, Method method) {
     try {
 
-      lafClassName = UIManager.getSystemLookAndFeelClassName();
+      /* lafClassName = UIManager.getSystemLookAndFeelClassName();
 
-      String v = AsOptionMeta.getOptVal(SystemOptionConstants.OPT_SYS_LOOK_AND_FEEL);
-      preferredFontSize = AsOptionMeta.getOptVal(SystemOptionConstants.OPT_PREFERRED_FONT_SIZE);
-      if (v != null) {
-        lafClassName = v;
-      }
+       String v = AsOptionMeta.getOptVal(SystemOptionConstants.OPT_SYS_LOOK_AND_FEEL);
+       preferredFontSize = AsOptionMeta.getOptVal(SystemOptionConstants.OPT_PREFERRED_FONT_SIZE);
+       
+       if (v != null) {
+         lafClassName = v;
+       }*/
 
       LookAndFeel lf = (LookAndFeel) (Class.forName(lafClassName).newInstance());//"com.ufgov.smartclient.plaf.BlueLookAndFeel"
       UIManager.setLookAndFeel(lf);

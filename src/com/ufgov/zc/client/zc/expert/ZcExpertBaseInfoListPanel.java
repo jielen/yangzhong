@@ -1,4 +1,5 @@
 package com.ufgov.zc.client.zc.expert;
+
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.DefaultKeyboardFocusManager;
@@ -65,60 +66,58 @@ import com.ufgov.zc.common.system.exception.DataAlreadyDeletedException;
 import com.ufgov.zc.common.system.exception.OtherException;
 import com.ufgov.zc.common.system.util.ObjectUtil;
 import com.ufgov.zc.common.zc.model.EmExpert;
-import com.ufgov.zc.common.zc.publish.IZcEmExpertAbilityServiceDelegate;
 import com.ufgov.zc.common.zc.publish.IZcEmExpertServiceDelegate;
+
 /**
-* @ClassName: ZcExpertBaseInfoListPanel
-* @Description:专家基础信息维护
-* @date: 2012-04-06
-* @version: V1.0 
-* @since: 1.0
-* @author: shenwanchao
-* @modify: 
-*/
+ * @ClassName: ZcExpertBaseInfoListPanel
+ * @Description:专家基础信息维护
+ * @date: 2012-04-06
+ * @version: V1.0
+ * @since: 1.0
+ * @author: shenwanchao
+ * @modify:
+ */
 public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements ParentWindowAware {
   private static final Logger logger = Logger.getLogger(ZcExpertBaseInfoListPanel.class);
-  
+
   public static final String compoId = "ZC_EM_B_EXPERT";
-  
+
   private Window parentWindow;
-  
+
   private RequestMeta requestMeta = WorkEnv.getInstance().getRequestMeta();
-  
+
   private BillElementMeta billElementMeta = BillElementMeta.getBillElementMetaWithoutNd(compoId);
-  
+
   private AbstractSearchConditionArea topSearchConditionArea;
-  
-  private FuncButton  unAuditButton = new PauseEvalExpertButton();
-  
-  private FuncButton  auditPassButton = new EnableButton();
-  
-  private FuncButton cancelButton = new InvalidButton(); ;
-  
+
+  private FuncButton unAuditButton = new PauseEvalExpertButton();
+
+  private FuncButton auditPassButton = new EnableButton();
+
+  private FuncButton cancelButton = new InvalidButton();;
+
   public Window getParentWindow() {
     return parentWindow;
   }
-  
+
   public void setParentWindow(Window parentWindow) {
     this.parentWindow = parentWindow;
   }
-  
+
   public BillElementMeta getBillElementMeta() {
     return billElementMeta;
   }
-  
+
   public RequestMeta getRequestMeta() {
     return requestMeta;
   }
-  
+
   private ElementConditionDto elementConditionDto = new ElementConditionDto();
-  
-  public IZcEmExpertServiceDelegate zcEmExpertServiceDelegate = (IZcEmExpertServiceDelegate) ServiceFactory.create(IZcEmExpertServiceDelegate.class,
-    "zcEmExpertServiceDelegate");
-  
-  public IBaseDataServiceDelegate baseDataServiceDelegate = (IBaseDataServiceDelegate) ServiceFactory.create(IBaseDataServiceDelegate.class,
-    "baseDataServiceDelegate");
-  
+
+  public IZcEmExpertServiceDelegate zcEmExpertServiceDelegate = (IZcEmExpertServiceDelegate) ServiceFactory.create(IZcEmExpertServiceDelegate.class, "zcEmExpertServiceDelegate");
+
+  public IBaseDataServiceDelegate baseDataServiceDelegate = (IBaseDataServiceDelegate) ServiceFactory.create(IBaseDataServiceDelegate.class, "baseDataServiceDelegate");
+
   public IZcEmExpertServiceDelegate getZcEmExpertServiceDelegate() {
     return zcEmExpertServiceDelegate;
   }
@@ -128,12 +127,12 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
   }
 
   private final class DataDisplay extends MultiDataDisplay {
-    private DataDisplay(List<TableDisplay> displays, List<TableDisplay> showingDisplays, AbstractSearchConditionArea conditionArea,
-      boolean showConditionArea) {
+    private DataDisplay(List<TableDisplay> displays, List<TableDisplay> showingDisplays, AbstractSearchConditionArea conditionArea, boolean showConditionArea) {
       super(displays, showingDisplays, conditionArea, showConditionArea, ZcSettingConstants.TAB_ID_ZC_EM_EXPORT);
-      setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), LangTransMeta.translate("ZC_EM_B_EXPERT_TITLE"),
-        TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体", Font.BOLD, 15), Color.BLUE));
+      setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), LangTransMeta.translate("ZC_EM_B_EXPERT_TITLE"), TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体", Font.BOLD,
+        15), Color.BLUE));
     }
+
     @Override
     protected void preprocessShowingTableDisplay(List<TableDisplay> showingTableDisplays) {
       for (final TableDisplay d : showingTableDisplays) {
@@ -154,6 +153,7 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
         });
       }
     }
+
     @Override
     protected void handleTableDisplayActived(AbstractSearchConditionItem[] searchConditionItems, final TableDisplay tableDisplay) {
       elementConditionDto.setWfcompoId(compoId);
@@ -171,20 +171,22 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
           assert c != null;
           installLoadingComponent(c);
         }
+
         @Override
         public void after() {
           assert c != null;
           unInstallLoadingComponent(c);
           c.add(tableDisplay.getTable());
         }
+
         @Override
         public TableModel execute() throws Exception {
-          return ZcEmExpertToTableModelConverter.convertToTableModel(ZcExpertBaseInfoListPanel.this.zcEmExpertServiceDelegate.getEmExpertList(
-            elementConditionDto, requestMeta));
+          return ZcEmExpertToTableModelConverter.convertToTableModel(ZcExpertBaseInfoListPanel.this.zcEmExpertServiceDelegate.getEmExpertList(elementConditionDto, requestMeta));
         }
+
         @Override
         public void success(TableModel model) {
-          
+
           tableDisplay.setTableModel(model);
 
           setButtonStatus();
@@ -192,9 +194,11 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
       });
     }
   }
+
   static {
     LangTransMeta.init("ZC%");
   }
+
   /**
    * 构造函数
    */
@@ -202,10 +206,10 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
     UIUtilities.asyncInvoke(new DefaultInvokeHandler<List<SearchCondition>>() {
       @Override
       public List<SearchCondition> execute() throws Exception {
-        List<SearchCondition> needDisplaySearchConditonList = SearchConditionUtil.getNeedDisplaySearchConditonList(WorkEnv.getInstance()
-          .getCurrUserId(), ZcSettingConstants.TAB_ID_ZC_EM_EXPORT);
+        List<SearchCondition> needDisplaySearchConditonList = SearchConditionUtil.getNeedDisplaySearchConditonList(WorkEnv.getInstance().getCurrUserId(), ZcSettingConstants.TAB_ID_ZC_EM_EXPORT);
         return needDisplaySearchConditonList;
       }
+
       @Override
       public void success(List<SearchCondition> needDisplaySearchConditonList) {
         List<TableDisplay> showingDisplays = SearchConditionUtil.getNeedDisplayTableDisplay(needDisplaySearchConditonList);
@@ -216,28 +220,28 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
     });
     requestMeta.setCompoId(compoId);
   }
-  
+
   /**
    * list页面顶部查询条件
    * @return
    */
   private AbstractSearchConditionArea createTopConditionArea() {
     Map defaultValueMap = new HashMap();
-    topSearchConditionArea = new SaveableSearchConditionArea( ZcSettingConstants.CON_ID_ZC_EM_EXPORT, null, true, defaultValueMap, null);
+    topSearchConditionArea = new SaveableSearchConditionArea(ZcSettingConstants.CON_ID_ZC_EM_EXPORT, null, true, defaultValueMap, null);
     return topSearchConditionArea;
   }
+
   /**
    * 分页也签
    * @param showingDisplays
    * @return
    */
   private AbstractDataDisplay createDataDisplay(List<TableDisplay> showingDisplays) {
-    return new DataDisplay(SearchConditionUtil.getAllTableDisplay( ZcSettingConstants.TAB_ID_ZC_EM_EXPORT), showingDisplays, createTopConditionArea(), true);//true:显示收索条件区 false：不显示收索条件区
+    return new DataDisplay(SearchConditionUtil.getAllTableDisplay(ZcSettingConstants.TAB_ID_ZC_EM_EXPORT), showingDisplays, createTopConditionArea(), false);//true:显示收索条件区 false：不显示收索条件区
   }
- 
+
   /**
    * 为工具条添加按钮，即list页面的顶部的按钮
-   * 
    */
   @Override
   protected void addToolBarComponent(JFuncToolBar toolBar) {
@@ -249,9 +253,8 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
     toolBar.add(unAuditButton);
     toolBar.add(auditPassButton);
     toolBar.add(printButton);
-//    toolBar.add(printPreviewButton);
-//    toolBar.add(printSettingButton);
-    
+    //    toolBar.add(printPreviewButton);
+    //    toolBar.add(printSettingButton);
 
     // 初始化按钮的action事件
     addButton.addActionListener(new ActionListener() {
@@ -295,9 +298,8 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
       }
     });
   }
-   
+
   /**
-   * 
    * 设置按钮的状态，根据list页面的Tab页签按钮显示可用不可用
    */
   private void setButtonStatus() {
@@ -310,8 +312,8 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
     printButton.setEnabled(true);
     printPreviewButton.setEnabled(false);
     printSettingButton.setEnabled(true);
-    
-    if (WFConstants.EDIT_TAB_STATUS_DRAFT.equalsIgnoreCase(panelId)) {  
+
+    if (WFConstants.EDIT_TAB_STATUS_DRAFT.equalsIgnoreCase(panelId)) {
       deleteButton.setEnabled(true);
       cancelButton.setEnabled(false);
       unAuditButton.setEnabled(false);
@@ -338,22 +340,22 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
       auditPassButton.setEnabled(false);
     }
   }
-  
+
   /**
    * 刷新方法
    */
   public void refreshCurrentTabData() {
     topSearchConditionArea.doSearch();
   }
-  
+
   /**
    * 刷新当前数据
    * @param beanList
    */
-  public void refreshCurrentTabData(List beanList) {                                         
+  public void refreshCurrentTabData(List beanList) {
     topDataDisplay.getActiveTableDisplay().getTable().setModel(ZcEmExpertToTableModelConverter.convertToTableModel(beanList));
   }
-  
+
   /**
    * 获的数据bean的list
    * @return
@@ -371,21 +373,20 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
     }
     return beanList;
   }
-  
+
   /***********************************************************************************************
    * 下面用来实现注册按钮的方法
    ***********************************************************************************************/
   /**
    * 新增方法
    */
-  public void doAdd() {  
+  public void doAdd() {
     new ZcExpertBaseInfoDialog(ZcExpertBaseInfoListPanel.this, new ArrayList(), this.topDataDisplay.getActiveTableDisplay().getTable().getRowCount(), topDataDisplay
 
-      .getActiveTableDisplay().getStatus());
-    
-    
+    .getActiveTableDisplay().getStatus());
+
   }
-  
+
   /**
    * 删除方法
    */
@@ -396,9 +397,7 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
       return;
     }
     int result = JOptionPane.showConfirmDialog(this, "是否要删除选中的数据?", "删除确认", JOptionPane.YES_NO_OPTION);
-    if (result != JOptionPane.YES_OPTION) {
-      return;
-    }
+    if (result != JOptionPane.YES_OPTION) { return; }
     StringBuffer errorInfo = new StringBuffer("");
     boolean success = true;
     requestMeta.setFuncId(deleteButton.getFuncId());
@@ -431,7 +430,7 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
       JOptionPane.showMessageDialog(this, "删除错误!\n" + errorInfo, "错误", JOptionPane.ERROR_MESSAGE);
     }
   }
- 
+
   /**
    * 作废专家方法
    */
@@ -442,13 +441,10 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
       return;
     }
     requestMeta.setFuncId(this.auditPassButton.getFuncId());
-    
-    GkCommentDialog commentDialog = new GkCommentDialog(DefaultKeyboardFocusManager.getCurrentKeyboardFocusManager().getActiveWindow(),
-      ModalityType.APPLICATION_MODAL);
-    if (commentDialog.cancel) {
-      return;
-    }
-    
+
+    GkCommentDialog commentDialog = new GkCommentDialog(DefaultKeyboardFocusManager.getCurrentKeyboardFocusManager().getActiveWindow(), ModalityType.APPLICATION_MODAL);
+    if (commentDialog.cancel) { return; }
+
     boolean success = true;
     String errorInfo = "";
     try {
@@ -470,7 +466,7 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
       JOptionPane.showMessageDialog(this, "作废专家失败 ！" + errorInfo, "错误", JOptionPane.ERROR_MESSAGE);
     }
   }
-  
+
   /**
    * 暂停方法
    */
@@ -481,13 +477,10 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
       return;
     }
     requestMeta.setFuncId(this.auditPassButton.getFuncId());
-    
-    GkCommentDialog commentDialog = new GkCommentDialog(DefaultKeyboardFocusManager.getCurrentKeyboardFocusManager().getActiveWindow(),
-      ModalityType.APPLICATION_MODAL);
-    if (commentDialog.cancel) {
-      return;
-    }
-    
+
+    GkCommentDialog commentDialog = new GkCommentDialog(DefaultKeyboardFocusManager.getCurrentKeyboardFocusManager().getActiveWindow(), ModalityType.APPLICATION_MODAL);
+    if (commentDialog.cancel) { return; }
+
     boolean success = true;
     String errorInfo = "";
     try {
@@ -508,11 +501,11 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
       JOptionPane.showMessageDialog(this, "暂停专家失败 ！" + errorInfo, "错误", JOptionPane.ERROR_MESSAGE);
     }
   }
-  
+
   /**
    * 启用方法
    */
- 
+
   private void doAuditPass() {
     List beanList = this.getCheckedList();
     if (beanList.size() == 0) {
@@ -520,13 +513,10 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
       return;
     }
     requestMeta.setFuncId(this.auditPassButton.getFuncId());
-    
-    GkCommentDialog commentDialog = new GkCommentDialog(DefaultKeyboardFocusManager.getCurrentKeyboardFocusManager().getActiveWindow(),
-      ModalityType.APPLICATION_MODAL);
-    if (commentDialog.cancel) {
-      return;
-    }
-    
+
+    GkCommentDialog commentDialog = new GkCommentDialog(DefaultKeyboardFocusManager.getCurrentKeyboardFocusManager().getActiveWindow(), ModalityType.APPLICATION_MODAL);
+    if (commentDialog.cancel) { return; }
+
     boolean success = true;
     String errorInfo = "";
     try {
@@ -547,7 +537,7 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
       JOptionPane.showMessageDialog(this, "启用专家失败 ！" + errorInfo, "错误", JOptionPane.ERROR_MESSAGE);
     }
   }
- 
+
   /**
    * 打印方法
    */
@@ -574,7 +564,7 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
     if (success && printed) {
     }
   }
-  
+
   /**
    * 打印预览方法
    */
@@ -590,8 +580,7 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
       PrintObject printObject = this.baseDataServiceDelegate.genMainBillPrintObjectFN(printList, requestMeta);
       PrintPreviewer previewer = new PrintPreviewer(printObject) {
         @Override
-        protected void afterSuccessPrint() {
-        }
+        protected void afterSuccessPrint() {}
       };
       previewer.preview();
     } catch (Exception e) {
@@ -599,7 +588,7 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
       JOptionPane.showMessageDialog(this, "打印预览出错！\n" + e.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
     }
   }
-  
+
   /**
    * 打印设置方法
    */
@@ -608,9 +597,7 @@ public class ZcExpertBaseInfoListPanel extends AbstractEditListBill implements P
     requestMeta.setPageType(this.compoId + "_L");
     new PrintSettingDialog(requestMeta);
   }
-  
-  
-  
+
   public static void main(String[] args) {
     SwingUtilities.invokeLater(new Runnable() {
       public void run() {

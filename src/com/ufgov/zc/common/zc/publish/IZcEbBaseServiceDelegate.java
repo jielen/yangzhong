@@ -58,4 +58,6 @@ public interface IZcEbBaseServiceDelegate extends Publishable {
   public void untreadFN(List billList, RequestMeta meta);
 
   public String getCompoNo(String compoId, String noField, Object bill, RequestMeta meta);
+
+  public Map initWorkEnv(ElementConditionDto dto, RequestMeta meta);
 }

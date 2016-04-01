@@ -644,7 +644,8 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
     //发布到第三者网站，目前扬中使用
     if ("y".equalsIgnoreCase(ZcSUtil.getAsOptionVal(ZcSettingConstants.OPT_ZC_SEND_TO_THIRD_WEB))) {
       ZcEbBulletinPublishUtil pu = new ZcEbBulletinPublishUtil();
-      pu.publishBulletin(tin);
+      //      pu.publishBulletin(tin);
+      pu.publishBulletin2(tin);
     }
     System.out.println("公告更新外网结束");
 

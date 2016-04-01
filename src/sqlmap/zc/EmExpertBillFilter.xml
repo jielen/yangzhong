@@ -12,9 +12,16 @@
 		<result property="emExpert.emExpertCode" column="EM_EXPERT_CODE" />
 		<result property="emExpert.emExpertName" column="EM_EXPERT_NAME" />
 		<result property="emExpert.emMobile" column="EM_MOBILE" />
+		<result property="emExpert.emUnitName" column="EM_UNIT_NAME" />
 	</resultMap>
 	
 	<select id="listByEmBillCode" resultMap="rltMapping" parameterClass="map">
+		SELECT *
+		  FROM EM_EXPERT_BILL_FILTER F, ZC_EM_B_EXPERT E
+		 WHERE F.EM_EXPERT_CODE = E.EM_EXPERT_CODE
+		 AND F.EM_BILL_CODE = #EM_BILL_CODE#
+	</select>
+	<select id="listUnitByEmBillCode" resultMap="rltMapping" parameterClass="map">
 		SELECT *
 		  FROM EM_EXPERT_BILL_FILTER F, ZC_EM_B_EXPERT E
 		 WHERE F.EM_EXPERT_CODE = E.EM_EXPERT_CODE
@@ -27,9 +34,19 @@
 		VALUES
 		(#emBillCode:VARCHAR#,#emExpert.emExpertCode:VARCHAR#)
 	</insert>
-		
+	
+	<insert id="insertUnit" parameterClass="EmExpertBillFilter">
+		INSERT INTO EM_EXPERT_BILL_FILTER_UNIT
+		(EM_BILL_CODE,UNIT_NAME)
+		VALUES
+		(#emBillCode:VARCHAR#,#emExpert.emUnitName:VARCHAR#)
+	</insert>	
 	<delete id="deleteByEmBillCode" parameterClass="map">
 		DELETE FROM EM_EXPERT_BILL_FILTER B
+		where B.EM_BILL_CODE = #EM_BILL_CODE#
+	</delete>	
+	<delete id="deleteUnitByEmBillCode" parameterClass="map">
+		DELETE FROM EM_EXPERT_BILL_FILTER_UNIT B
 		where B.EM_BILL_CODE = #EM_BILL_CODE#
 	</delete>
 	<select id="listAllExcludeExpertListAuto" resultMap="rltMapping" parameterClass="map">

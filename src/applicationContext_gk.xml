@@ -11,25 +11,8 @@
 		<property name="wfEngine" ref="WFEngine" />
 		<property name="asOptionDao" ref="asOptionDao" />
 		<property name="workflowDao" ref="workflowDao" />
-	</bean>
-	<bean id="dpBalanceDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.DpBalanceDao"
-		scope="singleton">
-		<property name="sqlMapClient" ref="sqlMapClient" />
-	</bean>
-	<bean id="dpBalanceService"
-		class="com.ufgov.zc.server.commonbiz.service.impl.DpBalanceService"
-		scope="singleton">
-		<property name="dpBalanceDao" ref="dpBalanceDao" />
-	</bean>
-	<bean id="biBalanceDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.BiBalanceDao"
-		scope="singleton">
-		<property name="sqlMapClient" ref="sqlMapClient" />
-	</bean>
-	<bean id="biBalanceService"
-		class="com.ufgov.zc.server.commonbiz.service.impl.BiBalanceService"
-		scope="singleton">
-		<property name="biBalanceDao" ref="biBalanceDao" />
-	</bean>
+	</bean> 
+
 	<bean id="billElementDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.BillElementDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
@@ -77,24 +60,18 @@
 		scope="singleton">
 		<property name="companyDao" ref="companyDao" />
 	</bean>
-	<bean id="bAccDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.BAccDao"
-		scope="singleton">
-		<property name="sqlMapClient" ref="sqlMapClient" />
-	</bean>
-	<bean id="bAccService" class="com.ufgov.zc.server.commonbiz.service.impl.BAccService"
-		scope="singleton">
-		<property name="baccDao" ref="bAccDao" />
-	</bean>
 	<bean id="outlayDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.OutlayDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
+	<!-- 
 	<bean id="outlayService"
 		class="com.ufgov.zc.server.commonbiz.service.impl.OutlayService"
 		scope="singleton">
 		<property name="outlayDao" ref="outlayDao" />
 	</bean>
-	<bean id="projectTypeDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.ProjectTypeDao"
+	 -->
+	<!-- <bean id="projectTypeDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.ProjectTypeDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
@@ -111,16 +88,16 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.ProjectService"
 		scope="singleton">
 		<property name="projectDao" ref="projectDao" />
-	</bean>
-	<bean id="fundDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.FundDao"
+	</bean> -->
+	<!-- <bean id="fundDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.FundDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
 	<bean id="fundService" class="com.ufgov.zc.server.commonbiz.service.impl.FundService"
 		scope="singleton">
 		<property name="fundDao" ref="fundDao" />
-	</bean>
-	<bean id="manageDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.ManageDao"
+	</bean> -->
+	<!-- <bean id="manageDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.ManageDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
@@ -128,8 +105,8 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.ManageService"
 		scope="singleton">
 		<property name="manageDao" ref="manageDao" />
-	</bean>
-	<bean id="originDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.OriginDao"
+	</bean> -->
+	<!-- <bean id="originDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.OriginDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
@@ -137,8 +114,8 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.OriginService"
 		scope="singleton">
 		<property name="originDao" ref="originDao" />
-	</bean>
-	<bean id="payoutDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.PayoutDao"
+	</bean> -->
+	<!-- <bean id="payoutDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.PayoutDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
@@ -146,8 +123,8 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.PayoutService"
 		scope="singleton">
 		<property name="payoutDao" ref="payoutDao" />
-	</bean>
-	<bean id="paytypeDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.PaytypeDao"
+	</bean> -->
+	<!-- <bean id="paytypeDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.PaytypeDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
@@ -155,8 +132,8 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.PaytypeService"
 		scope="singleton">
 		<property name="paytypeDao" ref="paytypeDao" />
-	</bean>
-	<bean id="inceptDocDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.InceptDocDao"
+	</bean> -->
+	<!-- <bean id="inceptDocDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.InceptDocDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
@@ -164,8 +141,8 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.InceptDocService"
 		scope="singleton">
 		<property name="inceptDocDao" ref="inceptDocDao" />
-	</bean>
-	<bean id="sendDocTypeDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.SendDocTypeDao"
+	</bean> -->
+	<!-- <bean id="sendDocTypeDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.SendDocTypeDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
@@ -182,15 +159,15 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.SendDocService"
 		scope="singleton">
 		<property name="sendDocDao" ref="sendDocDao" />
-	</bean>
-	<bean id="dAttrDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.DAttrDao"
+	</bean> -->
+	<!-- <bean id="dAttrDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.DAttrDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
 	<bean id="dAttrService" class="com.ufgov.zc.server.commonbiz.service.impl.DAttrService"
 		scope="singleton">
 		<property name="dattrDao" ref="dAttrDao" />
-	</bean>
+	</bean> -->
 	<bean id="asValDao" class="com.ufgov.zc.server.system.dao.ibatis.AsValDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
@@ -199,6 +176,7 @@
 		scope="singleton">
 		<property name="asValDao" ref="asValDao" />
 	</bean>
+	<!-- 
 	<bean id="bankAccountDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.BankAccountDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
@@ -207,7 +185,7 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.BankAccountService"
 		scope="singleton">
 		<property name="bankAccountDao" ref="bankAccountDao" />
-	</bean>
+	</bean> -->
 	<bean id="asOptionDao" class="com.ufgov.zc.server.system.dao.ibatis.AsOptionDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
@@ -241,6 +219,7 @@
 		scope="singleton">
 		<property name="numLimCompoDao" ref="numLimCompoDao" />
 	</bean>
+	<!-- 
 	<bean id="contractDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.ContractDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
@@ -249,7 +228,7 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.ContractService"
 		scope="singleton">
 		<property name="contractDao" ref="contractDao" />
-	</bean>
+	</bean> -->
 	<bean id="searchConditionDao"
 		class="com.ufgov.zc.server.commonbiz.dao.ibatis.SearchConditionDao"
 		scope="singleton">
@@ -297,7 +276,7 @@
 		scope="singleton">
 		<property name="sqlCheckDao" ref="sqlCheckDao" />
 	</bean>
-	<bean id="operationTypeDao"
+	<!-- <bean id="operationTypeDao"
 		class="com.ufgov.zc.server.commonbiz.dao.ibatis.OperationTypeDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
@@ -306,7 +285,7 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.OperationTypeService"
 		scope="singleton">
 		<property name="operationTypeDao" ref="operationTypeDao" />
-	</bean>
+	</bean> -->
 	<bean id="maUserNumLimDao" class="com.ufgov.zc.server.console.dao.ibatis.MaUserNumLimDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
@@ -350,7 +329,7 @@
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
-	<bean id="maBankDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.MaBankDao"
+	<!-- <bean id="maBankDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.MaBankDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
@@ -358,8 +337,8 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.MaBankService"
 		scope="singleton">
 		<property name="maBankDao" ref="maBankDao" />
-	</bean>
-	<bean id="maBanknodeDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.MaBanknodeDao"
+	</bean> -->
+	<!-- <bean id="maBanknodeDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.MaBanknodeDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
@@ -367,8 +346,8 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.MaBanknodeService"
 		scope="singleton">
 		<property name="maBanknodeDao" ref="maBanknodeDao" />
-	</bean>
-	<bean id="maTzdSumElementDao"
+	</bean> -->
+	<!-- <bean id="maTzdSumElementDao"
 		class="com.ufgov.zc.server.commonbiz.dao.ibatis.MaTzdSumElmentDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
@@ -377,8 +356,8 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.MaTzdSumElementService"
 		scope="singleton">
 		<property name="maTzdSumElementDao" ref="maTzdSumElementDao" />
-	</bean>
-	<bean id="maCpBankBalDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.MaCpBankBalDao"
+	</bean> -->
+	<!-- <bean id="maCpBankBalDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.MaCpBankBalDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
@@ -386,8 +365,8 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.MaCpBankBalService"
 		scope="singleton">
 		<property name="maCpBankBalDao" ref="maCpBankBalDao" />
-	</bean>
-	<bean id="balModeDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.BalModeDao"
+	</bean> -->
+	<!--  <bean id="balModeDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.BalModeDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
@@ -395,7 +374,7 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.BalModeService"
 		scope="singleton">
 		<property name="balModeDao" ref="balModeDao" />
-	</bean>
+	</bean> -->
 	<bean id="userDao" class="com.ufgov.zc.server.system.dao.ibatis.UserDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
@@ -435,6 +414,7 @@
 		scope="singleton">
 		<property name="asCompoFuncDao" ref="asCompoFuncDao" />
 	</bean>
+	<!-- 
 	<bean id="gkCompoNewToOldDao"
 		class="com.ufgov.zc.server.console.dao.ibatis.GkCompoNewToOldDao"
 		scope="singleton">
@@ -444,8 +424,8 @@
 		class="com.ufgov.zc.server.console.service.impl.GkCompoNewToOldService"
 		scope="singleton">
 		<property name="gkCompoNewToOldDao" ref="gkCompoNewToOldDao" />
-	</bean>
-	<bean id="gkGetdataRuleDao"
+	</bean> -->
+	<!-- <bean id="gkGetdataRuleDao"
 		class="com.ufgov.zc.server.commonbiz.dao.ibatis.GkGetdataRuleDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
@@ -454,7 +434,7 @@
 		class="com.ufgov.zc.server.console.service.impl.GkGetdataRuleService"
 		scope="singleton">
 		<property name="gkGetdataRuleDao" ref="gkGetdataRuleDao" />
-	</bean>
+	</bean> -->
 	<bean id="asCompoDao" class="com.ufgov.zc.server.system.dao.ibatis.AsCompoDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
@@ -490,7 +470,7 @@
 		scope="singleton">
 		<property name="asCompoDao" ref="asCompoDao" />
 	</bean>
-	<bean id="maCpElementMappingDao"
+	<!-- <bean id="maCpElementMappingDao"
 		class="com.ufgov.zc.server.commonbiz.dao.ibatis.MaCpElementMappingDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
@@ -499,11 +479,11 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.MaCpElementMappingService"
 		scope="singleton">
 		<property name="maCpElementMappingDao" ref="maCpElementMappingDao" />
-	</bean>
+	</bean> -->
 	<bean id="numService" class="com.ufgov.zc.server.system.service.impl.NumService"
 		scope="singleton">
 	</bean>
-	<bean id="maCpElementRelationDao"
+	<!-- <bean id="maCpElementRelationDao"
 		class="com.ufgov.zc.server.commonbiz.dao.ibatis.MaElementRelationRuleDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
@@ -512,17 +492,17 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.MaElementRelationRuleService"
 		scope="singleton">
 		<property name="maCpElementRelationDao" ref="maCpElementRelationDao" />
-	</bean>
-	<bean id="gkTempDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.GkTempDao"
+	</bean> -->
+	<!-- <bean id="gkTempDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.GkTempDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
-	</bean>
-	<bean id="execProcCallbackDao"
+	</bean> -->
+	<!-- <bean id="execProcCallbackDao"
 		class="com.ufgov.zc.server.commonbiz.dao.ibatis.ExecProcCallbackDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
-	</bean>
-	<bean id="maExpSerialService"
+	</bean> -->
+	<!-- <bean id="maExpSerialService"
 		class="com.ufgov.zc.server.system.service.impl.MaExpSerialService"
 		scope="singleton">
 		<property name="serialDao" ref="maExpSerialDao" />
@@ -530,7 +510,8 @@
 	<bean id="maExpSerialDao" class="com.ufgov.zc.server.system.dao.ibatis.MaExpSerialDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
-	</bean>
+	</bean> -->
+	<!--  
 	<bean id="bankTradeLogdao" class="com.ufgov.zc.server.system.dao.ibatis.BankTradeLogDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
@@ -539,10 +520,10 @@
 		class="com.ufgov.zc.server.system.service.impl.BankTradeLogService"
 		scope="singleton">
 		<property name="bankTradeLogDao" ref="bankTradeLogdao" />
-	</bean>
-	<bean id="bankTradeService" class="com.ufgov.zc.server.bank.impl.BankTradeServiceImpl" scope="singleton">
-	</bean>
-	<bean id="macpRuleDetailDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.MacpRuleDetailDao"
+	</bean> -->
+	<!-- <bean id="bankTradeService" class="com.ufgov.zc.server.bank.impl.BankTradeServiceImpl" scope="singleton">
+	</bean> -->
+	<!-- <bean id="macpRuleDetailDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.MacpRuleDetailDao"
 		scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
@@ -550,13 +531,13 @@
 		class="com.ufgov.zc.server.commonbiz.service.impl.MacpRuleDetailService"
 		scope="singleton">
 		<property name="macpRuleDetailDao" ref="macpRuleDetailDao" />
-	</bean>
-	<bean id="maSearchStoreDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.MaSearchStoreDao" scope="singleton">
+	</bean> -->
+	<!-- <bean id="maSearchStoreDao" class="com.ufgov.zc.server.commonbiz.dao.ibatis.MaSearchStoreDao" scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
 	<bean id="maSearchStoreService" class="com.ufgov.zc.server.commonbiz.service.impl.MaSearchStoreService" scope="singleton">
 		<property name="storeDao" ref="maSearchStoreDao" />
-	</bean>
+	</bean> -->
 
 	<bean id="asEmpDao" class="com.ufgov.zc.server.console.dao.ibatis.AsEmpDao"
 		scope="singleton">

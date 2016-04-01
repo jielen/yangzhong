@@ -8,9 +8,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
+
+import javax.xml.namespace.QName;
+
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
+import org.apache.log4j.Logger;
 
 import com.kingdrive.workflow.exception.WorkflowException;
+import com.ufgov.zc.common.system.constants.ZcSettingConstants;
 import com.ufgov.zc.common.system.exception.BusinessException;
 import com.ufgov.zc.common.zc.model.ZcEbBulletin;
 import com.ufgov.zc.server.zc.web.mysql.MysqlDBHelper;
@@ -23,11 +33,44 @@ import com.ufgov.zc.server.zc.web.mysql.MysqlDBHelper;
  */
 public class ZcEbBulletinPublishUtil {
 
+  private static Logger log = Logger.getLogger(ZcEbBulletin.class);
+
+  /**
+   * 调用webservice进行发布
+   * @param bul
+   * @throws BusinessException
+   */
+  public void publishBulletin2(ZcEbBulletin bul) throws BusinessException {
+    JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+    Client client = dcf.createClient("http://www.yzggzy.cn/webservice/cmsContent?wsdl");
+    QName content = new QName("http://webservice.cms.jeecms.com/", "addContent");
+    try {
+      Date d = Calendar.getInstance().getTime();
+      SimpleDateFormat sdf = new SimpleDateFormat(ZcSettingConstants.SIMPLE_DATE_FORMAT_FULL);
+      String txt = new String(bul.getFile().toString());
+      System.out.println(txt);
+      Object[] objects = client.invoke(content, bul.getBulletinID(), getCHannelId(bul), bul.getProjName(), txt, sdf.format(d));
+      log.info("发布公告(id:" + bul.getBulletinID() + "),发布结果: " + objects[0]);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      log.error("通过webservie接口发布公告到网站出错:" + e.getMessage(), e);
+      throw new BusinessException("通过webservie接口发布公告到网站出错:" + e.getMessage(), e);
+    }
+  }
+
+  /**
+   * 通过数据库接口方式进行发布
+   * @param bul
+   * @throws BusinessException
+   */
   public void publishBulletin(ZcEbBulletin bul) throws BusinessException {
     if (bul != null) {
       if (bul.getFile() == null || bul.getFileContent() == null) { throw new BusinessException("发布公告异常，公告里的html内容不能为空."); }
       //更新到外网
-      int contentId = getNextContentId();
+      Long systime = new Long(System.currentTimeMillis());
+      int contentId = getNextContentId2(-1);
+      //      int contentId = systime.intValue();
       log("new id=" + contentId);
 
       Connection con = null;
@@ -170,6 +213,8 @@ public class ZcEbBulletinPublishUtil {
 
     int curTime = c.get(Calendar.YEAR) * 10000 + (c.get(Calendar.MONTH) + 1) * 100 + c.get(Calendar.DAY_OF_MONTH);
 
+    //    int curTime = c.get(Calendar.YEAR) * 100 + (c.get(Calendar.MONTH) + 1);
+
     String sql = new String();
     sql = "select max(content_id) from jc_content where content_id like '" + curTime + "%'";
     log("getNextContentId sql=" + sql);
@@ -203,6 +248,80 @@ public class ZcEbBulletinPublishUtil {
     }
     if (id == -1 || id < 2015010100) { return curTime * 100 + 1; }
     return id + 1;
+  }
+
+  private int getNextContentId2(int existsNum) throws BusinessException {
+
+    Calendar c = Calendar.getInstance();
+
+    //    SimpleDateFormat df = new SimpleDateFormat("YYYYMMDD");
+    //    String curTimeStr = df.format(c.getTime());
+    c.setTimeInMillis(System.currentTimeMillis());
+
+    int max = 9999;
+    int min = 1;
+    Random random = new Random();
+    int s = random.nextInt(max) % (max - min + 1) + min;
+    while (true) {
+      if (s == existsNum) {
+        s = random.nextInt(max) % (max - min + 1) + min;
+      } else {
+        break;
+      }
+    }
+    String ss = "" + s;
+    if (ss.length() == 1) {
+      ss = "000" + s;
+    } else if (ss.length() == 2) {
+      ss = "00" + s;
+    } else if (ss.length() == 3) {
+      ss = "0" + s;
+    }
+
+    int curTime = c.get(Calendar.YEAR) * 100 + (c.get(Calendar.MONTH) + 1) * 1;
+
+    ss = "" + curTime + ss;
+
+    curTime = Integer.parseInt(ss);
+    if (existsId(curTime)) { return getNextContentId2(curTime); }
+    return curTime;
+  }
+
+  private boolean existsId(int id) {
+
+    String sql = new String();
+    sql = "select content_id from jc_content where content_id ='" + id + "'";
+    log("getContendId sql=" + sql);
+    Connection con = null;
+    Statement st = null;
+    boolean rtn = false;
+    MysqlDBHelper dbHelper = null;
+    try {
+      dbHelper = MysqlDBHelper.getInstance();
+      con = dbHelper.getConnection();
+      st = con.createStatement();
+      ResultSet ret = st.executeQuery(sql);//执行语句，得到结果集  
+      while (ret.next()) {
+        id = ret.getInt(1);
+        log("get id from db=" + id);
+        rtn = true;
+      }//显示数据  
+      ret.close();
+    } catch (Exception e) {
+      //      e.printStackTrace();
+      throw new BusinessException("发布公告报错,无法获取最新的外网contentID:\n" + e.getMessage(), e);
+    } finally {
+      if (st != null) try {
+        st.close();
+      } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      if (dbHelper != null) {
+        dbHelper.close(con);
+      }
+    }
+    return rtn;
   }
 
   private void log(String str) {

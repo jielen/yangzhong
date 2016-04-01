@@ -50,6 +50,7 @@
 		<result property="estimateTime" column="EM_ESTIMATE_TIME" />
 		<result property="callInfo" column="EM_CALL_INFO" />
 		<result property="msgInfo" column="EM_MSG_INFO" />
+		<result column="ND" property="nd" />
 	</resultMap>
 			
 	<resultMap class="proMakeWithCoName" id="proMakeWithCoName">
@@ -73,6 +74,9 @@
 	<select id="list" resultMap="rltMapping" parameterClass="elementCondition">
 		SELECT B.* FROM ZC_EM_EXPERT_PRO_BILL B
 		WHERE 1=1
+		<isNotEqual prepend="and" compareValue="0" property="nd">
+			B.ND = #nd#
+		</isNotEqual>
 		<isNotNull prepend="AND" property="zcText0">
 			B.EM_BILL_CODE = #zcText0#
 		</isNotNull>
@@ -162,7 +166,8 @@
 				EM_EXPERT_BILL_TYPE,
 				EM_ESTIMATE_TIME,
 				EM_CALL_INFO,
-				EM_MSG_INFO
+				EM_MSG_INFO,
+				nd
 			) values (
 				#billCode:VARCHAR#,
 				#makeCode:VARCHAR#,
@@ -203,7 +208,8 @@
 				#expertBillType:VARCHAR#,
 				#estimateTime:DECIMAL#,
 				#callInfo:VARCHAR#,
-				#msgInfo:VARCHAR#
+				#msgInfo:VARCHAR#,
+				#nd#
 		    )
 	  </insert>
 
@@ -247,7 +253,8 @@
 					EM_EXPERT_BILL_TYPE = #expertBillType:VARCHAR#,
 					EM_ESTIMATE_TIME = #estimateTime:DECIMAL#,
 					EM_CALL_INFO = #callInfo:VARCHAR#,	
-					EM_MSG_INFO = #msgInfo:VARCHAR#				
+					EM_MSG_INFO = #msgInfo:VARCHAR#	,
+					nd=#nd#			
              where
 			        EM_BILL_CODE = #billCode:VARCHAR#
 	  </update>

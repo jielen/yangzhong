@@ -143,4 +143,8 @@ public class ZcEbBaseServiceDelegate implements IZcEbBaseServiceDelegate {
     return zcEbBaseService.getCompoNo(compoId, noField, bill, meta);
   }
 
+  public Map initWorkEnv(ElementConditionDto dto, RequestMeta meta) {
+    return zcEbBaseService.initWorkEnv(dto, meta);
+  }
+
 }

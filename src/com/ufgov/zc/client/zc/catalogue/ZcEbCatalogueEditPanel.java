@@ -27,7 +27,6 @@ import com.ufgov.zc.client.common.BillElementMeta;
 import com.ufgov.zc.client.common.LangTransMeta;
 import com.ufgov.zc.client.common.ListCursor;
 import com.ufgov.zc.client.common.MyTableModel;
-import com.ufgov.zc.client.common.ServiceFactory;
 import com.ufgov.zc.client.common.WorkEnv;
 import com.ufgov.zc.client.component.GkBaseDialog;
 import com.ufgov.zc.client.component.JFuncToolBar;
@@ -49,7 +48,6 @@ import com.ufgov.zc.client.component.zc.fieldeditor.ForeignEntityTreeFieldEditor
 import com.ufgov.zc.client.component.zc.fieldeditor.NewLineFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.TextAreaFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.TextFieldEditor;
-import com.ufgov.zc.common.commonbiz.publish.IBaseDataServiceDelegate;
 import com.ufgov.zc.common.system.RequestMeta;
 import com.ufgov.zc.common.system.constants.ZcSettingConstants;
 import com.ufgov.zc.common.system.dto.ElementConditionDto;
@@ -65,9 +63,7 @@ import com.ufgov.zc.common.zc.model.ZcBAgencyListAptd;
 import com.ufgov.zc.common.zc.model.ZcBCatalogue;
 
 /**
- * 
  * @author Administrator
- * 
  */
 @SuppressWarnings("unchecked")
 public class ZcEbCatalogueEditPanel extends AbstractMainSubEditPanel {
@@ -137,15 +133,14 @@ public class ZcEbCatalogueEditPanel extends AbstractMainSubEditPanel {
     this.listCursor = listCursor;
     this.tabStatus = tabStatus;
     this.listPanel = listPanel;
-    this.workPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), getTitle(), TitledBorder.CENTER, TitledBorder.TOP,
-      new Font("宋体", Font.BOLD, 15), Color.BLUE));
+    this.workPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), getTitle(), TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体", Font.BOLD, 15), Color.BLUE));
     this.parent = parent;
     this.colCount = 3;
     init();
     // workPanel.add(fieldEditorPanel, BorderLayout.CENTER);
     requestMeta.setCompoId(getCompoId());
-    IBaseDataServiceDelegate baseDataServiceDelegate = (IBaseDataServiceDelegate) ServiceFactory.create(IBaseDataServiceDelegate.class,
-      "baseDataServiceDelegate");
+    /* IBaseDataServiceDelegate baseDataServiceDelegate = (IBaseDataServiceDelegate) ServiceFactory.create(IBaseDataServiceDelegate.class,
+       "baseDataServiceDelegate");*/
     refreshData();
     stopTableEditing();
     updateFieldEditorsEditable();
@@ -175,10 +170,9 @@ public class ZcEbCatalogueEditPanel extends AbstractMainSubEditPanel {
           col = 0;
           JLabel label = new JLabel(getLabelText(comp));
           comp.setPreferredSize(new Dimension(150, comp.getOccRow() * 40));
-          fieldEditorPanel.add(label, new GridBagConstraints(col, row, 1, 1, 1.0, 1.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(
-            4, 0, 4, 4), 0, 0));
-          fieldEditorPanel.add(comp, new GridBagConstraints(col + 1, row, comp.getOccCol(), comp.getOccRow(), 1.0, 1.0, GridBagConstraints.WEST,
-            GridBagConstraints.HORIZONTAL, new Insets(4, 0, 4, 4), 0, 0));
+          fieldEditorPanel.add(label, new GridBagConstraints(col, row, 1, 1, 1.0, 1.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(4, 0, 4, 4), 0, 0));
+          fieldEditorPanel.add(comp, new GridBagConstraints(col + 1, row, comp.getOccCol(), comp.getOccRow(), 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(4, 0, 4, 4),
+            0, 0));
           // 将当前所占的行空间偏移量计算上
           row += comp.getOccRow();
           col = 0;
@@ -186,10 +180,8 @@ public class ZcEbCatalogueEditPanel extends AbstractMainSubEditPanel {
         }
         JLabel label = new JLabel(comp.getName());
         comp.setPreferredSize(new Dimension(150, 23));
-        fieldEditorPanel.add(label, new GridBagConstraints(col, row, 1, 1, 1.0, 1.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5,
-          0, 5, 5), 0, 0));
-        fieldEditorPanel.add(comp, new GridBagConstraints(col + 1, row, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
-          new Insets(5, 0, 5, 5), 0, 0));
+        fieldEditorPanel.add(label, new GridBagConstraints(col, row, 1, 1, 1.0, 1.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
+        fieldEditorPanel.add(comp, new GridBagConstraints(col + 1, row, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 0, 5, 5), 0, 0));
         if (col == colCount * 2 - 2) {
           row++;
           col = 0;
@@ -225,8 +217,7 @@ public class ZcEbCatalogueEditPanel extends AbstractMainSubEditPanel {
     String columNames[] = { "地域代码", "地域名称" };
     CatalogueFnHandler handler = new CatalogueFnHandler(columNames);
     ElementConditionDto elementCondtiontDto = new ElementConditionDto();
-    ForeignEntityFieldEditor zcDiyuDaima = new ForeignEntityFieldEditor("ZcBCatalogue.getZcDiyuDaima", elementCondtiontDto, 20, handler, columNames,
-      "地域代码", "zcDiyuDaima") {
+    ForeignEntityFieldEditor zcDiyuDaima = new ForeignEntityFieldEditor("ZcBCatalogue.getZcDiyuDaima", elementCondtiontDto, 20, handler, columNames, "地域代码", "zcDiyuDaima") {
 
       public static final long serialVersionUID = -7737549222488261602L;
 
@@ -443,9 +434,7 @@ public class ZcEbCatalogueEditPanel extends AbstractMainSubEditPanel {
     if (isDataChanged()) {
       int num = JOptionPane.showConfirmDialog(this, "当前页面数据已修改，是否要保存", "保存确认", 0);
       if (num == JOptionPane.YES_OPTION) {
-        if (!doSave()) {
-          return;
-        }
+        if (!doSave()) { return; }
       } else {
         listCursor.setCurrentObject(oldZcBAgency);
       }
@@ -458,9 +447,7 @@ public class ZcEbCatalogueEditPanel extends AbstractMainSubEditPanel {
     if (isDataChanged()) {
       int num = JOptionPane.showConfirmDialog(this, "当前页面数据已修改，是否要保存", "保存确认", 0);
       if (num == JOptionPane.YES_OPTION) {
-        if (!doSave()) {
-          return;
-        }
+        if (!doSave()) { return; }
       } else {
         listCursor.setCurrentObject(oldZcBAgency);
       }
@@ -473,9 +460,7 @@ public class ZcEbCatalogueEditPanel extends AbstractMainSubEditPanel {
     if (isDataChanged()) {
       int num = JOptionPane.showConfirmDialog(this, "当前页面数据已修改，是否要保存", "保存确认", 0);
       if (num == JOptionPane.YES_OPTION) {
-        if (!doSave()) {
-          return false;
-        }
+        if (!doSave()) { return false; }
       }
     }
     this.parent.dispose();
@@ -497,9 +482,8 @@ public class ZcEbCatalogueEditPanel extends AbstractMainSubEditPanel {
 
         || fd.getFieldName().equals("zcCatalogueName") || fd.getFieldName().equals("zcYear")) || fd.getFieldName().equals("zcCatalogueType")
 
-        || fd.getFieldName().equals("zcIsVital") || fd.getFieldName().equals("zcPinmuCtlg") || fd.getFieldName().equals("zcCatalogueCodePar")
-          || fd.getFieldName().equals("zcMetricUnit") || fd.getFieldName().equals("zcIsdianZitouBiao") || fd.getFieldName().equals("zcJjPpNum")
-          || fd.getFieldName().equals("zcJjPriceQuota")) {
+        || fd.getFieldName().equals("zcIsVital") || fd.getFieldName().equals("zcPinmuCtlg") || fd.getFieldName().equals("zcCatalogueCodePar") || fd.getFieldName().equals("zcMetricUnit")
+          || fd.getFieldName().equals("zcIsdianZitouBiao") || fd.getFieldName().equals("zcJjPpNum") || fd.getFieldName().equals("zcJjPriceQuota")) {
 
           fd.setEnabled(true);
 
@@ -533,7 +517,6 @@ public class ZcEbCatalogueEditPanel extends AbstractMainSubEditPanel {
 
   /**
    * 保存前校验
-   * 
    * @param cpApply
    * @return
    */
@@ -599,9 +582,7 @@ public class ZcEbCatalogueEditPanel extends AbstractMainSubEditPanel {
     // return true;
     // }
 
-    if (!this.checkBeforeSave()) {
-      return true;
-    }
+    if (!this.checkBeforeSave()) { return true; }
 
     boolean success = true;
     String errorInfo = "";
@@ -776,9 +757,7 @@ public class ZcEbCatalogueEditPanel extends AbstractMainSubEditPanel {
         public Class getColumnClass(int column) {
           if (column >= 0 && column < getColumnCount() && this.getRowCount() > 0) {
             for (int row = 0; row < this.getRowCount(); row++) {
-              if (getValueAt(row, column) != null) {
-                return getValueAt(row, column).getClass();
-              }
+              if (getValueAt(row, column) != null) { return getValueAt(row, column).getClass(); }
             }
           }
           return Object.class;

@@ -173,8 +173,9 @@
   where cata.ZC_DIYU_DAIMA=ctg.zc_diyu_daima(+)
     and cata.zc_catalogue_code_par(+)=zc.zc_catalogue_code
     and zc.ZC_YEAR=cata.zc_year
+    and cata.zc_year=#nd#
  
- 
+ <!-- 
  union all
  
   select cata.ZC_CATALOGUE_CODE,
@@ -203,7 +204,9 @@
        cata.ZC_JJ_PRICE_QUOTA
   from ZC_B_CATALOGUE cata,zc_diyu_ctg ctg
   where cata.ZC_DIYU_DAIMA=ctg.zc_diyu_daima(+)
-    and cata.zc_catalogue_code_par is null) catalogue
+    and cata.zc_catalogue_code_par is null
+     -->
+    ) catalogue
    
  order by catalogue.ZC_YEAR desc, catalogue.ZC_CATALOGUE_CODE
  

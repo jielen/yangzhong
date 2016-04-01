@@ -1,3 +1,698 @@
+----------20160115-----------------------
+--1
+
+   DELETE from as_lang_trans l where l.res_id in (
+select t.data_item from as_tab_col t where t.tab_id='ZC_EM_EXPERT_PRO_BILL') and l.res_id like 'EM%';
+
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_APPROVE_CODE', 'C', '采购批复文号');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_AVOID_COMPANY', 'C', '回避单位');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_AVOID_EXPERT', 'C', '回避专家');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_BILL_AMOUNT', 'C', '金额');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_BILL_CODE', 'C', '抽取登记编码');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_BILL_PLACE', 'C', '评标地点');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_BILL_PRINCIPAL', 'C', '项目负债人');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_BILL_STATUS', 'C', '状态');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_BZ', 'C', '备注');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_CALL_INFO', 'C', '语音呼叫信息');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_CATALOGUE_CODE', 'C', '品目代码');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_CHOUQ_NUM', 'C', '抽取次数');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_CONTACT_COMPANY', 'C', '申请单位名称');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_CONTACT_PERSON', 'C', '申请人');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_CONTACT_PHONE', 'C', '申请人电话');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_CO_CODE', 'C', '填报单位');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_DIYU_DAIMA', 'C', '品目地域代码');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_ECONOMY_MAJOR', 'C', '经济类专业');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_ECONOMY_NUM', 'C', '经济类人数');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_ESTIMATE_TIME', 'C', '估计工时');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_EXPERT_BILL_TYPE', 'C', '抽取单类别');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_FS', 'C', '采购方式');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_GUARDER_CODE', 'C', '监抽人');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_HWMC', 'C', '采购货物名称');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_INPUT_CODE', 'C', '填报人');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_INPUT_DATE', 'C', '填报时间');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_LEGAL_MAJOR', 'C', '法律类专业');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_LEGAL_NUM', 'C', '法律类人数');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_MAKE_CODE', 'C', '采购项目代码');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_MAKE_NAME', 'C', '采购项目名称');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_MSG_INFO', 'C', '短信信息');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_TECH_MAJOR', 'C', '技术类专业');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_TECH_NUM', 'C', '技术类人数');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_TENDERS_TIME', 'C', '开标时间');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_TOTAL_NUM', 'C', '专家人数');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_WJ_CODE', 'C', '招标文件编号');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_XMDIYU_DAIMA', 'C', '项目所在地域代码');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_YEAR', 'C', '财政年度');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_ZJDW', 'C', '采购（委托）单位');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_ZJDW_CODE', 'C', '委托单位代码');
+
+insert into AS_LANG_TRANS (RES_ID, LANG_ID, RES_NA)
+values ('EM_ZJDW_NAME', 'C', '委托单位名称');
+
+--2 
+DELETE from as_tab_col t where t.tab_id='ZC_EM_EXPERT_PRO_BILL';
+
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_APPROVE_CODE', 0, '采购批复文号', '采购批复文号', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_AVOID_COMPANY', 0, '回避单位', '回避单位', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_AVOID_EXPERT', 0, '回避专家', '回避专家', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_BILL_AMOUNT', 0, '金额', '金额', 'NUMBER', 22, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_BILL_CODE', 0, '抽取登记编码', '抽取登记编码', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'N', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_BILL_PLACE', 0, '评标地点', '评标地点', 'VARCHAR2', 60, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_BILL_PRINCIPAL', 0, '项目负债人', '项目负债人', 'VARCHAR2', 20, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_BILL_STATUS', 0, '状态', '状态', 'VARCHAR2', 60, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_BZ', 0, '备注', '备注', 'VARCHAR2', 2000, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_CALL_INFO', 0, '语音呼叫信息', '语音呼叫信息', 'VARCHAR2', 4000, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_CATALOGUE_CODE', 0, '品目代码', '品目代码', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_CHOUQ_NUM', 0, '抽取次数', '抽取次数', 'NUMBER', 22, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_CONTACT_COMPANY', 0, '申请单位名称', '申请单位名称', 'VARCHAR2', 200, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_CONTACT_PERSON', 0, '申请人', '申请人', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_CONTACT_PHONE', 0, '申请人电话', '申请人电话', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_CO_CODE', 0, '填报单位', '填报单位', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_DIYU_DAIMA', 0, '品目地域代码', '品目地域代码', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_ECONOMY_MAJOR', 0, '经济类专业', '经济类专业', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_ECONOMY_NUM', 0, '经济类人数', '经济类人数', 'NUMBER', 22, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_ESTIMATE_TIME', 0, '估计工时', '估计工时', 'NUMBER', 22, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_EXPERT_BILL_TYPE', 0, '抽取单类别', '抽取单类别', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_FS', 0, '采购方式', '采购方式', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_GUARDER_CODE', 0, '监抽人', '监抽人', 'VARCHAR2', 100, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_HWMC', 0, '采购货物名称', '采购货物名称', 'VARCHAR2', 200, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_INPUT_CODE', 0, '填报人', '填报人', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_INPUT_DATE', 0, '填报时间', '填报时间', 'DATE', 7, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_LEGAL_MAJOR', 0, '法律类专业', '法律类专业', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_LEGAL_NUM', 0, '法律类人数', '法律类人数', 'NUMBER', 22, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_MAKE_CODE', 0, '采购项目代码', '采购项目代码', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_MAKE_NAME', 0, '采购项目名称', '采购项目名称', 'VARCHAR2', 200, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_MSG_INFO', 0, '短信信息', '短信信息', 'VARCHAR2', 4000, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_TECH_MAJOR', 0, '技术类专业', '技术类专业', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_TECH_NUM', 0, '技术类人数', '技术类人数', 'NUMBER', 22, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_TENDERS_TIME', 0, '开标时间', '开标时间', 'DATE', 7, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_TOTAL_NUM', 0, '专家人数', '专家人数', 'NUMBER', 22, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_WJ_CODE', 0, '招标文件编号', '招标文件编号', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_XMDIYU_DAIMA', 0, '项目所在地域代码', '项目所在地域代码', 'VARCHAR2', 30, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_YEAR', 0, '财政年度', '财政年度', 'CHAR', 4, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_ZJDW', 0, '采购（委托）单位', '采购（委托）单位', 'VARCHAR2', 200, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_ZJDW_CODE', 0, '委托单位代码', '委托单位代码', 'VARCHAR2', 60, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'EM_ZJDW_NAME', 0, '委托单位名称', '委托单位名称', 'VARCHAR2', 200, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'ND', 0, '年度', '年度', 'VARCHAR2', 10, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+insert into as_tab_col (TAB_ID, DATA_ITEM, ORD_INDEX, DATA_ITEM_DESC, DATA_ITEM_NA, DATA_TYPE, DATA_LEN, DEC_LEN, F_REF_NAME, F_FIELD, IS_SAVE, VAL_SET_ID, IS_FPK, IS_USED, IS_PRE, IS_PK, IS_NULL, IS_NUM, IS_LIST, IS_SELE, DFLT_VAL, ADD_DATE, DB_VER_NO, IS_PAGE_FIELD, MIN_VALUE, MAX_VALUE, MIN_LENGTH, IS_EFFECT, VS_EFFECT_TABLE, URL, IS_KILO_STYLE, IS_TREEVIEW, IS_ONLYLEAF, EDIT_BOX_TYPE, IS_ORDER)
+values ('ZC_EM_EXPERT_PRO_BILL', 'PROCESS_INST_ID', 0, 'PROCESS_INST_ID', 'PROCESS_INST_ID', 'NUMBER', 22, null, null, null, 'Y', null, null, 'Y', null, null, 'Y', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+--3
+update as_table t set t.master_tab_id='ZC_EM_EXPERT_PRO_BILL' where t.tab_id='ZC_EM_EXPERT_PRO_BILL';
+
+--4
+insert into as_option (OPT_ID, CO_CODE, COMPO_ID, TRANS_TYPE, OPT_VAL, IS_SYST_OPT)
+values ('OPT_ZC_EXPERT_SELECT_NEED_PASSWD', '*', '*', '*', 'Y', 'Y');
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_EM_EXPERT_SELECTION', 'fsetPwd', null, null, to_date('20-06-2013 22:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_func (FUNC_ID, FUNC_DESC, ORD_INDEX, IS_GRANT_TO_ALL, IS_LIST, SHORTCUT_KEY, IS_CTRL, IS_SHIFT, IS_ALT)
+values ('fsetPwd', '设置密码', 42, null, 'N', null, null, null, null);
+
+insert into as_option (OPT_ID, CO_CODE, COMPO_ID, TRANS_TYPE, OPT_VAL, IS_SYST_OPT)
+values ('OPT_ZC_EXPERT_SELECT_PASSWD', '*', '*', '*', null, 'Y');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_FUNC_fsetPwd', 'C', '设置专家抽取密码');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('fsetPwd', 'C', '设置专家抽取密码');
+
+--5
+update as_option o set o.opt_val='' where o.opt_id='OPT_ZC_EXPERT_SELECT_PASSWD';
+
+
+
+----------20160110-----------------------
+--1
+
+alter table ZC_EM_EXPERT_PRO_BILL add nd VARCHAR2(10);
+
+update zc_em_expert_pro_bill B set b.nd=to_char(b.em_input_date,'yyyy');
+--2
+-- Create table
+create table EM_EXPERT_BILL_FILTER_UNIT
+(
+  em_bill_code VARCHAR2(30),
+  unit_name    varchar2(100)
+)
+;
+-- Add comments to the table 
+comment on table EM_EXPERT_BILL_FILTER_UNIT
+  is '专家抽取过滤单位';
+-- Add comments to the columns 
+comment on column EM_EXPERT_BILL_FILTER_UNIT.em_bill_code
+  is '抽取登记编号';
+comment on column EM_EXPERT_BILL_FILTER_UNIT.unit_name
+  is '专家单位';
+
+----------20160108-----------------------
+--1
+CREATE OR REPLACE VIEW V_ZC_PRO_MAKE_EXPERT AS
+SELECT P.ZC_MAKE_CODE,
+ P.ZC_MAKE_NAME,
+ C.CO_NAME,
+ P.ZC_MAKE_LINKMAN,
+ P.ZC_MAKE_TEL,
+ P.Agency_Name,
+ P.ZC_INPUT_DATE,
+ p.agency,
+ p.zc_pifu_cgfs
+ FROM ZC_P_PRO_MAKE P, MA_COMPANY C, zc_b_agency a
+ WHERE P.Co_Code = C.CO_CODE
+ AND P.Nd = C.ND
+ and p.agency = a.zc_agey_code(+)
+ AND P.ZC_MAKE_STATUS IN('exec')
+ AND P.ZC_FUKUAN_TYPE = 'Z01'
+ UNION ALL
+ SELECT O.CODE, O.NAME, O.CO_NAME, O.CONTACTOR, O.PHONE, O.AGENT_NAME,O.OPER_DATE,null,O.PURCHASE_TYPE
+ FROM ZC_EB_PROMAKE_OUTER O
+  union all
+ select
+ e.sn,
+ e.zc_make_name,
+ (select c.co_name from ma_company c where c.co_code=e.co_code and c.nd=e.nd) as co_name,
+ e.zc_make_linkman,
+ e.zc_make_tel,
+ e.agency_name,
+ e.zc_input_date,
+ e.agency,
+ e.zc_pifu_cgfs
+ from zc_eb_entrust e 
+/* union all 
+ select p.proj_code,
+        p.proj_name,
+        '' as co_name,
+        p.attn_name,
+        p.attn_phone,
+        '扬中市公共资源交易中心' as agency_name,
+        p.execute_date,
+        p.agency,
+        p.pur_type
+   from zc_eb_proj p;*/
+
+
+
+
+
+--20160104
+--1
+insert into AS_OPTION (OPT_ID, CO_CODE, COMPO_ID, TRANS_TYPE, OPT_VAL, IS_SYST_OPT)
+values ('OPT_ZC_EVAL_BID_ADDRESS', '*', '*', '*', '公共资源交易中心五楼评标室', 'Y');
+--2
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_EVAL_TIME', '0.5', '半天', 1, null, 'N', to_date('04-01-2016 21:46:49', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_EVAL_TIME', '1', '一天', 4, null, 'N', to_date('04-01-2016 21:46:49', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_EVAL_TIME', '1.5', '一天半', 8, null, 'N', to_date('04-01-2016 21:46:49', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_EVAL_TIME', '2', '两天', 16, null, 'N', to_date('04-01-2016 21:46:49', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_EVAL_TIME', '2.5', '两天半', 32, null, 'N', to_date('04-01-2016 21:57:06', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_EVAL_TIME', '3', '三天', 35, null, 'N', to_date('04-01-2016 21:57:06', 'dd-mm-yyyy hh24:mi:ss'));
+
+--3
+delete from as_lang_trans l where l.res_id='ZC_EB_CALL_INFO';
+delete from as_lang_trans l where l.res_id='ZC_EB_MSG_INFO';
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_CALL_INFO', 'C', '您好！请勿挂机，这里是江苏扬中市公共资源交易中心。现邀请您于【日期】在【地点】参加政府采购项目【类别】工作，预计耗时【预计工时】天，如有疑问请致电：15309285785。');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_MSG_INFO', 'C', '扬中市公共资源交易中心请您于【日期】在【地点】参加政府采购项目【类别】工作，预计耗时【预计工时】天，如有疑问请致电：15309285785。');
+
+
+--20160101
+--1
+delete FROM AS_MENU_COMPO MC WHERE MC.COMPO_ID LIKE 'ZC_EB_PROJ' ;
+
+insert into AS_MENU_COMPO (MENU_ID, COMPO_ID, ORD_INDEX, IS_GOTO_EDIT, IS_IN_MENU, IS_ALWAYS_NEW, URL)
+values ('ZC_EB_PM', 'ZC_EB_PROJ', 10, 'N', 'Y', 'N', '/GB/jsp/ZC/CommonPage.jsp?className=com.ufgov.zc.client.zc.project.integration_simple.ZcEbProjectSimpleListPanel');
+
+--2
+  update ap_menu_compo m set m.url='/GB/jsp/ZC/CommonPage.jsp?className=com.ufgov.zc.client.zc.bulletin.zhaobiao.yz.ZcEbBulletinZhaoBiaoListPanel_YZ'  where m.compo_id='ZC_EB_BULLETIN_BID';
+  
+--3
+
+insert into ZC_SEARCH_CONDITION (CONDITION_ID, CONDITION_FIELD_CODE, CONDITION_FIELD_NAME, CONDITION_FIELD_ORDER, COMPO_ID, COMPO_NAME, CONDITION_NAME, CONDITION_TYPE, CONDITION_NAME_ORDER)
+values ('ZcEbSignup_signupTab', 'audit', '审核报名供应商', 4, 'ZC_EB_SIGNUP', '供应商投标', '审核报名供应商', 'tab', '303');
+
+--4
+
+delete from zc_role_search_condition r where r.condition_id='ZcEbSignup_signupTab';
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KY_CG', 'ZcEbSignup_signupTab', 'opened');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KY_CG', 'ZcEbSignup_signupTab', 'biding');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KY_CG', 'ZcEbSignup_signupTab', 'audit');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CG_CGZXLD', 'ZcEbSignup_signupTab', 'opened');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CG_CGZXLD', 'ZcEbSignup_signupTab', 'biding');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CG_CGZXLD', 'ZcEbSignup_signupTab', 'audit');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('gys_normal', 'ZcEbSignup_signupTab', 'todo');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('gys_normal', 'ZcEbSignup_signupTab', 'cancel');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('gys_normal', 'ZcEbSignup_signupTab', 'biding');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KZ_CG', 'ZcEbSignup_signupTab', 'audit');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KZ_CG', 'ZcEbSignup_signupTab', 'biding');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KZ_CG', 'ZcEbSignup_signupTab', 'opened');
+
+--5
+delete from as_role_num_lim l where l.compo_id='ZC_EB_SIGNUP' and l.role_id not like 'gys%';
+
+insert into as_role_num_lim (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('CGZX_KY_CG', 'fwatch', 'ZC_EB_SIGNUP', 'SQL_CONDITION', 'exists (SELECT e.jbr
+          from ZC_EB_ENTRUST E, ZC_EB_PACK K
+         WHERE E.SN = K.ENTRUST_CODE
+           AND E.JBR = ''@@svUserID''
+           and ZC_EB_PROJ.Proj_Code = k.proj_code)', null, '0', 'N');
+
+insert into as_role_num_lim (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('CGZX_KZ_CG', 'fwatch', 'ZC_EB_SIGNUP', 'SQL_CONDITION', 'exists (SELECT e.jbr
+          from ZC_EB_ENTRUST E, ZC_EB_PACK K
+         WHERE E.SN = K.ENTRUST_CODE
+           AND E.JBR = ''@@svUserID''
+           and ZC_EB_PROJ.Proj_Code = k.proj_code)', null, '0', 'N');
+
+insert into as_role_num_lim (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('CGZX_KY_ZH', 'fwatch', 'ZC_EB_SIGNUP', 'SQL_CONDITION', 'exists (SELECT e.jbr
+          from ZC_EB_ENTRUST E, ZC_EB_PACK K
+         WHERE E.SN = K.ENTRUST_CODE
+           AND E.JBR = ''@@svUserID''
+           and ZC_EB_PROJ.Proj_Code = k.proj_code)', null, '0', 'N');
+
+insert into as_role_num_lim (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('CGZX_KZ_ZH', 'fwatch', 'ZC_EB_SIGNUP', 'SQL_CONDITION', 'exists (SELECT e.jbr
+          from ZC_EB_ENTRUST E, ZC_EB_PACK K
+         WHERE E.SN = K.ENTRUST_CODE
+           AND E.JBR = ''@@svUserID''
+           and ZC_EB_PROJ.Proj_Code = k.proj_code)', null, '0', 'N');
+--6
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_BID_DEPOSIT', 'C', '投标保证金(元)');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_IS_CHECK_QUALIFICATION', 'C', '报名是否需要审核');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_EB_CHECK_RESULT', 'C', '审核是否通过');
+
+--7
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KY_ZH', 'ZcEbSignup_signupTab', 'audit');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KY_ZH', 'ZcEbSignup_signupTab', 'biding');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KY_ZH', 'ZcEbSignup_signupTab', 'opened');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KZ_ZH', 'ZcEbSignup_signupTab', 'audit');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KZ_ZH', 'ZcEbSignup_signupTab', 'biding');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KZ_ZH', 'ZcEbSignup_signupTab', 'opened');
+
+--20151227
+--1
+delete from zc_role_search_condition r  where r.condition_id like 'ZcXmcgHt_entrustTab' and r.role_id like 'CGZX_KY%' ;
+--2
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('gys_normal', 'ZcXmcgHt_entrustTab', 'todo');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('gys_normal', 'ZcXmcgHt_entrustTab', 'untread');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('gys_normal', 'ZcXmcgHt_entrustTab', 'exec');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('gys_normal', 'ZcXmcgHt_entrustTab', 'all');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('gys_normal', 'ZcXmcgHt_entrustTab', 'done');
+
+--20151226
+--1
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_B_CATALOGUE', 'fjieZhuanBaseData', null, null, to_date('20-06-2013 22:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_func (FUNC_ID, FUNC_DESC, ORD_INDEX, IS_GRANT_TO_ALL, IS_LIST, SHORTCUT_KEY, IS_CTRL, IS_SHIFT, IS_ALT)
+values ('fjieZhuanBaseData', '结转基础资料', 42, null, 'N', null, null, null, null);
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('fjieZhuanBaseData', 'C', '结转基础资料');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_FUNC_fjieZhuanBaseData', 'C', '基础资料结转');
+--2
+
+insert into AS_COMPO_FUNC (COMPO_ID, FUNC_ID, IS_WR_LOG, IS_NEVER_USE, TRANS_DATE)
+values ('ZC_EB_PROJ', 'fgetNo', 'Y', null, to_date('20-06-2013 22:56:15', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_func (FUNC_ID, FUNC_DESC, ORD_INDEX, IS_GRANT_TO_ALL, IS_LIST, SHORTCUT_KEY, IS_CTRL, IS_SHIFT, IS_ALT)
+values ('fgetNo', '获取编号', 42, null, 'N', null, null, null, null);
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('fgetNo', 'C', '获取编号');
+
+insert into as_lang_trans (RES_ID, LANG_ID, RES_NA)
+values ('ZC_FUNC_fgetNo', 'C', '获取编号');
+
+--3
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KZ_ZH', 'ZC_EB_PROJ', 'fgetNo', to_date('29-05-2013 09:44:44', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CG_ZD', 'ZC_EB_PROJ', 'fgetNo', to_date('29-05-2013 09:44:44', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KY_ZH', 'ZC_EB_PROJ', 'fgetNo', to_date('31-10-2013 19:12:53', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CZ', 'ZC_EB_PROJ', 'fgetNo', to_date('29-05-2013 09:44:44', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CG_CGZXLD', 'ZC_EB_PROJ', 'fgetNo', to_date('29-05-2013 09:44:44', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CG_CSZGY', 'ZC_EB_PROJ', 'fgetNo', to_date('29-05-2013 09:44:44', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KZ_CG', 'ZC_EB_PROJ', 'fgetNo', to_date('31-10-2013 19:12:53', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KZ_JS', 'ZC_EB_PROJ', 'fgetNo', to_date('29-05-2013 09:44:44', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CG_CGZXZHK', 'ZC_EB_PROJ', 'fgetNo', to_date('29-05-2013 09:44:44', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CG_CGCZGY', 'ZC_EB_PROJ', 'fgetNo', to_date('31-10-2013 19:12:53', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CG_CGZX_FZR', 'ZC_EB_PROJ', 'fgetNo', to_date('29-05-2013 09:44:44', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CG_CGCLD', 'ZC_EB_PROJ', 'fgetNo', to_date('29-05-2013 09:44:44', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CG_CGZXEK', 'ZC_EB_PROJ', 'fgetNo', to_date('31-10-2013 19:12:53', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CG_CGZXJSZ', 'ZC_EB_PROJ', 'fgetNo', to_date('29-05-2013 09:44:44', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CGZX_KY_CG', 'ZC_EB_PROJ', 'fgetNo', to_date('29-05-2013 09:44:44', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('CG_CGZXYK', 'ZC_EB_PROJ', 'fgetNo', to_date('31-10-2013 19:12:53', 'dd-mm-yyyy hh24:mi:ss'));
+
+--4
+
+delete  FROM AS_MENU_COMPO MC WHERE MC.COMPO_ID LIKE 'ZC_EB_PROJ';
+
+insert into AS_MENU_COMPO (MENU_ID, COMPO_ID, ORD_INDEX, IS_GOTO_EDIT, IS_IN_MENU, IS_ALWAYS_NEW, URL)
+values ('ZC_EB_PM', 'ZC_EB_PROJ', 10, 'N', 'Y', 'N', '/GB/jsp/ZC/CommonPage.jsp?className=com.ufgov.zc.client.zc.project.integration_simple.ZcEbProjectSimpleListPanel');
+
+--5 
+
+create or replace procedure sp_zc_jiChuZiLiaoJieZhuan(curNd in varchar2) is
+begin
+  --结转as_emp_position
+  delete from as_emp_position where nd=curNd+1;
+  insert into as_emp_position
+  select emp_code, posi_code, org_code, co_code, emp_posi_id, nd+1, sysdate from as_emp_position where nd=curNd;
+
+--结转as_org
+  delete from as_org where nd=curNd+1;
+  insert into as_org
+  select co_code, org_code, org_name, parent_org_code, is_lowest, quic_code, prin_code, linkman, tele, org_id, org_type_code, nd+1, is_need_send_bank, sysdate, SYS_GUID(), trigger_enable from as_org where nd=curNd;
+
+--结转as_org_position
+  delete from as_org_position where nd=curNd+1;
+  insert into as_org_position
+  select co_code, posi_code, org_code, leader_posi_id, org_posi_id, nd+1, sysdate from as_org_position where nd=curNd;
+
+--结转 as_wf_business_superior
+/*delete from as_wf_business_superior where nd=curNd+1;
+insert into as_wf_business_superior
+select id, jun_co_code, jun_org_code, jun_posi_code, jun_emp_code, sup_condition, sup_co_code, sup_org_code, sup_posi_code, sup_emp_code, project_name, description, priority, nd+1 from as_wf_business_superior where nd=curNd;
+*/
+--结转 ma_company
+delete from ma_company where nd=curNd+1;
+insert into ma_company
+select co_code, co_type_code, gb_code, co_name, co_fullna, quic_code, mark, post_code, comm_addr, address, url, link_man, co_clerk, co_leader, fi_leader, loca_tele, director_code, parent_co_code, f_co_code, is_used, f_org_code, is_self, bank_acc, shop_card_no, corp_repr, trade_name, country, province, city, real_co_code, is_lowest, nd+1, fina_level, co_kind, is_pilot, is_need_send_bank, region_code, sysdate, is_need_send_bank_sl, co_type_code_1, can_getbill, getbill_id, can_charge, turn_in_acct, nt_acc_id, nt_acc_name, nt_hesuan_co_code, sys_guid(), trigger_enable, pr_bi_cocode from ma_company where nd=curNd;
+
+--结转 ZC_B_CATALOGUE
+delete  from ZC_B_CATALOGUE where zc_year=curNd+1;
+insert into ZC_B_CATALOGUE
+select zc_year+1, zc_catalogue_code, zc_catalogue_name, zc_catalogue_code_par, zc_catalogue_type, zc_quota, zc_metric_unit, zc_is_vital, zc_is_used, zc_target_type, zc_pinmu_ctlg, zc_is_cgzx_zg, zc_is_general, zc_year, zc_diyu_daima, zc_quota_unit, zc_cg_leixing, zc_zcgz_std, zc_is_assert, zc_catalogue_name_par, zc_is_dianzi_toubiao, zc_jj_pp_num, zc_jj_price_quota from zc_b_catalogue where zc_year=curNd;
+
+--结转 wf_executor_source
+delete  from wf_executor_source where extnd=curNd+1;
+insert into wf_executor_source
+select node_id, executor, source, responsibility, extcocode, extorgcode, extnd+1 from wf_executor_source where extnd=curNd;
+
+--结转 as_wf_business_superior
+delete  from as_wf_business_superior where nd=curNd+1;
+ insert into as_wf_business_superior
+    select newid, jun_co_code, jun_org_code, jun_posi_code, jun_emp_code, sup_condition, sup_co_code, sup_org_code, sup_posi_code, sup_emp_code, project_name, description, priority, curNd+1 from as_wf_business_superior where nd=curNd;
+
+end sp_zc_jiChuZiLiaoJieZhuan;
+
+--20151220
+--1
+CREATE OR REPLACE VIEW V_ZC_PRO_MAKE_EXPERT AS
+SELECT P.ZC_MAKE_CODE,
+ P.ZC_MAKE_NAME,
+ C.CO_NAME,
+ P.ZC_MAKE_LINKMAN,
+ P.ZC_MAKE_TEL,
+ P.Agency_Name,
+ P.ZC_INPUT_DATE,
+ p.agency,
+ p.zc_pifu_cgfs
+ FROM ZC_P_PRO_MAKE P, MA_COMPANY C, zc_b_agency a
+ WHERE P.Co_Code = C.CO_CODE
+ AND P.Nd = C.ND
+ and p.agency = a.zc_agey_code(+)
+ AND P.ZC_MAKE_STATUS IN('exec')
+ AND P.ZC_FUKUAN_TYPE = 'Z01'
+ UNION ALL
+ SELECT O.CODE, O.NAME, O.CO_NAME, O.CONTACTOR, O.PHONE, O.AGENT_NAME,O.OPER_DATE,null,O.PURCHASE_TYPE
+ FROM ZC_EB_PROMAKE_OUTER O 
+ union all
+ select 
+ e.sn,
+ e.zc_make_name,
+ (select c.co_name from ma_company c where c.co_code=e.co_code and c.nd=e.nd) as co_name,
+ e.zc_make_linkman,
+ e.zc_make_tel,
+ e.agency_name,
+ e.zc_input_date,
+ e.agency,
+ e.zc_pifu_cgfs
+ from zc_eb_entrust e;
+
 --20151212-2
 --1
 
@@ -5,6 +700,27 @@ delete from zc_search_condition s where s.condition_field_code='cancel' and s.co
 
 delete from zc_role_search_condition r where r.condition_id='ZcEbBulletin_bulletinTab' and r.condition_field_code='cancel';
 
+--2
+
+delete from as_val v where v.valset_id='ZC_VS_QUES_TYPE';
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_QUES_TYPE', '1', '招标', 1, to_date('23-08-2012', 'dd-mm-yyyy'), 'N', to_date('13-12-2015 02:40:33', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_QUES_TYPE', '2', '中标', 2, to_date('23-08-2012', 'dd-mm-yyyy'), 'N', to_date('13-12-2015 02:40:33', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('ZC_VS_QUES_TYPE', '3', '其他', 3, to_date('23-08-2012', 'dd-mm-yyyy'), 'N', to_date('13-12-2015 02:32:36', 'dd-mm-yyyy hh24:mi:ss'));
+--3
+-- Add/modify columns 
+alter table ZC_EB_QUESTION add client_file_blobid VARCHAR2(50);
+alter table ZC_EB_QUESTION add jb_file_blobid VARCHAR2(50);
+-- Add comments to the columns 
+comment on column ZC_EB_QUESTION.client_file_blobid
+  is '相关文件ID';
+comment on column ZC_EB_QUESTION.jb_file_blobid
+  is '相关文件ID';
 
 --20151212
 --1

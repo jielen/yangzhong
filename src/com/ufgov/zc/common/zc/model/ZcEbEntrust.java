@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.ufgov.zc.common.util.EmpMeta;
-
 public class ZcEbEntrust extends ZcBaseBill implements Serializable {
   /**
    * 
@@ -643,7 +641,8 @@ public class ZcEbEntrust extends ZcBaseBill implements Serializable {
   }
 
   public String getZcInputor() {
-    return EmpMeta.getEmpName(getZcInputCode());
+    return zcInputor;
+    //    return EmpMeta.getEmpName(getZcInputCode());
   }
 
   public void setZcInputor(String zcInputor) {
