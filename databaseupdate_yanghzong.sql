@@ -1,3 +1,65 @@
+ ----------------20160402---------------
+--1
+
+insert into as_option (OPT_ID, CO_CODE, COMPO_ID, TRANS_TYPE, OPT_VAL, IS_SYST_OPT)
+values ('ZC_OPTION_SUPPLIER_MOBILE_MSG', '*', '*', '*', '贵单位报名的<>项目已发补充通知，请关注原公告信息发布媒体。【扬中市公共资源交易中心】', 'Y');
+
+--2
+-- Create table
+create table ZC_MOBILE_MSG_NUMBER
+(
+  code        VARCHAR2(60),
+  mobile_hide VARCHAR2(20),
+  mobile      VARCHAR2(20)
+)
+tablespace UFGOV
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    minextents 1
+    maxextents unlimited
+  );
+  
+ --3
+ 
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_ZC_EB_BULLETIN_TYPE', 'zhaobiao_xxxj', '线下询价招标公告', 13, null, 'Y', to_date('02-04-2016 12:51:13', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_val (VALSET_ID, VAL_ID, VAL, ORD_INDEX, LSTDATE, IS_SYSTEM, TRANS_DATE)
+values ('VS_ZC_EB_BULLETIN_TYPE', 'zhongbiao_xxxj', '线下询价中标公告', 14, null, 'Y', to_date('02-04-2016 12:51:13', 'dd-mm-yyyy hh24:mi:ss'));
+
+--4
+CREATE OR REPLACE VIEW V_ZC_NORMAL_PACK AS
+select vp."PACK_CODE",
+       vp."PROJ_CODE",
+       vp."PUR_TYPE",
+       vp."PACK_NAME",
+       vp."CO_CODE",
+       vp."PACK_BUDGET",
+       vp."ND",
+       vp.sn as ZC_MAKE_CODE
+  from zc_v_pro_pack vp
+ where vp.pack_code not in (SELECT pack.PACK_CODE
+                              from ZC_EB_PACK pack
+                             where (pack.Status = '5'
+                               or pack.Status = 'cancel')
+                           /* union
+                            select qp.packcode
+                              from zc_eb_question q, zc_eb_question_pack qp
+                             where q.id = qp.id
+                               and q.ques_type = '1'
+                               and q.handle_mode = '4'
+                               and q.status = 'exec'*/
+
+                               );
+
+--5
+-- Add/modify columns 
+alter table ZC_MOBILE_MSG add proj_code VARCHAR2(60);
+alter table ZC_MOBILE_MSG add proj_name VARCHAR2(200);
 
 ----------------20160318---------------	
 --1

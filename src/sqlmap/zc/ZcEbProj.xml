@@ -3764,7 +3764,7 @@
 		where p.proj_code = l.proj_code
 		and p.status = 'exec'
 		and
-		p.pur_type in ('1', '2', '3', '4')
+		p.pur_type in ('1', '2', '3', '4','10')
 		<isNotNull prepend="and" property="status">
 			<isEqual property="status" compareValue="biding">
 		<![CDATA[ sysdate <= l.bid_end_time ]]>

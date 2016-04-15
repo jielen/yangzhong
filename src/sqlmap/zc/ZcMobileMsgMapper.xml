@@ -13,7 +13,14 @@
     <result column="SEND_TIME" property="sendTime" jdbcType="DATE" />
     <result column="IS_SENDED" property="isSended" jdbcType="VARCHAR" />
     <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="PROJ_CODE" property="projCode" jdbcType="VARCHAR" />
+    <result column="PROJ_NAME" property="projName" jdbcType="VARCHAR" />
 		<result column="ND" property="nd" />
+  </resultMap>
+  <resultMap id="DetailResultMap" class="com.ufgov.zc.common.zc.model.ZcMobileMsgNumber" > 
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="MOBILE_HIDE" property="mobileHide" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="SmsSendingResultMap" class="com.ufgov.zc.common.zc.model.SmsBoxsending" >     
     <result column="ID" jdbcType="DECIMAL" property="id" />
@@ -41,7 +48,7 @@
     <result column="OUTTERUSER" jdbcType="VARCHAR" property="outteruser" />
   </resultMap>
   <sql id="Base_Column_List" > 
-    CODE, MOBILES, INPUTOR, INPUT_DATE, INPUTOR_NAME, SEND_TIME, IS_SENDED, CONTENT,ND
+    CODE, MOBILES, INPUTOR, INPUT_DATE, INPUTOR_NAME, SEND_TIME, IS_SENDED, CONTENT,ND,PROJ_CODE,PROJ_NAME
   </sql>
   <select id="getMainLst" resultMap="BaseResultMap" parameterClass="elementCondition" > 
     select 
@@ -64,15 +71,29 @@
     from ZC_MOBILE_MSG
     where CODE = #code:VARCHAR#
   </select>
+  <select id="selectDetail" resultMap="DetailResultMap" parameterClass="java.lang.String" > 
+    select 
+     *
+    from ZC_MOBILE_MSG_NUMBER
+    where CODE = #code:VARCHAR#
+  </select>
+  <delete id="deleteDetail" parameterClass="java.lang.String" > 
+    delete from ZC_MOBILE_MSG_NUMBER
+    where CODE = #code:VARCHAR#
+  </delete>
+  <insert id="insertDetail" parameterClass="com.ufgov.zc.common.zc.model.ZcMobileMsgNumber" > 
+    insert into ZC_MOBILE_MSG_NUMBER (CODE, mobile_hide, mobile)
+    values (#code:VARCHAR#, #mobileHide:VARCHAR#, #mobile:VARCHAR#)
+  </insert>
   <delete id="deleteByPrimaryKey" parameterClass="java.lang.String" > 
     delete from ZC_MOBILE_MSG
     where CODE = #code:VARCHAR#
   </delete>
   <insert id="insert" parameterClass="com.ufgov.zc.common.zc.model.ZcMobileMsg" > 
-    insert into ZC_MOBILE_MSG (CODE, MOBILES, INPUTOR, INPUT_DATE, INPUTOR_NAME, SEND_TIME, IS_SENDED, CONTENT,ND)
+    insert into ZC_MOBILE_MSG (CODE, MOBILES, INPUTOR, INPUT_DATE, INPUTOR_NAME, SEND_TIME, IS_SENDED, CONTENT,ND,PROJ_CODE,PROJ_NAME)
     values (#code:VARCHAR#, #mobiles:VARCHAR#, #inputor:VARCHAR#, 
       #inputDate:DATE#, #inputorName:VARCHAR#, #sendTime:DATE#, 
-      #isSended:VARCHAR#, #content:VARCHAR#,#nd#)
+      #isSended:VARCHAR#, #content:VARCHAR#,#nd#,#projCode#,#projName#)
   </insert>
   <update id="updateByPrimaryKey" parameterClass="com.ufgov.zc.common.zc.model.ZcMobileMsg" > 
     update ZC_MOBILE_MSG
@@ -83,7 +104,9 @@
       SEND_TIME = #sendTime:DATE#,
       IS_SENDED = #isSended:VARCHAR#,
       CONTENT = #content:VARCHAR#,
-      ND=#nd#
+      ND=#nd#,
+      PROJ_CODE=#projCode#,
+      PROJ_NAME=#projName#
     where CODE = #code:VARCHAR#
   </update>
   

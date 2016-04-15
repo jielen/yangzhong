@@ -7,7 +7,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,11 +56,12 @@ import com.ufgov.zc.common.zc.foreignentity.IForeignEntityHandler;
 import com.ufgov.zc.common.zc.model.EmExpert;
 import com.ufgov.zc.common.zc.model.EmExpertEvaluation;
 import com.ufgov.zc.common.zc.model.EmExpertSelectionBill;
-import com.ufgov.zc.common.zc.model.SmsBoxsending;
 import com.ufgov.zc.common.zc.model.ZcEbProj;
 import com.ufgov.zc.common.zc.model.ZcEbSignup;
 import com.ufgov.zc.common.zc.model.ZcMobileMsg;
+import com.ufgov.zc.common.zc.model.ZcMobileMsgNumber;
 import com.ufgov.zc.common.zc.publish.IZcEbBaseServiceDelegate;
+import com.ufgov.zc.common.zc.publish.IZcMobileMsgServiceDelegate;
 
 /**
  * @author Administrator
@@ -108,6 +108,10 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
 
   protected IZcEbBaseServiceDelegate zcEbBaseServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class, "zcEbBaseServiceDelegate");
 
+  protected IZcMobileMsgServiceDelegate mobileMsgServiceDelegate = (IZcMobileMsgServiceDelegate) ServiceFactory.create(IZcMobileMsgServiceDelegate.class, "mobileMsgServiceDelegate");
+
+  //  private Map<String, String> hideMobiles = new HashMap<String, String>();
+
   public ZcMobileMsgEditPanel(ZcMobileMsgDialog parent, ListCursor listCursor, String tabStatus, ZcMobileMsgListPanel listPanel) {
     // TCJLODO Auto-generated constructor stub
     super(ZcMobileMsgEditPanel.class, BillElementMeta.getBillElementMetaWithoutNd(compoId));
@@ -138,7 +142,7 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
 
     if (qx != null && !"".equals(ZcUtil.safeString(qx.getCode()))) {//列表页面双击进入
       this.pageStatus = ZcSettingConstants.PAGE_STATUS_BROWSE;
-      qx = (ZcMobileMsg) zcEbBaseServiceDelegate.queryObject("ZcMobileMsgMapper.selectByPrimaryKey", qx.getCode(), requestMeta);
+      qx = mobileMsgServiceDelegate.selectByPrimaryKey(qx.getCode(), requestMeta);
       listCursor.setCurrentObject(qx);
       this.setEditingObject(qx);
     } else {//新增按钮进入
@@ -163,8 +167,8 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
     ZcMobileMsg qx = (ZcMobileMsg) listCursor.getCurrentObject();
     for (AbstractFieldEditor editor : fieldEditors) {
       if (pageStatus.equals(ZcSettingConstants.PAGE_STATUS_EDIT) || pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW) || pageStatus.equals(ZcSettingConstants.PAGE_STATUS_BROWSE)) {
-        if ("mobiles".equals(editor.getFieldName()) || "content".equals(editor.getFieldName()) || "id".equals(editor.getFieldName()) || "titleField".equals(editor.getFieldName())
-          || "comment".equals(editor.getFieldName())) {
+        if ("mobiles".equals(editor.getFieldName()) || "content".equals(editor.getFieldName()) || "auditorName".equals(editor.getFieldName()) || "titleField".equals(editor.getFieldName())
+          || "projCode".equals(editor.getFieldName())) {
           editor.setEnabled(true);
         } else {
           editor.setEnabled(false);
@@ -328,26 +332,27 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
       int num = JOptionPane.showConfirmDialog(this, msg, "发送确认", 0);
       if (num == JOptionPane.NO_OPTION) { return; }
 
-      qx.setCode(ZcUtil.getSequenceNextVal("ZcEbUtil.getZcMobileMsgCode"));
+      //整理发送号码 
+      qx.setCode(null);
       qx.setSendTime(requestMeta.getSysDate());
       qx.setIsSended("Y");
-      zcEbBaseServiceDelegate.insertDataForObject("ZcMobileMsgMapper.insert", qx, requestMeta);
+      qx = mobileMsgServiceDelegate.updateFN(qx, requestMeta);
       afterSaveBill = qx;
-      //往发送表中发送数据
-      SmsBoxsending sd = new SmsBoxsending();
-      SimpleDateFormat sdf = new SimpleDateFormat(ZcSettingConstants.SIMPLE_DATE_FORMAT_FULL);
-      sd.setAppid(qx.getCode());
-      sd.setSender(qx.getInputor());
-      sd.setContent(qx.getContent());
-      sd.setSendtime(sdf.format(qx.getSendTime()));
-      sd.setInserttime(sdf.format(qx.getSendTime()));
-      sd.setPri("1");
-      sd.setInpool("0");
-      sd.setSendmode("3");
-      for (int i = 0; i < mobileLst.size(); i++) {
-        sd.setReceiver(mobileLst.get(i));
-        zcEbBaseServiceDelegate.insertDataForObject("ZcMobileMsgMapper.insertSmsBoxsending", sd, requestMeta);
-      }
+      /* //往发送表中发送数据
+       SmsBoxsending sd = new SmsBoxsending();
+       SimpleDateFormat sdf = new SimpleDateFormat(ZcSettingConstants.SIMPLE_DATE_FORMAT_FULL);
+       sd.setAppid(qx.getCode());
+       sd.setSender(qx.getInputor());
+       sd.setContent(qx.getContent());
+       sd.setSendtime(sdf.format(qx.getSendTime()));
+       sd.setInserttime(sdf.format(qx.getSendTime()));
+       sd.setPri("1");
+       sd.setInpool("0");
+       sd.setSendmode("3");
+       for (int i = 0; i < mobileLst.size(); i++) {
+         sd.setReceiver(mobileLst.get(i));
+         zcEbBaseServiceDelegate.insertDataForObject("ZcMobileMsgMapper.insertSmsBoxsending", sd, requestMeta);
+       }*/
     } catch (Exception ex) {
 
       logger.error(ex.getMessage(), ex);
@@ -413,6 +418,59 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
     return true;
   }
 
+  /* *//**
+   * 检查电话号码情况
+   * @return
+   */
+  /*
+  private String checkMobileNumbers() {
+  StringBuffer sb = new StringBuffer();
+  mobileLst.clear();
+  ZcMobileMsg qx = (ZcMobileMsg) this.listCursor.getCurrentObject();
+  if (qx.getMobiles() == null || qx.getMobiles().trim().length() == 0) { return "请输入手机号码"; }
+  if (qx.getMobiles().trim().length() > 11) {
+   if (!qx.getMobiles().contains(",")) {
+     sb.append("多个电话号码用逗号,分割");
+     return sb.toString();
+   } else {
+     String[] mobiles = qx.getMobiles().trim().split(",");
+     for (int i = 0; i < mobiles.length; i++) {
+       if (!isPhoneNumber(mobiles[i])) {
+         if (sb.length() > 0) {
+           sb.append(",").append(mobiles[i]);
+         } else {
+           sb.append(mobiles[i]);
+         }
+       } else {
+         mobileLst.add(mobiles[i]);
+       }
+     }
+     if (sb.length() > 0) {
+       sb.append(" 不是合格的手机号码.");
+       return sb.toString();
+     }
+   }
+  } else {
+   if (!isPhoneNumber(qx.getMobiles().trim())) {
+     sb.append(qx.getMobiles().trim()).append(" 不是合格的手机号码.");
+     return sb.toString();
+   } else {
+     mobileLst.add(qx.getMobiles().trim());
+   }
+  }
+  StringBuffer ss = new StringBuffer();
+  for (int i = 0; i < mobileLst.size(); i++) {
+   if (i == 0) {
+     ss.append(mobileLst.get(i));
+   } else {
+     ss.append(",").append(mobileLst.get(i));
+   }
+  }
+  if (ss.length() > 0) {
+   qx.setMobiles(ss.toString());
+  }
+  return null;
+  }*/
   /**
    * 检查电话号码情况
    * @return
@@ -423,47 +481,94 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
     ZcMobileMsg qx = (ZcMobileMsg) this.listCursor.getCurrentObject();
     if (qx.getMobiles() == null || qx.getMobiles().trim().length() == 0) { return "请输入手机号码"; }
     if (qx.getMobiles().trim().length() > 11) {
-      if (!qx.getMobiles().contains(",")) {
-        sb.append("多个电话号码用逗号,分割");
-        return sb.toString();
-      } else {
-        String[] mobiles = qx.getMobiles().trim().split(",");
-        for (int i = 0; i < mobiles.length; i++) {
-          if (!isPhoneNumber(mobiles[i])) {
-            if (sb.length() > 0) {
-              sb.append(",").append(mobiles[i]);
-            } else {
-              sb.append(mobiles[i]);
-            }
+      String[] mobiles = qx.getMobiles().trim().split(",");
+      for (int i = 0; i < mobiles.length; i++) {
+        if (!isPhoneNumber(mobiles[i]) && !isHideMobiles(mobiles[i])) {
+          if (sb.length() > 0) {
+            sb.append(",").append(mobiles[i]);
           } else {
-            mobileLst.add(mobiles[i]);
+            sb.append(mobiles[i]);
           }
-        }
-        if (sb.length() > 0) {
-          sb.append(" 不是合格的手机号码.");
-          return sb.toString();
+        } else {
+          addMobile(mobiles[i]);
+          mobileLst.add(mobiles[i]);
         }
       }
+      if (sb.length() > 0) {
+        sb.append(" 不是合格的手机号码.");
+        return sb.toString();
+      }
     } else {
-      if (!isPhoneNumber(qx.getMobiles().trim())) {
+      if (!isPhoneNumber(qx.getMobiles().trim()) && !isHideMobiles(qx.getMobiles().trim())) {
         sb.append(qx.getMobiles().trim()).append(" 不是合格的手机号码.");
         return sb.toString();
       } else {
+        addMobile(qx.getMobiles().trim());
         mobileLst.add(qx.getMobiles().trim());
       }
     }
+    List tempLst = new ArrayList();
     StringBuffer ss = new StringBuffer();
     for (int i = 0; i < mobileLst.size(); i++) {
-      if (i == 0) {
-        ss.append(mobileLst.get(i));
-      } else {
-        ss.append(",").append(mobileLst.get(i));
+      String mobile = mobileLst.get(i);
+      for (int j = 0; j < qx.getNumberLst().size(); j++) {
+        ZcMobileMsgNumber d = (ZcMobileMsgNumber) qx.getNumberLst().get(j);
+        if (mobile.equals(d.getMobileHide())) {
+          tempLst.add(d);
+          if (ss.length() <= 0) {
+            ss.append(d.getMobileHide());
+          } else {
+            ss.append(",").append(d.getMobileHide());
+          }
+        }
       }
     }
-    if (ss.length() > 0) {
-      qx.setMobiles(ss.toString());
-    }
+    qx.getNumberLst().clear();
+    qx.getNumberLst().addAll(tempLst);
+    qx.setMobiles(ss.toString());
+    setEditingObject(qx);
+
+    /* StringBuffer ss = new StringBuffer();
+     for (int i = 0; i < mobileLst.size(); i++) {
+       if (i == 0) {
+         ss.append(mobileLst.get(i));
+       } else {
+         ss.append(",").append(mobileLst.get(i));
+       }
+     }
+     if (ss.length() > 0) {
+       qx.setMobiles(ss.toString());
+     }*/
     return null;
+  }
+
+  private void addMobile(String mobile) {
+    ZcMobileMsg qx = (ZcMobileMsg) this.listCursor.getCurrentObject();
+    boolean find = false;
+    for (int i = 0; i < qx.getNumberLst().size(); i++) {
+      ZcMobileMsgNumber d = (ZcMobileMsgNumber) qx.getNumberLst().get(i);
+      if (isHideMobiles(mobile)) {
+        if (mobile.equals(d.getMobileHide())) {
+          find = true;
+        }
+      } else {
+        if (d.getMobile().equals(mobile)) {
+          find = true;
+        }
+      }
+    }
+    if (!find && !isHideMobiles(mobile)) {
+      ZcMobileMsgNumber d = new ZcMobileMsgNumber();
+      d.setMobile(mobile);
+      d.setMobileHide(mobile);
+      qx.getNumberLst().add(d);
+    }
+  }
+
+  private boolean isHideMobiles(String mobile) {
+    if (mobile == null) return false;
+    if (mobile.indexOf("*") >= 0) { return true; }
+    return false;
   }
 
   //判断，返回布尔值
@@ -499,8 +604,7 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
       try {
 
         requestMeta.setFuncId(deleteButton.getFuncId());
-
-        zcEbBaseServiceDelegate.deleteObject("ZcMobileMsgMapper.deleteByPrimaryKey", qx.getCode(), requestMeta);
+        mobileMsgServiceDelegate.deleteFN(qx, requestMeta);
 
       } catch (Exception e) {
 
@@ -567,7 +671,7 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
     ElementConditionDto dto = new ElementConditionDto();
     dto.setStatus("SELECT_FINISH");
     dto.setNd(requestMeta.getSvNd());
-    ForeignEntityFieldEditor expertSelectBillField = new ForeignEntityFieldEditor("EmExpertSelectionBill.list", dto, 20, expertSelectBillHandler, expertSelectBillColumNames, "从抽取单引入专家", "id");
+    ForeignEntityFieldEditor expertSelectBillField = new ForeignEntityFieldEditor("EmExpertSelectionBill.list", dto, 20, expertSelectBillHandler, expertSelectBillColumNames, "从抽取单引入专家", "auditorName");
 
     String expertColumNames[] = { "专家", "单位", "职位", "电话" };
     ExpertSelectHandler expertHandler = new ExpertSelectHandler(expertColumNames);
@@ -577,7 +681,7 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
     String projColumNames[] = { "招标编号", "招标名称" };
     SupplierSelectBillHandler projHandler = new SupplierSelectBillHandler(projColumNames);
     dto = new ElementConditionDto();
-    ForeignEntityFieldEditor projSelectField = new ForeignEntityFieldEditor("ZcEbProj.getZcEbProjForMobiles", dto, 20, projHandler, projColumNames, "报名的供应商", "comment");
+    ForeignEntityFieldEditor projSelectField = new ForeignEntityFieldEditor("ZcEbProj.getZcEbProjForMobiles", dto, 20, projHandler, projColumNames, "报名的供应商", "projCode");
 
     TextAreaFieldEditor mobiles = new TextAreaFieldEditor("手机(多个用,隔开)", "mobiles", -1, 2, 5);
     TextAreaFieldEditor content = new TextAreaFieldEditor(LangTransMeta.translate(ZcMobileMsg.COL_CONTENT), "content", 240, 10, 5);
@@ -730,6 +834,7 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
 
   public void setExpertSelectBill(EmExpertSelectionBill expertBill) {
 
+    ZcMobileMsg qx = (ZcMobileMsg) this.listCursor.getCurrentObject();
     HashMap m = new HashMap();
     m.put("EM_BILL_CODE", expertBill.getBillCode());
     m.put("SHOW_INFO", "true");
@@ -739,14 +844,24 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
     if (expertLst != null) {
       for (int i = 0; i < expertLst.size(); i++) {
         EmExpertEvaluation evalu = (EmExpertEvaluation) expertLst.get(i);
+        String mobile = evalu.getEmExpert().getRealEmMobile();
+        String hidMobile = makeHideMobile(mobile, 0);
+        if (hidMobile == null) continue;
         if (i == 0) {
-          sb.append(evalu.getEmExpert().getRealEmMobile());
+          sb.append(hidMobile);
         } else {
-          sb.append(",").append(evalu.getEmExpert().getRealEmMobile());
+          sb.append(",").append(hidMobile);
         }
+        ZcMobileMsgNumber d = new ZcMobileMsgNumber();
+        d.setMobile(mobile);
+        d.setMobileHide(hidMobile);
+        qx.getNumberLst().add(d);
       }
       addMobiles(sb.toString());
     }
+    //为了显示抽取单名称
+    qx.setAuditorName(expertBill.getMakeCode());
+    setEditingObject(qx);
   }
 
   public void setSignupProj(ZcEbProj proj) {
@@ -756,17 +871,81 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
     List signupLst = zcEbBaseServiceDelegate.queryDataForList("ZcEbSignup.getZcEbSignupByProjCode", dto, requestMeta);
     if (signupLst == null || signupLst.size() == 0) { return; }
     StringBuffer sb = new StringBuffer();
+    //    hideMobiles.clear();
+    ZcMobileMsg qx = (ZcMobileMsg) this.listCursor.getCurrentObject();
+    qx.setProjCode(proj.getProjCode());
+    qx.setProjName(proj.getProjName());
     for (int i = 0; i < signupLst.size(); i++) {
       ZcEbSignup signup = (ZcEbSignup) signupLst.get(i);
       String mobile = signup.getMobilePhone() == null ? signup.getPhone() : signup.getMobilePhone();
+      String hidMobile = makeHideMobile(mobile, 0);
+      if (hidMobile == null) continue;
       if (i == 0) {
-        sb.append(mobile);
+        sb.append(hidMobile);
         i++;
       } else {
-        sb.append(",").append(mobile);
+        sb.append(",").append(hidMobile);
       }
+      ZcMobileMsgNumber d = new ZcMobileMsgNumber();
+      d.setMobile(mobile);
+      d.setMobileHide(hidMobile);
+      qx.getNumberLst().add(d);
     }
     addMobiles(sb.toString());
+
+    //设置消息模板
+    addSignupMsg(proj);
+  }
+
+  /**
+   * 将电话进行隐藏
+   * @param mobile
+   * @param cicle
+   * @return
+   */
+  private String makeHideMobile(String mobile, int cicle) {
+    if (mobile == null) return mobile;
+    mobile = mobile.trim();
+    if (mobile.length() != 11) { return mobile; }
+    ZcMobileMsg qx = (ZcMobileMsg) this.listCursor.getCurrentObject();
+    for (int i = 0; i < qx.getNumberLst().size(); i++) {
+      ZcMobileMsgNumber d = (ZcMobileMsgNumber) qx.getNumberLst().get(i);
+      if (d.getMobile().equals(mobile)) { return null; }
+    }
+    //    if (hideMobiles.containsValue(mobile)) { return null; }
+    StringBuffer sb = new StringBuffer();
+    sb.append(getSubStr(mobile, 0, 3)).append("****").append(getSubStr(mobile, 7, 11));
+    for (int i = 0; i < cicle; i++) {
+      sb.append(i);
+    }
+    String key = sb.toString();
+    boolean find = false;
+    for (int i = 0; i < qx.getNumberLst().size(); i++) {
+      ZcMobileMsgNumber d = (ZcMobileMsgNumber) qx.getNumberLst().get(i);
+      if (key.equals(d.getMobileHide()) && !mobile.equals(d.getMobile())) { return makeHideMobile(mobile, cicle + 1); }
+      if (key.equals(d.getMobileHide()) && mobile.equals(d.getMobile())) {
+        find = true;
+      }
+    }
+    if (find) { return null; }
+    return key;
+  }
+
+  private Object getSubStr(String mobile, int beginIndex, int endIndex) {
+    return mobile.substring(beginIndex, endIndex);
+  }
+
+  /**
+   * 设置消息模板
+   * @param proj
+   */
+  private void addSignupMsg(ZcEbProj proj) {
+    String msg = AsOptionMeta.getOptVal("ZC_OPTION_SUPPLIER_MOBILE_MSG");
+    if (msg == null) { return; }
+    msg = msg.replaceFirst("<>", proj.getProjCode());
+    ZcMobileMsg qx = (ZcMobileMsg) this.listCursor.getCurrentObject();
+    qx.setContent(msg);
+    setEditingObject(qx);
   }
 
   private class ExpertSelectHandler implements IForeignEntityHandler {
@@ -790,6 +969,10 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
         }
       }
       addMobiles(sb.toString());
+
+      ZcMobileMsg qx = (ZcMobileMsg) listCursor.getCurrentObject();
+      qx.setTitleField("");
+      setEditingObject(qx);
     }
 
     public void afterClear() {}

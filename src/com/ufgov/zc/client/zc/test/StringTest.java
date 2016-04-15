@@ -5,6 +5,9 @@ package com.ufgov.zc.client.zc.test;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import com.anyi.gp.pub.GeneralFunc;
 import com.ufgov.zc.client.zc.ZcUtil;
@@ -13,6 +16,8 @@ import com.ufgov.zc.client.zc.ZcUtil;
  * @author Administrator
  */
 public class StringTest {
+
+  private Map<String, String> hideMobiles = new HashMap<String, String>();
 
   /**
    * @param args
@@ -24,7 +29,16 @@ public class StringTest {
     //    t.longToInt();
     //    t.strIndx();
     //    t.subStr();
-    t.sort2();
+    //    t.sort2();
+    t.makeHideMobile("13611387417", 0);
+    t.makeHideMobile("13612387417", 0);
+    t.makeHideMobile("13613387417", 0);
+    t.makeHideMobile("13614387417", 0);
+    Iterator<String> keys = t.hideMobiles.keySet().iterator();
+    while (keys.hasNext()) {
+      String key = keys.next();
+      System.out.println(key + "=" + t.hideMobiles.get(key));
+    }
   }
 
   void strIndx() {
@@ -100,8 +114,14 @@ public class StringTest {
   }
 
   void subStr() {
-    String emMobile = "9ttt13611387417";
-    emMobile = emMobile.substring(emMobile.length() - 11, emMobile.length());
+    String emMobile = "13611387417";
+    emMobile = emMobile.substring(emMobile.length() - 2, emMobile.length());
+    System.out.println(emMobile);
+    emMobile = "13611387417";
+    emMobile = emMobile.substring(0, 3);
+    System.out.println(emMobile);
+    emMobile = "13611387417";
+    emMobile = emMobile.substring(7, 11);
     System.out.println(emMobile);
   }
 
@@ -120,5 +140,26 @@ public class StringTest {
     for (int i = 0; i < a.length; i++) {
       System.out.println(a[i]);
     }
+  }
+
+  private String makeHideMobile(String mobile, int cicle) {
+    if (mobile == null) return mobile;
+    mobile = mobile.trim();
+    if (mobile.length() != 11) { return mobile; }
+    if (hideMobiles.containsValue(mobile)) { return null; }
+    StringBuffer sb = new StringBuffer();
+    sb.append(getSubStr(mobile, 0, 3)).append("****").append(getSubStr(mobile, 7, 11));
+    for (int i = 0; i < cicle; i++) {
+      sb.append(i);
+    }
+    String key = sb.toString();
+    if (hideMobiles.containsKey(key)) { return makeHideMobile(mobile, cicle + 1); }
+    hideMobiles.put(key, mobile);
+    System.out.println(key + "==" + mobile);
+    return key;
+  }
+
+  private Object getSubStr(String mobile, int beginIndex, int endIndex) {
+    return mobile.substring(beginIndex, endIndex);
   }
 }

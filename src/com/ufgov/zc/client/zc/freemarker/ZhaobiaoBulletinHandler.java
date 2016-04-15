@@ -194,6 +194,8 @@ public class ZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
       rtn = "询价";
     } else if (ZcEbBulletin.ZHAOBIAO_ZXJJ.equals(bulletinType)) {
       rtn = "在线竞价";
+    } else if (ZcEbBulletin.ZHAOBIAO_XXXJ.equals(bulletinType)) {
+      rtn = "线下询价";
     } else if (ZcEbBulletin.ZHAOBIAO_QT.equals(bulletinType)) {
       rtn = "其他";
     }

@@ -437,4 +437,8 @@
 		scope="singleton">
 		<property name="zcEbSupQualificationService" ref="zcEbSupQualificationService"></property>
 	</bean>
+	
+	<bean id="mobileMsgServiceDelegate"		class="com.ufgov.zc.server.zc.publish.impl.ZcMobileMsgServiceDelegate"		scope="singleton">
+		<property name="zcMobileMsgService" ref="zcMobileMsgService"></property>
+	</bean>
 </beans>

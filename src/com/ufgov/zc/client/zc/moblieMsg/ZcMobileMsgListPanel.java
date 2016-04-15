@@ -58,7 +58,7 @@ import com.ufgov.zc.common.system.dto.ElementConditionDto;
 import com.ufgov.zc.common.system.util.ObjectUtil;
 import com.ufgov.zc.common.zc.model.ZcMobileMsg;
 import com.ufgov.zc.common.zc.model.ZcQx;
-import com.ufgov.zc.common.zc.publish.IZcEbBaseServiceDelegate;
+import com.ufgov.zc.common.zc.publish.IZcMobileMsgServiceDelegate;
 
 /**
  * @author Administrator
@@ -81,7 +81,8 @@ public class ZcMobileMsgListPanel extends AbstractEditListBill implements Parent
   //
   //  "baseDataServiceDelegate");
 
-  protected IZcEbBaseServiceDelegate zcEbBaseServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class, "zcEbBaseServiceDelegate");
+  //  protected IZcEbBaseServiceDelegate zcEbBaseServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class, "zcEbBaseServiceDelegate");
+  protected IZcMobileMsgServiceDelegate mobileMsgServiceDelegate = (IZcMobileMsgServiceDelegate) ServiceFactory.create(IZcMobileMsgServiceDelegate.class, "mobileMsgServiceDelegate");
 
   public Window getParentWindow() {
 
@@ -240,7 +241,7 @@ public class ZcMobileMsgListPanel extends AbstractEditListBill implements Parent
         @Override
         public TableModel execute() throws Exception {
 
-          return ZcMobileMsgTableModelConverter.convertToTableModel(self.zcEbBaseServiceDelegate.queryDataForList("ZcMobileMsgMapper.getMainLst", elementConditionDto, requestMeta));
+          return ZcMobileMsgTableModelConverter.convertToTableModel(self.mobileMsgServiceDelegate.getMainDataLst(elementConditionDto, requestMeta));
 
         }
 

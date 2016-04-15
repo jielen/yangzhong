@@ -2160,4 +2160,7 @@
 	<bean id="huiyuanAttachinfoStrorageMapper" class="com.ufgov.zc.server.zc.dao.ibatis.HuiyuanAttachinfoStrorageMapperImp" scope="singleton">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>	
+	<bean id="zcMobileMsgService" class="com.ufgov.zc.server.zc.service.impl.ZcMobileMsgService"		scope="singleton">
+		<property name="baseDao" ref="zcBaseDao"></property>
+	</bean>	
 </beans>
