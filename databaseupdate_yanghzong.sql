@@ -1,3 +1,860 @@
+
+ ----------------20160426---------------
+--1
+insert into ma_company (CO_CODE, CO_TYPE_CODE, GB_CODE, CO_NAME, CO_FULLNA, QUIC_CODE, MARK, POST_CODE, COMM_ADDR, ADDRESS, URL, LINK_MAN, CO_CLERK, CO_LEADER, FI_LEADER, LOCA_TELE, DIRECTOR_CODE, PARENT_CO_CODE, F_CO_CODE, IS_USED, F_ORG_CODE, IS_SELF, BANK_ACC, SHOP_CARD_NO, CORP_REPR, TRADE_NAME, COUNTRY, PROVINCE, CITY, REAL_CO_CODE, IS_LOWEST, ND, FINA_LEVEL, CO_KIND, IS_PILOT, IS_NEED_SEND_BANK, REGION_CODE, TRANS_DATE, IS_NEED_SEND_BANK_SL, CO_TYPE_CODE_1, CAN_GETBILL, GETBILL_ID, CAN_CHARGE, TURN_IN_ACCT, NT_ACC_ID, NT_ACC_NAME, NT_HESUAN_CO_CODE, GUID, TRIGGER_ENABLE, PR_BI_COCODE)
+values ('910001', '02', null, '测试招标有限公司', '测试招标有限公司', null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'Y', '600', 'N', null, null, null, null, null, '*', '*', null, 'Y', 2016, '01', null, null, null, null, to_date('01-03-2016', 'dd-mm-yyyy'), 'N', null, 'Y', null, 'Y', null, null, null, null, 'AC12D45600000000300WE38500000005', 1, null);
+
+--2
+
+insert into as_role (ROLE_ID, ROLE_NAME, ROLE_DESC, CO_CODE)
+values ('R_ZB_NORMAL', '招标通用角色', '目前用于数据权限，区分代理机构和交易中心', '*');
+
+
+insert into as_role (ROLE_ID, ROLE_NAME, ROLE_DESC, CO_CODE)
+values ('R_DLJG_ZX', '代理机构招标执行角色', '代理机构招标执行角色', '*');
+
+--3
+
+insert into AS_ROLE_NUM_LIM (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('R_ZB_NORMAL', 'fwatch', 'ZC_EB_ENTRUST', 'MASTER.AGENCY', '= ''@@svCoCode''', null, '0', 'N');
+
+--4
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbEntrust_Tab', 'all');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbEntrust_Tab', 'draft');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbEntrust_Tab', 'exec');
+
+--5
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'faccepted', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fagreecommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fauditfinal', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fautocommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fback', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fcallback', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fdelete', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fdisagreecommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fedit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'finterruptinstance', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fmanualcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fnew', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fnewcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fprint', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fprint_preview', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fprn_tpl_set', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fsave', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fsavesend', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fsendnextcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fsendprocuunit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fsendtoxieban', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fshowOpinion', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fshowinstancetrace', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'funaudit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'funtread', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fopenNotepad', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into AS_ROLE_FUNC (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_PROJ', 'fgetNo', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+--6
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbProj_ProjTab', 'all');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbProj_ProjTab', 'draft');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbProj_ProjTab', 'exec');
+
+--7
+
+insert into as_role_num_lim (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('R_ZB_NORMAL', 'fwatch', 'ZC_EB_PROJ', 'ZC_EB_PROJ.AGENCY', '= ''@@svCoCode''', null, '0', 'N');
+
+--8
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fnew', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fnewcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'frelease', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fsave', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fsendnextcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fsendrecord', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fsendtoxieban', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fshowinstancetrace', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'funtread', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fview', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fagreecommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fautocommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fcallback', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fdelete', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fdisagreecommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fdisplay', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fedit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fexit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'floadMold', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fmanualcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fopenNotepad', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'funaudit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fbuildBulletin', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'freserveChangdi', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID', 'fupdateZbWordFile', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+--9
+
+insert into as_role_num_lim (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('R_ZB_NORMAL', 'fwatch', 'ZC_EB_BULLETIN_BID', 'ZC_EB_BULLETIN.AGENCY', '= ''@@svCoCode''', null, '0', 'N');
+
+insert into as_role_num_lim (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('R_ZB_NORMAL', 'fwatch', 'ZC_EB_BULLETIN_BID_xj', 'ZC_EB_BULLETIN.AGENCY', '= ''@@svCoCode''', null, '0', 'N');
+
+insert into as_role_num_lim (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('R_ZB_NORMAL', 'fwatch', 'ZC_EB_BULLETIN_CHG', 'ZC_EB_BULLETIN.AGENCY', '= ''@@svCoCode''', null, '0', 'N');
+
+insert into as_role_num_lim (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('R_ZB_NORMAL', 'fwatch', 'ZC_EB_BULLETIN_WID', 'ZC_EB_BULLETIN.AGENCY', '= ''@@svCoCode''', null, '0', 'N');
+
+--10
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID_xj', 'fnew', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID_xj', 'fsave', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID_xj', 'fshowinstancetrace', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID_xj', 'funtread', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID_xj', 'fcallback', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID_xj', 'fdelete', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID_xj', 'fedit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID_xj', 'fexit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID_xj', 'fmanualcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID_xj', 'fbuildBulletin', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID_xj', 'funaudit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID_xj', 'fwatch', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID_xj', 'fnewcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+--11
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_CHG', 'fautocommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_CHG', 'fcallback', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_CHG', 'fdelete', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_CHG', 'fedit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_CHG', 'fexit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_CHG', 'floadMold', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_CHG', 'fmanualcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_CHG', 'fnew', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_CHG', 'fnewcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_CHG', 'frelease', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_CHG', 'fsave', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_CHG', 'fsendnextcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_CHG', 'fshowinstancetrace', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_CHG', 'funtread', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_CHG', 'fopenNotepad', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'fagreecommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'fautocommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'fcallback', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'fdelete', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'fdisagreecommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'fedit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'fexit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'floadMold', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'fmanualcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'fnew', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'fnewcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'frelease', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'fsave', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'fsendnextcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'fsendrecord', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'fsendtoxieban', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'fshowinstancetrace', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'funtread', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_WID', 'fopenNotepad', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+--12
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbBulletin_bulletinTab', 'all');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbBulletin_bulletinTab', 'draft');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbBulletin_bulletinTab', 'exec');
+
+--13
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID_xjTab', 'all');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID_xjTab', 'draft');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZC_EB_BULLETIN_BID_xjTab', 'exec');
+
+--14
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbSignup_signupTab', 'audit');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbSignup_signupTab', 'biding');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbSignup_signupTab', 'opened');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbSignup_signupTab', 'sellEnd');
+
+--15
+
+insert into as_role_num_lim (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('R_DLJG_ZX', 'fwatch', 'ZC_EB_SIGNUP', 'zc_eb_proj.agency', '=''@@svCoCode''', null, '0', 'N');
+
+--16
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT_OFF_LINE', 'fcallback', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT_OFF_LINE', 'fdelete', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT_OFF_LINE', 'fedit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT_OFF_LINE', 'fexit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT_OFF_LINE', 'fmanualcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT_OFF_LINE', 'fnew', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT_OFF_LINE', 'fnewcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT_OFF_LINE', 'fprint', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT_OFF_LINE', 'fsave', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT_OFF_LINE', 'fshowinstancetrace', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT_OFF_LINE', 'funtread', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+--17
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbEval_reportTab', 'all');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbEval_reportTab', 'draft');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbEval_reportTab', 'exec');
+
+--18
+
+insert into as_role_num_lim (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('R_ZB_NORMAL', 'fwatch', 'ZC_EB_EVAL_REPORT_OFF_LINE', 'ZC_EB_EVAL_REPORT.AGENCY', '= ''@@svCoCode''', null, '0', 'N');
+
+--19
+
+insert into as_role_num_lim (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('R_ZB_NORMAL', 'fwatch', 'ZC_EB_NOTICE', 'ZC_EB_NOTICE.AGENCY', '= ''@@svCoCode''', null, '0', 'N');
+
+--20
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'fopenNotepad', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'fnewcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'fprint', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'frelease', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'fsave', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'fsendnextcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'fsendtoxieban', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'funtread', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'fagreecommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'fauditfinal', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'fautocommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'fcallback', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'fdelete', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'fdisagreecommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'fedit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'fexit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'floadMold', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'fmanualcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'fnew', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_NOTICE', 'fshowinstancetrace', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+--21
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbNotice_moldTab', 'all');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbNotice_moldTab', 'draft');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('R_DLJG_ZX', 'ZcEbNotice_moldTab', 'exec');
+
+--22
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fopenNotepad', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fagreecommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fcalc', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fcallback', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fdelete', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fdisagreecommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fedit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fexit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'floadMold', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fmanualcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fnew', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fnewcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fprint', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fsave', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fselectMold', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fsendnextcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fsendprocuunit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fsendtoxieban', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fshowcomment', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fshowinstancetrace', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'funtread', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'open', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'zc_fcancel_ht', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'zc_fgencontract', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fadd', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fsendToDanWei', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_XMCG_HT', 'fbackToSupplier', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+--23 
+
+insert into as_role_num_lim (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('R_DLJG_ZX', 'fwatch', 'ZC_XMCG_HT', 'SQL_CONDITION', 'exists (
+ select 1  from V_WF_ACTION_HISTORY_GK53 wf
+  where wf.executor = ''@@svUserID'' and wf.instance_id = ZC_XMCG_HT.PROCESS_INST_ID and rownum
+
+= 1
+ union
+ select 1 from as_wf_draft drf where drf.user_id = ''@@svUserID'' and drf.wf_draft_id =
+
+ZC_XMCG_HT.PROCESS_INST_ID and rownum=1
+ union
+ select 1 from V_WF_CURRENT_TASK_ZC_TODO ct
+ where ct.executor = ''@@svUserID'' and ct.instance_id = ZC_XMCG_HT.PROCESS_INST_ID and rownum =
+
+1
+ union
+ select 1 from V_WF_CURRENT_TASK_ZC_UNTREAD ct
+ where ct.executor = ''@@svUserID'' and ct.instance_id = ZC_XMCG_HT.PROCESS_INST_ID and rownum =
+
+1
+ )', null, '0', 'N');
+ 
+--24
+
+insert into as_role_num_lim (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('R_DLJG_ZX', 'fwatch', 'ZC_EB_BULLETIN_WID', 'SQL_CONDITION', 'exists (
+ select 1  from V_WF_ACTION_HISTORY_GK53 wf
+  where wf.executor = ''@@svUserID'' and wf.instance_id = ZC_EB_BULLETIN.PROCESS_INST_ID and rownum
+
+= 1
+ union
+ select 1 from as_wf_draft drf where drf.user_id = ''@@svUserID'' and drf.wf_draft_id =
+
+ZC_EB_BULLETIN.PROCESS_INST_ID and rownum=1
+ union
+ select 1 from V_WF_CURRENT_TASK_ZC_TODO ct
+ where ct.executor = ''@@svUserID'' and ct.instance_id = ZC_EB_BULLETIN.PROCESS_INST_ID and rownum =
+
+1
+ union
+ select 1 from V_WF_CURRENT_TASK_ZC_UNTREAD ct
+ where ct.executor = ''@@svUserID'' and ct.instance_id = ZC_EB_BULLETIN.PROCESS_INST_ID and rownum =
+
+1
+ )', null, '0', 'N');
+ 
+ --25
+
+insert into as_role_num_lim (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('R_DLJG_ZX', 'fwatch', 'ZC_EB_BULLETIN_CHG', 'SQL_CONDITION', 'exists (
+ select 1  from V_WF_ACTION_HISTORY_GK53 wf
+  where wf.executor = ''@@svUserID'' and wf.instance_id = ZC_EB_BULLETIN.PROCESS_INST_ID and rownum
+
+= 1
+ union
+ select 1 from as_wf_draft drf where drf.user_id = ''@@svUserID'' and drf.wf_draft_id =
+
+ZC_EB_BULLETIN.PROCESS_INST_ID and rownum=1
+ union
+ select 1 from V_WF_CURRENT_TASK_ZC_TODO ct
+ where ct.executor = ''@@svUserID'' and ct.instance_id = ZC_EB_BULLETIN.PROCESS_INST_ID and rownum =
+
+1
+ union
+ select 1 from V_WF_CURRENT_TASK_ZC_UNTREAD ct
+ where ct.executor = ''@@svUserID'' and ct.instance_id = ZC_EB_BULLETIN.PROCESS_INST_ID and rownum =
+
+1
+ )', null, '0', 'N');
+
+--26
+
+insert into as_role_num_lim (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('R_DLJG_ZX', 'fwatch', 'ZC_EB_RFQ', 'SQL_CONDITION', '  exists (
+
+ select 1  from V_WF_ACTION_HISTORY_GK53 wf
+  where wf.executor = ''@@svUserID'' and wf.instance_id = master.PROCESS_INST_ID and
+
+rownum = 1
+ union
+ select 1 from as_wf_draft drf where drf.user_id = ''@@svUserID'' and drf.wf_draft_id =
+
+master.PROCESS_INST_ID and rownum=1
+ union
+ select 1 from V_WF_CURRENT_TASK_ZC_TODO ct
+ where ct.executor = ''@@svUserID'' and ct.instance_id = master.PROCESS_INST_ID and
+
+rownum = 1
+ union
+ select 1 from V_WF_CURRENT_TASK_ZC_UNTREAD ct
+ where ct.executor = ''@@svUserID'' and ct.instance_id = master.PROCESS_INST_ID and
+
+rownum = 1
+)
+or
+master.manager_code=''@@svUserID''', null, '0', 'N');
+
+--27
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fopenNotepad', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fprint_preview', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fprn_tpl_set', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fsave', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fsavereport', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fsavesend', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fsendnextcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fsendprocuunit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fsendtoxieban', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fshowOpinion', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fshowinstancetrace', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'funtread', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fImportOpinion', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'faccepted', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fagreecommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'faudit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fauditfinal', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fautocommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fbatedit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fcallback', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fcancel_accepted', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fdelete', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fdisagreecommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fedit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fexit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'finterruptinstance', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fmanualcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fnew', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fnewcommit', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+insert into as_role_func (ROLE_ID, COMPO_ID, FUNC_ID, TRANS_DATE)
+values ('R_DLJG_ZX', 'ZC_EB_EVAL_REPORT', 'fprint', to_date('17-04-2016 21:33:42', 'dd-mm-yyyy hh24:mi:ss'));
+
+--28
+
+insert into AS_ROLE_NUM_LIM (ROLE_ID, FUNC_ID, COMPO_ID, CTRL_FIELD, GRAN_RANGE, REVO_RANGE, IS_GRAN, IS_RELATION)
+values ('R_ZB_NORMAL', 'fwatch', 'ZC_EB_EVAL_REPORT', 'ZC_EB_EVAL_REPORT.AGENCY', '= ''@@svCoCode''', null, '0', 'N');
+
+
+ ----------------20160408---------------
+--1
+
+delete FROM ZC_SEARCH_CONDITION S where s.compo_id='ZC_EB_SIGNUP' ;
+
+insert into ZC_SEARCH_CONDITION (CONDITION_ID, CONDITION_FIELD_CODE, CONDITION_FIELD_NAME, CONDITION_FIELD_ORDER, COMPO_ID, COMPO_NAME, CONDITION_NAME, CONDITION_TYPE, CONDITION_NAME_ORDER)
+values ('ZcEbSignup_signupTab', 'todo', '我参与的项目', 3, 'ZC_EB_SIGNUP', '供应商投标', '我参与的项目', 'tab', '303');
+
+insert into ZC_SEARCH_CONDITION (CONDITION_ID, CONDITION_FIELD_CODE, CONDITION_FIELD_NAME, CONDITION_FIELD_ORDER, COMPO_ID, COMPO_NAME, CONDITION_NAME, CONDITION_TYPE, CONDITION_NAME_ORDER)
+values ('ZcEbSignup_signupTab', 'biding', '正在招标的项目', 0, 'ZC_EB_SIGNUP', '供应商投标', '正在招标的项目', 'tab', '301');
+
+insert into ZC_SEARCH_CONDITION (CONDITION_ID, CONDITION_FIELD_CODE, CONDITION_FIELD_NAME, CONDITION_FIELD_ORDER, COMPO_ID, COMPO_NAME, CONDITION_NAME, CONDITION_TYPE, CONDITION_NAME_ORDER)
+values ('ZcEbSignup_signupTab', 'opened', '招标结束的项目', 2, 'ZC_EB_SIGNUP', '供应商投标', '招标结束的项目', 'tab', '302');
+
+insert into ZC_SEARCH_CONDITION (CONDITION_ID, CONDITION_FIELD_CODE, CONDITION_FIELD_NAME, CONDITION_FIELD_ORDER, COMPO_ID, COMPO_NAME, CONDITION_NAME, CONDITION_TYPE, CONDITION_NAME_ORDER)
+values ('ZcEbSignup_signupTab', 'cancel', '我撤销报名的项目', 4, 'ZC_EB_SIGNUP', '供应商投标', '我撤销报名的项目', 'tab', '303');
+
+insert into ZC_SEARCH_CONDITION (CONDITION_ID, CONDITION_FIELD_CODE, CONDITION_FIELD_NAME, CONDITION_FIELD_ORDER, COMPO_ID, COMPO_NAME, CONDITION_NAME, CONDITION_TYPE, CONDITION_NAME_ORDER)
+values ('ZcEbSignup_signupTab', 'sellEnd', '报名结束项目', 1, 'ZC_EB_SIGNUP', '供应商投标', '审核报名供应商', 'tab', '303');
+
+insert into ZC_SEARCH_CONDITION (CONDITION_ID, CONDITION_FIELD_CODE, CONDITION_FIELD_NAME, CONDITION_FIELD_ORDER, COMPO_ID, COMPO_NAME, CONDITION_NAME, CONDITION_TYPE, CONDITION_NAME_ORDER)
+values ('ZcEbSignup_signupTab', 'audit', '审核报名供应商', 5, 'ZC_EB_SIGNUP', '供应商投标', '审核报名供应商', 'tab', '303');
+
+--2
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KY_CG', 'ZcEbSignup_signupTab', 'sellEnd');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KY_ZH', 'ZcEbSignup_signupTab', 'sellEnd');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KZ_CG', 'ZcEbSignup_signupTab', 'sellEnd');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CGZX_KZ_ZH', 'ZcEbSignup_signupTab', 'sellEnd');
+
+insert into zc_role_search_condition (ROLE_ID, CONDITION_ID, CONDITION_FIELD_CODE)
+values ('CG_CGZXLD', 'ZcEbSignup_signupTab', 'sellEnd');
+
+
  ----------------20160402---------------
 --1
 

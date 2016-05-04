@@ -46,8 +46,7 @@
 
 	<bean id="sqlMapClient"
 		class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
-		<property name="configLocation"
-			value="classpath:SqlMapConfig.xml" />
+		<property name="configLocation"	value="classpath:SqlMapConfig.xml" />
 		<property name="dataSource" ref="gkDataSource" />
 		<property name="lobHandler" ref="oracleLobHandler" />
 	</bean>

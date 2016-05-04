@@ -420,7 +420,9 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
     //    editorList.add(isDesSup);
     //    editorList.add(isPub);
     //    editorList.add(isCar);
-    editorList.add(superintendentName);
+    if (ZcUtil.isCgzx()) {
+      editorList.add(superintendentName);
+    }
     editorList.add(cglx);
 
     return editorList;
@@ -1814,6 +1816,12 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
     entrust.setIsShouli("Y");
 
     entrust.setZcIsNotary(ZcEbEntrust.CAIGOU_TYPE_HUOWU);
+
+    if (ZcUtil.isDljg()) {
+      //代理机构默认设置项目经办人
+      entrust.setJbr(this.requestMeta.getSvUserID());
+      entrust.setJbrName(this.requestMeta.getSvUserName());
+    }
 
   }
 

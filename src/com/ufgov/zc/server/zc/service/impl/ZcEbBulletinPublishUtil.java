@@ -44,7 +44,7 @@ public class ZcEbBulletinPublishUtil {
    * @param bul
    * @throws BusinessException
    */
-  public void publishToWw(ZcEbBulletin bul) {
+  public void publishToWw(ZcEbBulletin bul, String guid) {
     JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
     Client client = dcf.createClient("http://www.yzggzy.cn/webservice/cmsContent?wsdl");
     QName qname = new QName("http://webservice.cms.jeecms.com/", "addContent");
@@ -55,7 +55,8 @@ public class ZcEbBulletinPublishUtil {
       //      System.out.println(txt);
       //保存html文件，用于webservice接口的出错调试，手工发布
       saveLocalFile(bul);
-      Object[] objects = client.invoke(qname, bul.getBulletinID(), getWwChanelId(bul), bul.getProjName(), txt, sdf.format(d));
+      //      Object[] objects = client.invoke(qname, bul.getBulletinID(), getWwChanelId(bul), bul.getProjName(), txt, sdf.format(d));
+      Object[] objects = client.invoke(qname, guid, getWwChanelId(bul), bul.getProjName(), txt, sdf.format(d));
       log.info("发布公告(id:" + bul.getBulletinID() + "),发布结果: " + objects[0]);
       System.out.println("发布公告(id:" + bul.getBulletinID() + "),发布结果: " + objects[0]);
       //      throw new Exception("发布公告 test over");
@@ -73,7 +74,7 @@ public class ZcEbBulletinPublishUtil {
    * @param bul
    * @throws BusinessException
    */
-  public void publishToCzww(ZcEbBulletin bul) {
+  public void publishToCzww(ZcEbBulletin bul, String guid) {
     JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
     Client client = dcf.createClient("http://www.yangzhongzc.com/webservice/cmsContent?wsdl");
     //    QName qname = new QName("http://webservice.cms.jeecms.com/", "addContent");
@@ -91,13 +92,15 @@ public class ZcEbBulletinPublishUtil {
         if (bul.getZcEbPlan() != null && bul.getZcEbPlan().getSellEndTime() != null) {
           dd = bul.getZcEbPlan().getSellEndTime();
         }
-        Object[] objects = client.invoke(qname, bul.getBulletinID(), getCzwwChanelId(bul), bul.getProjName(), txt, sdf.format(dd), sdf.format(d));
+        //        Object[] objects = client.invoke(qname, bul.getBulletinID(), getCzwwChanelId(bul), bul.getProjName(), txt, sdf.format(dd), sdf.format(d));
+
+        Object[] objects = client.invoke(qname, guid, getCzwwChanelId(bul), bul.getProjName(), txt, sdf.format(dd), sdf.format(d), bul.getCglx());
 
         //        Object[] objects = client.invoke(qname, "1", "2", "3", "4", "5", "6");
         log.info("发布公告到财政网站(id:" + bul.getBulletinID() + "),发布结果: " + objects[0]);
         System.out.println("发布公告到财政网站(id:" + bul.getBulletinID() + "),发布结果: " + objects[0]);
       } else {
-        Object[] objects = client.invoke(qname, bul.getBulletinID(), getCzwwChanelId(bul), bul.getProjName(), txt, "", sdf.format(d));
+        Object[] objects = client.invoke(qname, guid, getCzwwChanelId(bul), bul.getProjName(), txt, "", sdf.format(d), bul.getCglx());
         log.info("发布公告到财政网站(id:" + bul.getBulletinID() + "),发布结果: " + objects[0]);
         System.out.println("发布公告到财政网站(id:" + bul.getBulletinID() + "),发布结果: " + objects[0]);
       }

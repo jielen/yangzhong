@@ -1318,6 +1318,11 @@
 
 		</isNotNull>
 
+		<isNotNull prepend="and" property="dattr2">
+
+			master.PACK_CODE=#dattr2:VARCHAR#
+
+		</isNotNull>
 		order by
 
 		to_number(master.PACK_CODE)
@@ -2175,7 +2180,10 @@
 						           and b.bulletin_type like 'zhaobiao%'
 						           and b.BULLETIN_STATUS='exec')
 				</isEqual>
-			</isNotNull>
+			</isNotNull>	    	    
+			<isNotNull prepend="and" property="zcText3">
+				ZC_EB_PROJ.agency=#zcText3#
+			</isNotNull> 	
 	</select>
 
 	<select id="getAllZcEbProj" resultMap="ZcEbProjResult"
@@ -3746,9 +3754,8 @@
 		</isEqual>
 	</select>
 
-	<select id="getProjWithPlan" resultMap="zcEbProjWithPlanResult"
-		parameterClass="elementCondition">
-		select p.*,
+	<select id="getProjWithPlan" resultMap="zcEbProjWithPlanResult" 		parameterClass="elementCondition">
+		select zc_eb_proj.*,
 		l.plan_code,
 		l.sell_start_time,
 		l.sell_end_time,
@@ -3759,24 +3766,28 @@
 		l.doc_seller,
 		l.doc_sell_address,
 		l.doc_sell_phone
-		from zc_eb_proj p,
+		from zc_eb_proj zc_eb_proj,
 		zc_eb_plan l
-		where p.proj_code = l.proj_code
-		and p.status = 'exec'
+		where zc_eb_proj.proj_code = l.proj_code
+		and zc_eb_proj.status = 'exec'
 		and
-		p.pur_type in ('1', '2', '3', '4','10')
+		zc_eb_proj.pur_type in ('1', '2', '3', '4','10')
+		<include refid="BusiNumLim.BusiNumLimStr" />
 		<isNotNull prepend="and" property="status">
 			<isEqual property="status" compareValue="biding">
 		<![CDATA[ sysdate <= l.bid_end_time ]]>
 			</isEqual>
-
+			<isEqual property="status" compareValue="sellEnd">
+		<![CDATA[ sysdate < l.bid_end_time and sysdate>l.sell_end_time]]>
+			</isEqual>
 			<isEqual property="status" compareValue="opened">
 		<![CDATA[ sysdate > l.bid_end_time ]]>
 			</isEqual>
 		</isNotNull>
 		<isNotNull prepend="and" property="zcText0">
-			p.proj_code=#zcText0#
+			zc_eb_proj.proj_code=#zcText0#
 		</isNotNull>
+		order by l.open_bid_time desc
 	</select>
 	<select id="getXjProjWithPlan" resultMap="zcEbProjWithPlanResult"
 		parameterClass="elementCondition">

@@ -539,9 +539,14 @@ public class ZcEbSignupShowEditPanel extends AbstractMainSubEditPanel {
     packSupplierMap = new Hashtable<String, List<ZcEbSignup>>();
     for (int j = 0; j < signup.getSignupPacks().size(); j++) {
       ZcEbSignupPackDetail pk = (ZcEbSignupPackDetail) signup.getSignupPacks().get(j);
+      if (!ZcEbSignupPackDetail.BAOMING_YES.equals(pk.getSpStatus())) {
+        continue;
+      }
       for (int k = 0; k < signedSupplierLst.size(); k++) {
         ZcEbSignup s = (ZcEbSignup) signedSupplierLst.get(k);
         if (pk.getSignupId().equals(s.getSignupId())) {
+          //判断这个分包供应商是否已经报名
+
           if (packSupplierMap.containsKey(pk.getPackCode())) {
             List<ZcEbSignup> l = packSupplierMap.get(pk.getPackCode());
             boolean find = false;

@@ -644,7 +644,11 @@ public class ZcEbBulletinZhongBiaoEditPanel extends AbstractMainSubEditPanel {
 
       public void actionPerformed(ActionEvent e) {
 
-        doSend();
+        if (ZcUtil.isDljg() && requestMeta.containRole(ZcSettingConstants.ROLE_PUBLISH_BULLETIN)) {
+          doSendAndPubulishBulletin();
+        } else {
+          doSend();
+        }
 
       }
 
@@ -1938,6 +1942,111 @@ public class ZcEbBulletinZhongBiaoEditPanel extends AbstractMainSubEditPanel {
     refreshMainData();
 
     return true;
+  }
+
+  /**
+   * 代理机构不走流程
+   */
+  private void doSendAndPubulishBulletin() {
+    ZcEbBulletin bulletin = (ZcEbBulletin) this.listCursor.getCurrentObject();
+
+    //编辑状态下则保存数据
+    if (ZcSettingConstants.PAGE_STATUS_EDIT.equals(this.pageStatus) && this.saveButton.isVisible()) {
+
+      boolean save = saveBeforAudit(bulletin);
+      if (!save) {
+        JOptionPane.showMessageDialog(this, "发布失败:\n 发布前的公告保存失败！", "错误", JOptionPane.ERROR_MESSAGE);
+        return;
+      }
+    }
+    bulletin.setIsGoonAudit(ZcSettingConstants.IS_GOON_AUDIT_NO);
+
+    bulletin.setComment("");
+
+    bulletin.setAuditorId(WorkEnv.getInstance().getCurrUserId());
+
+    //因为模板中有发布时间，所以发布时 必须重新填充一次模板
+    String vistr = null;
+
+    if ((vistr = checkBeforePublish()) != null) {
+
+      JOptionPane.showMessageDialog(self, vistr, "提示", JOptionPane.INFORMATION_MESSAGE);
+
+      return;
+    }
+
+    if (tabPane.getComponentCount() > 1) {
+      refreshWordPaneForPub(bulletin);
+      try {
+        Thread.sleep(3000);
+      } catch (InterruptedException e) {
+      }
+    }
+
+    if (!publishToHtml(bulletin.getFileID())) {
+
+    return; }
+    if (!readFileByChar(bulletin)) {
+
+      UIUtilities.showStaickTraceDialog(new BaseException(), this, "错误", "公告html文件的检查失败!");
+
+      //      this.listCursor.setCurrentObject(bulletin);
+      //
+      //      this.oldBulletin = (ZcEbBulletin) ObjectUtil.deepCopy(bulletin);
+      return;
+    }
+
+    ArrayList zl = new ArrayList();
+
+    zl.add(bulletin);
+
+    boolean isSuccess = true;
+
+    try {
+      requestMeta.setFuncId("send&publish");
+      this.getIZcEbBulletinServiceDelegate().newCommitFN(zl, requestMeta);
+
+    } catch (Exception e) {
+
+      isSuccess = false;
+
+      e.printStackTrace();
+
+      JOptionPane.showMessageDialog(self, "发布失败！" + e.getMessage(), "提示", JOptionPane.ERROR_MESSAGE);
+
+    }
+
+    if (isSuccess) {
+
+      HashMap parameter = new HashMap();
+
+      parameter.put("BULLETIN_ID", bulletin.getBulletinID());
+
+      List list = zcEbBaseServiceDelegate.queryDataForList("ZcEbBulletin.readBulletinById", parameter, requestMeta);
+
+      if (list != null && list.size() > 0) {
+
+        bulletin = (ZcEbBulletin) list.get(0);
+
+      }
+
+      this.listCursor.setCurrentObject(bulletin);
+
+      this.oldBulletin = (ZcEbBulletin) ObjectUtil.deepCopy(bulletin);
+
+      this.listPanel.refreshCurrentTabData();
+
+      JOptionPane.showMessageDialog(self, "发布成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+
+      this.pageStatus = ZcSettingConstants.PAGE_STATUS_BROWSE;
+
+      updateFieldEditorsEditable();
+
+      this.refreshDataOnly();
+
+      setButtonStatus();
+
+    }
   }
 
   protected void refreshWordPaneForPub(ZcEbBulletin bulletin) {

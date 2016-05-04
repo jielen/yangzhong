@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.kingdrive.workflow.context.WorkflowContext;
 import com.ufgov.zc.common.system.RequestMeta;
@@ -138,7 +139,11 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
 
   public void newCommit(ZcEbBulletin zcEbBulletin, RequestMeta requestMeta) throws Exception {
     checkCanSend(zcEbBulletin);
+    if ("send&publish".equals(requestMeta.getFuncId())) {//代理机构直接发布公告
+      _publishBulletinFN(zcEbBulletin, "", null, requestMeta);
+    }
     wfEngineAdapter.newCommit(zcEbBulletin.getComment(), zcEbBulletin, requestMeta);
+
   }
 
   public void commit(ZcEbBulletin zcEbBulletin, RequestMeta requestMeta) {
@@ -653,21 +658,37 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
   }
 
   public ZcEbBulletin publishBulletinFN(ZcEbBulletin tin, String dir, Map option, RequestMeta meta) throws Exception {
+    _publishBulletinFN(tin, dir, option, meta);
+    // 送审
+    wfEngineAdapter.commit(tin.getComment(), tin, meta);
+
+    //延期、变更公告时，给报名供应商发邮件通知
+    //    String content = tin.getFile().toString();
+    //    sendMailToSupplier(tin, mailInfo, content);
+
+    // 取最新值
+    HashMap map = new HashMap();
+    map.put("BULLETIN_ID", tin.getBulletinID());
+    return (ZcEbBulletin) baseDao.read("ZcEbBulletin.readBulletinById", map);
+  }
+
+  private void _publishBulletinFN(ZcEbBulletin tin, String dir, Map option, RequestMeta meta) throws Exception {
     // 更新外网网站
     System.out.println("公告开始更新外网开始");
     //更新原自己的网站
     addOut(tin, meta);
+    String guid = UUID.randomUUID().toString();
     //发布到第三者网站，目前扬中使用
     if ("y".equalsIgnoreCase(ZcSUtil.getAsOptionVal(ZcSettingConstants.OPT_ZC_SEND_TO_THIRD_WEB))) {
       ZcEbBulletinPublishUtil pu = new ZcEbBulletinPublishUtil();
       //      pu.publishBulletin(tin);
-      pu.publishToWw(tin);
+      pu.publishToWw(tin, guid);
     }
     //发布到财政网站，目前扬中使用
     if ("y".equalsIgnoreCase(ZcSUtil.getAsOptionVal(ZcSettingConstants.OPT_ZC_SEND_TO_CZ_WEB))) {
       ZcEbBulletinPublishUtil pu = new ZcEbBulletinPublishUtil();
       //      pu.publishBulletin(tin);
-      pu.publishToCzww(tin);
+      pu.publishToCzww(tin, guid);
     }
     System.out.println("公告更新外网结束");
 
@@ -721,20 +742,6 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
     baseDao.update("ZC_WCMS_CONTENT.updateDeclarationContent", tin);
     //    System.out.println("公告开始更新外网开始kk");
 
-    // 调用用政务大厅接口
-    //    sendBulletinToZWDT(tin, option, server, comp, pass);
-
-    // 送审
-    wfEngineAdapter.commit(tin.getComment(), tin, meta);
-
-    //延期、变更公告时，给报名供应商发邮件通知
-    //    String content = tin.getFile().toString();
-    //    sendMailToSupplier(tin, mailInfo, content);
-
-    // 取最新值
-    HashMap map = new HashMap();
-    map.put("BULLETIN_ID", tin.getBulletinID());
-    return (ZcEbBulletin) baseDao.read("ZcEbBulletin.readBulletinById", map);
   }
 
   /**
@@ -940,8 +947,29 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
         tin.setPackList(baseDao.query("ZcEbBulletin.getZcEbBulletinPack", tin));
       }
     }
+    //获取项目的采购组织类型：货物、服务、工程三类，用于公告发布时的分类
+    String cglx = getCglx(tin.getZcEbProj());
+    tin.setCglx(cglx);
     tin.setDbDigest(tin.digest());
     return tin;
+  }
+
+  //获取项目的采购组织类型：货物、服务、工程三类，用于公告发布时的分类,没有找到时，返回A（默认是货物类型，这个比较多)
+  //A 货物 B 服务 C 工程
+  private String getCglx(ZcEbProj proj) {
+    if (proj == null || proj.getPackList() == null) { return "A"; }
+    ElementConditionDto dto = new ElementConditionDto();
+    dto.setPmAdjustCodeList(new ArrayList());
+    for (int i = 0; i < proj.getPackList().size(); i++) {
+      ZcEbPack pack = (ZcEbPack) proj.getPackList().get(i);
+      dto.getPmAdjustCodeList().add(pack.getEntrustCode());
+    }
+    List lst = baseDao.query("ZcEbBulletin.getCglx", dto);
+    if (lst == null || lst.size() == 0) return "A";
+    HashMap m = (HashMap) lst.get(0);
+    String rtn = (String) m.get("CGLX");
+    if (rtn == null) rtn = "A";
+    return rtn;
   }
 
   public void updateIsExtrac(ZcEbBulletin bulletin) {

@@ -1,3 +1,34 @@
+
+ ----------------20160426---------------
+1、修复报名供应商打印时，出现界面数据和打印数据不一致的bug
+2、增加对代理机构的支持
+
+----------------20160411---------------
+1、给报名供应商发短信，少一个的bug
+
+----------------20160410---------------
+1、报名项目倒排序
+2、询价报价供应商不足时，可以开标
+----------------20160408---------------
+1、待办定时提示，目前是每5分钟提示一次
+		更新文件 mainFrame.jsp 到portal包的下面目录：html\home_in
+	 如果出现首页待办和这个提示不一致的情况，用这个语句查询一下
+	 select tem.name,count(*) cnt,nvl(ta.gk_send_status,'1') status
+    from  
+    wf_current_task ta, 
+    wf_instance ins,
+    wf_template tem
+    where ta.instance_id = ins.instance_id and ins.template_id = tem.template_id
+     and ta.executor ='chenzy'
+    group by tem.name,ta.gk_send_status
+    order by name
+    如果确认没有待办的话，上面sql又查出了数据，则清除wf_current_task对应的记录
+
+2、供应商报名部件增加 报名结束 页签，列出报名结束，未开标的项目
+
+3、询价报价供应商不足时，可以开标
+       
+    
 ----------------20160402---------------
 1、项目废标后重新启动直接执行立项分包	 		
 2、短信发送，手机号中间四位用*号						

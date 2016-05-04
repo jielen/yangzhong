@@ -20,6 +20,7 @@
 		type="com.ufgov.zc.common.zc.model.ZcEbSignupPackDetail" />
 	<typeAlias alias="ZcEbPackPlan"
 		type="com.ufgov.zc.common.zc.model.ZcEbPackPlan" />
+	<typeAlias alias="ZcEbProj" type="com.ufgov.zc.common.zc.model.ZcEbProj" />
 		
 
 	<resultMap id="ZcEbSignupResult" class="ZcEbSignup">
@@ -177,6 +178,79 @@
 		<result property="tbylbFileName" column="TBYLB_FILE_NAME" />
 		<result property="tbylbFileId" column="TBYLB_FILE_ID" />
 	</resultMap>
+	
+	<resultMap id="ZcEbProjResult" class="ZcEbProj">
+
+		<result property="projCode" column="PROJ_CODE" />
+
+		<result property="projSrcCode" column="PROJ_SRC_CODE" />
+
+		<result property="projName" column="PROJ_NAME" />
+
+		<result property="projSum" column="PROJ_SUM" />
+
+		<result property="purType" column="PUR_TYPE" />
+
+		<result property="manager" column="EXECUTOR_NAME" />
+
+		<result property="managerCode" column="EXECUTOR" />
+
+		<result property="projDate" column="PROJ_DATE" />
+
+		<result property="isSplitPack" column="IS_SPLIT_PACK" />
+
+		<result property="phone" column="PHONE" />
+
+		<result property="email" column="EMAIL" />
+
+		<result property="fax" column="FAX" />
+		<result property="attn" column="ATTN" />
+		<result property="attnName" column="ATTN_NAME" />
+		<result property="attnPhone" column="ATTN_PHONE" />
+		<result property="attnEmail" column="ATTN_EMAIL" />
+		<result property="attnFax" column="ATTN_FAX" />
+
+		<result property="status" column="STATUS" />
+
+		<result property="nd" column="ND" />
+
+		<result property="agency" column="AGENCY" />
+		<result property="coCode" column="CO_CODE" />
+		<result property="isPubPurBulletin" column="IS_PUB_PUR_BULLETIN" />
+
+		<result property="isPubPurResult" column="IS_PUB_PUR_RESULT" />
+
+		<result property="processInstId" column="PROCESS_INST_ID"
+			jdbcType="DECIMAL" />
+
+		<result property="inputor" column="INPUTOR" />
+
+		<result property="inputDate" column="EXECUTE_DATE" />
+
+		<result property="org" column="ORG_CODE" />
+
+		<result property="remark" column="REMARK" />
+
+		<result property="isGoonAudit" column="IS_GOON_AUDIT" />
+
+	</resultMap>
+	<resultMap id="zcEbProjWithPlanResult" class="ZcEbProj"
+		extends="ZcEbProjResult">
+		<result column="PLAN_CODE" jdbcType="VARCHAR" property="plan.planCode" />
+		<result column="PROJ_CODE" jdbcType="VARCHAR" property="plan.projCode" />
+		<result column="PROJ_NAME" jdbcType="VARCHAR" property="plan.projName" />
+		<result column="SELL_START_TIME" jdbcType="TIMESTAMP" property="plan.sellStartTime" />
+		<result column="SELL_END_TIME" jdbcType="TIMESTAMP" property="plan.sellEndTime" />
+		<result column="BID_END_TIME" jdbcType="TIMESTAMP" property="plan.bidEndTime" />
+		<result column="OPEN_BID_TIME" jdbcType="TIMESTAMP" property="plan.openBidTime" />
+		<result column="OPEN_BID_ADDRESS" jdbcType="VARCHAR"
+			property="plan.openBidAddress" />
+		<result column="DOC_PRICE" jdbcType="VARCHAR" property="plan.docPrice" />
+		<result column="DOC_SELLER" jdbcType="VARCHAR" property="plan.docSeller" />
+		<result column="DOC_SELL_ADDRESS" jdbcType="VARCHAR"
+			property="plan.docSellAddress" />
+		<result column="DOC_SELL_PHONE" jdbcType="VARCHAR" property="plan.docSellPhone" />
+	</resultMap>
 	<select id="getSupplierCheckIn" resultMap="SupplierCheckIn"
 		parameterClass="string">
 
@@ -279,8 +353,7 @@ SELECT ZC_EB_PROJ.PROJ_CODE,
 group by ZC_EB_PROJ.Proj_Code,ZC_EB_PROJ.Proj_Name,plan.open_bid_time,sh.attn_name,zc_eb_signup.is_pay_guarantee
 	</select>
 
-	<select id="getZcEbSignupList" resultMap="ZcEbSignupWithPlanResult"
-		parameterClass="elementCondition">
+	<select id="getZcEbSignupList" resultMap="ZcEbSignupWithPlanResult"	parameterClass="elementCondition">
 	SELECT ZC_EB_SIGNUP.*,
        ZC_EB_PROJ.PROJ_NAME,
        ZC_EB_PROJ.CO_CODE,
@@ -1150,6 +1223,42 @@ group by ZC_EB_PROJ.Proj_Code,ZC_EB_PROJ.Proj_Name,plan.open_bid_time,sh.attn_na
 		<isNotNull prepend="and" property="zcText0">
 			p.proj_code=#zcText0#
 		</isNotNull>
+	</select>
+	
+	
+	<select id="getProjWithPlan" resultMap="zcEbProjWithPlanResult" 		parameterClass="elementCondition">
+		select zc_eb_proj.*,
+		l.plan_code,
+		l.sell_start_time,
+		l.sell_end_time,
+		l.bid_end_time,
+		l.open_bid_time,
+		l.open_bid_address,
+		l.doc_price,
+		l.doc_seller,
+		l.doc_sell_address,
+		l.doc_sell_phone
+		from zc_eb_proj zc_eb_proj,
+		zc_eb_plan l
+		where zc_eb_proj.proj_code = l.proj_code
+		and zc_eb_proj.status = 'exec'
+		and
+		zc_eb_proj.pur_type in ('1', '2', '3', '4','10') 
+		<isNotNull prepend="and" property="status">
+			<isEqual property="status" compareValue="biding">
+		<![CDATA[ sysdate <= l.bid_end_time ]]>
+			</isEqual>
+			<isEqual property="status" compareValue="sellEnd">
+		<![CDATA[ sysdate < l.bid_end_time and sysdate>l.sell_end_time]]>
+			</isEqual>
+			<isEqual property="status" compareValue="opened">
+		<![CDATA[ sysdate > l.bid_end_time ]]>
+			</isEqual>
+		</isNotNull>
+		<isNotNull prepend="and" property="zcText0">
+			zc_eb_proj.proj_code=#zcText0#
+		</isNotNull>
+		order by l.open_bid_time desc
 	</select>
 </sqlMap>
 

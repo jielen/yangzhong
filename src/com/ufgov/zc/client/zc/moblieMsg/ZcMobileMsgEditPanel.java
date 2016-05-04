@@ -882,7 +882,6 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
       if (hidMobile == null) continue;
       if (i == 0) {
         sb.append(hidMobile);
-        i++;
       } else {
         sb.append(",").append(hidMobile);
       }
