@@ -10,13 +10,15 @@ import com.ufgov.zc.client.common.LangTransMeta;
 import com.ufgov.zc.client.common.ListCursor;
 import com.ufgov.zc.client.component.GkBaseDialog;
 
-public class ZcEbChangdiUsedDialog   extends GkBaseDialog {
+public class ZcEbChangdiUsedDialog extends GkBaseDialog {
 
   private ZcEbChangdiUsedListPanel listPanel;
-  private ZcEbChangdiUsedEditPanel editPanel;
-  private ZcEbChangdiUsedDialog self=this;
 
-  public ZcEbChangdiUsedDialog(Window parent, List beanList, int editingRow, String tabStatus,ZcEbChangdiUsedListPanel listPanel) {
+  private ZcEbChangdiUsedEditPanel editPanel;
+
+  private ZcEbChangdiUsedDialog self = this;
+
+  public ZcEbChangdiUsedDialog(Window parent, List beanList, int editingRow, String tabStatus, ZcEbChangdiUsedListPanel listPanel) {
 
     super(parent, Dialog.ModalityType.APPLICATION_MODAL);
 
@@ -25,12 +27,12 @@ public class ZcEbChangdiUsedDialog   extends GkBaseDialog {
     editPanel = new ZcEbChangdiUsedEditPanel(this.self, new ListCursor(beanList, editingRow), tabStatus, listPanel);
 
     setLayout(new BorderLayout());
-    editPanel.setPreferredSize(new Dimension(800, 350));
+    editPanel.setPreferredSize(new Dimension(1200, 200));
     add(editPanel);
 
     this.setTitle(LangTransMeta.translate("ZC_EB_CHANGDI_USED"));
 
-//    this.setSize(UIConstants.DIALOG_3_LEVEL_WIDTH, UIConstants.DIALOG_3_LEVEL_HEIGHT);
+    //    this.setSize(UIConstants.DIALOG_3_LEVEL_WIDTH, UIConstants.DIALOG_3_LEVEL_HEIGHT);
 
     this.moveToScreenCenter();
 
@@ -38,7 +40,7 @@ public class ZcEbChangdiUsedDialog   extends GkBaseDialog {
 
     //editPanel.refreshData();s
 
-//    this.setMaxSizeWindow();
+    //    this.setMaxSizeWindow();
 
     this.setVisible(true);
 

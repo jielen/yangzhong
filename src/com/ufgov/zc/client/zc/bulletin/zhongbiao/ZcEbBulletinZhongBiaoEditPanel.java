@@ -98,6 +98,7 @@ import com.ufgov.zc.common.system.RequestMeta;
 import com.ufgov.zc.common.system.constants.WFConstants;
 import com.ufgov.zc.common.system.constants.ZcElementConstants;
 import com.ufgov.zc.common.system.constants.ZcSettingConstants;
+import com.ufgov.zc.common.system.constants.ZcValSetConstants;
 import com.ufgov.zc.common.system.dto.ElementConditionDto;
 import com.ufgov.zc.common.system.exception.BaseException;
 import com.ufgov.zc.common.system.util.ObjectUtil;
@@ -2452,7 +2453,7 @@ public class ZcEbBulletinZhongBiaoEditPanel extends AbstractMainSubEditPanel {
 
         data[i][col++] = rowData.getProjSum();
 
-        data[i][col++] = AsValDataCache.getName("ZC_EB_PUR_TYPE", rowData.getPurType());
+        data[i][col++] = AsValDataCache.getName(ZcValSetConstants.VS_ZC_VS_PITEM_OPIWAY, rowData.getPurType());
 
         data[i][col++] = CompanyDataCache.getName(rowData.getCoCode());
 
@@ -2534,7 +2535,7 @@ public class ZcEbBulletinZhongBiaoEditPanel extends AbstractMainSubEditPanel {
 
         data[i][col++] = rowData.getPackDesc();
 
-        data[i][col++] = AsValDataCache.getName("ZC_EB_PUR_TYPE", rowData.getPurType());
+        data[i][col++] = AsValDataCache.getName(ZcValSetConstants.VS_ZC_VS_PITEM_OPIWAY, rowData.getPurType());
 
         data[i][col++] = CompanyDataCache.getName(rowData.getCoCode());
 
@@ -2656,6 +2657,8 @@ public class ZcEbBulletinZhongBiaoEditPanel extends AbstractMainSubEditPanel {
       rtn = ZcEbBulletin.ZHONGBIAO_QT;
     } else if (ZcSettingConstants.ZC_CGFS_XXXJ.equals(purType)) {
       rtn = ZcEbBulletin.ZHONGBIAO_XXXJ;
+    } else if (ZcSettingConstants.ZC_CGFS_JZXCS.equals(purType)) {
+      rtn = ZcEbBulletin.ZHONGBIAO_JZXCS;
     }
     return rtn;
   }

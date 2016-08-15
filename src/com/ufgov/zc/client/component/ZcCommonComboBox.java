@@ -18,217 +18,215 @@ import com.ufgov.zc.client.common.ServiceFactory;
 import com.ufgov.zc.client.common.WorkEnv;
 import com.ufgov.zc.common.commonbiz.publish.IBaseDataServiceDelegate;
 import com.ufgov.zc.common.system.RequestMeta;
+import com.ufgov.zc.common.system.constants.ZcValSetConstants;
 import com.ufgov.zc.common.system.model.AsVal;
 import com.ufgov.zc.common.zc.publish.IZcEbBaseServiceDelegate;
 
 public class ZcCommonComboBox extends JComboBoxEx {
-	private static final long serialVersionUID = 7695985762179916173L;
+  private static final long serialVersionUID = 7695985762179916173L;
 
-	private List dataList = new ArrayList();
+  private List dataList = new ArrayList();
 
-	private List filterList = null;
+  private List filterList = null;
 
-	private Map<String, AsVal> dataMap = new HashMap<String, AsVal>();
+  private Map<String, AsVal> dataMap = new HashMap<String, AsVal>();
 
-	private String valsetid = "ZC_EB_PUR_TYPE";// 全部
-	
-	private String sqlId = null;
-	
-	private boolean isSQL = false;
+  private String valsetid = ZcValSetConstants.VS_ZC_VS_PITEM_OPIWAY;// 全部
 
-	public ZcCommonComboBox() {
+  private String sqlId = null;
 
-		super();
+  private boolean isSQL = false;
 
-		init();
+  public ZcCommonComboBox() {
 
-	}
+    super();
 
-	public ZcCommonComboBox(String valsetid) {
+    init();
 
-		super();
+  }
 
-		this.valsetid = valsetid;
-		
-		initDataList();
+  public ZcCommonComboBox(String valsetid) {
 
-		init();
+    super();
 
-	}
+    this.valsetid = valsetid;
 
-	public ZcCommonComboBox(List dataList) {
+    initDataList();
 
-		super();
+    init();
 
-		this.dataList = dataList;
+  }
 
-		init();
+  public ZcCommonComboBox(List dataList) {
 
-	}
-	
-	public ZcCommonComboBox(String valsetid, List filterList) {
+    super();
 
-		super();
+    this.dataList = dataList;
 
-		this.valsetid = valsetid;
+    init();
 
-		this.filterList = filterList;
-		
-		initDataList();
+  }
 
-		init();
+  public ZcCommonComboBox(String valsetid, List filterList) {
 
-	}
-	
-	public ZcCommonComboBox(List dataList, List filterList) {
+    super();
 
-		super();
+    this.valsetid = valsetid;
 
-		this.dataList = dataList;
+    this.filterList = filterList;
 
-		this.filterList = filterList;
-		
-		init();
+    initDataList();
 
-	}
-	
-	public ZcCommonComboBox(String sqlId, List filterList, boolean isSQL) {
+    init();
 
-		super();
+  }
 
-		this.sqlId = sqlId;
+  public ZcCommonComboBox(List dataList, List filterList) {
 
-		this.filterList = filterList;
-		
-		this.isSQL = isSQL;
-		
-		initDataList();
+    super();
 
-		init();
+    this.dataList = dataList;
 
-	}
-	
-	private void initDataList(){
-		
+    this.filterList = filterList;
 
-		RequestMeta requestMeta = WorkEnv.getInstance().getRequestMeta();
-		
-		if(isSQL){
-			
-			IZcEbBaseServiceDelegate zcEbBaseServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class,
-				    "zcEbBaseServiceDelegate");
-			
-			dataList = zcEbBaseServiceDelegate.queryDataForList(sqlId, null, requestMeta);
-			
-		} else{
-			
-			IBaseDataServiceDelegate baseDataServiceDelegate = (IBaseDataServiceDelegate) ServiceFactory
-					.create(IBaseDataServiceDelegate.class, "baseDataServiceDelegate");
-			
-			dataList = baseDataServiceDelegate.getAsVal(this.valsetid, requestMeta);
-		}
+    init();
 
-	}
+  }
 
-	private void init() {
+  public ZcCommonComboBox(String sqlId, List filterList, boolean isSQL) {
 
-		this.addItem(null);
+    super();
 
-		for (int i = 0; i < dataList.size(); i++) {
+    this.sqlId = sqlId;
 
-			AsVal data = (AsVal) dataList.get(i);
+    this.filterList = filterList;
 
-			if (filterList == null) {
+    this.isSQL = isSQL;
 
-				this.addItem(data);
+    initDataList();
 
-				this.addItemDisplaLable(data, data.getVal());
+    init();
 
-				this.dataMap.put(data.getValId(), data);
+  }
 
-			} else {
+  private void initDataList() {
 
-				if (filterList.contains(data.getValId())) {
+    RequestMeta requestMeta = WorkEnv.getInstance().getRequestMeta();
 
-					this.addItem(data);
+    if (isSQL) {
 
-					this.addItemDisplaLable(data, data.getVal());
+      IZcEbBaseServiceDelegate zcEbBaseServiceDelegate = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class, "zcEbBaseServiceDelegate");
 
-					this.dataMap.put(data.getValId(), data);
+      dataList = zcEbBaseServiceDelegate.queryDataForList(sqlId, null, requestMeta);
 
-				}
+    } else {
 
-			}
+      IBaseDataServiceDelegate baseDataServiceDelegate = (IBaseDataServiceDelegate) ServiceFactory.create(IBaseDataServiceDelegate.class, "baseDataServiceDelegate");
 
-		}
+      dataList = baseDataServiceDelegate.getAsVal(this.valsetid, requestMeta);
+    }
 
-		this.addItemListener(new ItemListener() {
+  }
 
-			public void itemStateChanged(ItemEvent e) {
+  private void init() {
 
-				if (((AsVal) getSelectedItem()) != null) {
+    this.addItem(null);
 
-					setToolTipText(((AsVal) e.getItem()).getVal());
+    for (int i = 0; i < dataList.size(); i++) {
 
-				} else {
+      AsVal data = (AsVal) dataList.get(i);
 
-					setToolTipText(null);
+      if (filterList == null) {
 
-				}
+        this.addItem(data);
 
-			}
+        this.addItemDisplaLable(data, data.getVal());
 
-		});
+        this.dataMap.put(data.getValId(), data);
 
-	}
+      } else {
 
-	public AsVal getSelectedAsVal() {
+        if (filterList.contains(data.getValId())) {
 
-		return (AsVal) this.getSelectedItem();
+          this.addItem(data);
 
-	}
+          this.addItemDisplaLable(data, data.getVal());
 
-	public void setSelectedAsVal(AsVal asVal) {
+          this.dataMap.put(data.getValId(), data);
 
-		this.setSelectedItem(asVal);
+        }
 
-	}
+      }
 
-	public void setSelectedAsValByCode(String asValCode) {
+    }
 
-		AsVal asVal = dataMap.get(asValCode);
+    this.addItemListener(new ItemListener() {
 
-		this.setSelectedItem(asVal);
+      public void itemStateChanged(ItemEvent e) {
 
-	}
+        if (((AsVal) getSelectedItem()) != null) {
 
-	public static void main(String[] args) {
+          setToolTipText(((AsVal) e.getItem()).getVal());
 
-		JFrame f = new JFrame();
+        } else {
 
-		ZcCommonComboBox planTypeField = new ZcCommonComboBox();
+          setToolTipText(null);
 
-		JPanel panel = new JPanel();
+        }
 
-		panel.add(planTypeField);
+      }
 
-		f.getContentPane().add(panel, BorderLayout.NORTH);
+    });
 
-		f.setSize(400, 300);
+  }
 
-		f.setLocationRelativeTo(null);
+  public AsVal getSelectedAsVal() {
 
-		f.setVisible(true);
+    return (AsVal) this.getSelectedItem();
 
-		f.addWindowListener(new WindowAdapter() {
+  }
 
-			public void windowClosing(WindowEvent e) {
+  public void setSelectedAsVal(AsVal asVal) {
 
-				System.exit(0);
+    this.setSelectedItem(asVal);
 
-			}
+  }
 
-		});
+  public void setSelectedAsValByCode(String asValCode) {
 
-	}
+    AsVal asVal = dataMap.get(asValCode);
+
+    this.setSelectedItem(asVal);
+
+  }
+
+  public static void main(String[] args) {
+
+    JFrame f = new JFrame();
+
+    ZcCommonComboBox planTypeField = new ZcCommonComboBox();
+
+    JPanel panel = new JPanel();
+
+    panel.add(planTypeField);
+
+    f.getContentPane().add(panel, BorderLayout.NORTH);
+
+    f.setSize(400, 300);
+
+    f.setLocationRelativeTo(null);
+
+    f.setVisible(true);
+
+    f.addWindowListener(new WindowAdapter() {
+
+      public void windowClosing(WindowEvent e) {
+
+        System.exit(0);
+
+      }
+
+    });
+
+  }
 }

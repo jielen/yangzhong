@@ -77,6 +77,7 @@
 		<isNotEqual prepend="and" compareValue="0" property="nd">
 			B.ND = #nd#
 		</isNotEqual>
+		<include refid="BusiNumLim.BusiNumLimStr" />
 		<isNotNull prepend="AND" property="zcText0">
 			B.EM_BILL_CODE = #zcText0#
 		</isNotNull>
@@ -276,7 +277,7 @@
 		</insert>	
   	<select id="selectProMake"
 		parameterClass="elementCondition" resultMap="proMakeWithCoName">
-		SELECT * FROM V_ZC_PRO_MAKE_EXPERT ORDER BY ZC_INPUT_DATE DESC
+		SELECT * FROM V_ZC_PRO_MAKE_EXPERT where nd=#nd# ORDER BY ZC_INPUT_DATE DESC
 	</select>	
 
 	<select id="packListByProjCode" resultMap="packMapping" parameterClass="java.lang.String">

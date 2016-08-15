@@ -2742,7 +2742,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
 
         data[i][col++] = rowData.getProjSum();
 
-        data[i][col++] = AsValDataCache.getName("ZC_EB_PUR_TYPE", rowData.getPurType());
+        data[i][col++] = AsValDataCache.getName("ZC_VS_PITEM_OPIWAY", rowData.getPurType());
 
         data[i][col++] = CompanyDataCache.getName(rowData.getCoCode());
 
@@ -2875,6 +2875,8 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ extends AbstractMainSubEditPanel {
       rtn = ZcEbBulletin.ZHAOBIAO_ZXJJ;
     } else if (ZcSettingConstants.ZC_CGFS_XXXJ.equals(purType)) {
       rtn = ZcEbBulletin.ZHAOBIAO_XXXJ;
+    } else if (ZcSettingConstants.ZC_CGFS_JZXCS.equals(purType)) {
+      rtn = ZcEbBulletin.ZHAOBIAO_JZXCS;
     }
     return rtn;
   }

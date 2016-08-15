@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1443,7 +1444,7 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
 
         data[i][col++] = rowData.getProjName();
 
-        data[i][col++] = AsValDataCache.getName("ZC_EB_PUR_TYPE", rowData.getPurType());
+        data[i][col++] = AsValDataCache.getName(ZcValSetConstants.VS_ZC_VS_PITEM_OPIWAY, rowData.getPurType());
 
         data[i][col++] = rowData.getManager();
 
@@ -2150,11 +2151,17 @@ public class ZcEbSignupEditPanel extends AbstractMainSubEditPanel {
       if (isBid) {
         msg.append("报名截止时间已过，不能报名");
       } else {
-        msg.append("报名截止时间已过，不能撤销报名报名");
+        //供应商报名后 距离开标时间三天前都可撤销报名
+        Calendar openbidtime = Calendar.getInstance();
+        openbidtime.setTime(signup.getPlan().getOpenBidTime());
+        openbidtime.add(Calendar.DAY_OF_YEAR, -3);
+        if (sysDate.compareTo(openbidtime.getTime()) >= 0) {
+          msg.append("报名后 距离开标时间三天前都可撤销报名,三天内，不能撤销报名");
+        }
       }
     }
     if (msg.toString().length() > 0) {
-      JOptionPane.showMessageDialog(this, "报名失败 ！\n" + msg.toString(), "错误", JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(this, "操作不成功 ！\n" + msg.toString(), "错误", JOptionPane.ERROR_MESSAGE);
       return false;
     } else {
       return true;

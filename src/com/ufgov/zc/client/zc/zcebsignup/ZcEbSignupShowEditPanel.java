@@ -1522,7 +1522,7 @@ public class ZcEbSignupShowEditPanel extends AbstractMainSubEditPanel {
 
         data[i][col++] = rowData.getProjName();
 
-        data[i][col++] = AsValDataCache.getName("ZC_EB_PUR_TYPE", rowData.getPurType());
+        data[i][col++] = AsValDataCache.getName(ZcValSetConstants.VS_ZC_VS_PITEM_OPIWAY, rowData.getPurType());
 
         data[i][col++] = rowData.getManager();
 

@@ -96,6 +96,7 @@ import com.ufgov.zc.common.system.RequestMeta;
 import com.ufgov.zc.common.system.constants.WFConstants;
 import com.ufgov.zc.common.system.constants.ZcElementConstants;
 import com.ufgov.zc.common.system.constants.ZcSettingConstants;
+import com.ufgov.zc.common.system.constants.ZcValSetConstants;
 import com.ufgov.zc.common.system.dto.ElementConditionDto;
 import com.ufgov.zc.common.system.exception.BaseException;
 import com.ufgov.zc.common.system.util.DigestUtil;
@@ -2414,7 +2415,7 @@ public class ZcEbBulletinZhaoBiaoEditPanel_YZ_xj extends AbstractMainSubEditPane
 
         data[i][col++] = rowData.getProjSum();
 
-        data[i][col++] = AsValDataCache.getName("ZC_EB_PUR_TYPE", rowData.getPurType());
+        data[i][col++] = AsValDataCache.getName(ZcValSetConstants.VS_ZC_VS_PITEM_OPIWAY, rowData.getPurType());
 
         data[i][col++] = CompanyDataCache.getName(rowData.getCoCode());
 

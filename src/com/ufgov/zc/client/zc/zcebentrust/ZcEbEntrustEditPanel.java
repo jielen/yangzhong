@@ -233,6 +233,13 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
   private ZcEbEntrustEditDialog parent;
 
+  /**
+   * 调整预算模式，这时，更新项目的预算,不产生送审等按钮
+   */
+  private boolean isTiaoZhengYuSuan = false;
+
+  private ZcEbEntrust tiaozhengOldBill = null;
+
   public ZcEbEntrustEditPanel(ListCursor listCursor, String tabStatus, ZcEbEntrustListPanel listPanel, ZcEbEntrustEditDialog parent) {
 
     super(ZcEbEntrust.class, BillElementMeta.getBillElementMetaWithoutNd("ZC_EB_ENTRUST"));
@@ -825,6 +832,10 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     addTableLisenter(this.contentTablePanel.getTable());
 
+    if (isTiaoZhengYuSuan) {
+      deleteButton.setEnabled(false);
+      sendButton.setEnabled(false);
+    }
   }
 
   protected void doAdd() {
@@ -858,7 +869,6 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
   protected void setButtonStatus() {
     ZcEbEntrust entrust = (ZcEbEntrust) listCursor.getCurrentObject();
     setButtonStatus(entrust, requestMeta, this.listCursor);
-
   }
 
   public void setButtonStatusWithoutWf() {
@@ -1091,12 +1101,13 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
   public boolean doSave() {
 
+    if (isTiaoZhengYuSuan) { return doSaveTiaoZheng(); }
+
     if (checkBeforeSave()) {
 
     return false;
 
     }
-
     ZcEbEntrust afterSaveBill = (ZcEbEntrust) this.listCursor.getCurrentObject();
 
     //    System.out.println("dosave 0" + afterSaveBill.getCoCode());
@@ -1183,6 +1194,62 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     return success;
 
+  }
+
+  private boolean doSaveTiaoZheng() {
+
+    if (checkBeforeSave()) { return false; }
+    if (!isDataChanged()) {
+      JOptionPane.showMessageDialog(this, "数据没有发生改变，不用保存.", "提示", JOptionPane.INFORMATION_MESSAGE);
+      return false;
+    }
+
+    ZcEbEntrust afterSaveBill = (ZcEbEntrust) this.listCursor.getCurrentObject();
+    String strSum = String.valueOf(afterSaveBill.getZcMoneyBiSum()).toString();
+
+    if (strSum.length() > 16) {
+      JOptionPane.showMessageDialog(this, "总价过大，无法保存！", "提示", JOptionPane.WARNING_MESSAGE);
+      return false;
+    }
+    StringBuffer sb = new StringBuffer();
+    sb.append("确定要将预算由").append(tiaozhengOldBill.getZcMoneyBiSum().doubleValue()).append("元调整为").append(afterSaveBill.getZcMoneyBiSum().doubleValue()).append("元吗？");
+    int num = JOptionPane.showConfirmDialog(this, sb.toString(), "调整确认", 0);
+
+    if (num == JOptionPane.YES_OPTION) {
+      afterSaveBill.setProcessInstId(tiaozhengOldBill.getProcessInstId());
+      boolean success = true;
+      String errorInfo = "";
+      try {
+        requestMeta.setFuncId(saveButton.getFuncId());
+        //      System.out.println("dosave 1" + afterSaveBill.getCoCode()); 
+        afterSaveBill = listPanel.zcEbEntrustServiceDelegate.saveFN(afterSaveBill, this.requestMeta);
+        //      System.out.println("dosave 2" + afterSaveBill.getCoCode());
+      } catch (Exception e) {
+        logger.error(e.getMessage(), e);
+        success = false;
+        errorInfo += e.getMessage();
+      }
+
+      if (success) {
+
+        JOptionPane.showMessageDialog(this, "保存成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+
+        this.pageStatus = ZcSettingConstants.PAGE_STATUS_BROWSE;
+        this.isTiaoZhengYuSuan = false;
+        this.tiaozhengOldBill = null;
+        afterSaveBill.setBuChongYuSuan(false);
+        this.listPanel.refreshCurrentTabData();
+        this.listCursor.setCurrentObject(afterSaveBill);
+        refreshData();
+      } else {
+
+        JOptionPane.showMessageDialog(this, "保存失败 ！\n" + errorInfo, "错误", JOptionPane.ERROR_MESSAGE);
+
+      }
+      return success;
+    } else {
+      return false;
+    }
   }
 
   private void doSend() {
@@ -1570,7 +1637,6 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
   private void refreshData() {
 
     ZcEbEntrust entrust = (ZcEbEntrust) listCursor.getCurrentObject();
-
     if (entrust == null) {
 
       //新增页面
@@ -1610,6 +1676,8 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     } else {
 
+      this.isTiaoZhengYuSuan = entrust.isBuChongYuSuan();
+
       List detailList = new ArrayList();
 
       if (entrust != null && (entrust.getDetailList() == null || entrust.getDetailList().size() == 0)) {
@@ -1636,11 +1704,18 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
 
     addTableLisenter(this.contentTablePanel.getTable());
 
-    setEdit();
+    if (isTiaoZhengYuSuan) {
+      tiaozhengOldBill = (ZcEbEntrust) ObjectUtil.deepCopy(listCursor.getCurrentObject());
+      ((ZcEbEntrust) listCursor.getCurrentObject()).setProcessInstId(-1l);//这样按钮按照新增的模式处理
+      doEdit();
+    } else {
+      setEdit();
+    }
 
   }
 
   private void setEdit() {
+
     setButtonStatus();
     updateFieldEditorsEditable();
   }

@@ -268,12 +268,14 @@ public class ZcEbBulletinPublishUtil {
     } else if (ZcEbBulletin.ZHAOBIAO_XXXJ.equals(bul.getBulletinType())) {
       return "107";
     } else if (ZcEbBulletin.ZHAOBIAO_GKZB.equals(bul.getBulletinType()) || ZcEbBulletin.ZHAOBIAO_DYLY.equals(bul.getBulletinType()) || ZcEbBulletin.ZHAOBIAO_JZXTP.equals(bul.getBulletinType())
-      || ZcEbBulletin.ZHAOBIAO_YQZB.equals(bul.getBulletinType()) || ZcEbBulletin.ZHAOBIAO_QT.equals(bul.getBulletinType()) || ZcEbBulletin.ZHAOBIAO_ZXJJ.equals(bul.getBulletinType())) {
+      || ZcEbBulletin.ZHAOBIAO_JZXCS.equals(bul.getBulletinType()) || ZcEbBulletin.ZHAOBIAO_YQZB.equals(bul.getBulletinType()) || ZcEbBulletin.ZHAOBIAO_QT.equals(bul.getBulletinType())
+      || ZcEbBulletin.ZHAOBIAO_ZXJJ.equals(bul.getBulletinType())) {
       return "106";
     } else if (ZcEbBulletin.ZHONGBIAO_XJ.equals(bul.getBulletinType())) {
       return "110";
     } else if (ZcEbBulletin.ZHONGBIAO_GKZB.equals(bul.getBulletinType()) || ZcEbBulletin.ZHONGBIAO_DYLY.equals(bul.getBulletinType()) || ZcEbBulletin.ZHONGBIAO_JZXTP.equals(bul.getBulletinType())
-      || ZcEbBulletin.ZHONGBIAO_YQZB.equals(bul.getBulletinType()) || ZcEbBulletin.ZHONGBIAO_QT.equals(bul.getBulletinType()) || ZcEbBulletin.ZHONGBIAO_XXXJ.equals(bul.getBulletinType())) {
+      || ZcEbBulletin.ZHONGBIAO_JZXCS.equals(bul.getBulletinType()) || ZcEbBulletin.ZHONGBIAO_YQZB.equals(bul.getBulletinType()) || ZcEbBulletin.ZHONGBIAO_QT.equals(bul.getBulletinType())
+      || ZcEbBulletin.ZHONGBIAO_XXXJ.equals(bul.getBulletinType())) {
       return "110";
     } else if (ZcEbBulletin.BIANGENG.equals(bul.getBulletinType())) {
       return "109";
@@ -301,6 +303,8 @@ public class ZcEbBulletinPublishUtil {
       return "75";
     } else if (ZcEbBulletin.ZHAOBIAO_JZXTP.equals(bul.getBulletinType())) {
       return "76";
+    } else if (ZcEbBulletin.ZHAOBIAO_JZXCS.equals(bul.getBulletinType())) {
+      return "77";
     } else if (ZcEbBulletin.ZHAOBIAO_DYLY.equals(bul.getBulletinType())) {
       return "86";
     } else if (ZcEbBulletin.ZHONGBIAO_GKZB.equals(bul.getBulletinType())) {
@@ -315,6 +319,8 @@ public class ZcEbBulletinPublishUtil {
       return "111";
     } else if (ZcEbBulletin.ZHONGBIAO_DYLY.equals(bul.getBulletinType())) {
       return "112";
+    } else if (ZcEbBulletin.ZHONGBIAO_JZXCS.equals(bul.getBulletinType())) {
+      return "134";
     } else if (ZcEbBulletin.BIANGENG.equals(bul.getBulletinType())) {
       return "90";
     } else {

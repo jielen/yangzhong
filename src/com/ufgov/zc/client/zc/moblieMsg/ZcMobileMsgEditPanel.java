@@ -110,6 +110,8 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
 
   protected IZcMobileMsgServiceDelegate mobileMsgServiceDelegate = (IZcMobileMsgServiceDelegate) ServiceFactory.create(IZcMobileMsgServiceDelegate.class, "mobileMsgServiceDelegate");
 
+  private String supplyPhoneTxt = "号码已屏蔽";
+
   //  private Map<String, String> hideMobiles = new HashMap<String, String>();
 
   public ZcMobileMsgEditPanel(ZcMobileMsgDialog parent, ListCursor listCursor, String tabStatus, ZcMobileMsgListPanel listPanel) {
@@ -479,6 +481,32 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
     StringBuffer sb = new StringBuffer();
     mobileLst.clear();
     ZcMobileMsg qx = (ZcMobileMsg) this.listCursor.getCurrentObject();
+
+    //选择了供应商
+    if (qx.getProjCode() != null) {
+      if (qx.getMobiles() != null) {
+        if (supplyPhoneTxt.equals(qx.getMobiles().trim())) { return null; }
+        String[] mobiles = qx.getMobiles().trim().split(",");
+        for (int i = 0; i < mobiles.length; i++) {
+          if (!supplyPhoneTxt.equals(mobiles[i]) && !isPhoneNumber(mobiles[i]) && !isHideMobiles(mobiles[i])) {
+            if (sb.length() > 0) {
+              sb.append(",").append(mobiles[i]);
+            } else {
+              sb.append(mobiles[i]);
+            }
+          } else {
+            addMobile(mobiles[i]);
+          }
+        }
+      }
+      if (sb.length() > 0) {
+        sb.append(" 不是合格的手机号码.");
+        return sb.toString();
+      } else {
+        return null;
+      }
+    }
+    //没有选择供应商的情况
     if (qx.getMobiles() == null || qx.getMobiles().trim().length() == 0) { return "请输入手机号码"; }
     if (qx.getMobiles().trim().length() > 11) {
       String[] mobiles = qx.getMobiles().trim().split(",");
@@ -890,7 +918,10 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
       d.setMobileHide(hidMobile);
       qx.getNumberLst().add(d);
     }
-    addMobiles(sb.toString());
+    //    addMobiles(sb.toString());
+    if (qx.getNumberLst() != null && qx.getNumberLst().size() > 0) {
+      addMobiles(supplyPhoneTxt);
+    }
 
     //设置消息模板
     addSignupMsg(proj);
@@ -958,6 +989,7 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
     public void excute(List selectedDatas) {
       StringBuffer sb = new StringBuffer();
       int i = 0;
+      ZcMobileMsg qx = (ZcMobileMsg) listCursor.getCurrentObject();
       for (Object object : selectedDatas) {
         EmExpert expert = (EmExpert) object;
         if (i == 0) {
@@ -966,10 +998,14 @@ public class ZcMobileMsgEditPanel extends AbstractMainSubEditPanel {
         } else {
           sb.append(",").append(expert.getRealEmMobile());
         }
+
+        ZcMobileMsgNumber d = new ZcMobileMsgNumber();
+        d.setMobile(expert.getRealEmMobile());
+        d.setMobileHide(expert.getRealEmMobile());
+        qx.getNumberLst().add(d);
       }
       addMobiles(sb.toString());
 
-      ZcMobileMsg qx = (ZcMobileMsg) listCursor.getCurrentObject();
       qx.setTitleField("");
       setEditingObject(qx);
     }

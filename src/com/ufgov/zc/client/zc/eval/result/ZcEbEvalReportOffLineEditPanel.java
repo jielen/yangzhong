@@ -119,6 +119,7 @@ import com.ufgov.zc.common.system.RequestMeta;
 import com.ufgov.zc.common.system.constants.WFConstants;
 import com.ufgov.zc.common.system.constants.ZcElementConstants;
 import com.ufgov.zc.common.system.constants.ZcSettingConstants;
+import com.ufgov.zc.common.system.constants.ZcValSetConstants;
 import com.ufgov.zc.common.system.dto.ElementConditionDto;
 import com.ufgov.zc.common.system.exception.BaseException;
 import com.ufgov.zc.common.system.exception.OtherException;
@@ -2907,7 +2908,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
     ZcEbEvalReport zcEbEvalReport = (ZcEbEvalReport) this.listCursor.getCurrentObject();
 
-    zcEbEvalReport.setPurTypeVal(AsValDataCache.getName("ZC_EB_PUR_TYPE", zcEbEvalReport.getPurType()));
+    zcEbEvalReport.setPurTypeVal(AsValDataCache.getName(ZcValSetConstants.VS_ZC_VS_PITEM_OPIWAY, zcEbEvalReport.getPurType()));
 
     for (int i = 0; i < zcEbEvalReport.getPackEvalResultList().size(); i++) {
 
@@ -3228,7 +3229,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
         data[i][col++] = rowData.getProjSum();
 
-        data[i][col++] = AsValDataCache.getName("ZC_EB_PUR_TYPE", rowData.getPurType());
+        data[i][col++] = AsValDataCache.getName(ZcValSetConstants.VS_ZC_VS_PITEM_OPIWAY, rowData.getPurType());
 
         data[i][col++] = rowData.getManager();
 

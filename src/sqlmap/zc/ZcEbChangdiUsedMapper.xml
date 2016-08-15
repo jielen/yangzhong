@@ -20,10 +20,15 @@
     <result column="PROJNAME" property="projname" jdbcType="VARCHAR" />
     <result column="PLANCODE" property="plancode" jdbcType="VARCHAR" />
     <result column="ND" property="nd" jdbcType="INTEGER" />
+    <result column="PINGBIAODATE" property="pingbiaodate" jdbcType="TIMESTAMP" />
+    <result column="PINGBIAOENDDATE" property="pingbiaoenddate" jdbcType="TIMESTAMP" />
+    <result column="CHANGDIGUID2" property="changdiguid2" jdbcType="VARCHAR" />
+    <result column="CHANGDINAME2" property="changdiname2" jdbcType="VARCHAR" />
+    <result column="CGFS" property="cgfs" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" > 
     CHANGDIUSEDID, REQUESTGUID, CHANGDIGUID, USEDCONTENT, STARTDATE, ENDDATE, REQUESTPEOPLE, 
-    USEDTYPE, REQUESTUNIT, REQUESTPEOPLEGUID, REQUESTUNITGUID, ND,CHANGDINAME,PROJCODE,PROJNAME,PLANCODE
+    USEDTYPE, REQUESTUNIT, REQUESTPEOPLEGUID, REQUESTUNITGUID, ND,CHANGDINAME,PROJCODE,PROJNAME,PLANCODE,PINGBIAODATE,PINGBIAOENDDATE,CHANGDIGUID2,CHANGDINAME2,CGFS
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterClass="java.lang.String" > 
     select 
@@ -52,7 +57,17 @@
 			</isEqual>	  
 			<isEqual property="status" compareValue="done">
 				<![CDATA[ENDDATE<sysDate]]>
-			</isEqual>	  
+			</isEqual>	
+			<isEqual property="status" compareValue="benzhou">
+				<![CDATA[
+					(STARTDATE>=#bankStartDate:TIMESTAMP# and STARTDATE<=#bankEndDate:TIMESTAMP#)
+				]]>			
+			</isEqual>
+			<isEqual property="status" compareValue="shangzhou">
+				<![CDATA[
+					(STARTDATE>=#bankStartDate:TIMESTAMP# and STARTDATE<=#bankEndDate:TIMESTAMP#)
+				]]>			
+			</isEqual>  
 			<isEqual property="status" compareValue="all">
 				1=1
 			</isEqual>	  	  
@@ -68,12 +83,14 @@
     insert into ZC_EB_CHANGDI_USED (CHANGDIUSEDID, REQUESTGUID, CHANGDIGUID, 
       USEDCONTENT, STARTDATE, ENDDATE, 
       REQUESTPEOPLE, USEDTYPE, REQUESTUNIT, 
-      REQUESTPEOPLEGUID, REQUESTUNITGUID, ND,CHANGDINAME,PROJCODE,PROJNAME,PLANCODE
+      REQUESTPEOPLEGUID, REQUESTUNITGUID, ND,CHANGDINAME,PROJCODE,PROJNAME,PLANCODE,PINGBIAODATE,PINGBIAOENDDATE,CHANGDIGUID2,CHANGDINAME2,CGFS
       )
     values (#changdiusedid:VARCHAR#, #requestguid:VARCHAR#, #changdiguid:VARCHAR#, 
       #usedcontent:VARCHAR#, #startdate:TIMESTAMP#, #enddate:TIMESTAMP#, 
       #requestpeople:VARCHAR#, #usedtype:VARCHAR#, #requestunit:VARCHAR#, 
-      #requestpeopleguid:VARCHAR#, #requestunitguid:VARCHAR#, #nd:INTEGER#,#changdiname#,#projcode#,#projname#,#plancode#
+      #requestpeopleguid:VARCHAR#, #requestunitguid:VARCHAR#, #nd:INTEGER#,
+      #changdiname#,#projcode#,#projname#,#plancode#,#pingbiaodate:TIMESTAMP#,#pingbiaoenddate:TIMESTAMP#,
+      #changdiguid2:VARCHAR#,#changdiname2#,#cgfs#
       )
   </insert> 
   <update id="updateByPrimaryKey" parameterClass="com.ufgov.zc.common.zc.model.ZcEbChangdiUsed" > 
@@ -92,7 +109,12 @@
       CHANGDINAME=#changdiname#,
       PROJCODE=#projcode#,
       PROJNAME=#projname#,
-      PLANCODE=#plancode#
+      PLANCODE=#plancode#,
+      PINGBIAODATE=#pingbiaodate:TIMESTAMP#,
+      PINGBIAOENDDATE=#pingbiaoenddate:TIMESTAMP#,
+      CHANGDIGUID2=#changdiguid2:VARCHAR#,
+      CHANGDINAME2=#changdiname2#,
+      CGFS=#cgfs#
     where CHANGDIUSEDID = #changdiusedid:VARCHAR#
   </update>
 </sqlMap>

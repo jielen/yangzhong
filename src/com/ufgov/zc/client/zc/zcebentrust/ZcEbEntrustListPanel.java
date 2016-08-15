@@ -70,6 +70,7 @@ import com.ufgov.zc.client.component.button.SendButton;
 import com.ufgov.zc.client.component.button.TraceButton;
 import com.ufgov.zc.client.component.button.UnauditButton;
 import com.ufgov.zc.client.component.button.UntreadButton;
+import com.ufgov.zc.client.component.button.zc.CommonButton;
 import com.ufgov.zc.client.component.event.ValueChangeEvent;
 import com.ufgov.zc.client.component.event.ValueChangeListener;
 import com.ufgov.zc.client.component.ui.AbstractDataDisplay;
@@ -109,6 +110,8 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
 
   private final String compoId = "ZC_EB_ENTRUST";
 
+  public FuncButton tiaozhenYuSuanBtn = new CommonButton("fTiaoZhengYuSuan", "accepted.png");
+
   private final RequestMeta requestMeta = WorkEnv.getInstance().getRequestMeta();
 
   private final ElementConditionDto elementConditionDto = new ElementConditionDto();
@@ -119,8 +122,7 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
     return billElementMeta;
   }
 
-  public IZcEbEntrustServiceDelegate zcEbEntrustServiceDelegate = (IZcEbEntrustServiceDelegate) ServiceFactory.create(
-    IZcEbEntrustServiceDelegate.class, "zcEbEntrustServiceDelegate");
+  public IZcEbEntrustServiceDelegate zcEbEntrustServiceDelegate = (IZcEbEntrustServiceDelegate) ServiceFactory.create(IZcEbEntrustServiceDelegate.class, "zcEbEntrustServiceDelegate");
 
   public Window getParentWindow() {
     return parentWindow;
@@ -132,11 +134,9 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
 
   private final class DataDisplay extends MultiDataDisplay {
 
-    private DataDisplay(List<TableDisplay> displays, List<TableDisplay> showingDisplays, AbstractSearchConditionArea conditionArea,
-      boolean showConditionArea) {
+    private DataDisplay(List<TableDisplay> displays, List<TableDisplay> showingDisplays, AbstractSearchConditionArea conditionArea, boolean showConditionArea) {
       super(displays, showingDisplays, conditionArea, showConditionArea, ZcSettingConstants.TAB_ID_ZC_EB_ENTRUST);
-      setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "采购任务单", TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体",
-        Font.BOLD, 15), Color.BLUE));
+      setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "采购任务单", TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体", Font.BOLD, 15), Color.BLUE));
     }
 
     @Override
@@ -252,8 +252,7 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
     UIUtilities.asyncInvoke(new DefaultInvokeHandler<List<SearchCondition>>() {
       @Override
       public List<SearchCondition> execute() throws Exception {
-        List<SearchCondition> needDisplaySearchConditonList = SearchConditionUtil.getNeedDisplaySearchConditonList(WorkEnv.getInstance()
-          .getCurrUserId(), ZcSettingConstants.TAB_ID_ZC_EB_ENTRUST);
+        List<SearchCondition> needDisplaySearchConditonList = SearchConditionUtil.getNeedDisplaySearchConditonList(WorkEnv.getInstance().getCurrUserId(), ZcSettingConstants.TAB_ID_ZC_EB_ENTRUST);
         return needDisplaySearchConditonList;
       }
 
@@ -280,8 +279,7 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
   }
 
   private AbstractDataDisplay createDataDisplay(List<TableDisplay> showingDisplays) {
-    return new DataDisplay(SearchConditionUtil.getAllTableDisplay(ZcSettingConstants.TAB_ID_ZC_EB_ENTRUST), showingDisplays,
-      createTopConditionArea(), false);//true:显示收索条件区 false：不显示收索条件区
+    return new DataDisplay(SearchConditionUtil.getAllTableDisplay(ZcSettingConstants.TAB_ID_ZC_EB_ENTRUST), showingDisplays, createTopConditionArea(), false);//true:显示收索条件区 false：不显示收索条件区
   }
 
   //  private FuncButton sendBill = new CommonButton("fsendBill", "sendBill.png");
@@ -324,6 +322,7 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
     toolBar.setModuleCode("ZC");
     toolBar.setCompoId(compoId);
     toolBar.add(addButton);
+    toolBar.add(tiaozhenYuSuanBtn);
     //    toolBar.add(editButton);
     //    toolBar.add(deleteButton);
     //    toolBar.add(sendBill);
@@ -334,13 +333,20 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
     //    toolBar.add(unAuditButton);
     //    toolBar.add(unTreadButton);
     //    toolBar.add(traceButton);
-//    toolBar.add(printButton);
+    //    toolBar.add(printButton);
     //    toolBar.add(printPreviewButton);
     //    toolBar.add(printSettingButton);
-//    toolBar.add(exportButton);//add shijia 20111210 导出Excel
-//    toolBar.add(helpButton);
-//    toolBar.add(traceDataButton);
+    //    toolBar.add(exportButton);//add shijia 20111210 导出Excel
+    //    toolBar.add(helpButton);
+    //    toolBar.add(traceDataButton);
     // 初始化按钮的action事件
+
+    tiaozhenYuSuanBtn.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        doTiaozhenYuSuan();
+      }
+
+    });
     addButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         doAdd();
@@ -362,7 +368,6 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
         doSendBill();
       }
     });
- 
 
     sendButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -426,6 +431,26 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
     });
   }
 
+  protected void doTiaozhenYuSuan() {
+
+    List beanList = this.getCheckedList();
+
+    if (beanList.size() == 0 || beanList.size() > 1) {
+
+      JOptionPane.showMessageDialog(this, "请选择一个需要调整预算的采购任务！", " 提示", JOptionPane.INFORMATION_MESSAGE);
+
+      return;
+
+    }
+
+    ZcEbEntrust bill = (ZcEbEntrust) beanList.get(0);
+    bill.setBuChongYuSuan(true);
+    List lst = new ArrayList();
+    lst.add(bill);
+    new ZcEbEntrustEditDialog(self, lst, -1, topDataDisplay.getActiveTableDisplay().getStatus());
+
+  }
+
   protected void doDelete() {
     // TCJLODO Auto-generated method stub
 
@@ -438,8 +463,7 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
 
   protected void doAdd() {
     // TCJLODO Auto-generated method stub
-    new ZcEbEntrustEditDialog(self, new ArrayList(), this.topDataDisplay.getActiveTableDisplay().getTable().getRowCount(), topDataDisplay
-      .getActiveTableDisplay().getStatus());
+    new ZcEbEntrustEditDialog(self, new ArrayList(), this.topDataDisplay.getActiveTableDisplay().getTable().getRowCount(), topDataDisplay.getActiveTableDisplay().getStatus());
 
   }
 
@@ -462,9 +486,7 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
     return beanList;
   }
 
-  private void doSendBill() {
-  }
-
+  private void doSendBill() {}
 
   private void doSend() {
     List beanList = getCheckedList();
@@ -637,8 +659,7 @@ public class ZcEbEntrustListPanel extends AbstractEditListBill implements Parent
       PrintObject printObject = this.zcEbEntrustServiceDelegate.genMainSubPrintObjectFN(printList, requestMeta);
       PrintPreviewer previewer = new PrintPreviewer(printObject) {
         @Override
-        protected void afterSuccessPrint() {
-        }
+        protected void afterSuccessPrint() {}
       };
 
       previewer.preview();

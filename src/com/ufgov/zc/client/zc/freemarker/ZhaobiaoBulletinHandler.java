@@ -198,6 +198,8 @@ public class ZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
       rtn = "线下询价";
     } else if (ZcEbBulletin.ZHAOBIAO_QT.equals(bulletinType)) {
       rtn = "其他";
+    } else if (ZcEbBulletin.ZHAOBIAO_JZXCS.equals(bulletinType)) {
+      rtn = "竞争性磋商";
     }
     return rtn;
   }

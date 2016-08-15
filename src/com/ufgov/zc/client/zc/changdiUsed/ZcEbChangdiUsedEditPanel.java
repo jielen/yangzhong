@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -43,6 +45,8 @@ import com.ufgov.zc.client.component.button.SuggestAuditPassButton;
 import com.ufgov.zc.client.component.button.TraceButton;
 import com.ufgov.zc.client.component.button.UnauditButton;
 import com.ufgov.zc.client.component.button.UntreadButton;
+import com.ufgov.zc.client.component.event.ValueChangeEvent;
+import com.ufgov.zc.client.component.event.ValueChangeListener;
 import com.ufgov.zc.client.component.ui.fieldeditor.AbstractFieldEditor;
 import com.ufgov.zc.client.component.zc.AbstractMainSubEditPanel;
 import com.ufgov.zc.client.component.zc.fieldeditor.AsValFieldEditor;
@@ -132,7 +136,17 @@ public class ZcEbChangdiUsedEditPanel extends AbstractMainSubEditPanel {
 
   private IZcEbChangdiUsedServiceDelegate zcEbChangdiUsedServiceDelegate;
 
-  ElementConditionDto changdiDto = new ElementConditionDto();
+  ElementConditionDto kaibiaoChangdiDto = new ElementConditionDto();
+
+  ElementConditionDto pingbiaoChangdiDto = new ElementConditionDto();
+
+  private DateFieldEditor endDate;
+
+  private DateFieldEditor startDate;
+
+  private DateFieldEditor pingbiaoDate;
+
+  private DateFieldEditor pingbiaoEndDate;
 
   public ZcEbChangdiUsedEditPanel(ZcEbChangdiUsedDialog parent, ListCursor listCursor, String tabStatus, ZcEbChangdiUsedListPanel listPanel) {
     // TCJLODO Auto-generated constructor stub
@@ -152,7 +166,7 @@ public class ZcEbChangdiUsedEditPanel extends AbstractMainSubEditPanel {
 
     this.parent = parent;
 
-    this.colCount = 2;
+    this.colCount = 3;
 
     init();
 
@@ -202,7 +216,7 @@ public class ZcEbChangdiUsedEditPanel extends AbstractMainSubEditPanel {
 
     for (AbstractFieldEditor editor : fieldEditors) {
       if (pageStatus.equals(ZcSettingConstants.PAGE_STATUS_EDIT) || pageStatus.equals(ZcSettingConstants.PAGE_STATUS_NEW)) {
-        if ("outInfoTypeCode".equals(editor.getFieldName())) {
+        if ("outInfoTypeCode".equals(editor.getFieldName()) || "cgfs".equals(editor.getFieldName())) {
           editor.setEnabled(false);
         } else {
           editor.setEnabled(true);
@@ -519,6 +533,19 @@ public class ZcEbChangdiUsedEditPanel extends AbstractMainSubEditPanel {
     bill.setRequestpeople(requestMeta.getSvUserName());
     bill.setRequestpeopleguid(requestMeta.getSvUserID());
     bill.setNd(requestMeta.getSvNd());
+
+    /* Calendar tt = Calendar.getInstance();
+     tt.clear();
+
+     Calendar rightNow = Calendar.getInstance();
+
+     rightNow.setTime(requestMeta.getSysDate());
+     tt.set(rightNow.get(Calendar.YEAR), rightNow.get(Calendar.MONTH), rightNow.get(Calendar.DAY_OF_MONTH), 14, 30, 00);
+     bill.setPingbiaodate(tt.getTime());
+
+     tt.clear();
+     tt.set(rightNow.get(Calendar.YEAR), rightNow.get(Calendar.MONTH), rightNow.get(Calendar.DAY_OF_MONTH), 17, 00, 00);
+     bill.setPingbiaoenddate(tt.getTime());*/
   }
 
   protected void doPrevious() {
@@ -796,17 +823,24 @@ public class ZcEbChangdiUsedEditPanel extends AbstractMainSubEditPanel {
     String columNames[] = { LangTransMeta.translate(ZcEbChangdi.COL_CHANGDINAME), LangTransMeta.translate(ZcEbChangdi.COL_RONGNAIRENSHU), LangTransMeta.translate(ZcEbChangdi.COL_ADDRESS),
       LangTransMeta.translate(ZcEbChangdi.COL_ISONLINEPINGBIAO), LangTransMeta.translate(ZcEbChangdi.COL_COMPUTERNUM), LangTransMeta.translate(ZcEbChangdi.COL_TOUYINGYINUM),
       LangTransMeta.translate(ZcEbChangdi.COL_DIANZIBAIBANNUM), LangTransMeta.translate(ZcEbChangdi.COL_WIREDMICROPHONENUM), LangTransMeta.translate(ZcEbChangdi.COL_WIRELESSMICROPHONENUM) };
-    ChangdiSelectedHandler packHandler = new ChangdiSelectedHandler(columNames);
+    KaibiaoChangdiSelectedHandler kaibiaochangdiHandler = new KaibiaoChangdiSelectedHandler(columNames);
 
-    ForeignEntityFieldEditor changdi = new ForeignEntityFieldEditor("com.ufgov.zc.server.zc.dao.ZcEbChangdiMapper.selectFreeChangdi", changdiDto, 10, packHandler, columNames,
-      LangTransMeta.translate(ZcEbChangdi.COL_CHANGDINAME), "changdiname");
+    ForeignEntityFieldEditor kaibiaoChangdi = new ForeignEntityFieldEditor("com.ufgov.zc.server.zc.dao.ZcEbChangdiMapper.selectFreeChangdi", kaibiaoChangdiDto, 10, kaibiaochangdiHandler, columNames,
+      "开标室", "changdiname");
+
+    PingbiaoChangdiSelectedHandler pingbiaochangdiHandler = new PingbiaoChangdiSelectedHandler(columNames);
+    ForeignEntityFieldEditor pingbiaoChangdi = new ForeignEntityFieldEditor("com.ufgov.zc.server.zc.dao.ZcEbChangdiMapper.selectFreeChangdi", pingbiaoChangdiDto, 10, pingbiaochangdiHandler,
+      columNames, "评标室", "changdiname2");
 
     //    TextFieldEditor  changdi= new TextFieldEditor(LangTransMeta.translate(ZcEbChangdi.COL_CHANGDINAME), "changdiname");
     TextFieldEditor requestunit = new TextFieldEditor(LangTransMeta.translate(ZcEbChangdiUsed.COL_REQUESTUNIT), "requestunit");
     TextFieldEditor requestpeople = new TextFieldEditor(LangTransMeta.translate(ZcEbChangdiUsed.COL_REQUESTPEOPLE), "requestpeople");
     Integer[] allowMinutes = { 0, 10, 20, 30, 40, 50 };
-    DateFieldEditor startDate = new DateFieldEditor(LangTransMeta.translate(ZcEbChangdiUsed.COL_STARTDATE), "startdate", DateFieldEditor.TimeTypeH24, allowMinutes, true);
-    DateFieldEditor endDate = new DateFieldEditor(LangTransMeta.translate(ZcEbChangdiUsed.COL_ENDDATE), "enddate", DateFieldEditor.TimeTypeH24, allowMinutes, true);
+    startDate = new DateFieldEditor("开标开始", "startdate", DateFieldEditor.TimeTypeH24, allowMinutes, true);
+    endDate = new DateFieldEditor("开标结束", "enddate", DateFieldEditor.TimeTypeH24, allowMinutes, true);
+    pingbiaoDate = new DateFieldEditor("评标开始", "pingbiaodate", DateFieldEditor.TimeTypeH24, allowMinutes, true);
+    pingbiaoEndDate = new DateFieldEditor("评标结束", "pingbiaoenddate", DateFieldEditor.TimeTypeH24, allowMinutes, true);
+
     AsValFieldEditor usedtype = new AsValFieldEditor(LangTransMeta.translate(ZcEbChangdiUsed.COL_USEDTYPE), "usedtype", ZcEbChangdiUsed.V_ZC_CHANGDI_USED_USEDTYPE);
     TextFieldEditor usedcontent = new TextFieldEditor(LangTransMeta.translate(ZcEbChangdiUsed.COL_USEDCONTENT), "usedcontent");
 
@@ -819,22 +853,62 @@ public class ZcEbChangdiUsedEditPanel extends AbstractMainSubEditPanel {
 
     TextFieldEditor projname = new TextFieldEditor(LangTransMeta.translate(ZcEbChangdiUsed.COL_PROJNAME), "projname");
 
-    editorList.add(startDate);
-    editorList.add(endDate);
+    startDate.getField().addValueChangeListener(new ValueChangeListener() {
 
-    editorList.add(changdi);
-    editorList.add(usedtype);
+      public void valueChanged(ValueChangeEvent e) {
+
+        setOtherTime();
+
+      }
+
+    });
+
+    AsValFieldEditor zcPifuCgfs = new AsValFieldEditor("采购方式", "cgfs", "ZC_VS_PITEM_OPIWAY");
+    zcPifuCgfs.setEnabled(false);
 
     editorList.add(projcode);
     editorList.add(projname);
+    editorList.add(zcPifuCgfs);
 
-    editorList.add(usedcontent);
+    editorList.add(startDate);
+    editorList.add(endDate);
+    editorList.add(kaibiaoChangdi);
+
+    editorList.add(pingbiaoDate);
+    editorList.add(pingbiaoEndDate);
+    editorList.add(pingbiaoChangdi);
+
     editorList.add(requestunit);
-
     editorList.add(requestpeople);
+    //    editorList.add(usedtype);
+    //    editorList.add(usedcontent);
 
     return editorList;
 
+  }
+
+  protected void setOtherTime() {
+
+    ZcEbChangdiUsed inData = (ZcEbChangdiUsed) this.listCursor.getCurrentObject();
+    if (startDate.getDateField().getDate() != null) {
+      GregorianCalendar gc = new GregorianCalendar();
+      //设置结束时间，默认半小时后结束
+      gc.setTime(startDate.getDateField().getDate());
+      gc.add(Calendar.MINUTE, 60);
+      inData.setEnddate(gc.getTime());
+
+      //设置评标开始时间,默认一小时后开始
+      gc.add(Calendar.MINUTE, 30);
+      inData.setPingbiaodate(gc.getTime());
+
+      gc.add(Calendar.HOUR_OF_DAY, 5);
+      inData.setPingbiaoenddate(gc.getTime());
+      endDate.setValue(inData);
+      pingbiaoDate.setValue(inData);
+      pingbiaoEndDate.setValue(inData);
+
+    }
+    //    setEditingObject(inData);
   }
 
   /* (non-Javadoc)
@@ -872,11 +946,11 @@ public class ZcEbChangdiUsedEditPanel extends AbstractMainSubEditPanel {
    * 场地选择辅助类
    */
 
-  private class ChangdiSelectedHandler implements IForeignEntityHandler {
+  private class KaibiaoChangdiSelectedHandler implements IForeignEntityHandler {
 
     private final String columNames[];
 
-    public ChangdiSelectedHandler(String[] colNames) {
+    public KaibiaoChangdiSelectedHandler(String[] colNames) {
       columNames = colNames;
     }
 
@@ -892,24 +966,24 @@ public class ZcEbChangdiUsedEditPanel extends AbstractMainSubEditPanel {
       DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
       StringBuffer sb = new StringBuffer();
       if (bill.getStartdate() == null) {
-        sb.append("请设定开始时间.\n");
+        sb.append("请设定开标开始时间.\n");
       }
       if (bill.getStartdate() != null) {
         if (bill.getStartdate().before(requestMeta.getSysDate())) {
-          sb.append("开始时间不能早于当前系统时间");
+          sb.append("开标开始时间不能早于当前系统时间");
         }
       }
       if (bill.getEnddate() == null) {
-        sb.append("请设定结束时间.\n");
+        sb.append("请设定开标结束时间.\n");
       }
       if (bill.getEnddate() != null) {
         if (bill.getEnddate().before(requestMeta.getSysDate())) {
-          sb.append("结束时间不能早于当前系统时间.\n");
+          sb.append("开标结束时间不能早于当前系统时间.\n");
         }
       }
       if (bill.getStartdate() != null && bill.getEnddate() != null) {
         if (bill.getStartdate().after(bill.getEnddate())) {
-          sb.append("结束时间不能早于开始时间.\n");
+          sb.append("开标结束时间不能早于开标开始时间.\n");
         }
       }
 
@@ -917,8 +991,8 @@ public class ZcEbChangdiUsedEditPanel extends AbstractMainSubEditPanel {
         JOptionPane.showMessageDialog(self, sb.toString(), "提示", JOptionPane.INFORMATION_MESSAGE);
         return false;
       }
-      changdiDto.setPayStartDate(bill.getStartdate());
-      changdiDto.setPayEndDate(bill.getEnddate());
+      kaibiaoChangdiDto.setPayStartDate(bill.getStartdate());
+      kaibiaoChangdiDto.setPayEndDate(bill.getEnddate());
       return true;
     }
 
@@ -978,6 +1052,116 @@ public class ZcEbChangdiUsedEditPanel extends AbstractMainSubEditPanel {
     }
   }
 
+  /**
+   * 场地选择辅助类
+   */
+
+  private class PingbiaoChangdiSelectedHandler implements IForeignEntityHandler {
+
+    private final String columNames[];
+
+    public PingbiaoChangdiSelectedHandler(String[] colNames) {
+      columNames = colNames;
+    }
+
+    /*
+
+     * 设置外部实体数据条件
+
+     */
+    public Boolean beforeSelect(ElementConditionDto dto) {
+
+      ZcEbChangdiUsed bill = (ZcEbChangdiUsed) listCursor.getCurrentObject();
+
+      DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+      StringBuffer sb = new StringBuffer();
+      if (bill.getPingbiaodate() == null) {
+        sb.append("请设定评标开始时间.\n");
+      }
+      if (bill.getPingbiaodate() != null) {
+        if (bill.getPingbiaodate().before(requestMeta.getSysDate())) {
+          sb.append("评标开始时间不能早于当前系统时间");
+        }
+      }
+      if (bill.getPingbiaoenddate() == null) {
+        sb.append("请设定评标结束时间.\n");
+      }
+      if (bill.getPingbiaoenddate() != null) {
+        if (bill.getPingbiaoenddate().before(requestMeta.getSysDate())) {
+          sb.append("评标结束时间不能早于当前系统时间.\n");
+        }
+      }
+      if (bill.getPingbiaodate() != null && bill.getPingbiaoenddate() != null) {
+        if (bill.getPingbiaodate().after(bill.getPingbiaoenddate())) {
+          sb.append("评标结束时间不能早于评标开始时间.\n");
+        }
+      }
+
+      if (sb.length() > 0) {
+        JOptionPane.showMessageDialog(self, sb.toString(), "提示", JOptionPane.INFORMATION_MESSAGE);
+        return false;
+      }
+      pingbiaoChangdiDto.setPayStartDate(bill.getPingbiaodate());
+      pingbiaoChangdiDto.setPayEndDate(bill.getPingbiaoenddate());
+      return true;
+    }
+
+    /*
+
+     * 清空外部实体对应的数据
+
+     */
+
+    public void afterClear() {
+      ZcEbChangdiUsed bill = (ZcEbChangdiUsed) listCursor.getCurrentObject();
+      bill.setChangdi2(new ZcEbChangdi());
+      bill.setChangdiguid2(null);
+      bill.setChangdiname2(null);
+      setEditingObject(bill);
+      return;
+    }
+
+    public void excute(List selectedDatas) {
+      ZcEbChangdiUsed bill = (ZcEbChangdiUsed) listCursor.getCurrentObject();
+      for (Object object : selectedDatas) {
+        ZcEbChangdi ht = (ZcEbChangdi) object;
+        bill.setChangdi2(ht);
+        bill.setChangdiguid2(ht.getChangdiguid());
+        bill.setChangdiname2(ht.getChangdiname());
+
+        setEditingObject(bill);
+      }
+    }
+
+    public TableModel createTableModel(List showDatas) {
+      Object data[][] = new Object[showDatas.size()][columNames.length];
+      for (int i = 0; i < showDatas.size(); i++) {
+        ZcEbChangdi rowData = (ZcEbChangdi) showDatas.get(i);
+        int col = 0;
+        data[i][col++] = rowData.getChangdiname();
+        data[i][col++] = rowData.getRongnairenshu();
+        data[i][col++] = rowData.getAddress();
+        data[i][col++] = AsValDataCache.getName(ZcSettingConstants.V_Y_N, rowData.getIsonlinepingbiao());
+        data[i][col++] = rowData.getComputernum();
+        data[i][col++] = rowData.getTouyingyinum();
+        data[i][col++] = rowData.getDianzibaibannum();
+        data[i][col++] = rowData.getWiredmicrophonenum();
+        data[i][col++] = rowData.getWirelessmicrophonenum();
+      }
+
+      MyTableModel model = new MyTableModel(data, columNames) {
+        public boolean isCellEditable(int row, int colum) {
+          return false;
+        }
+      };
+      return model;
+    }
+
+    public boolean isMultipleSelect() {
+      return false;
+    }
+  }
+
   private class ProjSelectHandler implements IForeignEntityHandler {
 
     private final String columNames[];
@@ -995,6 +1179,9 @@ public class ZcEbChangdiUsedEditPanel extends AbstractMainSubEditPanel {
         ZcEbProj ht = (ZcEbProj) object;
         bill.setProjcode(ht.getProjCode());
         bill.setProjname(ht.getProjName());
+        bill.setUsedcontent(ht.getProjName());
+
+        bill.setCgfs(ht.getPurType());
 
         setEditingObject(bill);
       }

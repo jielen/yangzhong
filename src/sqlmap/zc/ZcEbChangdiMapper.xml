@@ -65,6 +65,7 @@
     <include refid="Base_Column_List" />
     from ZC_EB_CHANGDI    
 	<dynamic prepend="WHERE">  
+	  <!-- 获取开标场地 -->
 	  <isNotEmpty prepend="AND" property="payStartDate">	  	
 		 not exists(select * from  zc_eb_changdi_used d
 			 where  d.changdiguid=ZC_EB_CHANGDI.CHANGDIGUID and <![CDATA[(
@@ -75,6 +76,19 @@
 			 (d.startdate<=#payEndDate:TIMESTAMP# and d.enddate>=#payEndDate:TIMESTAMP#)
 			 or
 			 (d.startdate<=#payStartDate:TIMESTAMP# and d.enddate>=#payEndDate:TIMESTAMP#)
+			 )]]>)	  
+	  </isNotEmpty> 
+	  <!-- 获取评标场地 -->
+	  <isNotEmpty prepend="AND" property="bankStartDate">	  	
+		 not exists(select * from  zc_eb_changdi_used d
+			 where  d.changdiguid2=ZC_EB_CHANGDI.CHANGDIGUID and <![CDATA[(
+			 (d.startdate<=#bankStartDate:TIMESTAMP# and d.enddate>=#bankStartDate:TIMESTAMP#)
+			 or
+			 (d.startdate>=#bankStartDate:TIMESTAMP# and d.enddate<=#bankEndDate:TIMESTAMP#)
+			 or
+			 (d.startdate<=#bankEndDate:TIMESTAMP# and d.enddate>=#bankEndDate:TIMESTAMP#)
+			 or
+			 (d.startdate<=#bankStartDate:TIMESTAMP# and d.enddate>=#bankEndDate:TIMESTAMP#)
 			 )]]>)	  
 	  </isNotEmpty>
 	</dynamic>  

@@ -8,7 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +61,7 @@ import com.ufgov.zc.common.system.util.ObjectUtil;
 import com.ufgov.zc.common.zc.model.ZcEbChangdiUsed;
 import com.ufgov.zc.common.zc.publish.IZcEbChangdiUsedServiceDelegate;
 
-public class ZcEbChangdiUsedListPanel   extends AbstractEditListBill implements ParentWindowAware {
+public class ZcEbChangdiUsedListPanel extends AbstractEditListBill implements ParentWindowAware {
 
   /**
    * 
@@ -94,7 +98,7 @@ public class ZcEbChangdiUsedListPanel   extends AbstractEditListBill implements 
 
   public ZcEbChangdiUsedListPanel() {
     baseDataServiceDelegate = (IBaseDataServiceDelegate) ServiceFactory.create(IBaseDataServiceDelegate.class, "baseDataServiceDelegate");
-    zcEbChangdiUsedServiceDelegate = (IZcEbChangdiUsedServiceDelegate) ServiceFactory.create(IZcEbChangdiUsedServiceDelegate.class,"zcEbChangdiUsedServiceDelegate");
+    zcEbChangdiUsedServiceDelegate = (IZcEbChangdiUsedServiceDelegate) ServiceFactory.create(IZcEbChangdiUsedServiceDelegate.class, "zcEbChangdiUsedServiceDelegate");
 
     UIUtilities.asyncInvoke(new DefaultInvokeHandler<List<SearchCondition>>() {
 
@@ -157,10 +161,9 @@ public class ZcEbChangdiUsedListPanel   extends AbstractEditListBill implements 
 
       super(displays, showingDisplays, conditionArea, showConditionArea, ZcEbChangdiUsed.TAB_ID);
 
-      setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), LangTransMeta.translate(compoId), TitledBorder.CENTER,
-        TitledBorder.TOP, new Font("宋体",
+      setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), LangTransMeta.translate(compoId), TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体",
 
-        Font.BOLD, 15), Color.BLUE));
+      Font.BOLD, 15), Color.BLUE));
 
     }
 
@@ -186,7 +189,7 @@ public class ZcEbChangdiUsedListPanel   extends AbstractEditListBill implements 
 
               List viewList = (List) ObjectUtil.deepCopy(ListUtil.convertToTableViewOrderList(model.getList(), table));
 
-              new ZcEbChangdiUsedDialog(parentWindow, viewList, row, tabStatus,self);
+              new ZcEbChangdiUsedDialog(parentWindow, viewList, row, tabStatus, self);
 
             }
 
@@ -208,6 +211,7 @@ public class ZcEbChangdiUsedListPanel   extends AbstractEditListBill implements 
       elementConditionDto.setNd(WorkEnv.getInstance().getTransNd());
 
       elementConditionDto.setStatus(tableDisplay.getStatus());
+      setZhouCondition(tableDisplay.getStatus());
 
       for (AbstractSearchConditionItem item : searchConditionItems) {
 
@@ -305,6 +309,74 @@ public class ZcEbChangdiUsedListPanel   extends AbstractEditListBill implements 
       }
 
     });
+
+  }
+
+  public void setZhouCondition(String tabStatus) {
+    Date today = requestMeta.getSysDate();
+
+    GregorianCalendar gc = new GregorianCalendar();
+    gc.setTime(today);
+    Calendar beginDate = Calendar.getInstance();
+    beginDate.setTime(today);
+    Calendar endDate = Calendar.getInstance();
+    endDate.setTime(today);
+    int weekDay = gc.get(Calendar.DAY_OF_WEEK);
+    if (tabStatus.equals("benzhou")) {
+      switch (weekDay) {
+      case 1://星期天
+        beginDate.add(Calendar.DAY_OF_YEAR, -6);
+      case 2://星期一 
+        endDate.add(Calendar.DAY_OF_YEAR, 6);
+      case 3://星期二 
+        beginDate.add(Calendar.DAY_OF_YEAR, -1);
+        endDate.add(Calendar.DAY_OF_YEAR, 5);
+      case 4://星期三b
+        beginDate.add(Calendar.DAY_OF_YEAR, -2);
+        endDate.add(Calendar.DAY_OF_YEAR, 4);
+      case 5://星期四
+        beginDate.add(Calendar.DAY_OF_YEAR, -3);
+        endDate.add(Calendar.DAY_OF_YEAR, 3);
+      case 6://星期五 
+        beginDate.add(Calendar.DAY_OF_YEAR, -4);
+        endDate.add(Calendar.DAY_OF_YEAR, 2);
+      case 7://星期六 
+        beginDate.add(Calendar.DAY_OF_YEAR, -5);
+        endDate.add(Calendar.DAY_OF_YEAR, 1);
+      }
+    } else if (tabStatus.equals("shangzhou")) {
+      switch (weekDay) {
+      case 1://星期天
+        beginDate.add(Calendar.DAY_OF_YEAR, -13);
+        endDate.add(Calendar.DAY_OF_YEAR, -7);
+      case 2://星期一 
+        beginDate.add(Calendar.DAY_OF_YEAR, -7);
+        endDate.add(Calendar.DAY_OF_YEAR, -1);
+      case 3://星期二 
+        beginDate.add(Calendar.DAY_OF_YEAR, -8);
+        endDate.add(Calendar.DAY_OF_YEAR, -2);
+      case 4://星期三
+        beginDate.add(Calendar.DAY_OF_YEAR, -9);
+        endDate.add(Calendar.DAY_OF_YEAR, -3);
+      case 5://星期四
+        beginDate.add(Calendar.DAY_OF_YEAR, -10);
+        endDate.add(Calendar.DAY_OF_YEAR, -4);
+      case 6://星期五 
+        beginDate.add(Calendar.DAY_OF_YEAR, -11);
+        endDate.add(Calendar.DAY_OF_YEAR, -5);
+      case 7://星期六 
+        beginDate.add(Calendar.DAY_OF_YEAR, -12);
+        endDate.add(Calendar.DAY_OF_YEAR, -6);
+      }
+    }
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    Calendar t1 = Calendar.getInstance(), t2 = Calendar.getInstance();
+    t1.set(beginDate.get(Calendar.YEAR), beginDate.get(Calendar.MONTH), beginDate.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+    t2.set(endDate.get(Calendar.YEAR), endDate.get(Calendar.MONTH), endDate.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
+    //    System.out.println("begin" + sdf.format(t1.getTime()));
+    //    System.out.println("end" + sdf.format(t2.getTime()));
+    elementConditionDto.setBankStartDate(t1.getTime());
+    elementConditionDto.setBankEndDate(t2.getTime());
 
   }
 
@@ -521,6 +593,12 @@ public class ZcEbChangdiUsedListPanel   extends AbstractEditListBill implements 
 
     //    toolBar.add(traceDataButton);
 
+    toolBar.add(printButton);
+
+    toolBar.add(printPreviewButton);
+
+    toolBar.add(printSettingButton);
+
     // 初始化按钮的action事件
 
     // 初始化按钮的action事件
@@ -609,7 +687,7 @@ public class ZcEbChangdiUsedListPanel   extends AbstractEditListBill implements 
 
   private void doAdd() {
 
-    new ZcEbChangdiUsedDialog(parentWindow, new ArrayList(1), -1, topDataDisplay.getActiveTableDisplay().getStatus(),self);
+    new ZcEbChangdiUsedDialog(parentWindow, new ArrayList(1), -1, topDataDisplay.getActiveTableDisplay().getStatus(), self);
 
   }
 
