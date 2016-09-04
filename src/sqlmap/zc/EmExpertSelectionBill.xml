@@ -275,8 +275,7 @@
 			INSERT INTO EM_BILL_SERVER_LIST (EM_BILL_CODE, EM_STATUS)
 			VALUES (#EM_BILL_CODE#, #EM_STATUS#)
 		</insert>	
-  	<select id="selectProMake"
-		parameterClass="elementCondition" resultMap="proMakeWithCoName">
+  	<select id="selectProMake" 	parameterClass="elementCondition" resultMap="proMakeWithCoName">
 		SELECT * FROM V_ZC_PRO_MAKE_EXPERT where nd=#nd# ORDER BY ZC_INPUT_DATE DESC
 	</select>	
 

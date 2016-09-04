@@ -22,10 +22,13 @@
 		 AND F.EM_BILL_CODE = #EM_BILL_CODE#
 	</select>
 	<select id="listUnitByEmBillCode" resultMap="rltMapping" parameterClass="map">
-		SELECT *
-		  FROM EM_EXPERT_BILL_FILTER F, ZC_EM_B_EXPERT E
-		 WHERE F.EM_EXPERT_CODE = E.EM_EXPERT_CODE
-		 AND F.EM_BILL_CODE = #EM_BILL_CODE#
+		select f.em_bill_code,
+       '' as EM_EXPERT_CODE,
+       '' as EM_EXPERT_NAME,
+       '' as EM_MOBILE,
+       f.unit_name as EM_UNIT_NAME
+  		from EM_EXPERT_BILL_FILTER_UNIT f
+  		where  F.EM_BILL_CODE = #EM_BILL_CODE#
 	</select>
 	
 	<insert id="insert" parameterClass="EmExpertBillFilter">
