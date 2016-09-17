@@ -27,6 +27,7 @@ import com.ufgov.zc.common.zc.model.HuiyuanUnitcominfo;
 import com.ufgov.zc.common.zc.model.HuiyuanUser;
 import com.ufgov.zc.common.zc.model.HuiyuanZfcgGongyinginfo;
 import com.ufgov.zc.common.zc.model.HuiyuanZfcgGongyingzizhi;
+import com.ufgov.zc.common.zc.model.ZcEbSupplierType;
 
 /**
  * @author Administrator
@@ -405,5 +406,84 @@ public class HuiyuanUnitcominfoToTableModelConverter {
 
   public static List<ColumnBeanPropertyPair> getAtachInfo() {
     return attchInfo;
+  }
+
+  public static TableModel convertGysTypeToTableModel(List gysTypeList) {
+    // TCJLODO Auto-generated method stub
+
+    BeanTableModel<ZcEbSupplierType> tm = new BeanTableModel<ZcEbSupplierType>() {
+
+      private static final long serialVersionUID = 6888363838628062064L;
+
+      @Override
+      public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+
+        ZcEbSupplierType bean = getDataBeanList().get(rowIndex);
+
+        if ("isSelected".equals(this.getColumnIdentifier(columnIndex))) {
+          System.out.println("aValue=" + aValue);
+          if (aValue == null) {
+            this.getBean(rowIndex).setIsSelected(new Boolean(false));
+
+          } else {
+            if (aValue instanceof Boolean) {
+              this.getBean(rowIndex).setIsSelected((Boolean) aValue);
+            } else {
+              this.getBean(rowIndex).setIsSelected(new Boolean(false));
+            }
+          }
+
+          fireTableCellUpdated(rowIndex, columnIndex);
+
+          putEditedData(dataBeanList.get(rowIndex));
+
+        } else {
+
+          super.setValueAt(aValue, rowIndex, columnIndex);
+
+        }
+
+      }
+
+      @Override
+      public boolean isCellEditable(int row, int column) {
+
+        if (!this.isEditable()) {
+
+        return false;
+
+        }
+
+        String columnId = this.getColumnIdentifier(column);
+
+        if ("isSelected".equals(columnId)) {
+
+        return true;
+
+        }
+
+        return false;
+
+      }
+
+    };
+
+    tm.setOidFieldName("typeName");
+
+    tm.setDataBean(gysTypeList, gysTypeTableColumnInfo);
+
+    return tm;
+
+  }
+
+  private static List<ColumnBeanPropertyPair> gysTypeTableColumnInfo = new ArrayList<ColumnBeanPropertyPair>();
+
+  static {
+    gysTypeTableColumnInfo.add(new ColumnBeanPropertyPair("typeName", "typeName", "供应商类型"));
+    gysTypeTableColumnInfo.add(new ColumnBeanPropertyPair("isSelected", "isSelected", "选中"));
+  }
+
+  public static List<ColumnBeanPropertyPair> getGysTypeTableColumnInfo() {
+    return gysTypeTableColumnInfo;
   }
 }

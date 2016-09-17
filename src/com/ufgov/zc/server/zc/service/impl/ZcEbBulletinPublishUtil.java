@@ -281,6 +281,8 @@ public class ZcEbBulletinPublishUtil {
       return "109";
     } else if (ZcEbBulletin.BIANGENG_XJ.equals(bul.getBulletinType())) {
       return "109";
+    } else if (ZcEbBulletin.FEIBIAO.equals(bul.getBulletinType())) {
+      return "230";
     } else {
       throw new BusinessException("发布公告时，公告类型" + bul.getBulletinType() + "在外网没有对应类型");
     }
@@ -322,6 +324,8 @@ public class ZcEbBulletinPublishUtil {
     } else if (ZcEbBulletin.ZHONGBIAO_JZXCS.equals(bul.getBulletinType())) {
       return "134";
     } else if (ZcEbBulletin.BIANGENG.equals(bul.getBulletinType())) {
+      return "90";
+    } else if (ZcEbBulletin.FEIBIAO.equals(bul.getBulletinType())) {
       return "90";
     } else {
       throw new BusinessException("发布公告时，公告类型" + bul.getBulletinType() + "在外网没有对应类型");

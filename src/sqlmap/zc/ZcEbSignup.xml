@@ -962,7 +962,7 @@ group by ZC_EB_PROJ.Proj_Code,ZC_EB_PROJ.Proj_Name,plan.open_bid_time,sh.attn_na
 		ON S.PROJ_CODE=PL.PROJ_CODE
 		WHERE
 		PL.BID_END_TIME >= sysdate
-		AND PJ.PUR_TYPE IN('1','3','4','7')
+		AND PJ.PUR_TYPE IN('1','3','4','7','6')
 	</select>
 	<select id="getEcbjProjListForQuotation" resultClass="java.util.HashMap"
 		parameterClass="map">
@@ -975,7 +975,7 @@ group by ZC_EB_PROJ.Proj_Code,ZC_EB_PROJ.Proj_Name,plan.open_bid_time,sh.attn_na
 		JOIN ZC_EB_ECBJ_PLAN PL
 		ON S.PROJ_CODE=PL.PROJ_CODE
 		WHERE
-		PJ.PUR_TYPE IN('1','3','4','7')
+		PJ.PUR_TYPE IN('1','3','4','7','6')
 		AND PL.END_TIME >= sysdate
 	</select>
 	<update id="updateBZJStatus" parameterClass="java.util.HashMap">
@@ -998,7 +998,7 @@ group by ZC_EB_PROJ.Proj_Code,ZC_EB_PROJ.Proj_Name,plan.open_bid_time,sh.attn_na
        AND ZC_EB_PROJ_ZBFILE.PROJ_CODE(+) = P.PROJ_CODE
        AND PL.Proj_Code = N.Proj_Code
        AND PL.BID_END_TIME >= sysdate
-       AND N.PUR_TYPE IN ('1', '3', '4', '7')
+       AND N.PUR_TYPE IN ('1', '3', '4', '7','6')
 	   AND P.PROVIDER_CODE=#value#
 	</select>
 
@@ -1209,7 +1209,7 @@ group by ZC_EB_PROJ.Proj_Code,ZC_EB_PROJ.Proj_Name,plan.open_bid_time,sh.attn_na
     AND
     SP.PACK_CODE(+) =PK.PACK_CODE    
     and
-    p.pur_type in ('1', '2', '3', '4','10')
+    p.pur_type in ('1', '2', '3', '4','10','6')
     and sp.sp_status='1'
     and p.proj_code = l.proj_code
 		<isNotNull prepend="and" property="status">
@@ -1243,7 +1243,7 @@ group by ZC_EB_PROJ.Proj_Code,ZC_EB_PROJ.Proj_Name,plan.open_bid_time,sh.attn_na
 		where zc_eb_proj.proj_code = l.proj_code
 		and zc_eb_proj.status = 'exec'
 		and
-		zc_eb_proj.pur_type in ('1', '2', '3', '4','10') 
+		zc_eb_proj.pur_type in ('1', '2', '3', '4','10','6') 
 		<isNotNull prepend="and" property="status">
 			<isEqual property="status" compareValue="biding">
 		<![CDATA[ sysdate <= l.bid_end_time ]]>

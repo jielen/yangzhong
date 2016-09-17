@@ -33,6 +33,7 @@ import com.ufgov.zc.client.component.ui.fieldeditor.AbstractFieldEditor;
 import com.ufgov.zc.client.component.zc.AbstractMainSubEditPanel;
 import com.ufgov.zc.client.component.zc.fieldeditor.TextFieldEditor;
 import com.ufgov.zc.client.datacache.CompanyDataCache;
+import com.ufgov.zc.client.zc.ZcUtil;
 import com.ufgov.zc.common.commonbiz.model.Company;
 import com.ufgov.zc.common.commonbiz.model.MaCompany;
 import com.ufgov.zc.common.system.Guid;
@@ -169,7 +170,7 @@ public class CompanySimpleAddDialog extends GkBaseDialog {
       company.setCity("*");
       company.setIsLowest("Y");
       company.setFinaLevel("01");
-      company.setTransDate(requestMeta.getSysDate());
+      company.setTransDate(ZcUtil.getSysDate(requestMeta));
       company.setIsNeedSendBankSl("N");
       company.setCanGetbill("Y");
       company.setCanCharge("Y");

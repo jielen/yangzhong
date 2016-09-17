@@ -1183,7 +1183,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
       if (zcEbEvalReport.getProcessInstId() != null && zcEbEvalReport.getProcessInstId() > 0) {
         pageStatus = ZcSettingConstants.PAGE_STATUS_BROWSE;
       }
-      if (ZcSettingConstants.ZC_CGFS_XJ.equals(zcEbEvalReport.getPurType())) {
+      if (ZcSettingConstants.ZC_CGFS_XJ.equals(zcEbEvalReport.getPurType()) || ZcSettingConstants.ZC_CGFS_XYGH.equals(zcEbEvalReport.getPurType())) {
         createXunJiaPanel();
       } else {
 
@@ -2491,7 +2491,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
   public boolean doSave(boolean isShowConfirm) {
     ZcEbEvalReport afterBill = (ZcEbEvalReport) this.listCursor.getCurrentObject();
-    if (ZcSettingConstants.ZC_CGFS_XJ.equals(afterBill.getPurType())) {
+    if (ZcSettingConstants.ZC_CGFS_XJ.equals(afterBill.getPurType()) || ZcSettingConstants.ZC_CGFS_XYGH.equals(afterBill.getPurType())) {
       JOptionPane.showMessageDialog(this, "不支持询价的线下评标报告！", "提示", JOptionPane.INFORMATION_MESSAGE);
       return false;
     }
@@ -2958,7 +2958,8 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
 
     }
     if (!setWinProvider(zcEbEvalReport)) { return false; }//if (zcEbEvalReport.getFailReason()!=null && zcEbEvalReport.getFailReason().trim().length()>0) {
-    if (!ZcSettingConstants.ZC_CGFS_XJ.equals(zcEbEvalReport.getPurType()) && (zcEbEvalReport.getFailReason() == null || zcEbEvalReport.getFailReason().trim().length() == 0)) {
+    if (!(ZcSettingConstants.ZC_CGFS_XJ.equals(zcEbEvalReport.getPurType()) || ZcSettingConstants.ZC_CGFS_XYGH.equals(zcEbEvalReport.getPurType()))
+      && (zcEbEvalReport.getFailReason() == null || zcEbEvalReport.getFailReason().trim().length() == 0)) {
 
       if ((null == bidEvalOpinionArea.getText() || "".equals(bidEvalOpinionArea.getText())) && zcEbEvalReport.getReportAttachBlobid() == null) {
         JOptionPane.showMessageDialog(this, "评审专家组意见或评审报告附件必须有一个填写！", "提示", JOptionPane.INFORMATION_MESSAGE);
@@ -2975,7 +2976,7 @@ public class ZcEbEvalReportOffLineEditPanel extends AbstractMainSubEditPanel imp
   }
 
   public boolean setWinProvider(ZcEbEvalReport zcEbEvalReport) {
-    if (ZcSettingConstants.ZC_CGFS_XJ.equals(zcEbEvalReport.getPurType())) { return true; }
+    if (ZcSettingConstants.ZC_CGFS_XJ.equals(zcEbEvalReport.getPurType()) || ZcSettingConstants.ZC_CGFS_XYGH.equals(zcEbEvalReport.getPurType())) { return true; }
 
     List resultList = zcEbEvalReport.getPackEvalResultList();
     zcEbEvalReport.setProviderCode("");

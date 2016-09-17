@@ -1852,7 +1852,7 @@ public class ZcEbEntrustEditPanel extends AbstractMainSubEditPanel {
       isPub.setVisible(true);
     }
 
-    if (field.getSelectedAsVal() == null || !ZcSettingConstants.ZC_CGFS_XJ.equals(field.getSelectedAsVal().getValId())) {
+    if (field.getSelectedAsVal() == null || !(ZcSettingConstants.ZC_CGFS_XJ.equals(field.getSelectedAsVal().getValId()) || ZcSettingConstants.ZC_CGFS_XYGH.equals(field.getSelectedAsVal().getValId()))) {
       isCar.setVisible(false);
 
     } else {

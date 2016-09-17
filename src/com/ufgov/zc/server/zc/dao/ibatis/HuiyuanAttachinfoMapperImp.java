@@ -14,7 +14,7 @@ public class HuiyuanAttachinfoMapperImp extends SqlMapClientDaoSupport implement
   }
 
   public int deleteByClientId(String clientGuid) {
-    return getSqlMapClientTemplate().delete("com.ufgov.zc.server.zc.dao.HuiyuanAttachinfoMapper.deleteByPrimaryKey", clientGuid);
+    return getSqlMapClientTemplate().delete("com.ufgov.zc.server.zc.dao.HuiyuanAttachinfoMapper.deleteByDanweiGuid", clientGuid);
   }
 
   public int insert(HuiyuanAttachinfo record) {

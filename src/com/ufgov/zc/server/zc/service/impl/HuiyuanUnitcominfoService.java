@@ -14,6 +14,7 @@ import com.ufgov.zc.common.system.dto.ElementConditionDto;
 import com.ufgov.zc.common.system.exception.BusinessException;
 import com.ufgov.zc.common.system.model.AsWfDraft;
 import com.ufgov.zc.common.system.util.UUID;
+import com.ufgov.zc.common.zc.model.HuiyuanAttachinfo;
 import com.ufgov.zc.common.zc.model.HuiyuanUnitcominfo;
 import com.ufgov.zc.common.zc.model.HuiyuanUser;
 import com.ufgov.zc.server.system.dao.IWorkflowDao;
@@ -126,11 +127,15 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
     if (unit == null) return null;
     unit.setZfcgGysInfo(huiyuanZfcgGongyinginfoMapper.selectByPrimaryKey(danweiguid));
     ElementConditionDto dto = new ElementConditionDto();
+    if (danweiguid.startsWith(HuiyuanUnitcominfo.TEMP)) {
+      danweiguid = danweiguid.substring(HuiyuanUnitcominfo.TEMP.length());
+    }
     dto.setZcText1(danweiguid);
     unit.setUserLst(huiyuanUserMapper.getMainDataLst(dto));
     unit.setUnitBlackLst(huiyuanUnitblackMapper.getMainDataLst(dto));
     unit.setPeopleBlackLst(huiyuanPeopleblackMapper.getMainDataLst(dto));
     unit.setAttachInfoLst(getAttachInfoLst(danweiguid, requestMeta));
+    unit.setGysTypeList(huiyuanUnitcominfoMapper.getGysType(danweiguid));
     unit.setDbDigest(unit.digest());
     return unit;
   }
@@ -161,14 +166,14 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
   public HuiyuanUnitcominfo saveFN(HuiyuanUnitcominfo record, RequestMeta requestMeta) throws BusinessException {
     // TCJLODO Auto-generated method stub
     List existUnitLst = getUnitByNameOrOrgNUm(record, requestMeta);
-    if (record.getDanweiguid() == null || record.getDanweiguid().trim().length() == 0) {
+    if (record.getDanweiguidReal() == null || record.getDanweiguidReal().trim().length() == 0) {
       if (duplicateUnit(record, existUnitLst, false)) { throw new BusinessException("已有同名、同组织机构代码的供应商存在，不能重复录入!"); }
       record = insert(record);
       //默认增加一个登陆账号为其组织机构代码的用户，状态是不可登陆的,改道审核通过时，增加用户
       //addDefaultUser(record,requestMeta);
     } else {
       if (duplicateUnit(record, existUnitLst, true)) { throw new BusinessException("已有同名、同组织机构代码的供应商存在，不能重复录入!"); }
-      HuiyuanUnitcominfo oldObj = selectByPrimaryKey(record.getDanweiguid(), requestMeta);
+      HuiyuanUnitcominfo oldObj = selectByPrimaryKey(record.getDanweiguidTemp(), requestMeta);
       String oldUnitOrgNum = oldObj.getUnitorgnum();
       record = update(record);
       updateDefaultUser(record, requestMeta, oldUnitOrgNum);
@@ -224,7 +229,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
 
   private void buildUserInfo(HuiyuanUnitcominfo unitInfo, HuiyuanUser user) {
     // TCJLODO Auto-generated method stub
-    user.setDanweiguid(unitInfo.getDanweiguid());
+    user.setDanweiguid(unitInfo.getDanweiguidReal());
     user.setDanweiname(unitInfo.getDanweiname());
     user.setLoginid(unitInfo.getUnitorgnum());
     user.setDisplayname(unitInfo.getDanweiname());
@@ -250,7 +255,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
       //update的情况下，检测到了重名的供应商
       for (int i = 0; i < existUnitLst.size(); i++) {
         HuiyuanUnitcominfo obj = (HuiyuanUnitcominfo) existUnitLst.get(i);
-        if (obj.getDanweiguid().equals(record.getDanweiguid())) {//同一个供应商
+        if (obj.getDanweiguidReal().equals(record.getDanweiguidReal())) {//同一个供应商
           continue;
         } else {//重名、重机构码供应商
           return true;
@@ -284,9 +289,12 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
   private HuiyuanUnitcominfo update(HuiyuanUnitcominfo record) {
     // TCJLODO Auto-generated method stub
     huiyuanUnitcominfoMapper.updateByPrimaryKey(record);
+    //    huiyuanUnitcominfoMapper.delGysType(record.getDanweiguid());
+    huiyuanUnitcominfoMapper.insertGysType(record);//执行的是删插
     if (record.getZfcgGysInfo() != null) {
       huiyuanZfcgGongyinginfoMapper.updateByPrimaryKey(record.getZfcgGysInfo());
     }
+    updateAttachInfo(record);
     return record;
   }
 
@@ -295,12 +303,26 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
     String uuid = UUID.randomUUID().toString();
     record.setDanweiguid(uuid);
     huiyuanUnitcominfoMapper.insert(record);
+    huiyuanUnitcominfoMapper.insertGysType(record);
     if (record.getZfcgGysInfo() != null) {
       record.getZfcgGysInfo().setDanweiguid(uuid);
       huiyuanZfcgGongyinginfoMapper.insert(record.getZfcgGysInfo());
     }
+    updateAttachInfo(record);
     record.setDbDigest(record.digest());
     return record;
+  }
+
+  private void updateAttachInfo(HuiyuanUnitcominfo record) {
+    huiyuanAttachinfoMapper.deleteByClientId(record.getDanweiguidReal());
+    if (record.getAttachInfoLst() != null) {
+      for (int i = 0; i < record.getAttachInfoLst().size(); i++) {
+        HuiyuanAttachinfo a = (HuiyuanAttachinfo) record.getAttachInfoLst().get(i);
+        a.setClientguid(record.getDanweiguidReal());
+        a.setDanweiguid(record.getDanweiguidReal());
+        huiyuanAttachinfoMapper.insert(a);
+      }
+    }
   }
 
   public HuiyuanUnitcominfo updateAuditStatusFN(HuiyuanUnitcominfo record, RequestMeta requestMeta) {
@@ -310,10 +332,15 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
     if (ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_PASS.equals(record.getZfcgGysInfo().getAuditstatus())) {
       addDefaultUser(record, requestMeta);
     }
-    huiyuanZfcgGongyinginfoMapper.updateAuditStatusFN(record.getZfcgGysInfo());
-    huiyuanUnitcominfoMapper.updateByPrimaryKey(record);
-    record.setDbDigest(record.digest());
-    return record;
+    record.setDanweiguid(record.getDanweiguidTemp());
+    update(record);
+    //同步信息到正式数据上
+    record.setDanweiguid(record.getDanweiguidReal());
+    update(record);
+    //    update(record);
+    //    huiyuanZfcgGongyinginfoMapper.updateAuditStatusFN(record.getZfcgGysInfo());
+    //    huiyuanUnitcominfoMapper.updateByPrimaryKey(record);
+    return selectByPrimaryKey(record.getDanweiguidTemp(), requestMeta);
   }
 
   /* (non-Javadoc)
@@ -324,6 +351,8 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
     // TCJLODO Auto-generated method stub
     huiyuanUnitcominfoMapper.deleteByPrimaryKey(danweiguid);
     huiyuanZfcgGongyinginfoMapper.deleteByPrimaryKey(danweiguid);
+    huiyuanUnitcominfoMapper.deleteByPrimaryKey(HuiyuanUnitcominfo.TEMP + danweiguid);
+    huiyuanZfcgGongyinginfoMapper.deleteByPrimaryKey(HuiyuanUnitcominfo.TEMP + danweiguid);
   }
 
   /* (non-Javadoc)
@@ -354,7 +383,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
     // TCJLODO Auto-generated method stub
     unit = saveFN(unit, requestMeta);
     wfEngineAdapter.commit(unit.getComment(), unit, requestMeta);
-    return selectByPrimaryKey(unit.getDanweiguid(), requestMeta);
+    return selectByPrimaryKey(unit.getDanweiguidTemp(), requestMeta);
   }
 
   /* (non-Javadoc)
@@ -364,7 +393,7 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
   public HuiyuanUnitcominfo newCommitFN(HuiyuanUnitcominfo unit, RequestMeta requestMeta) {
     // TCJLODO Auto-generated method stub
     wfEngineAdapter.newCommit(unit.getComment(), unit, requestMeta);
-    return selectByPrimaryKey(unit.getDanweiguid(), requestMeta);
+    return selectByPrimaryKey(unit.getDanweiguidTemp(), requestMeta);
   }
 
   /* (non-Javadoc)
@@ -430,9 +459,15 @@ public class HuiyuanUnitcominfoService implements IHuiyuanUnitcominfoService {
     } else {
       return inData;
     }
-    huiyuanUnitcominfoMapper.updateByPrimaryKey(inData);
-    huiyuanZfcgGongyinginfoMapper.updateByPrimaryKey(inData.getZfcgGysInfo());
-    return selectByPrimaryKey(inData.getDanweiguid(), requestMeta);
+    //    huiyuanUnitcominfoMapper.updateByPrimaryKey(inData);
+    //    huiyuanZfcgGongyinginfoMapper.updateByPrimaryKey(inData.getZfcgGysInfo());
+
+    inData.setDanweiguid(inData.getDanweiguidTemp());
+    update(inData);
+    //同步信息到正式数据上
+    inData.setDanweiguid(inData.getDanweiguidReal());
+    update(inData);
+    return selectByPrimaryKey(inData.getDanweiguidTemp(), requestMeta);
   }
 
   private void updateUserStatus(List userLst, String accountStatus) {

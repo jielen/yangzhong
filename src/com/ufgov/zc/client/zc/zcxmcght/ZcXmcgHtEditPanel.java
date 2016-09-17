@@ -424,7 +424,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
 
     HuiyuanUnitcominfo unit = ZcUtil.getHuiYuan();
     if (unit != null) {
-      gysProjDto.setUserId(unit.getDanweiguid());
+      gysProjDto.setUserId(unit.getDanweiguidReal());
       gysProjDto.setZcText4("gys");
     } else {
       gysProjDto.setUserId(requestMeta.getSvUserID());
@@ -827,7 +827,7 @@ public class ZcXmcgHtEditPanel extends AbstractZcXmcgHtEditPanel {
       htItem.setZcCatalogueName((String) map.get("ZC_CATALOGUE_NAME"));//品目名称NUM
 
       //如果是询价的话，获取供应商的询价报价单
-      if (ZcSettingConstants.ZC_CGFS_XJ.equalsIgnoreCase(proj.getPurType())) {
+      if (ZcSettingConstants.ZC_CGFS_XJ.equalsIgnoreCase(proj.getPurType()) || ZcSettingConstants.ZC_CGFS_XYGH.equalsIgnoreCase(proj.getPurType())) {
         setBjDetail(htItem, (BigDecimal) map.get("DETAIL_CODE"), xjbjLst);
       } else {
         BigDecimal t1 = getBigDecimal(map.get("NUM"));

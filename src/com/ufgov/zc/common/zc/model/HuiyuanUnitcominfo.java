@@ -8,1182 +8,1097 @@ import java.util.List;
 /**
  * 会员基本信息
  * @author Administrator
- *
  */
-public class HuiyuanUnitcominfo extends ZcBaseBill{
-  
-  
-    /**
+public class HuiyuanUnitcominfo extends ZcBaseBill {
+
+  /**
    * 
    */
   private static final long serialVersionUID = 8807652338510830167L;
-  
-  public static final String COL_AREACODE="HUIYUAN_UNITCOMINFO_AREACODE"; // 注册地代码
-  public static final String COL_AREANAME="HUIYUAN_UNITCOMINFO_AREANAME"; // 注册所在地
-  public static final String COL_ASSISTANTITEM="HUIYUAN_UNITCOMINFO_ASSISTANTITEM"; // 兼营项目
-  public static final String COL_ASSISTANTPRODUCT="HUIYUAN_UNITCOMINFO_ASSISTANTPRODUCT"; // 兼营产品
-  public static final String COL_BUILDDATE="HUIYUAN_UNITCOMINFO_BUILDDATE"; // 成立日期
-  public static final String COL_CHENLITIME="HUIYUAN_UNITCOMINFO_CHENLITIME"; // 成立时间
-  public static final String COL_COMPANYDES="HUIYUAN_UNITCOMINFO_COMPANYDES"; // 公司简介
-  public static final String COL_COMPANYTYPE="HUIYUAN_UNITCOMINFO_COMPANYTYPE"; // 公司类型
-  public static final String COL_DANWEIGUID="HUIYUAN_UNITCOMINFO_DANWEIGUID"; // 单位唯一标识
-  public static final String COL_DANWEINAME="HUIYUAN_UNITCOMINFO_DANWEINAME"; // 单位名称
-  public static final String COL_DANWEITYPE="HUIYUAN_UNITCOMINFO_DANWEITYPE"; // 会员单位类型
-  public static final String COL_DENGJIJIGUAN="HUIYUAN_UNITCOMINFO_DENGJIJIGUAN"; // 营业执照登记机关
-  public static final String COL_DISHUINO="HUIYUAN_UNITCOMINFO_DISHUINO"; // 地税登记编号
-  public static final String COL_ENGLISHNAME="HUIYUAN_UNITCOMINFO_ENGLISHNAME"; // 英文名称
-  public static final String COL_FAREN="HUIYUAN_UNITCOMINFO_FAREN"; // 法定代表人
-  public static final String COL_FARENLICENCENUM="HUIYUAN_UNITCOMINFO_FARENLICENCENUM"; // 法人营业执照号码
-  public static final String COL_FARENTEL="HUIYUAN_UNITCOMINFO_FARENTEL"; // 法人电话
-  public static final String COL_FARENZHICHENG="HUIYUAN_UNITCOMINFO_FARENZHICHENG"; // 法定职称
-  public static final String COL_FARENZHIWU="HUIYUAN_UNITCOMINFO_FARENZHIWU"; // 法人职务
-  public static final String COL_GUOSHUINO="HUIYUAN_UNITCOMINFO_GUOSHUINO"; // 国税登记编号
-  public static final String COL_JINYINGFANWEI="HUIYUAN_UNITCOMINFO_JINYINGFANWEI"; // 经营范围
-  public static final String COL_LICENCENUM="HUIYUAN_UNITCOMINFO_LICENCENUM"; // 营业执照注册号
-  public static final String COL_MAINITEM="HUIYUAN_UNITCOMINFO_MAINITEM"; // 主营项目
-  public static final String COL_MIANPRODUCT="HUIYUAN_UNITCOMINFO_MIANPRODUCT"; // 主营产品
-  public static final String COL_NIANJIANJIEGUO="HUIYUAN_UNITCOMINFO_NIANJIANJIEGUO"; // 营业执照申报公示结果
-  public static final String COL_QIYESHEBAOHAO="HUIYUAN_UNITCOMINFO_QIYESHEBAOHAO"; // 企业社会保险号
-  public static final String COL_UNITJIANCHENG="HUIYUAN_UNITCOMINFO_UNITJIANCHENG"; // 企业简称
-  public static final String COL_UNITORGNUM="HUIYUAN_UNITCOMINFO_UNITORGNUM"; // 组织机构代码
-  public static final String COL_WEBADDRESS="HUIYUAN_UNITCOMINFO_WEBADDRESS"; // 网址
-  public static final String COL_YINGYEQIXIANFROM="HUIYUAN_UNITCOMINFO_YINGYEQIXIANFROM"; // 营业期限开始
-  public static final String COL_YINGYEQIXIANTO="HUIYUAN_UNITCOMINFO_YINGYEQIXIANTO"; // 营业期限截止
-  public static final String COL_ZHUCEADDRESS="HUIYUAN_UNITCOMINFO_ZHUCEADDRESS"; // 注册地址
-  public static final String COL_ZHUCETYPE="HUIYUAN_UNITCOMINFO_ZHUCETYPE"; // 注册资本类型
-  public static final String COL_ZHUCEZIBEN="HUIYUAN_UNITCOMINFO_ZHUCEZIBEN"; // 注册资本
 
-  
+  /*
+   * 临时数据标识，加在供应商
+   */
+  public static final String TEMP = "temp_";
+
+  /**
+   * 待审核
+   */
+  public static final String V_HUI_YUAN_AUDIT_STATUS_WAIT_AUDIT = "2";
+
+  /**
+   * 审核通过
+   */
+  public static final String V_HUI_YUAN_AUDIT_STATUS_PASSED = "3";
+
+  /**
+   * 审核不通过
+   */
+  public static final String V_HUI_YUAN_AUDIT_STATUS_UNPASSED = "4";
+
+  /**
+   * 编辑中
+   */
+  public static final String V_HUI_YUAN_AUDIT_STATUS_EDITING = "1";
+
+  /**
+   * 作废
+   */
+  public static final String V_HUI_YUAN_AUDIT_STATUS_DESTROY = "6";
+
+  /**
+   * 删除
+   */
+  public static final String V_HUI_YUAN_AUDIT_STATUS_DELETE = "5";
+
+  /**
+   * 退回
+   */
+  public static final String V_HUI_YUAN_AUDIT_STATUS_BACK = "7";
+
+  public static final String COL_AREACODE = "HUIYUAN_UNITCOMINFO_AREACODE"; // 注册地代码
+
+  public static final String COL_AREANAME = "HUIYUAN_UNITCOMINFO_AREANAME"; // 注册所在地
+
+  public static final String COL_ASSISTANTITEM = "HUIYUAN_UNITCOMINFO_ASSISTANTITEM"; // 兼营项目
+
+  public static final String COL_ASSISTANTPRODUCT = "HUIYUAN_UNITCOMINFO_ASSISTANTPRODUCT"; // 兼营产品
+
+  public static final String COL_BUILDDATE = "HUIYUAN_UNITCOMINFO_BUILDDATE"; // 成立日期
+
+  public static final String COL_CHENLITIME = "HUIYUAN_UNITCOMINFO_CHENLITIME"; // 成立时间
+
+  public static final String COL_COMPANYDES = "HUIYUAN_UNITCOMINFO_COMPANYDES"; // 公司简介
+
+  public static final String COL_COMPANYTYPE = "HUIYUAN_UNITCOMINFO_COMPANYTYPE"; // 公司类型
+
+  public static final String COL_DANWEIGUID = "HUIYUAN_UNITCOMINFO_DANWEIGUID"; // 单位唯一标识
+
+  public static final String COL_DANWEINAME = "HUIYUAN_UNITCOMINFO_DANWEINAME"; // 单位名称
+
+  public static final String COL_DANWEITYPE = "HUIYUAN_UNITCOMINFO_DANWEITYPE"; // 会员单位类型
+
+  public static final String COL_DENGJIJIGUAN = "HUIYUAN_UNITCOMINFO_DENGJIJIGUAN"; // 营业执照登记机关
+
+  public static final String COL_DISHUINO = "HUIYUAN_UNITCOMINFO_DISHUINO"; // 地税登记编号
+
+  public static final String COL_ENGLISHNAME = "HUIYUAN_UNITCOMINFO_ENGLISHNAME"; // 英文名称
+
+  public static final String COL_FAREN = "HUIYUAN_UNITCOMINFO_FAREN"; // 法定代表人
+
+  public static final String COL_FARENLICENCENUM = "HUIYUAN_UNITCOMINFO_FARENLICENCENUM"; // 法人营业执照号码
+
+  public static final String COL_FARENTEL = "HUIYUAN_UNITCOMINFO_FARENTEL"; // 法人电话
+
+  public static final String COL_FARENZHICHENG = "HUIYUAN_UNITCOMINFO_FARENZHICHENG"; // 法定职称
+
+  public static final String COL_FARENZHIWU = "HUIYUAN_UNITCOMINFO_FARENZHIWU"; // 法人职务
+
+  public static final String COL_GUOSHUINO = "HUIYUAN_UNITCOMINFO_GUOSHUINO"; // 国税登记编号
+
+  public static final String COL_JINYINGFANWEI = "HUIYUAN_UNITCOMINFO_JINYINGFANWEI"; // 经营范围
+
+  public static final String COL_LICENCENUM = "HUIYUAN_UNITCOMINFO_LICENCENUM"; // 营业执照注册号
+
+  public static final String COL_MAINITEM = "HUIYUAN_UNITCOMINFO_MAINITEM"; // 主营项目
+
+  public static final String COL_MIANPRODUCT = "HUIYUAN_UNITCOMINFO_MIANPRODUCT"; // 主营产品
+
+  public static final String COL_NIANJIANJIEGUO = "HUIYUAN_UNITCOMINFO_NIANJIANJIEGUO"; // 营业执照申报公示结果
+
+  public static final String COL_QIYESHEBAOHAO = "HUIYUAN_UNITCOMINFO_QIYESHEBAOHAO"; // 企业社会保险号
+
+  public static final String COL_UNITJIANCHENG = "HUIYUAN_UNITCOMINFO_UNITJIANCHENG"; // 企业简称
+
+  public static final String COL_UNITORGNUM = "HUIYUAN_UNITCOMINFO_UNITORGNUM"; // 组织机构代码
+
+  public static final String COL_WEBADDRESS = "HUIYUAN_UNITCOMINFO_WEBADDRESS"; // 网址
+
+  public static final String COL_YINGYEQIXIANFROM = "HUIYUAN_UNITCOMINFO_YINGYEQIXIANFROM"; // 营业期限开始
+
+  public static final String COL_YINGYEQIXIANTO = "HUIYUAN_UNITCOMINFO_YINGYEQIXIANTO"; // 营业期限截止
+
+  public static final String COL_ZHUCEADDRESS = "HUIYUAN_UNITCOMINFO_ZHUCEADDRESS"; // 注册地址
+
+  public static final String COL_ZHUCETYPE = "HUIYUAN_UNITCOMINFO_ZHUCETYPE"; // 注册资本类型
+
+  public static final String COL_ZHUCEZIBEN = "HUIYUAN_UNITCOMINFO_ZHUCEZIBEN"; // 注册资本
+
   /**
    * 政府采购供应商
    */
-  private HuiyuanZfcgGongyinginfo zfcgGysInfo=new HuiyuanZfcgGongyinginfo();
-  
+  private HuiyuanZfcgGongyinginfo zfcgGysInfo = new HuiyuanZfcgGongyinginfo();
+
   /**
    * 政府采购供应商业绩
    */
-  private List zfcgGysYejiLst=new ArrayList();
-  
+  private List zfcgGysYejiLst = new ArrayList();
+
   /**
    * 政府采购供应商资质
    */
-  private List zfcgGysZiZhiLst=new ArrayList();
-    
+  private List zfcgGysZiZhiLst = new ArrayList();
+
   /**
    * 用户
    */
-  private List userLst=new ArrayList();
-  
+  private List userLst = new ArrayList();
+
   /**
    * 人员不良行为
    */
-  private List peopleBlackLst=new ArrayList();
-  
+  private List peopleBlackLst = new ArrayList();
+
   /**
    * 单位不良行为
    */
-  private List unitBlackLst=new ArrayList();
-  
+  private List unitBlackLst = new ArrayList();
+
   /**
    * 关联附件
    */
-  private List attachInfoLst=new ArrayList();
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.DANWEIGUID
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String danweiguid;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.DANWEINAME
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String danweiname;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.AREACODE
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String areacode;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.AREANAME
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String areaname;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.UNITORGNUM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String unitorgnum;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.COMPANYTYPE
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String companytype;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.CHENLITIME
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private Date chenlitime;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.FAREN
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String faren;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.FARENZHIWU
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String farenzhiwu;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.FARENZHICHENG
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String farenzhicheng;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.WEBADDRESS
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String webaddress;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.FARENTEL
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String farentel;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.LICENCENUM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String licencenum;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.ZHUCEZIBEN
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private BigDecimal zhuceziben;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.ZHUCETYPE
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String zhucetype;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.ZHUCEADDRESS
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String zhuceaddress;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.JINYINGFANWEI
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String jinyingfanwei;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.YINGYEQIXIANFROM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private Date yingyeqixianfrom;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.YINGYEQIXIANTO
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private Date yingyeqixianto;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.COMPANYDES
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String companydes;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.BUILDDATE
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private Date builddate;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.MAINITEM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String mainitem;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.MIANPRODUCT
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String mianproduct;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.ASSISTANTITEM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String assistantitem;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.ASSISTANTPRODUCT
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String assistantproduct;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.GUOSHUINO
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String guoshuino;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.DISHUINO
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String dishuino;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.FARENLICENCENUM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String farenlicencenum;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.ENGLISHNAME
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String englishname;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.UNITJIANCHENG
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String unitjiancheng;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.DENGJIJIGUAN
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String dengjijiguan;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.QIYESHEBAOHAO
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String qiyeshebaohao;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.NIANJIANJIEGUO
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String nianjianjieguo;
-
-    /**
-     * This field was generated by MyBatis Generator.
-     * This field corresponds to the database column HUIYUAN_UNITCOMINFO.DANWEITYPE
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    private String danweitype;
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.DANWEIGUID
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.DANWEIGUID
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getDanweiguid() {
-        return danweiguid;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.DANWEIGUID
-     *
-     * @param danweiguid the value for HUIYUAN_UNITCOMINFO.DANWEIGUID
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setDanweiguid(String danweiguid) {
-        this.danweiguid = danweiguid;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.DANWEINAME
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.DANWEINAME
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getDanweiname() {
-        return danweiname;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.DANWEINAME
-     *
-     * @param danweiname the value for HUIYUAN_UNITCOMINFO.DANWEINAME
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setDanweiname(String danweiname) {
-        this.danweiname = danweiname;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.AREACODE
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.AREACODE
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getAreacode() {
-        return areacode;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.AREACODE
-     *
-     * @param areacode the value for HUIYUAN_UNITCOMINFO.AREACODE
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setAreacode(String areacode) {
-        this.areacode = areacode;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.AREANAME
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.AREANAME
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getAreaname() {
-        return areaname;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.AREANAME
-     *
-     * @param areaname the value for HUIYUAN_UNITCOMINFO.AREANAME
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setAreaname(String areaname) {
-        this.areaname = areaname;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.UNITORGNUM
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.UNITORGNUM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getUnitorgnum() {
-        return unitorgnum;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.UNITORGNUM
-     *
-     * @param unitorgnum the value for HUIYUAN_UNITCOMINFO.UNITORGNUM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setUnitorgnum(String unitorgnum) {
-        this.unitorgnum = unitorgnum;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.COMPANYTYPE
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.COMPANYTYPE
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getCompanytype() {
-        return companytype;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.COMPANYTYPE
-     *
-     * @param companytype the value for HUIYUAN_UNITCOMINFO.COMPANYTYPE
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setCompanytype(String companytype) {
-        this.companytype = companytype;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.CHENLITIME
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.CHENLITIME
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public Date getChenlitime() {
-        return chenlitime;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.CHENLITIME
-     *
-     * @param chenlitime the value for HUIYUAN_UNITCOMINFO.CHENLITIME
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setChenlitime(Date chenlitime) {
-        this.chenlitime = chenlitime;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.FAREN
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.FAREN
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getFaren() {
-        return faren;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.FAREN
-     *
-     * @param faren the value for HUIYUAN_UNITCOMINFO.FAREN
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setFaren(String faren) {
-        this.faren = faren;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.FARENZHIWU
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.FARENZHIWU
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getFarenzhiwu() {
-        return farenzhiwu;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.FARENZHIWU
-     *
-     * @param farenzhiwu the value for HUIYUAN_UNITCOMINFO.FARENZHIWU
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setFarenzhiwu(String farenzhiwu) {
-        this.farenzhiwu = farenzhiwu;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.FARENZHICHENG
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.FARENZHICHENG
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getFarenzhicheng() {
-        return farenzhicheng;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.FARENZHICHENG
-     *
-     * @param farenzhicheng the value for HUIYUAN_UNITCOMINFO.FARENZHICHENG
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setFarenzhicheng(String farenzhicheng) {
-        this.farenzhicheng = farenzhicheng;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.WEBADDRESS
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.WEBADDRESS
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getWebaddress() {
-        return webaddress;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.WEBADDRESS
-     *
-     * @param webaddress the value for HUIYUAN_UNITCOMINFO.WEBADDRESS
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setWebaddress(String webaddress) {
-        this.webaddress = webaddress;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.FARENTEL
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.FARENTEL
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getFarentel() {
-        return farentel;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.FARENTEL
-     *
-     * @param farentel the value for HUIYUAN_UNITCOMINFO.FARENTEL
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setFarentel(String farentel) {
-        this.farentel = farentel;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.LICENCENUM
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.LICENCENUM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getLicencenum() {
-        return licencenum;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.LICENCENUM
-     *
-     * @param licencenum the value for HUIYUAN_UNITCOMINFO.LICENCENUM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setLicencenum(String licencenum) {
-        this.licencenum = licencenum;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.ZHUCEZIBEN
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.ZHUCEZIBEN
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public BigDecimal getZhuceziben() {
-        return zhuceziben;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.ZHUCEZIBEN
-     *
-     * @param zhuceziben the value for HUIYUAN_UNITCOMINFO.ZHUCEZIBEN
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setZhuceziben(BigDecimal zhuceziben) {
-        this.zhuceziben = zhuceziben;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.ZHUCETYPE
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.ZHUCETYPE
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getZhucetype() {
-        return zhucetype;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.ZHUCETYPE
-     *
-     * @param zhucetype the value for HUIYUAN_UNITCOMINFO.ZHUCETYPE
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setZhucetype(String zhucetype) {
-        this.zhucetype = zhucetype;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.ZHUCEADDRESS
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.ZHUCEADDRESS
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getZhuceaddress() {
-        return zhuceaddress;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.ZHUCEADDRESS
-     *
-     * @param zhuceaddress the value for HUIYUAN_UNITCOMINFO.ZHUCEADDRESS
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setZhuceaddress(String zhuceaddress) {
-        this.zhuceaddress = zhuceaddress;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.JINYINGFANWEI
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.JINYINGFANWEI
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getJinyingfanwei() {
-        return jinyingfanwei;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.JINYINGFANWEI
-     *
-     * @param jinyingfanwei the value for HUIYUAN_UNITCOMINFO.JINYINGFANWEI
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setJinyingfanwei(String jinyingfanwei) {
-        this.jinyingfanwei = jinyingfanwei;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.YINGYEQIXIANFROM
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.YINGYEQIXIANFROM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public Date getYingyeqixianfrom() {
-        return yingyeqixianfrom;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.YINGYEQIXIANFROM
-     *
-     * @param yingyeqixianfrom the value for HUIYUAN_UNITCOMINFO.YINGYEQIXIANFROM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setYingyeqixianfrom(Date yingyeqixianfrom) {
-        this.yingyeqixianfrom = yingyeqixianfrom;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.YINGYEQIXIANTO
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.YINGYEQIXIANTO
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public Date getYingyeqixianto() {
-        return yingyeqixianto;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.YINGYEQIXIANTO
-     *
-     * @param yingyeqixianto the value for HUIYUAN_UNITCOMINFO.YINGYEQIXIANTO
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setYingyeqixianto(Date yingyeqixianto) {
-        this.yingyeqixianto = yingyeqixianto;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.COMPANYDES
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.COMPANYDES
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getCompanydes() {
-        return companydes;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.COMPANYDES
-     *
-     * @param companydes the value for HUIYUAN_UNITCOMINFO.COMPANYDES
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setCompanydes(String companydes) {
-        this.companydes = companydes;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.BUILDDATE
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.BUILDDATE
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public Date getBuilddate() {
-        return builddate;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.BUILDDATE
-     *
-     * @param builddate the value for HUIYUAN_UNITCOMINFO.BUILDDATE
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setBuilddate(Date builddate) {
-        this.builddate = builddate;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.MAINITEM
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.MAINITEM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getMainitem() {
-        return mainitem;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.MAINITEM
-     *
-     * @param mainitem the value for HUIYUAN_UNITCOMINFO.MAINITEM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setMainitem(String mainitem) {
-        this.mainitem = mainitem;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.MIANPRODUCT
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.MIANPRODUCT
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getMianproduct() {
-        return mianproduct;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.MIANPRODUCT
-     *
-     * @param mianproduct the value for HUIYUAN_UNITCOMINFO.MIANPRODUCT
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setMianproduct(String mianproduct) {
-        this.mianproduct = mianproduct;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.ASSISTANTITEM
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.ASSISTANTITEM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getAssistantitem() {
-        return assistantitem;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.ASSISTANTITEM
-     *
-     * @param assistantitem the value for HUIYUAN_UNITCOMINFO.ASSISTANTITEM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setAssistantitem(String assistantitem) {
-        this.assistantitem = assistantitem;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.ASSISTANTPRODUCT
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.ASSISTANTPRODUCT
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getAssistantproduct() {
-        return assistantproduct;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.ASSISTANTPRODUCT
-     *
-     * @param assistantproduct the value for HUIYUAN_UNITCOMINFO.ASSISTANTPRODUCT
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setAssistantproduct(String assistantproduct) {
-        this.assistantproduct = assistantproduct;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.GUOSHUINO
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.GUOSHUINO
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getGuoshuino() {
-        return guoshuino;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.GUOSHUINO
-     *
-     * @param guoshuino the value for HUIYUAN_UNITCOMINFO.GUOSHUINO
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setGuoshuino(String guoshuino) {
-        this.guoshuino = guoshuino;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.DISHUINO
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.DISHUINO
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getDishuino() {
-        return dishuino;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.DISHUINO
-     *
-     * @param dishuino the value for HUIYUAN_UNITCOMINFO.DISHUINO
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setDishuino(String dishuino) {
-        this.dishuino = dishuino;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.FARENLICENCENUM
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.FARENLICENCENUM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getFarenlicencenum() {
-        return farenlicencenum;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.FARENLICENCENUM
-     *
-     * @param farenlicencenum the value for HUIYUAN_UNITCOMINFO.FARENLICENCENUM
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setFarenlicencenum(String farenlicencenum) {
-        this.farenlicencenum = farenlicencenum;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.ENGLISHNAME
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.ENGLISHNAME
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getEnglishname() {
-        return englishname;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.ENGLISHNAME
-     *
-     * @param englishname the value for HUIYUAN_UNITCOMINFO.ENGLISHNAME
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setEnglishname(String englishname) {
-        this.englishname = englishname;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.UNITJIANCHENG
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.UNITJIANCHENG
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getUnitjiancheng() {
-        return unitjiancheng;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.UNITJIANCHENG
-     *
-     * @param unitjiancheng the value for HUIYUAN_UNITCOMINFO.UNITJIANCHENG
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setUnitjiancheng(String unitjiancheng) {
-        this.unitjiancheng = unitjiancheng;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.DENGJIJIGUAN
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.DENGJIJIGUAN
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getDengjijiguan() {
-        return dengjijiguan;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.DENGJIJIGUAN
-     *
-     * @param dengjijiguan the value for HUIYUAN_UNITCOMINFO.DENGJIJIGUAN
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setDengjijiguan(String dengjijiguan) {
-        this.dengjijiguan = dengjijiguan;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.QIYESHEBAOHAO
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.QIYESHEBAOHAO
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getQiyeshebaohao() {
-        return qiyeshebaohao;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.QIYESHEBAOHAO
-     *
-     * @param qiyeshebaohao the value for HUIYUAN_UNITCOMINFO.QIYESHEBAOHAO
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setQiyeshebaohao(String qiyeshebaohao) {
-        this.qiyeshebaohao = qiyeshebaohao;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.NIANJIANJIEGUO
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.NIANJIANJIEGUO
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getNianjianjieguo() {
-        return nianjianjieguo;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.NIANJIANJIEGUO
-     *
-     * @param nianjianjieguo the value for HUIYUAN_UNITCOMINFO.NIANJIANJIEGUO
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setNianjianjieguo(String nianjianjieguo) {
-        this.nianjianjieguo = nianjianjieguo;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method returns the value of the database column HUIYUAN_UNITCOMINFO.DANWEITYPE
-     *
-     * @return the value of HUIYUAN_UNITCOMINFO.DANWEITYPE
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public String getDanweitype() {
-        return danweitype;
-    }
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method sets the value of the database column HUIYUAN_UNITCOMINFO.DANWEITYPE
-     *
-     * @param danweitype the value for HUIYUAN_UNITCOMINFO.DANWEITYPE
-     *
-     * @mbggenerated Fri Nov 13 01:48:30 CST 2015
-     */
-    public void setDanweitype(String danweitype) {
-        this.danweitype = danweitype;
-    }
-
-    
-    public List getPeopleBlackLst() {
+  private List attachInfoLst = new ArrayList();
+
+  // 供应商类别,对象类为ZcEbSupplierType
+
+  private List gysTypeList = new ArrayList();
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.DANWEIGUID
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String danweiguid;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.DANWEINAME
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String danweiname;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.AREACODE
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String areacode;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.AREANAME
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String areaname;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.UNITORGNUM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String unitorgnum;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.COMPANYTYPE
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String companytype;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.CHENLITIME
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private Date chenlitime;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.FAREN
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String faren;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.FARENZHIWU
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String farenzhiwu;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.FARENZHICHENG
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String farenzhicheng;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.WEBADDRESS
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String webaddress;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.FARENTEL
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String farentel;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.LICENCENUM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String licencenum;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.ZHUCEZIBEN
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private BigDecimal zhuceziben;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.ZHUCETYPE
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String zhucetype;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.ZHUCEADDRESS
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String zhuceaddress;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.JINYINGFANWEI
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String jinyingfanwei;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.YINGYEQIXIANFROM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private Date yingyeqixianfrom;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.YINGYEQIXIANTO
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private Date yingyeqixianto;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.COMPANYDES
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String companydes;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.BUILDDATE
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private Date builddate;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.MAINITEM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String mainitem;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.MIANPRODUCT
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String mianproduct;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.ASSISTANTITEM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String assistantitem;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.ASSISTANTPRODUCT
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String assistantproduct;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.GUOSHUINO
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String guoshuino;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.DISHUINO
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String dishuino;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.FARENLICENCENUM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String farenlicencenum;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.ENGLISHNAME
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String englishname;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.UNITJIANCHENG
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String unitjiancheng;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.DENGJIJIGUAN
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String dengjijiguan;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.QIYESHEBAOHAO
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String qiyeshebaohao;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.NIANJIANJIEGUO
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String nianjianjieguo;
+
+  /**
+   * This field was generated by MyBatis Generator. This field corresponds to
+   * the database column HUIYUAN_UNITCOMINFO.DANWEITYPE
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  private String danweitype;
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.DANWEIGUID
+   * @return the value of HUIYUAN_UNITCOMINFO.DANWEIGUID
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getDanweiguid() {
+    return danweiguid;
+  }
+
+  public String getDanweiguidReal() {
+    if (danweiguid == null) return null;
+    if (danweiguid.startsWith(HuiyuanUnitcominfo.TEMP)) { return danweiguid.substring(HuiyuanUnitcominfo.TEMP.length()); }
+    return danweiguid;
+  }
+
+  public String getDanweiguidTemp() {
+    if (danweiguid == null) return null;
+    if (danweiguid.startsWith(HuiyuanUnitcominfo.TEMP)) return danweiguid;
+    return TEMP + danweiguid;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.DANWEIGUID
+   * @param danweiguid the value for HUIYUAN_UNITCOMINFO.DANWEIGUID
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setDanweiguid(String danweiguid) {
+    this.danweiguid = danweiguid;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.DANWEINAME
+   * @return the value of HUIYUAN_UNITCOMINFO.DANWEINAME
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getDanweiname() {
+    return danweiname;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.DANWEINAME
+   * @param danweiname the value for HUIYUAN_UNITCOMINFO.DANWEINAME
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setDanweiname(String danweiname) {
+    this.danweiname = danweiname;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.AREACODE
+   * @return the value of HUIYUAN_UNITCOMINFO.AREACODE
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getAreacode() {
+    return areacode;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.AREACODE
+   * @param areacode the value for HUIYUAN_UNITCOMINFO.AREACODE
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setAreacode(String areacode) {
+    this.areacode = areacode;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.AREANAME
+   * @return the value of HUIYUAN_UNITCOMINFO.AREANAME
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getAreaname() {
+    return areaname;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.AREANAME
+   * @param areaname the value for HUIYUAN_UNITCOMINFO.AREANAME
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setAreaname(String areaname) {
+    this.areaname = areaname;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.UNITORGNUM
+   * @return the value of HUIYUAN_UNITCOMINFO.UNITORGNUM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getUnitorgnum() {
+    return unitorgnum;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.UNITORGNUM
+   * @param unitorgnum the value for HUIYUAN_UNITCOMINFO.UNITORGNUM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setUnitorgnum(String unitorgnum) {
+    this.unitorgnum = unitorgnum;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.COMPANYTYPE
+   * @return the value of HUIYUAN_UNITCOMINFO.COMPANYTYPE
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getCompanytype() {
+    return companytype;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.COMPANYTYPE
+   * @param companytype the value for HUIYUAN_UNITCOMINFO.COMPANYTYPE
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setCompanytype(String companytype) {
+    this.companytype = companytype;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.CHENLITIME
+   * @return the value of HUIYUAN_UNITCOMINFO.CHENLITIME
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public Date getChenlitime() {
+    return chenlitime;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.CHENLITIME
+   * @param chenlitime the value for HUIYUAN_UNITCOMINFO.CHENLITIME
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setChenlitime(Date chenlitime) {
+    this.chenlitime = chenlitime;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.FAREN
+   * @return the value of HUIYUAN_UNITCOMINFO.FAREN
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getFaren() {
+    return faren;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.FAREN
+   * @param faren the value for HUIYUAN_UNITCOMINFO.FAREN
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setFaren(String faren) {
+    this.faren = faren;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.FARENZHIWU
+   * @return the value of HUIYUAN_UNITCOMINFO.FARENZHIWU
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getFarenzhiwu() {
+    return farenzhiwu;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.FARENZHIWU
+   * @param farenzhiwu the value for HUIYUAN_UNITCOMINFO.FARENZHIWU
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setFarenzhiwu(String farenzhiwu) {
+    this.farenzhiwu = farenzhiwu;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.FARENZHICHENG
+   * @return the value of HUIYUAN_UNITCOMINFO.FARENZHICHENG
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getFarenzhicheng() {
+    return farenzhicheng;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.FARENZHICHENG
+   * @param farenzhicheng the value for HUIYUAN_UNITCOMINFO.FARENZHICHENG
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setFarenzhicheng(String farenzhicheng) {
+    this.farenzhicheng = farenzhicheng;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.WEBADDRESS
+   * @return the value of HUIYUAN_UNITCOMINFO.WEBADDRESS
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getWebaddress() {
+    return webaddress;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.WEBADDRESS
+   * @param webaddress the value for HUIYUAN_UNITCOMINFO.WEBADDRESS
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setWebaddress(String webaddress) {
+    this.webaddress = webaddress;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.FARENTEL
+   * @return the value of HUIYUAN_UNITCOMINFO.FARENTEL
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getFarentel() {
+    return farentel;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.FARENTEL
+   * @param farentel the value for HUIYUAN_UNITCOMINFO.FARENTEL
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setFarentel(String farentel) {
+    this.farentel = farentel;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.LICENCENUM
+   * @return the value of HUIYUAN_UNITCOMINFO.LICENCENUM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getLicencenum() {
+    return licencenum;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.LICENCENUM
+   * @param licencenum the value for HUIYUAN_UNITCOMINFO.LICENCENUM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setLicencenum(String licencenum) {
+    this.licencenum = licencenum;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.ZHUCEZIBEN
+   * @return the value of HUIYUAN_UNITCOMINFO.ZHUCEZIBEN
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public BigDecimal getZhuceziben() {
+    return zhuceziben;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.ZHUCEZIBEN
+   * @param zhuceziben the value for HUIYUAN_UNITCOMINFO.ZHUCEZIBEN
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setZhuceziben(BigDecimal zhuceziben) {
+    this.zhuceziben = zhuceziben;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.ZHUCETYPE
+   * @return the value of HUIYUAN_UNITCOMINFO.ZHUCETYPE
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getZhucetype() {
+    return zhucetype;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.ZHUCETYPE
+   * @param zhucetype the value for HUIYUAN_UNITCOMINFO.ZHUCETYPE
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setZhucetype(String zhucetype) {
+    this.zhucetype = zhucetype;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.ZHUCEADDRESS
+   * @return the value of HUIYUAN_UNITCOMINFO.ZHUCEADDRESS
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getZhuceaddress() {
+    return zhuceaddress;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.ZHUCEADDRESS
+   * @param zhuceaddress the value for HUIYUAN_UNITCOMINFO.ZHUCEADDRESS
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setZhuceaddress(String zhuceaddress) {
+    this.zhuceaddress = zhuceaddress;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.JINYINGFANWEI
+   * @return the value of HUIYUAN_UNITCOMINFO.JINYINGFANWEI
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getJinyingfanwei() {
+    return jinyingfanwei;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.JINYINGFANWEI
+   * @param jinyingfanwei the value for HUIYUAN_UNITCOMINFO.JINYINGFANWEI
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setJinyingfanwei(String jinyingfanwei) {
+    this.jinyingfanwei = jinyingfanwei;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.YINGYEQIXIANFROM
+   * @return the value of HUIYUAN_UNITCOMINFO.YINGYEQIXIANFROM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public Date getYingyeqixianfrom() {
+    return yingyeqixianfrom;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.YINGYEQIXIANFROM
+   * @param yingyeqixianfrom the value for HUIYUAN_UNITCOMINFO.YINGYEQIXIANFROM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setYingyeqixianfrom(Date yingyeqixianfrom) {
+    this.yingyeqixianfrom = yingyeqixianfrom;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.YINGYEQIXIANTO
+   * @return the value of HUIYUAN_UNITCOMINFO.YINGYEQIXIANTO
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public Date getYingyeqixianto() {
+    return yingyeqixianto;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.YINGYEQIXIANTO
+   * @param yingyeqixianto the value for HUIYUAN_UNITCOMINFO.YINGYEQIXIANTO
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setYingyeqixianto(Date yingyeqixianto) {
+    this.yingyeqixianto = yingyeqixianto;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.COMPANYDES
+   * @return the value of HUIYUAN_UNITCOMINFO.COMPANYDES
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getCompanydes() {
+    return companydes;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.COMPANYDES
+   * @param companydes the value for HUIYUAN_UNITCOMINFO.COMPANYDES
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setCompanydes(String companydes) {
+    this.companydes = companydes;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.BUILDDATE
+   * @return the value of HUIYUAN_UNITCOMINFO.BUILDDATE
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public Date getBuilddate() {
+    return builddate;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.BUILDDATE
+   * @param builddate the value for HUIYUAN_UNITCOMINFO.BUILDDATE
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setBuilddate(Date builddate) {
+    this.builddate = builddate;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.MAINITEM
+   * @return the value of HUIYUAN_UNITCOMINFO.MAINITEM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getMainitem() {
+    return mainitem;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.MAINITEM
+   * @param mainitem the value for HUIYUAN_UNITCOMINFO.MAINITEM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setMainitem(String mainitem) {
+    this.mainitem = mainitem;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.MIANPRODUCT
+   * @return the value of HUIYUAN_UNITCOMINFO.MIANPRODUCT
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getMianproduct() {
+    return mianproduct;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.MIANPRODUCT
+   * @param mianproduct the value for HUIYUAN_UNITCOMINFO.MIANPRODUCT
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setMianproduct(String mianproduct) {
+    this.mianproduct = mianproduct;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.ASSISTANTITEM
+   * @return the value of HUIYUAN_UNITCOMINFO.ASSISTANTITEM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getAssistantitem() {
+    return assistantitem;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.ASSISTANTITEM
+   * @param assistantitem the value for HUIYUAN_UNITCOMINFO.ASSISTANTITEM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setAssistantitem(String assistantitem) {
+    this.assistantitem = assistantitem;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.ASSISTANTPRODUCT
+   * @return the value of HUIYUAN_UNITCOMINFO.ASSISTANTPRODUCT
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getAssistantproduct() {
+    return assistantproduct;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.ASSISTANTPRODUCT
+   * @param assistantproduct the value for HUIYUAN_UNITCOMINFO.ASSISTANTPRODUCT
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setAssistantproduct(String assistantproduct) {
+    this.assistantproduct = assistantproduct;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.GUOSHUINO
+   * @return the value of HUIYUAN_UNITCOMINFO.GUOSHUINO
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getGuoshuino() {
+    return guoshuino;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.GUOSHUINO
+   * @param guoshuino the value for HUIYUAN_UNITCOMINFO.GUOSHUINO
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setGuoshuino(String guoshuino) {
+    this.guoshuino = guoshuino;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.DISHUINO
+   * @return the value of HUIYUAN_UNITCOMINFO.DISHUINO
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getDishuino() {
+    return dishuino;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.DISHUINO
+   * @param dishuino the value for HUIYUAN_UNITCOMINFO.DISHUINO
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setDishuino(String dishuino) {
+    this.dishuino = dishuino;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.FARENLICENCENUM
+   * @return the value of HUIYUAN_UNITCOMINFO.FARENLICENCENUM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getFarenlicencenum() {
+    return farenlicencenum;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.FARENLICENCENUM
+   * @param farenlicencenum the value for HUIYUAN_UNITCOMINFO.FARENLICENCENUM
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setFarenlicencenum(String farenlicencenum) {
+    this.farenlicencenum = farenlicencenum;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.ENGLISHNAME
+   * @return the value of HUIYUAN_UNITCOMINFO.ENGLISHNAME
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getEnglishname() {
+    return englishname;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.ENGLISHNAME
+   * @param englishname the value for HUIYUAN_UNITCOMINFO.ENGLISHNAME
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setEnglishname(String englishname) {
+    this.englishname = englishname;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.UNITJIANCHENG
+   * @return the value of HUIYUAN_UNITCOMINFO.UNITJIANCHENG
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getUnitjiancheng() {
+    return unitjiancheng;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.UNITJIANCHENG
+   * @param unitjiancheng the value for HUIYUAN_UNITCOMINFO.UNITJIANCHENG
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setUnitjiancheng(String unitjiancheng) {
+    this.unitjiancheng = unitjiancheng;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.DENGJIJIGUAN
+   * @return the value of HUIYUAN_UNITCOMINFO.DENGJIJIGUAN
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getDengjijiguan() {
+    return dengjijiguan;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.DENGJIJIGUAN
+   * @param dengjijiguan the value for HUIYUAN_UNITCOMINFO.DENGJIJIGUAN
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setDengjijiguan(String dengjijiguan) {
+    this.dengjijiguan = dengjijiguan;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.QIYESHEBAOHAO
+   * @return the value of HUIYUAN_UNITCOMINFO.QIYESHEBAOHAO
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getQiyeshebaohao() {
+    return qiyeshebaohao;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.QIYESHEBAOHAO
+   * @param qiyeshebaohao the value for HUIYUAN_UNITCOMINFO.QIYESHEBAOHAO
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setQiyeshebaohao(String qiyeshebaohao) {
+    this.qiyeshebaohao = qiyeshebaohao;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.NIANJIANJIEGUO
+   * @return the value of HUIYUAN_UNITCOMINFO.NIANJIANJIEGUO
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getNianjianjieguo() {
+    return nianjianjieguo;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.NIANJIANJIEGUO
+   * @param nianjianjieguo the value for HUIYUAN_UNITCOMINFO.NIANJIANJIEGUO
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setNianjianjieguo(String nianjianjieguo) {
+    this.nianjianjieguo = nianjianjieguo;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method returns the
+   * value of the database column HUIYUAN_UNITCOMINFO.DANWEITYPE
+   * @return the value of HUIYUAN_UNITCOMINFO.DANWEITYPE
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public String getDanweitype() {
+    return danweitype;
+  }
+
+  /**
+   * This method was generated by MyBatis Generator. This method sets the value
+   * of the database column HUIYUAN_UNITCOMINFO.DANWEITYPE
+   * @param danweitype the value for HUIYUAN_UNITCOMINFO.DANWEITYPE
+   * @mbggenerated Fri Nov 13 01:48:30 CST 2015
+   */
+  public void setDanweitype(String danweitype) {
+    this.danweitype = danweitype;
+  }
+
+  public List getPeopleBlackLst() {
     return peopleBlackLst;
   }
 
   public void setPeopleBlackLst(List peopleBlackLst) {
-    this.peopleBlackLst = peopleBlackLst==null?new ArrayList():peopleBlackLst;
+    this.peopleBlackLst = peopleBlackLst == null ? new ArrayList() : peopleBlackLst;
   }
 
   public List getUnitBlackLst() {
@@ -1191,10 +1106,10 @@ public class HuiyuanUnitcominfo extends ZcBaseBill{
   }
 
   public void setUnitBlackLst(List unitBlackLst) {
-    this.unitBlackLst = unitBlackLst==null?new ArrayList():unitBlackLst;
+    this.unitBlackLst = unitBlackLst == null ? new ArrayList() : unitBlackLst;
   }
 
-    public HuiyuanZfcgGongyinginfo getZfcgGysInfo() {
+  public HuiyuanZfcgGongyinginfo getZfcgGysInfo() {
     return zfcgGysInfo;
   }
 
@@ -1215,7 +1130,7 @@ public class HuiyuanUnitcominfo extends ZcBaseBill{
   }
 
   public void setZfcgGysZiZhiLst(List zfcgGysZiZhiLst) {
-    this.zfcgGysZiZhiLst = zfcgGysZiZhiLst==null?new ArrayList():zfcgGysZiZhiLst;
+    this.zfcgGysZiZhiLst = zfcgGysZiZhiLst == null ? new ArrayList() : zfcgGysZiZhiLst;
   }
 
   public List getUserLst() {
@@ -1223,8 +1138,8 @@ public class HuiyuanUnitcominfo extends ZcBaseBill{
   }
 
   public void setUserLst(List userLst) {
-    
-    this.userLst = userLst==null?new ArrayList():userLst;
+
+    this.userLst = userLst == null ? new ArrayList() : userLst;
   }
 
   public List getAttachInfoLst() {
@@ -1233,5 +1148,13 @@ public class HuiyuanUnitcominfo extends ZcBaseBill{
 
   public void setAttachInfoLst(List attachInfoLst) {
     this.attachInfoLst = attachInfoLst;
+  }
+
+  public List getGysTypeList() {
+    return gysTypeList;
+  }
+
+  public void setGysTypeList(List gysTypeList) {
+    this.gysTypeList = gysTypeList;
   }
 }

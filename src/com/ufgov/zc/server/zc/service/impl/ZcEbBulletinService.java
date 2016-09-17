@@ -193,7 +193,7 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
    * 更新招标word文件
    */
   private void saveZbFile(ZcEbBulletin zcEbBulletin, RequestMeta meta) {
-    if (!zcEbBulletin.getZcEbProj().getPurType().equals(ZcSettingConstants.ZC_CGFS_XJ)) {//非询价的采购
+    if (!(zcEbBulletin.getZcEbProj().getPurType().equals(ZcSettingConstants.ZC_CGFS_XJ) || zcEbBulletin.getZcEbProj().getPurType().equals(ZcSettingConstants.ZC_CGFS_XYGH))) {//非询价的采购
       //更新招标word文件
       ZcEbProjZbFile zbfile = (ZcEbProjZbFile) zcEbBulletin.getZcEbProj().getProjFileList().get(0);
       zcEbZbFileService.insertOrUpdateZcEbProjZBFile(zbfile, "update");
@@ -682,7 +682,7 @@ public class ZcEbBulletinService implements IZcEbBulletinService {
     if ("y".equalsIgnoreCase(ZcSUtil.getAsOptionVal(ZcSettingConstants.OPT_ZC_SEND_TO_THIRD_WEB))) {
       ZcEbBulletinPublishUtil pu = new ZcEbBulletinPublishUtil();
       //      pu.publishBulletin(tin);
-      //      pu.publishToWw(tin, guid);
+      pu.publishToWw(tin, guid);
     }
     //发布到财政网站，目前扬中使用
     if ("y".equalsIgnoreCase(ZcSUtil.getAsOptionVal(ZcSettingConstants.OPT_ZC_SEND_TO_CZ_WEB))) {

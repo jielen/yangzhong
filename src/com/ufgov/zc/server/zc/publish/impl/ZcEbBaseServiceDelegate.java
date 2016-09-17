@@ -1,5 +1,6 @@
 package com.ufgov.zc.server.zc.publish.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -153,6 +154,12 @@ public class ZcEbBaseServiceDelegate implements IZcEbBaseServiceDelegate {
 
   public void deleteObject(String sqlDeleteId, Object obj, RequestMeta meta) {
     zcEbBaseService.deleteObject(sqlDeleteId, obj, meta);
+
+  }
+
+  public Date getSysDate(RequestMeta requestMeta) {
+
+    return new Date();
 
   }
 

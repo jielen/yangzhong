@@ -68,9 +68,8 @@ import com.ufgov.zc.common.zc.publish.IHuiyuanUnitcominfoDelegate;
 
 /**
  * @author Administrator
- *
  */
-public class HuiyuanUnitcominfoListPanel  extends AbstractEditListBill implements ParentWindowAware {
+public class HuiyuanUnitcominfoListPanel extends AbstractEditListBill implements ParentWindowAware {
 
   /**
    * 
@@ -108,98 +107,166 @@ public class HuiyuanUnitcominfoListPanel  extends AbstractEditListBill implement
     this.parentWindow = parentWindow;
 
   }
-public HuiyuanUnitcominfoListPanel(){
 
-  UIUtilities.asyncInvoke(new DefaultInvokeHandler<List<SearchCondition>>() {
+  public HuiyuanUnitcominfoListPanel() {
 
-    @Override
-    public List<SearchCondition> execute() throws Exception {
+    UIUtilities.asyncInvoke(new DefaultInvokeHandler<List<SearchCondition>>() {
 
-      List<SearchCondition> needDisplaySearchConditonList = SearchConditionUtil.getNeedDisplaySearchConditonList(WorkEnv.getInstance()
+      @Override
+      public List<SearchCondition> execute() throws Exception {
 
-      .getCurrUserId(), HuiyuanZfcgGongyinginfo.TAB_ID);
+        List<SearchCondition> needDisplaySearchConditonList = SearchConditionUtil.getNeedDisplaySearchConditonList(WorkEnv.getInstance()
 
-      return needDisplaySearchConditonList;
+        .getCurrUserId(), HuiyuanZfcgGongyinginfo.TAB_ID);
 
-    }
+        return needDisplaySearchConditonList;
 
-    @Override
-    public void success(List<SearchCondition> needDisplaySearchConditonList) {
+      }
 
-      List<TableDisplay> showingDisplays = SearchConditionUtil.getNeedDisplayTableDisplay(needDisplaySearchConditonList);
+      @Override
+      public void success(List<SearchCondition> needDisplaySearchConditonList) {
 
-      init(createDataDisplay(showingDisplays), null);//调用父类方法
+        List<TableDisplay> showingDisplays = SearchConditionUtil.getNeedDisplayTableDisplay(needDisplaySearchConditonList);
 
-      revalidate();
+        init(createDataDisplay(showingDisplays), null);//调用父类方法
 
-      repaint();
+        revalidate();
 
-    }
+        repaint();
 
-  });
+      }
 
-  requestMeta.setCompoId(compoId);
-}
+    });
 
-private AbstractDataDisplay createDataDisplay(List<TableDisplay> showingDisplays) {
+    requestMeta.setCompoId(compoId);
+  }
 
-  return new DataDisplay(SearchConditionUtil.getAllTableDisplay(HuiyuanZfcgGongyinginfo.TAB_ID), showingDisplays,
+  private AbstractDataDisplay createDataDisplay(List<TableDisplay> showingDisplays) {
 
-  createTopConditionArea(),false);//true:显示收索条件区 false：不显示收索条件区
+    return new DataDisplay(SearchConditionUtil.getAllTableDisplay(HuiyuanZfcgGongyinginfo.TAB_ID), showingDisplays,
 
-}
-private AbstractSearchConditionArea topSearchConditionArea;
-
-private AbstractSearchConditionArea createTopConditionArea() {
-
-  Map defaultValueMap = new HashMap();
-
-  topSearchConditionArea = new SaveableSearchConditionArea("", null, false, defaultValueMap, null);
-
-  AbstractSearchConditionItem item = this.topSearchConditionArea.getCondItemsByCondiFieldCode(null);
-
-  return topSearchConditionArea;
-
-}
-private final class DataDisplay extends MultiDataDisplay {
-
-  private DataDisplay(List<TableDisplay> displays, List<TableDisplay> showingDisplays, AbstractSearchConditionArea conditionArea,
-
-  boolean showConditionArea) {
-
-    super(displays, showingDisplays, conditionArea, showConditionArea, HuiyuanZfcgGongyinginfo.TAB_ID);
-
-    setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), LangTransMeta.translate(compoId), TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体",
-
-    Font.BOLD, 15), Color.BLUE));
+    createTopConditionArea(), false);//true:显示收索条件区 false：不显示收索条件区
 
   }
 
-  protected void preprocessShowingTableDisplay(List<TableDisplay> showingTableDisplays) {
+  private AbstractSearchConditionArea topSearchConditionArea;
 
-    for (final TableDisplay d : showingTableDisplays) {
+  private AbstractSearchConditionArea createTopConditionArea() {
 
-      final JGroupableTable table = d.getTable();
+    Map defaultValueMap = new HashMap();
 
-      table.addMouseListener(new MouseAdapter() {
+    topSearchConditionArea = new SaveableSearchConditionArea("", null, false, defaultValueMap, null);
 
-        public void mouseClicked(MouseEvent e) {
+    AbstractSearchConditionItem item = this.topSearchConditionArea.getCondItemsByCondiFieldCode(null);
 
-          if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
+    return topSearchConditionArea;
 
-            String tabStatus = d.getStatus();
+  }
 
-            JGroupableTable table = d.getTable();
+  private final class DataDisplay extends MultiDataDisplay {
 
-            MyTableModel model = (MyTableModel) table.getModel();
+    private DataDisplay(List<TableDisplay> displays, List<TableDisplay> showingDisplays, AbstractSearchConditionArea conditionArea,
 
-            int row = table.getSelectedRow();
+    boolean showConditionArea) {
 
-            List viewList = (List) ObjectUtil.deepCopy(ListUtil.convertToTableViewOrderList(model.getList(), table));
+      super(displays, showingDisplays, conditionArea, showConditionArea, HuiyuanZfcgGongyinginfo.TAB_ID);
 
-            new HuiyuanUnitcominfoDialog(self, viewList, row, tabStatus);
+      setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), LangTransMeta.translate(compoId), TitledBorder.CENTER, TitledBorder.TOP, new Font("宋体",
+
+      Font.BOLD, 15), Color.BLUE));
+
+    }
+
+    protected void preprocessShowingTableDisplay(List<TableDisplay> showingTableDisplays) {
+
+      for (final TableDisplay d : showingTableDisplays) {
+
+        final JGroupableTable table = d.getTable();
+
+        table.addMouseListener(new MouseAdapter() {
+
+          public void mouseClicked(MouseEvent e) {
+
+            if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
+
+              String tabStatus = d.getStatus();
+
+              JGroupableTable table = d.getTable();
+
+              MyTableModel model = (MyTableModel) table.getModel();
+
+              int row = table.getSelectedRow();
+
+              List viewList = (List) ObjectUtil.deepCopy(ListUtil.convertToTableViewOrderList(model.getList(), table));
+
+              new HuiyuanUnitcominfoDialog(self, viewList, row, tabStatus);
+
+            }
 
           }
+
+        });
+
+      }
+
+    }
+
+    @Override
+    protected void handleTableDisplayActived(AbstractSearchConditionItem[] searchConditionItems, final TableDisplay tableDisplay) {
+
+      elementConditionDto.setWfcompoId(compoId);
+
+      elementConditionDto.setExecutor(WorkEnv.getInstance().getCurrUserId());
+
+      elementConditionDto.setNd(WorkEnv.getInstance().getTransNd());
+
+      elementConditionDto.setStatus(tableDisplay.getStatus());
+
+      elementConditionDto.setZcText0(HuiyuanUnitcominfo.TEMP);
+
+      for (AbstractSearchConditionItem item : searchConditionItems) {
+
+        item.putToElementConditionDto(elementConditionDto);
+
+      }
+
+      final Container c = tableDisplay.getTable().getParent();
+
+      UIUtilities.asyncInvoke(new DefaultInvokeHandler<TableModel>() {
+
+        @Override
+        public void before() {
+
+          assert c != null;
+
+          installLoadingComponent(c);
+
+        }
+
+        @Override
+        public void after() {
+
+          assert c != null;
+
+          unInstallLoadingComponent(c);
+
+          c.add(tableDisplay.getTable());
+
+        }
+
+        @Override
+        public TableModel execute() throws Exception {
+
+          return HuiyuanUnitcominfoToTableModelConverter.convertToTableModel(self.huiyuanUnitcominfoDelegate.getMainDataLst(elementConditionDto, requestMeta));
+
+        }
+
+        @Override
+        public void success(TableModel model) {
+
+          tableDisplay.setTableModel(model);
+
+          setButtonsVisiable();
 
         }
 
@@ -209,76 +276,12 @@ private final class DataDisplay extends MultiDataDisplay {
 
   }
 
-  @Override
-  protected void handleTableDisplayActived(AbstractSearchConditionItem[] searchConditionItems, final TableDisplay tableDisplay) {
+  static {
 
-    elementConditionDto.setWfcompoId(compoId);
-
-    elementConditionDto.setExecutor(WorkEnv.getInstance().getCurrUserId());
-
-    elementConditionDto.setNd(WorkEnv.getInstance().getTransNd());
-
-    elementConditionDto.setStatus(tableDisplay.getStatus());
-
-    for (AbstractSearchConditionItem item : searchConditionItems) {
-
-      item.putToElementConditionDto(elementConditionDto);
-
-    }
-
-    final Container c = tableDisplay.getTable().getParent();
-
-    UIUtilities.asyncInvoke(new DefaultInvokeHandler<TableModel>() {
-
-      @Override
-      public void before() {
-
-        assert c != null;
-
-        installLoadingComponent(c);
-
-      }
-
-      @Override
-      public void after() {
-
-        assert c != null;
-
-        unInstallLoadingComponent(c);
-
-        c.add(tableDisplay.getTable());
-
-      }
-
-      @Override
-      public TableModel execute() throws Exception {
-
-        return HuiyuanUnitcominfoToTableModelConverter.convertToTableModel(self.huiyuanUnitcominfoDelegate.getMainDataLst(elementConditionDto, requestMeta));
-
-      }
-
-      @Override
-      public void success(TableModel model) {
-
-        tableDisplay.setTableModel(model);
-
-        setButtonsVisiable();
-
-      }
-
-    });
+    LangTransMeta.init("ZC%");
+    LangTransMeta.init("HUI%");
 
   }
-
-}
-
-static {
-
-  LangTransMeta.init("ZC%");
-  LangTransMeta.init("HUI%");
-
-}
-
 
   /**
    * @param args
@@ -388,8 +391,6 @@ static {
 
     } else if (WFConstants.AUDIT_TAB_STATUS_ALL.equalsIgnoreCase(panelId)) {//全部
 
-     
-
     } else if (WFConstants.EDIT_TAB_STATUS_EXEC.equalsIgnoreCase(panelId)) {//终审
 
       auditPassButton.setVisible(false);
@@ -471,6 +472,7 @@ static {
     }
 
   }
+
   @Override
   protected void addToolBarComponent(JFuncToolBar toolBar) {
 
@@ -482,13 +484,13 @@ static {
 
     // toolBar.add(updateButton);
 
-//    toolBar.add(deleteButton);
+    //    toolBar.add(deleteButton);
 
-//    toolBar.add(helpButton);
+    //    toolBar.add(helpButton);
 
-//    toolBar.add(sendButton);//送审
+    //    toolBar.add(sendButton);//送审
 
-//    toolBar.add(suggestPassButton);//填写意见审核通过
+    //    toolBar.add(suggestPassButton);//填写意见审核通过
 
     //    toolBar.add(auditFinalButton);
 
@@ -500,13 +502,13 @@ static {
 
     //    toolBar.add(cancelButton);//撤销
 
-//    toolBar.add(traceButton);
+    //    toolBar.add(traceButton);
 
     //toolBar.add(printButton);
 
     //toolBar.add(isSendToNextButton);
 
-//    toolBar.add(traceDataButton);
+    //    toolBar.add(traceDataButton);
 
     // 初始化按钮的action事件
 
@@ -684,55 +686,55 @@ static {
 
   public void doCancel() {
 
-   /* boolean success = true;
+    /* boolean success = true;
 
-    requestMeta.setFuncId(this.cancelButton.getFuncId());
+     requestMeta.setFuncId(this.cancelButton.getFuncId());
 
-    List beanList = this.getCheckedList();
+     List beanList = this.getCheckedList();
 
-    if (beanList.size() == 0) {
+     if (beanList.size() == 0) {
 
-      JOptionPane.showMessageDialog(this, "没有选择数据！", " 提示", JOptionPane.INFORMATION_MESSAGE);
+       JOptionPane.showMessageDialog(this, "没有选择数据！", " 提示", JOptionPane.INFORMATION_MESSAGE);
 
-      return;
+       return;
 
-    }
+     }
 
-    int num = JOptionPane.showConfirmDialog(this, "确实要撤销计划？");
+     int num = JOptionPane.showConfirmDialog(this, "确实要撤销计划？");
 
-    if (num == JOptionPane.YES_OPTION) {
+     if (num == JOptionPane.YES_OPTION) {
 
-      try {
+       try {
 
-        for (int i = 0; i < beanList.size(); i++) {
+         for (int i = 0; i < beanList.size(); i++) {
 
-          HuiyuanUnitcominfo make = (HuiyuanUnitcominfo) beanList.get(i);
+           HuiyuanUnitcominfo make = (HuiyuanUnitcominfo) beanList.get(i);
 
-          make.setStatus("cancel");
+           make.setStatus("cancel");
 
-          huiyuanUnitcominfoDelegate.cancelFn(make, requestMeta);
+           huiyuanUnitcominfoDelegate.cancelFn(make, requestMeta);
 
-        }
+         }
 
-      } catch (Exception ex) {
+       } catch (Exception ex) {
 
-        logger.error(ex.getMessage(), ex);
+         logger.error(ex.getMessage(), ex);
 
-        success = false;
+         success = false;
 
-        UIUtilities.showStaickTraceDialog(ex, this, "错误", ex.getMessage());
+         UIUtilities.showStaickTraceDialog(ex, this, "错误", ex.getMessage());
 
-      }
+       }
 
-      if (success) {
+       if (success) {
 
-        JOptionPane.showMessageDialog(this, "撤销成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+         JOptionPane.showMessageDialog(this, "撤销成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
 
-        this.refreshCurrentTabData();
+         this.refreshCurrentTabData();
 
-      }
+       }
 
-    }*/
+     }*/
 
   }
 
@@ -814,7 +816,7 @@ static {
 
     if (commentDialog.cancel) {
 
-      return;
+    return;
 
     }
 
@@ -874,7 +876,7 @@ static {
 
     if (commentDialog.cancel) {
 
-      return;
+    return;
 
     }
 
@@ -915,9 +917,7 @@ static {
   }
 
   /**
-
    * 是否送主任审核
-
    */
 
   private void doSendNext() {
@@ -1063,68 +1063,68 @@ static {
   }
 
   private void doDelete() {
-/*
-    List beanList = getCheckedList();
+    /*
+        List beanList = getCheckedList();
 
-    if (beanList.size() == 0) {
+        if (beanList.size() == 0) {
 
-      JOptionPane.showMessageDialog(this, "没有选择数据！", " 提示", JOptionPane.INFORMATION_MESSAGE);
+          JOptionPane.showMessageDialog(this, "没有选择数据！", " 提示", JOptionPane.INFORMATION_MESSAGE);
 
-      return;
-
-    }
-
-    int num = JOptionPane.showConfirmDialog(this, "是否删除当前单据", "删除确认", 0);
-
-    if (num == JOptionPane.NO_OPTION)
-
-      return;
-
-    boolean success = true;
-
-    HuiyuanUnitcominfo HuiyuanUnitcominfoqb = null;
-
-    String errorInfo = "";
-
-    try {
-
-      requestMeta.setFuncId(deleteButton.getFuncId());
-
-      for (Iterator iterator = beanList.iterator(); iterator.hasNext();) {
-
-        HuiyuanUnitcominfoqb = (HuiyuanUnitcominfo) iterator.next();
-
-        if (!"0".equals(HuiyuanUnitcominfoqb.getStatus())){
-
-          JOptionPane.showMessageDialog(this, "非编辑状态单据，不可以删除！", "提示", JOptionPane.ERROR_MESSAGE);
           return;
+
         }
 
-        huiyuanUnitcominfoDelegate.deleteListFN(beanList, this.requestMeta);
+        int num = JOptionPane.showConfirmDialog(this, "是否删除当前单据", "删除确认", 0);
 
-      }
+        if (num == JOptionPane.NO_OPTION)
 
-    } catch (Exception e) {
+          return;
 
-      logger.error(e.getMessage(), e);
+        boolean success = true;
 
-      success = false;
+        HuiyuanUnitcominfo HuiyuanUnitcominfoqb = null;
 
-      errorInfo += e.getMessage();
+        String errorInfo = "";
 
-    }
+        try {
 
-    if (success) {
+          requestMeta.setFuncId(deleteButton.getFuncId());
 
-      JOptionPane.showMessageDialog(this, "删除成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+          for (Iterator iterator = beanList.iterator(); iterator.hasNext();) {
 
-      this.refreshCurrentTabData();
+            HuiyuanUnitcominfoqb = (HuiyuanUnitcominfo) iterator.next();
 
-    } else {
+            if (!"0".equals(HuiyuanUnitcominfoqb.getStatus())){
 
-      JOptionPane.showMessageDialog(this, "删除失败 ！\n" + errorInfo, "错误", JOptionPane.ERROR_MESSAGE);
+              JOptionPane.showMessageDialog(this, "非编辑状态单据，不可以删除！", "提示", JOptionPane.ERROR_MESSAGE);
+              return;
+            }
 
-    }*/
+            huiyuanUnitcominfoDelegate.deleteListFN(beanList, this.requestMeta);
+
+          }
+
+        } catch (Exception e) {
+
+          logger.error(e.getMessage(), e);
+
+          success = false;
+
+          errorInfo += e.getMessage();
+
+        }
+
+        if (success) {
+
+          JOptionPane.showMessageDialog(this, "删除成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+
+          this.refreshCurrentTabData();
+
+        } else {
+
+          JOptionPane.showMessageDialog(this, "删除失败 ！\n" + errorInfo, "错误", JOptionPane.ERROR_MESSAGE);
+
+        }*/
 
   }
 
@@ -1275,22 +1275,22 @@ static {
   }
 
   private void doTraceDataButton() {
-/*
-    List beanList = getCheckedList();
+    /*
+        List beanList = getCheckedList();
 
-    if (beanList.size() == 0) {
+        if (beanList.size() == 0) {
 
-      JOptionPane.showMessageDialog(this, "请选择一条要进行跟踪的数据！", "错误", JOptionPane.ERROR_MESSAGE);
+          JOptionPane.showMessageDialog(this, "请选择一条要进行跟踪的数据！", "错误", JOptionPane.ERROR_MESSAGE);
 
-      return;
+          return;
 
-    }
+        }
 
-    HuiyuanUnitcominfo sh = (HuiyuanUnitcominfo) beanList.get(0);
+        HuiyuanUnitcominfo sh = (HuiyuanUnitcominfo) beanList.get(0);
 
-    DataFlowConsoleCanvas dfc = new DataFlowConsoleCanvas(sh.getQxCode(), this.compoId);
+        DataFlowConsoleCanvas dfc = new DataFlowConsoleCanvas(sh.getQxCode(), this.compoId);
 
-    dfc.showWindow();*/
+        dfc.showWindow();*/
 
   }
 

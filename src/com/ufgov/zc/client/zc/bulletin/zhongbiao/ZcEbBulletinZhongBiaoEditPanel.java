@@ -2651,7 +2651,7 @@ public class ZcEbBulletinZhongBiaoEditPanel extends AbstractMainSubEditPanel {
       rtn = ZcEbBulletin.ZHONGBIAO_YQZB;
     } else if (ZcSettingConstants.ZC_CGFS_DYLY.equals(purType)) {
       rtn = ZcEbBulletin.ZHONGBIAO_DYLY;
-    } else if (ZcSettingConstants.ZC_CGFS_XJ.equals(purType)) {
+    } else if (ZcSettingConstants.ZC_CGFS_XJ.equals(purType) || ZcSettingConstants.ZC_CGFS_XYGH.equals(purType)) {
       rtn = ZcEbBulletin.ZHONGBIAO_XJ;
     } else if (ZcSettingConstants.ZC_CGFS_QT.equals(purType)) {
       rtn = ZcEbBulletin.ZHONGBIAO_QT;

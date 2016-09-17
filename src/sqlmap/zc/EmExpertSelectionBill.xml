@@ -107,7 +107,7 @@
 		<!--  
 		ORDER BY B.EM_INPUT_DATE DESC
 		-->
-		ORDER BY EM_INPUT_DATE DESC
+		ORDER BY Substr(B.em_bill_code, 10, 4)  DESC
 	</select>
 	<select id="listByMakeCode" resultMap="rltMapping" parameterClass="elementCondition">
 		SELECT B.* FROM ZC_EM_EXPERT_PRO_BILL B

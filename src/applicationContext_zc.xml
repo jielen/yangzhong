@@ -771,6 +771,7 @@
 		<property name="zcEbFormulaService" ref="zcEbFormulaService" />
 
 		<property name="wfEngineAdapter" ref="wfEngineAdapter" />
+		<property name="asFileService" ref="asFileService"></property>
 
 	</bean>
 

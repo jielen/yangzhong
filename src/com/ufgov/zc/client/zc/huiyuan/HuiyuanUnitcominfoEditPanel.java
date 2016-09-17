@@ -29,7 +29,9 @@ import javax.swing.table.TableColumn;
 import org.apache.log4j.Logger;
 
 import com.ufgov.smartclient.common.UIUtilities;
+import com.ufgov.smartclient.component.table.CheckBoxCellEditor;
 import com.ufgov.smartclient.component.table.JGroupableTable;
+import com.ufgov.smartclient.component.table.cellrenderer.CheckBoxTableCellRenderer;
 import com.ufgov.smartclient.component.table.fixedtable.JPageableFixedTable;
 import com.ufgov.zc.client.common.BillElementMeta;
 import com.ufgov.zc.client.common.LangTransMeta;
@@ -73,6 +75,7 @@ import com.ufgov.zc.client.component.zc.fieldeditor.MoneyFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.NewLineFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.TextAreaFieldEditor;
 import com.ufgov.zc.client.component.zc.fieldeditor.TextFieldEditor;
+import com.ufgov.zc.client.datacache.AsValDataCache;
 import com.ufgov.zc.client.util.ListUtil;
 import com.ufgov.zc.client.util.SwingUtil;
 import com.ufgov.zc.client.zc.ButtonStatus;
@@ -82,6 +85,7 @@ import com.ufgov.zc.common.system.RequestMeta;
 import com.ufgov.zc.common.system.constants.WFConstants;
 import com.ufgov.zc.common.system.constants.ZcSettingConstants;
 import com.ufgov.zc.common.system.dto.ElementConditionDto;
+import com.ufgov.zc.common.system.model.AsVal;
 import com.ufgov.zc.common.system.util.DigestUtil;
 import com.ufgov.zc.common.system.util.ObjectUtil;
 import com.ufgov.zc.common.system.util.Utils;
@@ -92,6 +96,7 @@ import com.ufgov.zc.common.zc.model.HuiyuanUnitcominfo;
 import com.ufgov.zc.common.zc.model.HuiyuanUser;
 import com.ufgov.zc.common.zc.model.HuiyuanZfcgGongyinginfo;
 import com.ufgov.zc.common.zc.model.ZcBaseBill;
+import com.ufgov.zc.common.zc.model.ZcEbSupplierType;
 import com.ufgov.zc.common.zc.publish.IHuiyuanPeopleblackDelegate;
 import com.ufgov.zc.common.zc.publish.IHuiyuanUnitblackDelegate;
 import com.ufgov.zc.common.zc.publish.IHuiyuanUnitcominfoDelegate;
@@ -209,6 +214,8 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
 
   JTablePanel attchInfoTablePanel = new JTablePanel();
 
+  protected JTablePanel tablePanelGysType = new JTablePanel("tablePanelGysType"); //供应商类型
+
   public HuiyuanUnitcominfoEditPanel(HuiyuanUnitcominfoDialog parent, ListCursor listCursor, String tabStatus, HuiyuanUnitcominfoListPanel listPanel) {
     // TCJLODO Auto-generated constructor stub
     super(HuiyuanUnitcominfoEditPanel.class, BillElementMeta.getBillElementMetaWithoutNd(compoId));
@@ -237,12 +244,13 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
 
     HuiyuanUnitcominfo qx = (HuiyuanUnitcominfo) listCursor.getCurrentObject();
 
-    if (qx != null && !"".equals(ZcUtil.safeString(qx.getDanweiguid()))) {//列表页面双击进入
+    if (qx != null && !"".equals(ZcUtil.safeString(qx.getDanweiguidTemp()))) {//列表页面双击进入
 
       this.pageStatus = ZcSettingConstants.PAGE_STATUS_BROWSE;
 
-      qx = huiyuanUnitcominfoServiceDelegate.selectByPrimaryKey(qx.getDanweiguid(), this.requestMeta);
+      qx = huiyuanUnitcominfoServiceDelegate.selectByPrimaryKey(qx.getDanweiguidTemp(), this.requestMeta);
 
+      qx.setGysTypeList(_createGysTypeLst(qx.getGysTypeList(), qx.getDanweiguidReal()));
       listCursor.setCurrentObject(qx);
       this.setEditingObject(qx);
     } else {//新增按钮进入
@@ -340,6 +348,8 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
     qx.getZfcgGysInfo().setAuditstatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_DRAFT);
     qx.getZfcgGysInfo().setStatuscode(ZcSettingConstants.HUI_YUAN_ACCOUNT_STATUS_ZAN_TING);
     qx.setDanweitype(ZcSettingConstants.V_HUI_YUAN_DAN_WEI_TYPE_GONG_YING_SHANG);
+
+    qx.setGysTypeList(_createGysTypeLst(new ArrayList(), qx.getDanweiguidReal()));
     /*   qx.setStatus(ZcSettingConstants.WF_STATUS_DRAFT);
        qx.setNd(this.requestMeta.getSvNd());
        qx.setInputDate(this.requestMeta.getSysDate());
@@ -526,7 +536,16 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
     userTablePanel.setTableModel(convert.convertUserTableData(qx.getUserLst()));
     unitBlackTablePanel.setTableModel(convert.convertUnitBlackTableData(qx.getUnitBlackLst()));
     peopleBlackTablePanel.setTableModel(convert.convertPeopleBlackTableData(qx.getPeopleBlackLst()));
+    tablePanelGysType.setTableModel(convert.convertGysTypeToTableModel(qx.getGysTypeList()));
+    setGysTypeTableProperty();
     refreshAttachFileTable(qx);
+  }
+
+  private void setGysTypeTableProperty() {
+    // TCJLODO Auto-generated method stub
+    ZcUtil.translateColName(tablePanelGysType.getTable(), HuiyuanUnitcominfoToTableModelConverter.getGysTypeTableColumnInfo());
+    SwingUtil.setTableCellEditor(tablePanelGysType.getTable(), "选中", new CheckBoxCellEditor(new Boolean(true), new Boolean(false)));
+    SwingUtil.setTableCellRenderer(tablePanelGysType.getTable(), "选中", new CheckBoxTableCellRenderer(new Boolean(true), new Boolean(false)));
   }
 
   private void refreshAttachFileTable(HuiyuanUnitcominfo qx) {
@@ -1062,6 +1081,10 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
       requestMeta.setFuncId(saveButton.getFuncId());
 
       HuiyuanUnitcominfo inData = (HuiyuanUnitcominfo) this.listCursor.getCurrentObject();
+      /*if (ZcUtil.isGys()) {
+        inData.getZfcgGysInfo().setAuditstatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_WAIT_AUDITING);
+      }*/
+      inData.getZfcgGysInfo().setAuditstatus(ZcSettingConstants.HUI_YUAN_AUDIT_STATUS_WAIT_AUDITING);
       inData.setExecuteDate(requestMeta.getSysDate());
       //      System.out.println("before=" + inData.getCoCode() + inData.getCoName());
 
@@ -1194,7 +1217,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
       String errorInfo = "";
       try {
         requestMeta.setFuncId(deleteButton.getFuncId());
-        huiyuanUnitcominfoServiceDelegate.deleteByPrimaryKeyFN(qx.getDanweiguid(), this.requestMeta);
+        huiyuanUnitcominfoServiceDelegate.deleteByPrimaryKeyFN(qx.getDanweiguidReal(), this.requestMeta);
       } catch (Exception e) {
         logger.error(e.getMessage(), e);
         success = false;
@@ -1712,14 +1735,36 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
     initUnitBlackPanel();
     initPeopleBlackPanel();
     initAttachInfoPanel();
+    initGysTypePanel();
 
     tb.addTab("其他信息", js);
+    if (!ZcUtil.isGys()) {
+      tb.addTab("供应商注册类型", tablePanelGysType);
+    }
     tb.addTab("相关资质文件", attchInfoTablePanel);
     tb.addTab("用户信息", userTablePanel);
-    tb.addTab("单位不良行为记录", unitBlackTablePanel);
-    tb.addTab("个人不良行为记录", peopleBlackTablePanel);
+    if (!ZcUtil.isGys()) {
+      tb.addTab("单位不良行为记录", unitBlackTablePanel);
+      tb.addTab("个人不良行为记录", peopleBlackTablePanel);
+    }
 
     return tb;
+  }
+
+  private void initGysTypePanel() {
+
+    tablePanelGysType.init();
+    tablePanelGysType.setPanelId("tablePanelGysType");
+    tablePanelGysType.getSearchBar().setVisible(true);
+
+    tablePanelGysType.setTablePreferencesKey(this.getClass().getName() + "_GysTypeTable");
+
+    tablePanelGysType.getTable().setShowCheckedColumn(true);
+
+    tablePanelGysType.getTable().getTableRowHeader().setPreferredSize(new Dimension(60, 0));
+
+    tablePanelGysType.setMinimumSize(new Dimension(240, 150));
+
   }
 
   private void initAttachInfoPanel() {
@@ -1773,8 +1818,8 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
       public void actionPerformed(ActionEvent e) {
         HuiyuanUnitcominfo bill = (HuiyuanUnitcominfo) listCursor.getCurrentObject();
         HuiyuanAttachinfo detail = new HuiyuanAttachinfo();
-        detail.setDanweiguid(bill.getDanweiguid());
-        detail.setClientguid(bill.getDanweiguid());
+        detail.setDanweiguid(bill.getDanweiguidReal());
+        detail.setClientguid(bill.getDanweiguidReal());
         addSub(attchInfoTablePanel, detail);
       }
     });
@@ -1783,8 +1828,8 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
       public void actionPerformed(ActionEvent e) {
         HuiyuanUnitcominfo bill = (HuiyuanUnitcominfo) listCursor.getCurrentObject();
         HuiyuanAttachinfo detail = new HuiyuanAttachinfo();
-        detail.setDanweiguid(bill.getDanweiguid());
-        detail.setClientguid(bill.getDanweiguid());
+        detail.setDanweiguid(bill.getDanweiguidReal());
+        detail.setClientguid(bill.getDanweiguidReal());
         insertSub(attchInfoTablePanel, detail);
       }
     });
@@ -1827,7 +1872,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
 
     FuncButton addBtn = new CommonButton("fadd", "新增", null);
 
-    bottomToolBar1.add(addBtn);
+    bottomToolBar1.add(addBtn, false);
     peopleBlackTablePanel.add(bottomToolBar1, BorderLayout.SOUTH);
 
     if (ZcUtil.haveFunc("HUIYUAN_UNITBLACK", "fadd", requestMeta)) {
@@ -1838,7 +1883,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
 
       public void actionPerformed(ActionEvent e) {
         HuiyuanUnitcominfo unit = (HuiyuanUnitcominfo) listCursor.getCurrentObject();
-        if (unit.getDanweiguid() == null || unit.getDanweiguid().trim().length() == 0) {
+        if (unit.getDanweiguidReal() == null || unit.getDanweiguidReal().trim().length() == 0) {
           JOptionPane.showMessageDialog(self, "请先保存供应商的单位信息后，再添加单位人员的不良行为.", "提示", JOptionPane.INFORMATION_MESSAGE);
           return;
         }
@@ -1847,7 +1892,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
           return;
         }
         HuiyuanPeopleblack peopleBlack = new HuiyuanPeopleblack();
-        peopleBlack.setDanweiguid(unit.getDanweiguid());
+        peopleBlack.setDanweiguid(unit.getDanweiguidReal());
         peopleBlack.setDanweiname(unit.getDanweiname());
         List beanList = new ArrayList();
         beanList.add(peopleBlack);
@@ -1871,6 +1916,33 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
     peopleBlackTablePanel.setMinimumSize(new Dimension(240, 150));
   }
 
+  /*
+   * 根据ZC_VS_SUPPLIER_TYPE获取供应商类别全集，然后根据从后头保存的typeLst，确定哪个是选中的
+   */
+  private List _createGysTypeLst(List typeLst, String suppilerCode) {
+    // TCJLODO Auto-generated method stub
+    List allLst = AsValDataCache.getAsVal("ZC_VS_SUPPLIER_TYPE");
+    if (allLst == null || allLst.size() == 0) return typeLst;
+    List rtn = new ArrayList();
+    for (int i = 0; i < allLst.size(); i++) {
+      AsVal val = (AsVal) allLst.get(i);
+      ZcEbSupplierType temp = new ZcEbSupplierType();
+      temp.setZcSuCode(suppilerCode);
+      temp.setTypeCode(val.getValId());
+      temp.setTypeName(val.getVal());
+      temp.setIsSelected(new Boolean(false));
+      for (int j = 0; j < typeLst.size(); j++) {
+        ZcEbSupplierType t = (ZcEbSupplierType) typeLst.get(j);
+        if (t.getTypeCode().equals(temp.getTypeCode())) {
+          temp.setIsSelected(new Boolean(true));
+          break;
+        }
+      }
+      rtn.add(temp);
+    }
+    return rtn;
+  }
+
   private void initUnitBlackPanel() {
     // TCJLODO Auto-generated method stub
 
@@ -1888,7 +1960,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
 
     FuncButton addBtn = new CommonButton("fadd", "新增", null);
 
-    bottomToolBar1.add(addBtn);
+    bottomToolBar1.add(addBtn, false);
     unitBlackTablePanel.add(bottomToolBar1, BorderLayout.SOUTH);
 
     if (ZcUtil.haveFunc("HUIYUAN_UNITBLACK", "fadd", requestMeta)) {
@@ -1899,7 +1971,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
 
       public void actionPerformed(ActionEvent e) {
         HuiyuanUnitcominfo unit = (HuiyuanUnitcominfo) listCursor.getCurrentObject();
-        if (unit.getDanweiguid() == null || unit.getDanweiguid().trim().length() == 0) {
+        if (unit.getDanweiguidReal() == null || unit.getDanweiguidReal().trim().length() == 0) {
           JOptionPane.showMessageDialog(self, "请先保存供应商的单位信息后，再添加本单位的不良行为.", "提示", JOptionPane.INFORMATION_MESSAGE);
           return;
         }
@@ -1908,7 +1980,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
           return;
         }
         HuiyuanUnitblack unitBlack = new HuiyuanUnitblack();
-        unitBlack.setDanweiguid(unit.getDanweiguid());
+        unitBlack.setDanweiguid(unit.getDanweiguidReal());
         unitBlack.setDanweiname(unit.getDanweiname());
         unitBlack.setUnitorgnum(unit.getUnitorgnum());
         List beanList = new ArrayList();
@@ -1951,8 +2023,10 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
 
     FuncButton addBtn = new CommonButton("fadd", "新增", null);
 
-    bottomToolBar1.add(addBtn);
-    userTablePanel.add(bottomToolBar1, BorderLayout.SOUTH);
+    bottomToolBar1.add(addBtn, false);
+    if (!ZcUtil.isGys()) {
+      userTablePanel.add(bottomToolBar1, BorderLayout.SOUTH);
+    }
 
     if (ZcUtil.haveFunc("HUIYUAN_USER", "fadd", requestMeta)) {
       addBtn.setVisible(true);
@@ -1962,7 +2036,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
 
       public void actionPerformed(ActionEvent e) {
         HuiyuanUnitcominfo unit = (HuiyuanUnitcominfo) listCursor.getCurrentObject();
-        if (unit.getDanweiguid() == null || unit.getDanweiguid().trim().length() == 0) {
+        if (unit.getDanweiguidReal() == null || unit.getDanweiguidReal().trim().length() == 0) {
           JOptionPane.showMessageDialog(self, "请先保存供应商的单位信息后，再添加本单位的用户.", "提示", JOptionPane.INFORMATION_MESSAGE);
           return;
         }
@@ -1975,7 +2049,7 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
           return;
         }
         HuiyuanUser user = new HuiyuanUser();
-        user.setDanweiguid(unit.getDanweiguid());
+        user.setDanweiguid(unit.getDanweiguidReal());
         user.setDanweiname(unit.getDanweiname());
         List beanList = new ArrayList();
         beanList.add(user);
@@ -2068,23 +2142,27 @@ public class HuiyuanUnitcominfoEditPanel extends AbstractMainSubEditPanel {
 
   }
 
+  /**
+   * 用于子面板打开后,修改信息时同步母界面的明细信息,如增加人员黑名单时,更新当前界面的子表
+   * @param obj
+   */
   public void refreshSubData(ZcBaseBill obj) {
     HuiyuanUnitcominfo unit = (HuiyuanUnitcominfo) this.listCursor.getCurrentObject();
     if (obj instanceof HuiyuanUser) {
       ElementConditionDto dto = new ElementConditionDto();
-      dto.setZcText1(unit.getDanweiguid());
+      dto.setZcText1(unit.getDanweiguidReal());
       List userLst = huiyuanUserServiceDelegate.getMainDataLst(dto, requestMeta);
       unit.setUserLst(userLst);
       userTablePanel.setTableModel(new HuiyuanUnitcominfoToTableModelConverter().convertUserTableData(unit.getUserLst()));
     } else if (obj instanceof HuiyuanUnitblack) {
       ElementConditionDto dto = new ElementConditionDto();
-      dto.setZcText1(unit.getDanweiguid());
+      dto.setZcText1(unit.getDanweiguidReal());
       List unitBlackLst = huiyuanUnitblackDelegate.getMainDataLst(dto, requestMeta);
       unit.setUnitBlackLst(unitBlackLst);
       unitBlackTablePanel.setTableModel(new HuiyuanUnitcominfoToTableModelConverter().convertUnitBlackTableData(unit.getUnitBlackLst()));
     } else if (obj instanceof HuiyuanPeopleblack) {
       ElementConditionDto dto = new ElementConditionDto();
-      dto.setZcText1(unit.getDanweiguid());
+      dto.setZcText1(unit.getDanweiguidReal());
       List peopleBlackLst = huiyuanPeopleblackDelegate.getMainDataLst(dto, requestMeta);
       unit.setPeopleBlackLst(peopleBlackLst);
       peopleBlackTablePanel.setTableModel(new HuiyuanUnitcominfoToTableModelConverter().convertPeopleBlackTableData(unit.getPeopleBlackLst()));

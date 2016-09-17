@@ -2157,10 +2157,10 @@
 			</isNotEqual> 	    	    
 			<isNotNull prepend="and" property="zcText0">
 				<isEqual property="zcText0" compareValue="xunjia">
-					ZC_EB_PROJ.PUR_TYPE ='5'
+					(ZC_EB_PROJ.PUR_TYPE ='5' or ZC_EB_PROJ.PUR_TYPE ='8')
 				</isEqual>
 				<isEqual property="zcText0" compareValue="feixunjia">
-					ZC_EB_PROJ.PUR_TYPE !='5'
+					(ZC_EB_PROJ.PUR_TYPE !='5' and ZC_EB_PROJ.PUR_TYPE !='8')
 				</isEqual>								
 			</isNotNull> 	    	    
 			<isNotNull prepend="and" property="zcText1">
@@ -2180,10 +2180,18 @@
 						           and b.bulletin_type like 'zhaobiao%'
 						           and b.BULLETIN_STATUS='exec')
 				</isEqual>
+				<isEqual property="zcText2" compareValue="forFeibiaoBulletin">
+					not exists (select 1
+						          from ZC_EB_BULLETIN b
+						         where b.proj_code = ZC_EB_PROJ.Proj_Code
+						           and b.bulletin_type like 'feibiao%'
+						           )
+				</isEqual>
 			</isNotNull>	    	    
 			<isNotNull prepend="and" property="zcText3">
 				ZC_EB_PROJ.agency=#zcText3#
-			</isNotNull> 	
+			</isNotNull> 
+			order by ZC_EB_PROJ.execute_date desc
 	</select>
 
 	<select id="getAllZcEbProj" resultMap="ZcEbProjResult"
@@ -2316,7 +2324,7 @@
 
 		AND
 
-		P.PUR_TYPE='5'
+		P.PUR_TYPE in ('5','8')
 
 		AND s.provider_code=#zcText0#
 
@@ -2327,7 +2335,7 @@
 		resultMap="ZcEbProjResult">
 
 		SELECT p.* FROM zc_eb_proj p
-		WHERE P.PUR_TYPE='5'
+		WHERE P.PUR_TYPE in ('5','8')
 		<isNotNull prepend=" " property="isNeedSqlFilterData">
 			<isEqual property="isNeedSqlFilterData" compareValue="Y">
 				<!-- 添加时间和标段状态的判断：投标截止时间之前没有废标的项目 -->
@@ -3540,7 +3548,7 @@
 		AND ZC_EB_PROJ.PROJ_CODE = ZC_EB_PACK.PROJ_CODE
 		AND ZC_EB_PROJ.STATUS =
 		'exec'
-		and zc_eb_proj.pur_type != '5'
+		and zc_eb_proj.pur_type not in('5','8')
 		and ZC_EB_ENTRUST.Co_Code =
 		ma_company.co_code
 		<isNotNull prepend="and" property="status">
@@ -3807,7 +3815,7 @@
 		where p.proj_code = l.proj_code
 		and p.status = 'exec'
 		and
-		p.pur_type in ('5')
+		p.pur_type in ('5','8')
 		<isNotNull prepend="and" property="status">
 			<isEqual property="status" compareValue="doing">
 				<![CDATA[ sysdate <= l.bid_end_time ]]>
@@ -3904,10 +3912,10 @@
 
 		<isNotNull prepend="and" property="zcText4">
 			<isEqual property="zcText4" compareValue="feixunjia">
-				ZC_EB_PROJ.pur_type!='5'
+				ZC_EB_PROJ.pur_type not in ('5','8')
 			</isEqual>
 			<isEqual property="zcText4" compareValue="xunjia">
-				ZC_EB_PROJ.pur_type='5'
+				ZC_EB_PROJ.pur_type in ('5','8')
 			</isEqual>
 		</isNotNull>
 
@@ -4002,7 +4010,7 @@
 	
 	<select id="getZcEbProjForMobiles" resultMap="ZcEbProjResult"	parameterClass="elementCondition">
 		select * from zc_eb_proj p 
-		where  p.pur_type!='5'
+		where  p.pur_type not in ('5','8')
 		and exists(select * from zc_eb_signup s
 		where s.proj_code=p.proj_code)
 	</select>

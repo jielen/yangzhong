@@ -260,7 +260,17 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
           if ("auditstatus".equals(editor.getFieldName()) || "statuscode".equals(editor.getFieldName())) {
             editor.setEnabled(false);
           } else {
-            editor.setEnabled(true);
+            if (ZcUtil.isGys()) {
+              if ("idcard".equals(editor.getFieldName()) || "companyphone".equals(editor.getFieldName()) || "mobilephone".equals(editor.getFieldName()) || "email".equals(editor.getFieldName())
+                || "comaddress".equals(editor.getFieldName()) || "comzip".equals(editor.getFieldName()) || "birthday".equals(editor.getFieldName()) || "sex".equals(editor.getFieldName())
+                || "yxq".equals(editor.getFieldName())) {
+                editor.setEnabled(true);
+              } else {
+                editor.setEnabled(false);
+              }
+            } else {
+              editor.setEnabled(true);
+            }
           }
           isEdit = true;
         } else {
@@ -299,7 +309,7 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
   public void initToolBar(JFuncToolBar toolBar) {
     // TCJLODO Auto-generated method stub
 
-    toolBar.setModuleCode("ZC");
+    toolBar.setModuleCode("HUI");
 
     toolBar.setCompoId(getCompoId());
 
@@ -1437,5 +1447,9 @@ public class HuiyuanUserEditPanel extends AbstractMainSubEditPanel {
       return;
     }
     updateAccountStatus("注销", fzhuxiaoBtn);
+  }
+
+  protected String getCompoId() {
+    return compoId;
   }
 }

@@ -5,6 +5,7 @@
 
 package com.ufgov.zc.common.zc.publish;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -64,4 +65,6 @@ public interface IZcEbBaseServiceDelegate extends Publishable {
   public String getCompoNo(String compoId, String noField, Object bill, RequestMeta meta);
 
   public Map initWorkEnv(ElementConditionDto dto, RequestMeta meta);
+
+  public Date getSysDate(RequestMeta requestMeta);
 }

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,7 @@ import com.ufgov.zc.common.commonbiz.publish.IBaseDataServiceDelegate;
 import com.ufgov.zc.common.system.RequestMeta;
 import com.ufgov.zc.common.system.model.AsFile;
 import com.ufgov.zc.common.zc.model.ZcEbBulletin;
+import com.ufgov.zc.common.zc.model.ZcEbEntrust;
 import com.ufgov.zc.common.zc.model.ZcEbPack;
 import com.ufgov.zc.common.zc.model.ZcEbPackReq;
 import com.ufgov.zc.common.zc.model.ZcEbRequirementDetail;
@@ -47,6 +49,8 @@ public class XjZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
   String templateFileId = "bulletin_zhaobiao_xunjia";
 
   RequestMeta meta = WorkEnv.getInstance().getRequestMeta();
+
+  private HashMap<String, MyCompany> companyMaps = new HashMap<String, MyCompany>();
 
   /* (non-Javadoc)
    * @see com.ufgov.zc.common.zc.freemark.ITemplateToDocumentHandler#createDocumnet(java.io.File, java.util.Hashtable)
@@ -78,6 +82,10 @@ public class XjZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
     Map<String, Object> dataMap = new HashMap<String, Object>();
 
     getxunjia(dataMap, bulletin);
+
+    getCompanyInfo(dataMap);
+
+    //    getDownloadUrl(dataMap, bulletin);
 
     String bulletinFileName = bulletin.getProjCode() + "_bulletin_zhaobiao.doc";
 
@@ -115,6 +123,20 @@ public class XjZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
     return bulletinDocFilePath;
   }
 
+  private void getDownloadUrl(Map<String, Object> dataMap, ZcEbBulletin bulletin) {
+    dataMap.put("fileUrl", "#");
+  }
+
+  private void getCompanyInfo(Map<String, Object> dataMap) {
+    if (companyMaps.size() == 0) return;
+    List l = new ArrayList();
+    Iterator<String> keys = companyMaps.keySet().iterator();
+    while (keys.hasNext()) {
+      l.add(companyMaps.get(keys.next()));
+    }
+    dataMap.put("companyInfos", l);
+  }
+
   private void getxunjia(Map<String, Object> dataMap, ZcEbBulletin bulletin) {
     dataMap.put("projCode", StringUtil.freeMarkFillWordChar(bulletin.getProjCode()));
     dataMap.put("projName", StringUtil.freeMarkFillWordChar(bulletin.getProjName()));
@@ -128,7 +150,8 @@ public class XjZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
 
     Date d = bulletin.getZcEbPlan().getSellStartTime() == null ? meta.getTransDate() : bulletin.getZcEbPlan().getSellStartTime();
     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    dataMap.put("bulletinDate", df.format(d));
+    SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+    dataMap.put("bulletinDate", df2.format(d));
     dataMap.put("beginDate", df.format(d));
     d = bulletin.getZcEbPlan().getBidEndTime() == null ? meta.getTransDate() : bulletin.getZcEbPlan().getBidEndTime();
     dataMap.put("endDate", df.format(d));
@@ -137,6 +160,7 @@ public class XjZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
       ZcEbPack pack = (ZcEbPack) bulletin.getZcEbProj().getPackList().get(i);
       dataMap.put("packName" + i, StringUtil.freeMarkFillWordChar(pack.getPackName() + " " + pack.getPackDesc()));
       dataMap.put("coName" + i, StringUtil.freeMarkFillWordChar(CompanyDataCache.getNameByCode(pack.getEntrust().getCoCode())));
+      setCompanyInfo(pack.getEntrust());
       List rows = new ArrayList();
       for (int j = 0; j < pack.getRequirementDetailList().size(); j++) {
         ZcEbPackReq packReq = (ZcEbPackReq) pack.getRequirementDetailList().get(j);
@@ -150,6 +174,16 @@ public class XjZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
       dataMap.put("reqs" + i, rows);
     }
 
+  }
+
+  private void setCompanyInfo(ZcEbEntrust entrust) {
+    if (companyMaps.containsKey(entrust.getCoCode())) { return; }
+    MyCompany c = new MyCompany();
+    c.setCoCode(entrust.getCoCode());
+    c.setCoName(StringUtil.freeMarkFillWordChar(CompanyDataCache.getNameByCode(entrust.getCoCode())));
+    c.setLinkMan(StringUtil.freeMarkFillWordChar(entrust.getZcMakeLinkman()));
+    c.setLinkTel(StringUtil.freeMarkFillWordChar(entrust.getZcMakeTel()));
+    companyMaps.put(entrust.getCoCode(), c);
   }
 
   public void createNewFile(File srcfile, File deFile, int repeatNum) {

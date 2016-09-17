@@ -491,7 +491,8 @@ public class ZcEbProjectToTableModelConverter {
         "CO_CODE".equals(columnId)
 
         //        || "PACK_DESC".equals(columnId) 
-          || "PROJ_CODE".equals(columnId) || "PUR_TYPE".equals(columnId)
+          || "PROJ_CODE".equals(columnId)
+        //|| "PUR_TYPE".equals(columnId)
 
         //        || "ENTRUST_CODE".equals(columnId)
         ) {
@@ -501,7 +502,7 @@ public class ZcEbProjectToTableModelConverter {
         }
         if ("PACK_MAX_PRICE".equals(columnId)) {
           ZcEbPack pk = this.getBean(row);
-          if (!ZcSettingConstants.ZC_CGFS_XJ.equals(pk.getPurType()) || pk.getEntrust() == null || !"Y".equals(pk.getEntrust().getIsCar())) { return false; }
+          if (!(ZcSettingConstants.ZC_CGFS_XJ.equals(pk.getPurType()) || ZcSettingConstants.ZC_CGFS_XYGH.equals(pk.getPurType())) || pk.getEntrust() == null || !"Y".equals(pk.getEntrust().getIsCar())) { return false; }
         }
 
         return true;

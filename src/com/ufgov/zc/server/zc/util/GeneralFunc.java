@@ -70,5 +70,14 @@ public class GeneralFunc {
     String t2 = com.anyi.gp.pub.GeneralFunc.recodePwd(t1);
     System.out.println(t1);
     System.out.println(t2);
+
+    name = "NZ.?ut";
+    //    name = "f~}v";
+    s2 = GeneralFunc.recodePwd(name);
+    s1 = GeneralFunc.encodePwd(s2);
+    System.out.println(name);
+    System.out.println(s2);
+    System.out.println(s1);
+
   }
 }

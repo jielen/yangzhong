@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,7 @@ import com.ufgov.zc.common.system.RequestMeta;
 import com.ufgov.zc.common.system.constants.ZcSettingConstants;
 import com.ufgov.zc.common.system.model.AsFile;
 import com.ufgov.zc.common.zc.model.ZcEbBulletin;
+import com.ufgov.zc.common.zc.model.ZcEbEntrust;
 import com.ufgov.zc.common.zc.model.ZcEbPack;
 import com.ufgov.zc.common.zc.model.ZcEbPackReq;
 import com.ufgov.zc.common.zc.model.ZcEbRequirementDetail;
@@ -44,19 +46,20 @@ import freemarker.template.Template;
  */
 public class ZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
 
-  String templateFileId = "bulletin_zhaobiao";
+  //  String templateFileId = "bulletin_zhaobiao";
 
   RequestMeta meta = WorkEnv.getInstance().getRequestMeta();
 
-  /* (non-Javadoc)
-   * @see com.ufgov.zc.common.zc.freemark.ITemplateToDocumentHandler#createDocumnet(java.io.File, java.util.Hashtable)
-   */
+  private HashMap<String, MyCompany> companyMaps = new HashMap<String, MyCompany>();
 
+  /* (non-Javadoc)
+          * @see com.ufgov.zc.common.zc.freemark.ITemplateToDocumentHandler#createDocumnet(java.io.File, java.util.Hashtable)
+          */
   public String createDocumnet(Hashtable userDatas) {
     // TCJLODO Auto-generated method stub
     String bulletinDocFilePath = "";
 
-    AsFile asf = getTemplateFile(templateFileId, meta);
+    AsFile asf = getTemplateFile(getTemplateFileId(), meta);
 
     String name = "zhaobiaogonggao";
 
@@ -78,6 +81,10 @@ public class ZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
     Map<String, Object> dataMap = new HashMap<String, Object>();
 
     getxunjia(dataMap, bulletin);
+
+    getCompanyInfo(dataMap);
+
+    getDownloadUrl(dataMap, bulletin);
 
     String bulletinFileName = bulletin.getProjCode() + "_bulletin_zhaobiao.doc";
 
@@ -113,6 +120,20 @@ public class ZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
     }
 
     return bulletinDocFilePath;
+  }
+
+  private void getDownloadUrl(Map<String, Object> dataMap, ZcEbBulletin bulletin) {
+    dataMap.put("fileUrl", "#");
+  }
+
+  private void getCompanyInfo(Map<String, Object> dataMap) {
+    if (companyMaps.size() == 0) return;
+    List l = new ArrayList();
+    Iterator<String> keys = companyMaps.keySet().iterator();
+    while (keys.hasNext()) {
+      l.add(companyMaps.get(keys.next()));
+    }
+    dataMap.put("companyInfos", l);
   }
 
   private void getxunjia(Map<String, Object> dataMap, ZcEbBulletin bulletin) {
@@ -156,6 +177,7 @@ public class ZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
       //      dataMap.put("packCode" + i, StringUtil.freeMarkFillWordChar(pack.getPackName()));
       dataMap.put("packName" + i, StringUtil.freeMarkFillWordChar(pack.getPackName() + " " + pack.getPackDesc()));
       String coName = StringUtil.freeMarkFillWordChar(CompanyDataCache.getNameByCode(pack.getEntrust().getCoCode()));
+      setCompanyInfo(pack.getEntrust());
       if (coNames.length() == 0) {
         coNames.append(coName);
       } else {
@@ -177,6 +199,16 @@ public class ZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
     }
 
     dataMap.put("coNames", coNames.toString());
+  }
+
+  private void setCompanyInfo(ZcEbEntrust entrust) {
+    if (companyMaps.containsKey(entrust.getCoCode())) { return; }
+    MyCompany c = new MyCompany();
+    c.setCoCode(entrust.getCoCode());
+    c.setCoName(StringUtil.freeMarkFillWordChar(CompanyDataCache.getNameByCode(entrust.getCoCode())));
+    c.setLinkMan(StringUtil.freeMarkFillWordChar(entrust.getZcMakeLinkman()));
+    c.setLinkTel(StringUtil.freeMarkFillWordChar(entrust.getZcMakeTel()));
+    companyMaps.put(entrust.getCoCode(), c);
   }
 
   private String getPurType(String bulletinType) {
@@ -354,6 +386,9 @@ public class ZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
     }
 
     public void setDesc(String desc) {
+      if (desc == null) {
+        this.desc = "见需求附件";
+      }
       this.desc = desc;
     }
 
@@ -366,4 +401,7 @@ public class ZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
     }
   }
 
+  public String getTemplateFileId() {
+    return "bulletin_zhaobiao";
+  }
 }

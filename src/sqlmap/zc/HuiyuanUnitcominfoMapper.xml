@@ -66,6 +66,7 @@
     HUIYUAN_ZFCG_GONGYINGINFO.STATUSCODE
     from HUIYUAN_UNITCOMINFO,HUIYUAN_ZFCG_GONGYINGINFO
     where HUIYUAN_ZFCG_GONGYINGINFO.DANWEIGUID=HUIYUAN_UNITCOMINFO.DANWEIGUID   
+		<include refid="BusiNumLim.BusiNumLimStr" />
 		<isNotNull prepend="AND" property="status">
 			<isEqual property="status" compareValue="1">
 				AUDITSTATUS=#status#
@@ -100,6 +101,11 @@
 		</isNotNull>
 		<isNotNull prepend="AND" property="zcText1">
 			STATUSCODE=#zcText1#
+		</isNotNull>
+		<isNotNull prepend="AND" property="zcText0">
+			<isEqual property="zcText0" compareValue="temp_">
+				HUIYUAN_UNITCOMINFO.DANWEIGUID like 'temp%'
+			</isEqual> 
 		</isNotNull>
    order by HUIYUAN_UNITCOMINFO.EXECUTE_DATE desc
   </select>
@@ -180,6 +186,7 @@
     HUIYUAN_ZFCG_GONGYINGINFO.STATUSCODE
     from HUIYUAN_UNITCOMINFO,HUIYUAN_ZFCG_GONGYINGINFO
     where HUIYUAN_ZFCG_GONGYINGINFO.DANWEIGUID=HUIYUAN_UNITCOMINFO.DANWEIGUID  
+    and HUIYUAN_UNITCOMINFO.DANWEIGUID not like 'temp%'
     <isNotNull prepend="and " property="zcText0">
     (   
 	    	HUIYUAN_UNITCOMINFO.DANWEINAME=#zcText1# 

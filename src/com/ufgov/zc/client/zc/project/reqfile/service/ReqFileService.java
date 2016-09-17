@@ -37,14 +37,13 @@ import com.ufgov.zc.common.zc.model.ZcEbReqFile;
 import com.ufgov.zc.common.zc.model.ZcEbRequirement;
 
 /**
- * 
-* @ClassName: ReqFileService
-* @Description: TODO(需求确认模块文件的一些需求)
-* @date: Oct 17, 2012 12:58:42 AM
-* @version: V1.0 
-* @since: 1.0
-* @author: Administrator
-* @modify:
+ * @ClassName: ReqFileService
+ * @Description: TODO(需求确认模块文件的一些需求)
+ * @date: Oct 17, 2012 12:58:42 AM
+ * @version: V1.0
+ * @since: 1.0
+ * @author: Administrator
+ * @modify:
  */
 public class ReqFileService {
 
@@ -64,8 +63,7 @@ public class ReqFileService {
 
   public ReqFileService(ZcEbRequirement zcEbRequirement) {
     this.zcEbRequirement = zcEbRequirement;
-    downLoadPath = ReqFileConstants.REQ_FILE_PATH + zcEbRequirement.getZcEbEntrust().getZcMakeName() + "("
-      + zcEbRequirement.getZcEbEntrust().getSnCode() + ")" + File.separator;
+    downLoadPath = ReqFileConstants.REQ_FILE_PATH + zcEbRequirement.getZcEbEntrust().getZcMakeName() + "(" + zcEbRequirement.getZcEbEntrust().getSnCode() + ")" + File.separator;
     /**
      * 清楚临时文件
      */
@@ -121,21 +119,17 @@ public class ReqFileService {
     packNode.setNodeDirPath(zcEbPack.getPackName());
 
     if (ZcSettingConstants.ZC_CGFS_DYLY.equals(zcEbPack.getPurType())) {
-      ReqTreeNode node1 = createReqFileLeafNode(ReqFileConstants.GONGYS_DYCG, ReqFileConstants.GONGYS_DYCG_NAME, ReqFileConstants.NODE_TYPE_DOC,
-        ReqFileConstants.SUFFIX_DOC);
+      ReqTreeNode node1 = createReqFileLeafNode(ReqFileConstants.GONGYS_DYCG, ReqFileConstants.GONGYS_DYCG_NAME, ReqFileConstants.NODE_TYPE_DOC, ReqFileConstants.SUFFIX_DOC);
       packNode.add(node1);
-    } else if (ZcSettingConstants.ZC_CGFS_XJ.equals(zcEbPack.getPurType())) {
-      ReqTreeNode node1 = createReqFileLeafNode(ReqFileConstants.GONGYS_CAR, ReqFileConstants.GONGYS_CAR_NAME, ReqFileConstants.NODE_TYPE_DOC,
-        ReqFileConstants.SUFFIX_DOC);
+    } else if (ZcSettingConstants.ZC_CGFS_XJ.equals(zcEbPack.getPurType()) || ZcSettingConstants.ZC_CGFS_XYGH.equals(zcEbPack.getPurType())) {
+      ReqTreeNode node1 = createReqFileLeafNode(ReqFileConstants.GONGYS_CAR, ReqFileConstants.GONGYS_CAR_NAME, ReqFileConstants.NODE_TYPE_DOC, ReqFileConstants.SUFFIX_DOC);
       packNode.add(node1);
     } else {
 
       //每个分包需要确认的信息子节点
-      ReqTreeNode node1 = createReqFileLeafNode(ReqFileConstants.YEWU_REQ_CODE, ReqFileConstants.YEWU_REQ_NAME, ReqFileConstants.NODE_TYPE_DOC,
-        ReqFileConstants.SUFFIX_DOC);
+      ReqTreeNode node1 = createReqFileLeafNode(ReqFileConstants.YEWU_REQ_CODE, ReqFileConstants.YEWU_REQ_NAME, ReqFileConstants.NODE_TYPE_DOC, ReqFileConstants.SUFFIX_DOC);
       packNode.add(node1);
-      ReqTreeNode node2 = createReqFileLeafNode(ReqFileConstants.WEITUO_SHU, ReqFileConstants.WEITUO_SHU_NAME, ReqFileConstants.NODE_TYPE_DOC,
-        ReqFileConstants.SUFFIX_DOC);
+      ReqTreeNode node2 = createReqFileLeafNode(ReqFileConstants.WEITUO_SHU, ReqFileConstants.WEITUO_SHU_NAME, ReqFileConstants.NODE_TYPE_DOC, ReqFileConstants.SUFFIX_DOC);
       packNode.add(node2);
     }
     //    ReqTreeNode node3 = createReqFileLeafNode(ReqFileConstants.GONGYS_ZIZ, ReqFileConstants.GONGYS_ZIZ_NAME, ReqFileConstants.NODE_TYPE_DOC,
@@ -241,9 +235,7 @@ public class ReqFileService {
       } else {
         asFile = templateMap.get(fileId);
       }
-      if (asFile == null) {
-        throw new BusinessException("没有找到需求的模板的文件！");
-      }
+      if (asFile == null) { throw new BusinessException("没有找到需求的模板的文件！"); }
       File tempFile = new File(path + File.separator + asFile.getFileName());
 
       FileOutputStream os = null;
@@ -278,8 +270,8 @@ public class ReqFileService {
     if (!uploadPath.exists()) {
       uploadPath.mkdirs();
     }
-    File destionFile = new File(ReqFileConstants.REQ_FILE_UPLOAD_PATH + File.separator + zcEbRequirement.getZcEbEntrust().getZcMakeName() + "("
-      + zcEbRequirement.getZcEbEntrust().getSnCode() + ")" + ".zip");
+    File destionFile = new File(ReqFileConstants.REQ_FILE_UPLOAD_PATH + File.separator + zcEbRequirement.getZcEbEntrust().getZcMakeName() + "(" + zcEbRequirement.getZcEbEntrust().getSnCode() + ")"
+      + ".zip");
 
     if (destionFile.isFile() && destionFile.exists()) {
       destionFile.delete();
@@ -287,8 +279,8 @@ public class ReqFileService {
     //判断输出路径是否存在
 
     try {
-      ZipDirFile.zip(downLoadPath, ReqFileConstants.REQ_FILE_UPLOAD_PATH + File.separator + zcEbRequirement.getZcEbEntrust().getZcMakeName() + "("
-        + zcEbRequirement.getZcEbEntrust().getSnCode() + ")" + ".zip", null);
+      ZipDirFile.zip(downLoadPath, ReqFileConstants.REQ_FILE_UPLOAD_PATH + File.separator + zcEbRequirement.getZcEbEntrust().getZcMakeName() + "(" + zcEbRequirement.getZcEbEntrust().getSnCode() + ")"
+        + ".zip", null);
     } catch (Exception e) {
 
       e.printStackTrace();
@@ -411,10 +403,9 @@ public class ReqFileService {
   }
 
   /**
-   * 
-  * @Description: TODO(这里用一句话描述这个方法的作用)
-  * @return ReqTreeNode 返回类型
-  * @since 1.0
+   * @Description: TODO(这里用一句话描述这个方法的作用)
+   * @return ReqTreeNode 返回类型
+   * @since 1.0
    */
 
   public ReqTreeNode readTreeNodes() throws Exception {
@@ -463,35 +454,29 @@ public class ReqFileService {
   }
 
   /**
-   * 
-  * @Description: 判断是否存在该标段编号节点
-  * @return boolean 返回类型
-  * @since 1.0
+   * @Description: 判断是否存在该标段编号节点
+   * @return boolean 返回类型
+   * @since 1.0
    */
   public boolean isExtisTreeNodeByPackCode(String packCode, ReqTreeNode root) {
     Enumeration en = root.children();
     while (en.hasMoreElements()) {
       ReqTreeNode node = (ReqTreeNode) en.nextElement();
-      if (node.getNodeType().equals(ReqFileConstants.NODE_TYPE_PACK) && node.getNodeCode().equals(packCode)) {
-        return true;
-      }
+      if (node.getNodeType().equals(ReqFileConstants.NODE_TYPE_PACK) && node.getNodeCode().equals(packCode)) { return true; }
     }
     return false;
 
   }
 
   /**
-   * 
-  * @Description: 判断是否存在该标段编号节点
-  * @return boolean 返回类型
-  * @since 1.0
+   * @Description: 判断是否存在该标段编号节点
+   * @return boolean 返回类型
+   * @since 1.0
    */
   public boolean isExtisPackCodeByTreeNode(String treeNode, List<ZcEbPack> packList) {
     //判断treeNode在packList是否存在
     for (ZcEbPack zcEbPack : packList) {
-      if (zcEbPack.getPackCode().equals(treeNode)) {
-        return true;
-      }
+      if (zcEbPack.getPackCode().equals(treeNode)) { return true; }
     }
 
     return false;
@@ -500,9 +485,7 @@ public class ReqFileService {
 
   public void deleteFile(File file) {
 
-    if (!file.exists()) {
-      return;
-    }
+    if (!file.exists()) { return; }
     if (file.isDirectory()) {
       File[] fileList = file.listFiles();
       for (int i = 0; i < fileList.length; i++) {

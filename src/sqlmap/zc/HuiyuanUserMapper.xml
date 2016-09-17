@@ -264,4 +264,10 @@
     from HUIYUAN_USER
     where LOGINID = #loginId#
   </select>
+  <select id="getXieYiGYsUser" resultMap="ResultMapWithBLOBs" parameterClass="java.lang.String" > 
+    select  u.*
+    from HUIYUAN_USER u,zc_b_supplier_type s
+    where LOGINID = #value#
+    and s.zc_su_code=u.danweiguid
+  </select>
 </sqlMap>
