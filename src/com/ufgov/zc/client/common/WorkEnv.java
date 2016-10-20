@@ -161,6 +161,7 @@ public class WorkEnv {
     requestMeta.setUrlMap(urlMap);
 
     requestMeta.setRoles(roles);
+    requestMeta.setWebRoot(getWebRoot());
 
     return requestMeta;
   }

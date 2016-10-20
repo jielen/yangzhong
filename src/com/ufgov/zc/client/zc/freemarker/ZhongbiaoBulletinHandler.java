@@ -24,6 +24,7 @@ import com.ufgov.zc.client.common.ServiceFactory;
 import com.ufgov.zc.client.common.WorkEnv;
 import com.ufgov.zc.client.util.StringUtil;
 import com.ufgov.zc.client.zc.WordFileUtil;
+import com.ufgov.zc.client.zc.ZcUtil;
 import com.ufgov.zc.common.commonbiz.publish.IBaseDataServiceDelegate;
 import com.ufgov.zc.common.system.RequestMeta;
 import com.ufgov.zc.common.system.dto.ElementConditionDto;
@@ -38,7 +39,6 @@ import freemarker.template.Template;
 
 /**
  * @author Administrator
- *
  */
 public class ZhongbiaoBulletinHandler implements ITemplateToDocumentHandler {
 
@@ -46,8 +46,7 @@ public class ZhongbiaoBulletinHandler implements ITemplateToDocumentHandler {
 
   RequestMeta meta = WorkEnv.getInstance().getRequestMeta();
 
-  IZcEbBaseServiceDelegate baseService = (IZcEbBaseServiceDelegate) ServiceFactory
-    .create(IZcEbBaseServiceDelegate.class, "zcEbBaseServiceDelegate");
+  IZcEbBaseServiceDelegate baseService = (IZcEbBaseServiceDelegate) ServiceFactory.create(IZcEbBaseServiceDelegate.class, "zcEbBaseServiceDelegate");
 
   /* (non-Javadoc)
    * @see com.ufgov.zc.common.zc.freemark.ITemplateToDocumentHandler#createDocumnet(java.io.File, java.util.Hashtable)
@@ -79,7 +78,9 @@ public class ZhongbiaoBulletinHandler implements ITemplateToDocumentHandler {
     // 要填入模本的数据文件
     Map<String, Object> dataMap = new HashMap<String, Object>();
 
-    getBidResult(dataMap, bulletin,packCode);
+    getBidResult(dataMap, bulletin, packCode);
+    setGysType(dataMap, bulletin);
+    dataMap.put("zxlxr", meta.getSvUserName());
 
     String bulletinFileName = bulletin.getProjCode() + "_bulletin_zhongbiao.doc";
 
@@ -116,58 +117,60 @@ public class ZhongbiaoBulletinHandler implements ITemplateToDocumentHandler {
     return bulletinDocFilePath;
   }
 
-  private void getBidResult(Map<String, Object> dataMap, ZcEbBulletin bulletin,String packCode) {
-    List packList=new ArrayList();
-    if(packCode!=null && packCode.trim().length()>0){
-       packList=getPackMsgByPackCode(packCode,bulletin.getProjCode());
-    }else{
-       packList=getPackMsgByProjCode(bulletin.getProjCode());
+  private void getBidResult(Map<String, Object> dataMap, ZcEbBulletin bulletin, String packCode) {
+    List packList = new ArrayList();
+    if (packCode != null && packCode.trim().length() > 0) {
+      packList = getPackMsgByPackCode(packCode, bulletin.getProjCode());
+    } else {
+      packList = getPackMsgByProjCode(bulletin.getProjCode());
     }
-    List packMsgLst=new ArrayList();
-    List bulletinPackLst=new  ArrayList();
-    for(int i=0;i<packList.size();i++){
-      Xunjiazhongbiaorow row=new Xunjiazhongbiaorow();
-      
-      ZcHtModel m=(ZcHtModel)packList.get(i);
-      String pn=m.getPackName();
-      String supplier=m.getZcSuName();
-      BigDecimal winBidSum=m.getWinBidSum();
-      String failReason=m.getFailReason();
-      String openBidStatus=m.getOpenBidStatus();
-      if(supplier==null){
-        row.setSupplier("废标，"+StringUtil.freeMarkFillWordChar(failReason==null?"":failReason));
+    List packMsgLst = new ArrayList();
+    List bulletinPackLst = new ArrayList();
+    for (int i = 0; i < packList.size(); i++) {
+      Xunjiazhongbiaorow row = new Xunjiazhongbiaorow();
+
+      ZcHtModel m = (ZcHtModel) packList.get(i);
+      String pn = m.getPackName();
+      String supplier = m.getZcSuName();
+      BigDecimal winBidSum = m.getWinBidSum();
+      String failReason = m.getFailReason();
+      String openBidStatus = m.getOpenBidStatus();
+      if (supplier == null) {
+        row.setSupplier("废标，" + StringUtil.freeMarkFillWordChar(failReason == null ? "" : failReason));
         row.setSum("");
-      }else{
-        row.setSupplier(StringUtil.freeMarkFillWordChar(supplier==null?"":supplier));
-        double sum=winBidSum==null?0.0:winBidSum.doubleValue();
-        row.setSum(""+sum);
+      } else {
+        row.setSupplier(StringUtil.freeMarkFillWordChar(supplier == null ? "" : supplier));
+        double sum = winBidSum == null ? 0.0 : winBidSum.doubleValue();
+        row.setSum("" + sum);
       }
-      row.setPackcode(StringUtil.freeMarkFillWordChar(pn==null?"":pn));
+      row.setPackcode(StringUtil.freeMarkFillWordChar(pn == null ? "" : pn));
       row.setCoName(m.getCoName());
-      row.setPackDesc(StringUtil.freeMarkFillWordChar(m.getPackDesc()==null?"":m.getPackDesc()));
+      row.setPackDesc(StringUtil.freeMarkFillWordChar(m.getPackDesc() == null ? "" : m.getPackDesc()));
       packMsgLst.add(row);
-      ZcEbBulletinPack bp=new ZcEbBulletinPack();
+      ZcEbBulletinPack bp = new ZcEbBulletinPack();
       bp.setPackCode(m.getPackCode());
       bp.setBulletinId(bulletin.getBulletinID());
       bulletinPackLst.add(bp);
     }
     bulletin.setPackList(bulletinPackLst);
-    
+
     dataMap.put("pack", packMsgLst);
-    dataMap.put("projcode", StringUtil.freeMarkFillWordChar(bulletin.getProjCode()));
-    dataMap.put("projname", StringUtil.freeMarkFillWordChar(bulletin.getProjName()));
+    dataMap.put("projCode", StringUtil.freeMarkFillWordChar(bulletin.getProjCode()));
+    dataMap.put("projName", StringUtil.freeMarkFillWordChar(bulletin.getProjName()));
 
     Date d = bulletin.getZcEbPlan().getSellStartTime() == null ? meta.getTransDate() : bulletin.getZcEbPlan().getOpenBidTime();
     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-    dataMap.put("opendate", df.format(d));
+    dataMap.put("openDate", df.format(d));
+
+    dataMap.put("publishDate", df.format(ZcUtil.getSysDate()));
 
     setDwMessage(dataMap, bulletin);
   }
 
-  private List getPackMsgByProjCode(String projCode) {    
+  private List getPackMsgByProjCode(String projCode) {
     // TCJLODO Auto-generated method stub
-    HashMap paramMap=new HashMap();
-    paramMap.put("nd", ""+meta.getSvNd());
+    HashMap paramMap = new HashMap();
+    paramMap.put("nd", "" + meta.getSvNd());
     paramMap.put("projCode", projCode);
     paramMap.put("executor", meta.getSvUserID());
     return getPackMsg(paramMap);
@@ -178,10 +181,48 @@ public class ZhongbiaoBulletinHandler implements ITemplateToDocumentHandler {
     return baseService.queryDataForList("ZcEbBulletin.getEvalResultForZhongbgg", paramMap, meta);
   }
 
+  private void setGysType(Map dataMap, ZcEbBulletin bulletin) {
+    // TCJLODO Auto-generated method stub
+    String zhongbiao = "成交", gys = "供应商", purType = "开标";
+    if (ZcEbBulletin.ZHONGBIAO_GKZB.equals(bulletin.getBulletinType())) {
+      zhongbiao = "中标";
+      gys = "投标人";
+      purType = "招标";
+    } else if (ZcEbBulletin.ZHONGBIAO_JZXTP.equals(bulletin.getBulletinType())) {
+      zhongbiao = "成交";
+      gys = "供应商";
+      purType = "谈判";
+    } else if (ZcEbBulletin.ZHONGBIAO_JZXCS.equals(bulletin.getBulletinType())) {
+      zhongbiao = "成交";
+      gys = "供应商";
+      purType = "磋商";
+    } else if (ZcEbBulletin.ZHONGBIAO_YQZB.equals(bulletin.getBulletinType())) {
+      zhongbiao = "成交";
+      gys = "供应商";
+      purType = "谈判";
+    } else if (ZcEbBulletin.ZHONGBIAO_DYLY.equals(bulletin.getBulletinType())) {
+      zhongbiao = "成交";
+      gys = "供应商";
+      purType = "单一来源";
+    } else if (ZcEbBulletin.ZHONGBIAO_XJ.equals(bulletin.getBulletinType())) {
+      zhongbiao = "成交";
+      gys = "供应商";
+      purType = "询价";
+    } else if (ZcEbBulletin.ZHONGBIAO_XXXJ.equals(bulletin.getBulletinType())) {
+      zhongbiao = "成交";
+      gys = "供应商";
+      purType = "线下询价";
+    }
+    dataMap.put("zhongbiao", zhongbiao);
+    dataMap.put("gys", gys);
+    dataMap.put("purType", purType);
+
+  }
+
   private List getPackMsgByPackCode(String packCode, String projCode) {
     // TCJLODO Auto-generated method stub
-    HashMap paramMap=new HashMap();
-    paramMap.put("nd", ""+meta.getSvNd());
+    HashMap paramMap = new HashMap();
+    paramMap.put("nd", "" + meta.getSvNd());
     paramMap.put("projCode", projCode);
     paramMap.put("packCode", packCode);
     paramMap.put("executor", meta.getSvUserID());
@@ -190,11 +231,11 @@ public class ZhongbiaoBulletinHandler implements ITemplateToDocumentHandler {
 
   private void setDwMessage(Map<String, Object> dataMap, ZcEbBulletin bulletin) {
     // TCJLODO Auto-generated method stub
-   
+
     ElementConditionDto dto = new ElementConditionDto();
     dto.setZcText0(bulletin.getProjCode());
     List msLst = baseService.queryDataForList("ZcEbProj.getDwMessage", dto, meta);
-    
+
     HashMap coMap = new HashMap();
     for (int i = 0; i < msLst.size(); i++) {
       HashMap m = (HashMap) msLst.get(i);
@@ -204,13 +245,13 @@ public class ZhongbiaoBulletinHandler implements ITemplateToDocumentHandler {
       }
       coMap.put(coCode, m);
     }
-    
+
     Iterator<String> keys = coMap.keySet().iterator();
     StringBuffer allconame = new StringBuffer();
-    List dwMsgLst=new ArrayList();
+    List dwMsgLst = new ArrayList();
     int i = 0;
     while (keys.hasNext()) {
-      
+
       HashMap rows = (HashMap) coMap.get(keys.next());
       String coName = rows.get("CO_NAME") == null ? "" : (String) rows.get("CO_NAME");
       coName = StringUtil.freeMarkFillWordChar(coName);
@@ -218,12 +259,12 @@ public class ZhongbiaoBulletinHandler implements ITemplateToDocumentHandler {
       colinkman = StringUtil.freeMarkFillWordChar(colinkman);
       String colinkphone = rows.get("ZC_MAKE_TEL") == null ? "" : (String) rows.get("ZC_MAKE_TEL");
       colinkphone = StringUtil.freeMarkFillWordChar(colinkphone);
-      
+
       DwMsg dwmsg = new DwMsg();
       dwmsg.setConame(coName);
       dwmsg.setColinkman(colinkman);
       dwmsg.setColinkphone(colinkphone);
-      
+
       if (i == 0) {
         allconame.append(coName);
       } else {//
@@ -238,8 +279,7 @@ public class ZhongbiaoBulletinHandler implements ITemplateToDocumentHandler {
 
   private AsFile getTemplateFile(String temoplateFIleId, RequestMeta meta) {
     // TCJLODO Auto-generated method stub
-    IBaseDataServiceDelegate baseService = (IBaseDataServiceDelegate) ServiceFactory
-      .create(IBaseDataServiceDelegate.class, "baseDataServiceDelegate");
+    IBaseDataServiceDelegate baseService = (IBaseDataServiceDelegate) ServiceFactory.create(IBaseDataServiceDelegate.class, "baseDataServiceDelegate");
 
     AsFile asfile = baseService.getAsFileById(temoplateFIleId, meta);
 
@@ -284,9 +324,9 @@ public class ZhongbiaoBulletinHandler implements ITemplateToDocumentHandler {
     private String supplier;
 
     private String sum;
-    
+
     private String coName;
-    
+
     private String packDesc;
 
     public String getPackcode() {

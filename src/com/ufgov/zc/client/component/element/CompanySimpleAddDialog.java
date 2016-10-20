@@ -109,9 +109,9 @@ public class CompanySimpleAddDialog extends GkBaseDialog {
 
       //      toolBar.setCompoId("ZC_EB_ENTRUST");
 
-      toolBar.add(exitButton);
+      toolBar.add(exitButton, false);
 
-      toolBar.add(saveButton);
+      toolBar.add(saveButton, false);
       saveButton.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
           // 保存

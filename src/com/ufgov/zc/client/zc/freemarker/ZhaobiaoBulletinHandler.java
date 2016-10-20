@@ -35,6 +35,8 @@ import com.ufgov.zc.common.zc.model.ZcEbBulletin;
 import com.ufgov.zc.common.zc.model.ZcEbEntrust;
 import com.ufgov.zc.common.zc.model.ZcEbPack;
 import com.ufgov.zc.common.zc.model.ZcEbPackReq;
+import com.ufgov.zc.common.zc.model.ZcEbProj;
+import com.ufgov.zc.common.zc.model.ZcEbProjZbFile;
 import com.ufgov.zc.common.zc.model.ZcEbRequirementDetail;
 
 import freemarker.template.Configuration;
@@ -59,7 +61,7 @@ public class ZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
     // TCJLODO Auto-generated method stub
     String bulletinDocFilePath = "";
 
-    AsFile asf = getTemplateFile(getTemplateFileId(), meta);
+    AsFile asf = getFile(getTemplateFileId(), meta);
 
     String name = "zhaobiaogonggao";
 
@@ -123,6 +125,18 @@ public class ZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
   }
 
   private void getDownloadUrl(Map<String, Object> dataMap, ZcEbBulletin bulletin) {
+
+    ZcEbProj proj = bulletin.getZcEbProj();
+
+    if (proj.getProjFileList() != null && proj.getProjFileList().size() > 0) {
+      ZcEbProjZbFile pf = (ZcEbProjZbFile) proj.getProjFileList().get(0);
+      AsFile f = getFile(pf.getWordFileId(), meta);
+      if (f != null) {
+        String url = meta.getWebRoot() + "/loadFile?fileId=" + f.getFileId();
+        dataMap.put("fileUrl", url);
+        return;
+      }
+    }
     dataMap.put("fileUrl", "#");
   }
 
@@ -357,7 +371,7 @@ public class ZhaobiaoBulletinHandler implements ITemplateToDocumentHandler {
     return rtn.toString();
   }
 
-  private AsFile getTemplateFile(String temoplateFIleId, RequestMeta meta) {
+  private AsFile getFile(String temoplateFIleId, RequestMeta meta) {
     // TCJLODO Auto-generated method stub
     IBaseDataServiceDelegate baseService = (IBaseDataServiceDelegate) ServiceFactory.create(IBaseDataServiceDelegate.class, "baseDataServiceDelegate");
 

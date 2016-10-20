@@ -3779,7 +3779,7 @@
 		where zc_eb_proj.proj_code = l.proj_code
 		and zc_eb_proj.status = 'exec'
 		and
-		zc_eb_proj.pur_type in ('1', '2', '3', '4','10')
+		zc_eb_proj.pur_type in ('1', '2', '3', '4','10','6')
 		<include refid="BusiNumLim.BusiNumLimStr" />
 		<isNotNull prepend="and" property="status">
 			<isEqual property="status" compareValue="biding">
